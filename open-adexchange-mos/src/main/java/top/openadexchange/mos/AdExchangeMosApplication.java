@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.Objects;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"top.openadexchange"})
 @EnableAsync
 public class AdExchangeMosApplication {
     public static void main(String[] args) {

@@ -30,6 +30,18 @@
         </dependency>
         <dependency>
             <groupId>top.openadexchange</groupId>
+            <artifactId>open-adexchange-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>top.openadexchange</groupId>
+            <artifactId>open-adexchange-dto</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>top.openadexchange</groupId>
+            <artifactId>open-adexchange-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>top.openadexchange</groupId>
             <artifactId>ruoyi-admin</artifactId>
         </dependency>
         <dependency>
@@ -39,6 +51,10 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
         </dependency>
     </dependencies>
 </project>
