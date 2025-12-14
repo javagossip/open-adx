@@ -9,11 +9,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mybatisflex.core.paginate.Page;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import top.openadexchange.dto.PublisherDto;
 import top.openadexchange.dto.commons.ApiResponse;
+import top.openadexchange.dto.query.PublisherQueryDto;
+import top.openadexchange.model.Publisher;
 import top.openadexchange.mos.application.service.PublisherService;
 
 @RestController
@@ -59,5 +63,11 @@ public class PublisherController {
     @Operation(summary = "禁用媒体/发布商")
     public ApiResponse<Boolean> disablePublisher(@PathVariable("id") Long id) {
         return ApiResponse.success(publisherService.disablePublisher(id));
+    }
+
+    @GetMapping
+    @Operation(summary = "分页查询媒体/发布商")
+    public ApiResponse<Page<Publisher>> pageListPublishers(PublisherQueryDto queryDto) {
+        return ApiResponse.success(publisherService.pageListPublishers(queryDto));
     }
 }

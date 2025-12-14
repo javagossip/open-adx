@@ -1,5 +1,8 @@
 package top.openadexchange.mos.config;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -7,8 +10,6 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SwaggerConfig {
@@ -18,7 +19,7 @@ public class SwaggerConfig {
         // 定义 SecurityScheme
         SecurityScheme securityScheme = new SecurityScheme().type(SecurityScheme.Type.APIKEY)
                 .in(SecurityScheme.In.HEADER)
-                .name("X-Open-Ad-Exchange-Token");
+                .name("Authorization");
 
         // 将 SecurityScheme 添加到 Components 中
         Components components = new Components().addSecuritySchemes("OpenAdExchangeTokenAuth", securityScheme);

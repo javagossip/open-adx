@@ -2,6 +2,7 @@ package top.openadexchange.mos;
 
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import java.util.Objects;
 
 @SpringBootApplication(scanBasePackages = {"top.openadexchange"})
+@MapperScan(basePackages = {"top.openadexchange.mapper"})
 @EnableAsync
 public class AdExchangeMosApplication {
     public static void main(String[] args) {

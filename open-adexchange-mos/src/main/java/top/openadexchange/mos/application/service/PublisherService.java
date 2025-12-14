@@ -2,10 +2,14 @@ package top.openadexchange.mos.application.service;
 
 import org.springframework.stereotype.Service;
 
+import com.mybatisflex.core.paginate.Page;
+import com.mybatisflex.core.query.QueryWrapper;
+
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import top.openadexchange.dao.PublisherDao;
 import top.openadexchange.dto.PublisherDto;
+import top.openadexchange.dto.query.PublisherQueryDto;
 import top.openadexchange.model.Publisher;
 import top.openadexchange.mos.application.converter.PublisherConverter;
 
@@ -46,5 +50,13 @@ public class PublisherService {
 
     public Boolean disablePublisher(Long id) {
         return publisherDao.disablePublisher(id);
+    }
+
+    public Page<Publisher> pageListPublishers(PublisherQueryDto queryDto) {
+        return publisherDao.page(Page.of(queryDto.getPageNo(), queryDto.getPageSize()),
+                QueryWrapper.create()
+                        .eq(Publisher::getName, queryDto.getName())
+                        .eq(Publisher::getType, queryDto.getType())
+                        .eq(Publisher::getStatus, queryDto.getStatus()));
     }
 }

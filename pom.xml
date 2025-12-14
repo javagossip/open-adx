@@ -55,7 +55,7 @@
         <central.server>ossrh</central.server>
         <!--依赖版本号管理 -->
         <open-adexchange.version>${project.version}</open-adexchange.version>
-        <spring-boot.version>3.5.8</spring-boot.version>
+        <spring-boot.version>3.4.5</spring-boot.version>
         <mybatis-flex.version>1.10.9</mybatis-flex.version>
         <lombok.version>1.18.38</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>

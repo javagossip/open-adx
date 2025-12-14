@@ -15,4 +15,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdPlacementDaoImpl extends ServiceImpl<AdPlacementMapper, AdPlacement>  implements AdPlacementDao{
 
+    public Boolean enableAdPlacement(Long id) {
+        return updateChain().set(AdPlacement::getStatus, 1).eq(AdPlacement::getId, id).update();
+    }
+
+    public Boolean disableAdPlacement(Long id) {
+        return updateChain().set(AdPlacement::getStatus, 0).eq(AdPlacement::getId, id).update();
+    }
 }
