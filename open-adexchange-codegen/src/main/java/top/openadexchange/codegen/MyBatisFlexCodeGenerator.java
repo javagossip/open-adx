@@ -2,6 +2,9 @@ package top.openadexchange.codegen;
 
 import com.mybatisflex.codegen.Generator;
 import com.mybatisflex.codegen.config.GlobalConfig;
+import com.mybatisflex.codegen.config.StrategyConfig;
+import com.mybatisflex.codegen.config.TableConfig;
+import com.mybatisflex.core.keygen.CustomKeyGenerator;
 import com.zaxxer.hikari.HikariDataSource;
 
 import javax.sql.DataSource;
@@ -32,7 +35,7 @@ public class MyBatisFlexCodeGenerator {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
         String[] tables = new String[]{
-                "site","site_ad_placement"
+                "domain_event"
         };
         genEntities(projectPath, dataSource, tables);
         generateOthers(projectPath, dataSource, tables);

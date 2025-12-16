@@ -5,10 +5,10 @@ import com.mybatisflex.core.BaseMapper;
 import top.openadexchange.model.SiteAdPlacement;
 
 /**
- *  映射层。
+ * 媒体广告位管理 映射层。
  *
  * @author top.openadexchange
- * @since 2025-12-14
+ * @since 2025-12-15
  */
 @Mapper
 public interface SiteAdPlacementMapper extends BaseMapper<SiteAdPlacement> {

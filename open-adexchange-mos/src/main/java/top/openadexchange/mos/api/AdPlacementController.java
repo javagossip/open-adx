@@ -1,5 +1,7 @@
 package top.openadexchange.mos.api;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mybatisflex.core.paginate.Page;
@@ -69,5 +72,15 @@ public class AdPlacementController {
     @Operation(summary = "分页查询广告位")
     public ApiResponse<Page<AdPlacement>> pageListAdPlacements(AdPlacementQueryDto queryDto) {
         return ApiResponse.success(adPlacementService.pageListAdPlacements(queryDto));
+    }
+
+    @GetMapping("/search")
+    @Operation(summary = "搜索广告位, 按广告位名称模糊搜索")
+    public ApiResponse<List<AdPlacement>> searchAdPlacements(@RequestParam(name = "searchKey",
+                    required = false) String searchKey,
+            @RequestParam(name = "size",
+                    required = false,
+                    defaultValue = "50") Integer size) {
+        return ApiResponse.success(adPlacementService.searchAdPlacements(searchKey, size));
     }
 }

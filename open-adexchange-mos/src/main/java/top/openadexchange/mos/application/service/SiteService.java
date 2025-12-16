@@ -1,5 +1,7 @@
 package top.openadexchange.mos.application.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.mybatisflex.core.paginate.Page;
@@ -53,5 +55,9 @@ public class SiteService {
 
     public Boolean disableSite(Long id) {
         return siteDao.disableSite(id);
+    }
+
+    public List<Site> searchSites(String searchKey, Integer size) {
+        return siteDao.list(QueryWrapper.create().like(Site::getName, searchKey).limit(size == null ? 20 : size));
     }
 }

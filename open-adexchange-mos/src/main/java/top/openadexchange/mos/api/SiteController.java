@@ -1,5 +1,7 @@
 package top.openadexchange.mos.api;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mybatisflex.core.paginate.Page;
@@ -69,5 +72,16 @@ public class SiteController {
     @Operation(summary = "分页查询站点")
     public ApiResponse<Page<Site>> pageListSites(SiteQueryDto siteQueryDto) {
         return ApiResponse.success(siteService.pageListSites(siteQueryDto));
+    }
+
+    @GetMapping("/search")
+    @Operation(summary = "搜索站点, 按站点名称模糊搜索")
+    public ApiResponse<List<Site>> searchSites(@RequestParam(name = "searchKey",
+                    required = false) String searchKey,
+            @RequestParam(name = "size",
+                    required = false,
+                    defaultValue = "20") Integer size) {
+        //参考SiteAdPlacementController.searchSiteAdPlacements方法实现来完成此代码
+        return ApiResponse.success(siteService.searchSites(searchKey, size));
     }
 }

@@ -1,5 +1,7 @@
 package top.openadexchange.mos.application.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.mybatisflex.core.paginate.Page;
@@ -11,6 +13,8 @@ import top.openadexchange.dto.AdPlacementDto;
 import top.openadexchange.dto.query.AdPlacementQueryDto;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.mos.application.converter.AdPlacementConverter;
+
+import static top.openadexchange.model.table.AdPlacementTableDef.*;
 
 @Service
 public class AdPlacementService {
@@ -53,5 +57,11 @@ public class AdPlacementService {
                         .eq(AdPlacement::getName, queryDto.getName())
                         .eq(AdPlacement::getAdFormat, queryDto.getAdFormat())
                         .eq(AdPlacement::getStatus, queryDto.getStatus()));
+    }
+
+    public List<AdPlacement> searchAdPlacements(String searchKey, Integer size) {
+        return adPlacementDao.list(QueryWrapper.create()
+                .where(AD_PLACEMENT.NAME.like(searchKey))
+                .limit(size == null ? 20 : size));
     }
 }

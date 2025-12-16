@@ -4,6 +4,7 @@ import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import java.io.Serial;
 
@@ -13,10 +14,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- *  实体类。
+ * 媒体广告位管理 实体类。
  *
  * @author weiping
- * @since 2025-12-14
+ * @since 2025-12-15
  */
 @Data
 @Builder
@@ -40,5 +41,24 @@ public class SiteAdPlacement implements Serializable {
      * 广告位id
      */
     private Long adPlacementId;
+
+    /**
+     * site广告位名称
+     */
+    private String name;
+
+    /**
+     * 广告位截图url
+     */
+    private String demoUrl;
+
+    /**
+     * 1-使用中, 0-禁用
+     */
+    private Integer status;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 
 }
