@@ -1,16 +1,17 @@
 package top.openadexchange.model;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serial;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * 实体类。
@@ -30,7 +31,7 @@ public class Dsp implements Serializable {
 
     @Id(keyType = KeyType.Auto)
     private Long id;
-
+    private Long userId;
     private String name;
 
     private String bidEndpoint;
@@ -48,6 +49,7 @@ public class Dsp implements Serializable {
     private Integer qpsLimit;
 
     private Integer timeoutMs;
+    private String brandLogo;
 
     private LocalDateTime createdAt;
 

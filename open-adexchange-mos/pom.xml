@@ -65,6 +65,10 @@
             <groupId>com.chaincoretech</groupId>
             <artifactId>epc</artifactId>
         </dependency>
+        <dependency>
+            <groupId>top.openadexchange</groupId>
+            <artifactId>tencent-cloud-cos-spring-boot3-starter</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

@@ -10,10 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Schema(description = "媒体/出版商信息")
 public class PublisherDto {
+
     @Schema(description = "媒体ID")
     private Long id;
     @Schema(description = "媒体名称")
     private String name;
+    @Schema(description = "媒体登录密码")
+    private String password;
     @Schema(description = "媒体类型, 1-个人, 2-公司")
     //1-'individual', 2-'company'
     private Integer type;

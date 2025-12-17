@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
+import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.system.service.ISysUserService;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,7 @@ import top.openadexchange.dto.PublisherDto;
 import top.openadexchange.dto.query.PublisherQueryDto;
 import top.openadexchange.model.Publisher;
 import top.openadexchange.mos.application.converter.PublisherConverter;
+import top.openadexchange.mos.application.factory.UserFactory;
 
 @Service
 @Slf4j
@@ -21,11 +24,20 @@ public class PublisherService {
     private PublisherDao publisherDao;
     @Resource
     private PublisherConverter publisherConverter;
+    @Resource
+    private ISysUserService sysUserService;
+    @Resource
+    private UserFactory userFactory;
 
     public Long addPublisher(PublisherDto publisherDto) {
         log.info("addPublisher: {}", publisherDto);
+        SysUser sysUser = userFactory.forPublisher(publisherDto);
+        sysUserService.insertUser(sysUser);
+
         Publisher publisher = publisherConverter.from(publisherDto);
+        publisher.setUserId(sysUser.getUserId());
         publisherDao.save(publisher);
+
         return publisher.getId();
     }
 
@@ -37,7 +49,10 @@ public class PublisherService {
 
     public Boolean deletePublisher(Long id) {
         log.info("deletePublisher: {}", id);
-        return publisherDao.removeById(id);
+        publisherDao.removeById(id);
+        Publisher publisher = publisherDao.getById(id);
+        sysUserService.deleteUserById(publisher.getUserId());
+        return true;
     }
 
     public PublisherDto getPublisher(Long id) {

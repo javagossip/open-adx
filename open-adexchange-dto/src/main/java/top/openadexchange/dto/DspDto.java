@@ -10,10 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Schema(description = "DSP信息")
 public class DspDto {
+
     @Schema(description = "DSP ID")
     private Long id;
     @Schema(description = "DSP名称")
     private String name;
+    @Schema(description = "DSP登录密码")
+    private String password;
     @Schema(description = "Bid端点")
     private String bidEndpoint;
     @Schema(description = "Win通知端点")
@@ -35,4 +38,6 @@ public class DspDto {
     private Integer qpsLimit;
     @Schema(description = "超时时间(ms)")
     private Integer timeoutMs;
+    @Schema(description = "品牌logo地址")
+    private String brandLogo;
 }

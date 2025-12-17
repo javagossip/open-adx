@@ -8,8 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson2.JSON;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
+import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.system.service.ISysUserService;
 
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import top.openadexchange.dao.DspDao;
 import top.openadexchange.dao.DspSiteAdPlacementDao;
 import top.openadexchange.dao.DspTargetingDao;
@@ -20,8 +23,10 @@ import top.openadexchange.dto.query.DspQueryDto;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.DspTargeting;
 import top.openadexchange.mos.application.converter.DspConverter;
+import top.openadexchange.mos.application.factory.UserFactory;
 
 @Service
+@Slf4j
 public class DspService {
 
     @Resource
@@ -32,9 +37,17 @@ public class DspService {
     private DspSiteAdPlacementDao dspSiteAdPlacementDao;
     @Resource
     private DspTargetingDao dspTargetingDao;
+    @Resource
+    private ISysUserService sysUserService;
+    @Resource
+    private UserFactory userFactory;
 
     public Long addDsp(DspDto dspDto) {
+        //创建dsp成功自动创建用户，然后绑定dsp角色
+        SysUser sysUser = userFactory.forDsp(dspDto);
+        sysUserService.insertUser(sysUser);
         Dsp dsp = dspConverter.from(dspDto);
+        dsp.setUserId(sysUser.getUserId());
         dspDao.save(dsp);
         return dsp.getId();
     }
@@ -45,7 +58,11 @@ public class DspService {
     }
 
     public Boolean deleteDsp(Long id) {
-        return dspDao.removeById(id);
+        log.info("deleteDsp: {}", id);
+        Dsp dsp = dspDao.getById(id);
+        sysUserService.deleteUserById(dsp.getUserId());
+        dspDao.removeById(id);
+        return true;
     }
 
     public DspDto getDsp(Long id) {

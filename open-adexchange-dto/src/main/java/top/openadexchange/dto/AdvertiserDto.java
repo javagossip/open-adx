@@ -1,11 +1,11 @@
 package top.openadexchange.dto;
 
-import java.time.LocalDateTime;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -15,11 +15,6 @@ public class AdvertiserDto {
 
     @Schema(description = "广告主ID")
     private Long id;
-
-    /**
-     * 系统用户ID
-     */
-    private Long userId;
 
     /**
      * 代理商ID
@@ -69,32 +64,17 @@ public class AdvertiserDto {
     @Schema(description = "营业执照")
     private String businessLicenseUrl;
 
+    @Schema(description = "审核状态, PENDING-审核中, APPROVED-审核通过, REJECTED-审核拒绝")
+    private String auditStatus;
+    @Schema(description = "审核驳回原因")
+    private String auditReason;
+    @Schema(description = "审核时间")
+    private LocalDateTime auditTime;
     /**
      * 法人身份证
      */
     @Schema(description = "法人身份证")
     private String legalPersonIdUrl;
-
-    /**
-     * 授权书
-     */
-    @Schema(description = "授权书")
-    private String authorizationLetterUrl;
-
-    /**
-     * PENDING,APPROVED,REJECTED
-     */
-    @Schema(description = "审核状态, PENDING-待审核, APPROVED-审核通过, REJECTED-审核拒绝")
-    private String auditStatus;
-    @Schema(description = "审核原因")
-    private String auditReason;
-    @Schema(description = "审核时间")
-    private LocalDateTime auditTime;
-    @Schema(description = "审核人ID")
-    private Long auditorId;
-    @Schema(description = "风险等级")
-    private String riskLevel;
-
     /**
      * 1=启用 0=禁用
      */

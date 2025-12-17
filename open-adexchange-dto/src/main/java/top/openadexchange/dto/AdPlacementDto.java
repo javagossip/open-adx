@@ -16,14 +16,11 @@ public class AdPlacementDto {
     private Long id;
     @Schema(description = "广告位名称")
     private String name;
-
     /**
      * banner,interstitial,native,video,rewarded,audio
      */
     @Schema(description = "广告位格式, banner,interstitial,native,video,rewarded,audio")
     private String adFormat;
-    @Schema(description = "广告位渠道, 1-app, 2-website")
-    private String channel;
     @Schema(description = "广告位宽度")
     private Integer width;
     @Schema(description = "广告位高度")

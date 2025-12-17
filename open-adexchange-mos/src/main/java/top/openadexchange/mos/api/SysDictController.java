@@ -44,4 +44,11 @@ public class SysDictController {
             required = false) String searchKey) {
         return ApiResponse.success(sysDictService.getCountries(searchKey));
     }
+
+    @GetMapping("/industries")
+    @Operation(summary = "获取行业列表, 支持模糊搜索")
+    public List<OptionDto> getIndustries(@RequestParam(name = "searchKey",
+            required = false) String searchKey) {
+        return sysDictService.getIndustries(searchKey);
+    }
 }

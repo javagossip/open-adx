@@ -1,12 +1,12 @@
 package top.openadexchange.model;
 
-import com.mybatisflex.annotation.Id;
-import com.mybatisflex.annotation.KeyType;
-import com.mybatisflex.annotation.Table;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import java.io.Serial;
+import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
+import com.mybatisflex.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- *  实体类。
+ * 实体类。
  *
  * @author weiping
  * @since 2025-12-14
@@ -41,13 +41,14 @@ public class Site implements Serializable {
     private String appId;
 
     private String appBundle;
-
     /**
      * 1=website, 2=app
      */
     private Integer siteType;
 
     private Integer status;
+    //ios, android, web
+    private String platform;
 
     private LocalDateTime createdAt;
 

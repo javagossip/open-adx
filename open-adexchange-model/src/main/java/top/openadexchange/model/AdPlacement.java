@@ -40,8 +40,6 @@ public class AdPlacement implements Serializable {
      */
     private String adFormat;
 
-    private String channel;
-
     private Integer width;
 
     private Integer height;

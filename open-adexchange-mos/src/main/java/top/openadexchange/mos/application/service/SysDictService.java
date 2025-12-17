@@ -12,6 +12,7 @@ import top.openadexchange.dao.SysDictDataDao;
 import top.openadexchange.dto.OptionDto;
 import top.openadexchange.model.District;
 import top.openadexchange.model.SysDict;
+import top.openadexchange.mos.application.factory.OptionDtoFactory;
 
 import static top.openadexchange.model.table.SysDictTableDef.*;
 
@@ -29,9 +30,7 @@ public class SysDictService {
 
     public List<OptionDto> getOptionsByType(String dictType) {
         List<SysDict> sysDictList = sysDictDataDao.list(QueryWrapper.create().eq(SysDict::getDictType, dictType));
-        return sysDictList.stream()
-                .map(sysDict -> new OptionDto(sysDict.getDictLabel(), sysDict.getDictValue()))
-                .toList();
+        return OptionDtoFactory.fromSysDictDataList(sysDictList);
     }
 
     public List<OptionDto> getCountries(String searchKey) {
@@ -39,8 +38,13 @@ public class SysDictService {
                 .where(SYS_DICT.DICT_TYPE.eq("sys_country_code")
                         .and(SYS_DICT.DICT_LABEL.like(searchKey).or(SYS_DICT.DICT_VALUE.like(searchKey)))));
 
-        return sysDictList.stream()
-                .map(sysDict -> new OptionDto(sysDict.getDictLabel(), sysDict.getDictValue()))
-                .toList();
+        return OptionDtoFactory.fromSysDictDataList(sysDictList);
+    }
+
+    public List<OptionDto> getIndustries(String searchKey) {
+        List<SysDict> sysDictList = sysDictDataDao.list(QueryWrapper.create()
+                .where(SYS_DICT.DICT_TYPE.eq("sys_ad_industry")
+                        .and(SYS_DICT.DICT_LABEL.like(searchKey).or(SYS_DICT.DICT_VALUE.like(searchKey)))));
+        return OptionDtoFactory.fromSysDictDataList(sysDictList);
     }
 }

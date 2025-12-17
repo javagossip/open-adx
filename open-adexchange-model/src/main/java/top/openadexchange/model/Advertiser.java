@@ -85,11 +85,6 @@ public class Advertiser implements Serializable {
     private String legalPersonIdUrl;
 
     /**
-     * 授权书
-     */
-    private String authorizationLetterUrl;
-
-    /**
      * PENDING,APPROVED,REJECTED
      */
     private String auditStatus;
@@ -99,8 +94,6 @@ public class Advertiser implements Serializable {
     private LocalDateTime auditTime;
 
     private Long auditorId;
-
-    private String riskLevel;
 
     /**
      * 1=启用 0=禁用

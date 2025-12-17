@@ -22,7 +22,8 @@ public class SiteDto {
     private String appId;
     @Schema(description = "app bundle")
     private String appBundle;
-
+    @Schema(description = "平台, ios, android, web")
+    private String platform;
     /**
      * 1=website, 2=app
      */
