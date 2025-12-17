@@ -1,7 +1,7 @@
 package top.openadexchange.dao.impl;
 
 import com.mybatisflex.spring.service.impl.ServiceImpl;
-import top.openadexchange.model.SysRole;
+import top.openadexchange.model.Role;
 import top.openadexchange.mapper.RoleMapper;
 import top.openadexchange.dao.SysRoleDao;
 import org.springframework.stereotype.Service;
@@ -13,6 +13,6 @@ import org.springframework.stereotype.Service;
  * @since 2025-12-17
  */
 @Service
-public class SysRoleDaoImpl extends ServiceImpl<RoleMapper, SysRole>  implements SysRoleDao{
+public class SysRoleDaoImpl extends ServiceImpl<RoleMapper, Role>  implements SysRoleDao{
 
 }

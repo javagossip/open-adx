@@ -1,7 +1,7 @@
 package top.openadexchange.dao;
 
 import com.mybatisflex.core.service.IService;
-import top.openadexchange.model.SysUser;
+import top.openadexchange.model.User;
 
 /**
  * 用户信息表 服务层。
@@ -9,6 +9,6 @@ import top.openadexchange.model.SysUser;
  * @author top.openadexchange
  * @since 2025-12-17
  */
-public interface SysUserDao extends IService<SysUser> {
+public interface SysUserDao extends IService<User> {
 
 }

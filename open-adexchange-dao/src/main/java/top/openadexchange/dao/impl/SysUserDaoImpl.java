@@ -1,7 +1,7 @@
 package top.openadexchange.dao.impl;
 
 import com.mybatisflex.spring.service.impl.ServiceImpl;
-import top.openadexchange.model.SysUser;
+import top.openadexchange.model.User;
 import top.openadexchange.mapper.UserMapper;
 import top.openadexchange.dao.SysUserDao;
 import org.springframework.stereotype.Service;
@@ -13,6 +13,6 @@ import org.springframework.stereotype.Service;
  * @since 2025-12-17
  */
 @Service
-public class SysUserDaoImpl extends ServiceImpl<UserMapper, SysUser>  implements SysUserDao{
+public class SysUserDaoImpl extends ServiceImpl<UserMapper, User>  implements SysUserDao{
 
 }

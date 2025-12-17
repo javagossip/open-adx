@@ -31,7 +31,7 @@ public class DspTargeting implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id(keyType = KeyType.Auto)
-    private BigInteger id;
+    private Long id;
 
     /**
      * dsp ID

@@ -11,7 +11,7 @@ import jakarta.annotation.Resource;
 import top.openadexchange.dao.SysRoleDao;
 import top.openadexchange.dto.DspDto;
 import top.openadexchange.dto.PublisherDto;
-import top.openadexchange.model.SysRole;
+import top.openadexchange.model.Role;
 import top.openadexchange.model.enums.UserStatus;
 
 @Component
@@ -28,9 +28,10 @@ public class UserFactory {
         sysUser.setEmail(dsp.getContactEmail());
         sysUser.setPhonenumber(dsp.getContactPhone());
         sysUser.setStatus(UserStatus.ACTIVE.getValue());
+        sysUser.setNickName(dsp.getName());
 
-        SysRole sysRole = sysRoleDao.getOne(QueryWrapper.create().eq(SysRole::getRoleKey, "dsp"));
-        sysUser.setRoleId(sysRole.getRoleId());
+        Role role = sysRoleDao.getOne(QueryWrapper.create().eq(Role::getRoleKey, "dsp"));
+        sysUser.setRoleIds(new Long[]{role.getRoleId()});
         return sysUser;
     }
 
@@ -38,13 +39,14 @@ public class UserFactory {
     public SysUser forPublisher(PublisherDto publisher) {
         SysUser sysUser = new SysUser();
         sysUser.setUserName(publisher.getName());
+        sysUser.setNickName(publisher.getName());
         sysUser.setPassword(SecurityUtils.encryptPassword(publisher.getPassword()));
         sysUser.setEmail(publisher.getContactEmail());
         sysUser.setPhonenumber(publisher.getContactPhone());
         sysUser.setStatus(UserStatus.ACTIVE.getValue());
 
-        SysRole sysRole = sysRoleDao.getOne(QueryWrapper.create().eq(SysRole::getRoleKey, "publisher"));
-        sysUser.setRoleId(sysRole.getRoleId());
+        Role role = sysRoleDao.getOne(QueryWrapper.create().eq(Role::getRoleKey, "publisher"));
+        sysUser.setRoleIds(new Long[]{role.getRoleId()});
         return sysUser;
     }
 }

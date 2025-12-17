@@ -14,7 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 用户信息表 实体类。
+ * 角色信息表 实体类。
  *
  * @author weiping
  * @since 2025-12-17
@@ -23,65 +23,50 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table("sys_user")
-public class SysUser implements Serializable {
+@Table("sys_role")
+public class Role implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户ID
+     * 角色ID
      */
     @Id(keyType = KeyType.Auto)
-    private Long userId;
+    private Long roleId;
 
     /**
-     * 部门ID
+     * 角色名称
      */
-    private Long deptId;
+    private String roleName;
 
     /**
-     * 用户账号
+     * 角色权限字符串
      */
-    private String userName;
+    private String roleKey;
 
     /**
-     * 用户昵称
+     * 显示顺序
      */
-    private String nickName;
+    private Integer roleSort;
 
     /**
-     * 用户类型（00系统用户）
+     * 数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）
      */
-    private String userType;
+    private String dataScope;
 
     /**
-     * 用户邮箱
+     * 菜单树选择项是否关联显示
      */
-    private String email;
+    private Boolean menuCheckStrictly;
 
     /**
-     * 手机号码
+     * 部门树选择项是否关联显示
      */
-    private String phonenumber;
+    private Boolean deptCheckStrictly;
 
     /**
-     * 用户性别（0男 1女 2未知）
-     */
-    private String sex;
-
-    /**
-     * 头像地址
-     */
-    private String avatar;
-
-    /**
-     * 密码
-     */
-    private String password;
-
-    /**
-     * 账号状态（0正常 1停用）
+     * 角色状态（0正常 1停用）
      */
     private String status;
 
@@ -89,21 +74,6 @@ public class SysUser implements Serializable {
      * 删除标志（0代表存在 2代表删除）
      */
     private String delFlag;
-
-    /**
-     * 最后登录IP
-     */
-    private String loginIp;
-
-    /**
-     * 最后登录时间
-     */
-    private LocalDateTime loginDate;
-
-    /**
-     * 密码最后更新时间
-     */
-    private LocalDateTime pwdUpdateDate;
 
     /**
      * 创建者

@@ -35,7 +35,7 @@ public class MyBatisFlexCodeGenerator {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
         String[] tables = new String[]{
-                "sys_user","sys_role","sys_user_role"
+                "native_asset"
         };
         genEntities(projectPath, dataSource, tables);
         generateOthers(projectPath, dataSource, tables);

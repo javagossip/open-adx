@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table("sys_user_role")
-public class SysUserRole implements Serializable {
+public class UserRole implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

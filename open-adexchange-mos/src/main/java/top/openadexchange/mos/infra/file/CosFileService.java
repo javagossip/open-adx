@@ -11,8 +11,6 @@ import com.qcloud.cos.model.PutObjectRequest;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import top.openadexchange.model.SysFileData;
-import top.openadexchange.model.SysFileMetadata;
 import top.openadexchange.mos.domain.gateway.FileService;
 import top.openadexchange.tencentcloud.cos.CosConfigurationProperties;
 
@@ -49,15 +47,5 @@ public class CosFileService implements FileService {
             log.error("uploadFile error: {}", ex.getMessage());
             throw new RuntimeException(ex);
         }
-    }
-
-    @Override
-    public SysFileData getFileData(String fileId) {
-        return null;
-    }
-
-    @Override
-    public SysFileMetadata getFileMetadata(String fileId) {
-        return null;
     }
 }
