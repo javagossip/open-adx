@@ -12,9 +12,60 @@
 - 数据格式：JSON
 - 字符编码：UTF-8
 - 请求方法：POST/GET/PUT等
-- 认证方式：JWT Token（在请求Header中携带）
 
-### 2.2 响应格式
+### 2.2 认证方式
+
+接口调用需要进行身份认证，采用类似阿里云的AccessKey机制，使用clientId + secretKey的方式进行认证，签名算法采用HmacSHA256，并加入Nonce随机串防止重放攻击。
+
+#### 认证参数
+| 参数名 | 类型 | 必填 | 描述 |
+| --- | --- | --- | --- |
+| clientId | string | 是 | DSP平台编码(dspCode)，由广告交易平台生成 |
+| timestamp | long | 是 | 当前时间戳（毫秒） |
+| nonce | string | 是 | 随机唯一字符串，用于防重放攻击 |
+| signature | string | 是 | 签名字符串 |
+
+#### 签名生成规则
+1. 将请求参数按参数名ASCII码顺序排序
+2. 将排序后的参数与其对应值拼接成param1=value1&param2=value2...的格式
+3. 使用HmacSHA256算法对拼接后的字符串进行签名，密钥为分配的secretKey
+4. 将签名结果转换为十六进制字符串并转换为大写
+
+示例：
+```java
+// 待签名字符串构造示例
+String stringToSign = "advertiserId=DSP001&nonce=550e8400-e29b-41d4-a716-446655440000&timestamp=1609459200000";
+// 使用HmacSHA256算法签名
+String signature = hmacSHA256(stringToSign, secretKey).toUpperCase();
+```
+
+HmacSHA256签名函数示例：
+```java
+public static String hmacSHA256(String data, String key) {
+    try {
+        Mac mac = Mac.getInstance("HmacSHA256");
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+        mac.init(secretKeySpec);
+        byte[] bytes = mac.doFinal(data.getBytes(StandardCharsets.UTF_8));
+        return Hex.encodeHexString(bytes);
+    } catch (Exception e) {
+        throw new RuntimeException("HmacSHA256签名失败", e);
+    }
+}
+```
+
+#### 请求头设置
+所有请求都需要在Header中添加认证信息：
+```
+Authorization: clientId={dspCode},timestamp={timestamp},nonce={nonce},signature={signature}
+```
+
+#### 防重放攻击机制
+1. 服务端会检查nonce参数，确保同一nonce在5分钟内只能使用一次
+2. 服务端会检查timestamp参数，确保请求时间与服务器时间差不超过15分钟
+3. 若违反以上任一规则，将返回认证失败错误
+
+### 2.3 响应格式
 
 所有接口均采用统一的响应格式：
 
@@ -380,3 +431,8 @@ auditResult对象结构同广告主审核结果。
 | A0003 | 创意不存在 |
 | A0004 | 权限不足 |
 | A0005 | 系统内部错误 |
+| A0006 | 认证失败 |
+| A0007 | 签名错误 |
+| A0008 | 时间戳过期 |
+| A0009 | 请求已过期 |
+| A0010 | 重复请求 |
