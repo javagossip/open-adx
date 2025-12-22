@@ -71,7 +71,6 @@ public class PublisherService {
         return publisherDao.page(Page.of(queryDto.getPageNo(), queryDto.getPageSize()),
                 QueryWrapper.create()
                         .eq(Publisher::getName, queryDto.getName())
-                        .eq(Publisher::getType, queryDto.getType())
                         .eq(Publisher::getStatus, queryDto.getStatus()));
     }
 }

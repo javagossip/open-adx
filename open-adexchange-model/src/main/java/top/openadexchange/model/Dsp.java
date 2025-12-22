@@ -31,13 +31,18 @@ public class Dsp implements Serializable {
 
     @Id(keyType = KeyType.Auto)
     private Long id;
+    private String code;
     private Long userId;
     private String name;
 
     private String bidEndpoint;
     private String winNoticeEndpoint;
-
+    //dsp API token
     private String token;
+    //dsp价格加解密密钥配置
+    private String encryptionKey;
+    private String integrationKey;
+
     private String contactName;
     private String contactPhone;
     private String contactEmail;

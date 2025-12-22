@@ -10,6 +10,9 @@ public class AdPlacementQueryDto {
     @Schema(description = "广告位名称")
     private String name;
     
+    @Schema(description = "广告位编码")
+    private String code;
+    
     @Schema(description = "广告位格式, banner,interstitial,native,video,rewarded,audio")
     private String adFormat;
     

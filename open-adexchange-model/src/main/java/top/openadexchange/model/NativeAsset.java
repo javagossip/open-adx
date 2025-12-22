@@ -97,8 +97,6 @@ public class NativeAsset implements Serializable {
      */
     private Integer maxSizeKb;
 
-    private Integer status;
-
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;

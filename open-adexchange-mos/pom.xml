@@ -53,10 +53,6 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
@@ -68,6 +64,10 @@
         <dependency>
             <groupId>top.openadexchange</groupId>
             <artifactId>tencent-cloud-cos-spring-boot3-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hashids</groupId>
+            <artifactId>hashids</artifactId>
         </dependency>
     </dependencies>
     <build>

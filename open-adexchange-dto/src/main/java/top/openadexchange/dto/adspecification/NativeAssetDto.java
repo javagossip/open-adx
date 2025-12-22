@@ -1,11 +1,10 @@
-package top.openadexchange.dto;
+package top.openadexchange.dto.adspecification;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 @Schema(description = "Native模板字段定义")
 public class NativeAssetDto {
 
-    @Schema(description = "资产ID")
+    @Schema(description = "AssetID")
     private Long id;
 
     /**
@@ -25,19 +24,22 @@ public class NativeAssetDto {
     /**
      * 字段名称，展示使用
      */
-    @Schema(description = "字段名称，展示使用")
+    @Schema(description = "字段名称，展示使用",
+            requiredMode = Schema.RequiredMode.REQUIRED)
     private String assetName;
 
     /**
      * 字段标识，如 title/main_image
      */
-    @Schema(description = "字段标识，如 title/main_image")
+    @Schema(description = "字段标识，如 title/main_image",
+            requiredMode = Schema.RequiredMode.REQUIRED)
     private String assetKey;
 
     /**
      * TEXT/IMAGE/VIDEO/NUMBER/CTA
      */
-    @Schema(description = "资产类型, TEXT/IMAGE/VIDEO/NUMBER/CTA")
+    @Schema(description = "资产类型, 参见NativeAssetType枚举类定义",
+            requiredMode = Schema.RequiredMode.REQUIRED)
     private String assetType;
 
     /**
@@ -85,21 +87,15 @@ public class NativeAssetDto {
     /**
      * image/jpeg,image/png
      */
-    @Schema(description = "MIME类型, 如image/jpeg,image/png")
+    @Schema(description = "MIME类型, 如image/jpeg,image/png",
+            requiredMode = RequiredMode.NOT_REQUIRED)
     private String mimeTypes;
 
     /**
      * 最大大小(KB)
      */
-    @Schema(description = "最大大小(KB)")
+    @Schema(description = "最大大小(KB)",
+            requiredMode = RequiredMode.NOT_REQUIRED)
     private Integer maxSizeKb;
 
-    @Schema(description = "状态, 1-启用, 0-禁用")
-    private Integer status;
-
-    @Schema(description = "创建时间")
-    private LocalDateTime createdAt;
-
-    @Schema(description = "更新时间")
-    private LocalDateTime updatedAt;
 }

@@ -14,7 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 实体类。
+ * 广告主行业资质
  *
  * @author weiping
  * @since 2025-12-14

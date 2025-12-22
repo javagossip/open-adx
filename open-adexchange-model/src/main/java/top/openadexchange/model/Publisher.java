@@ -1,16 +1,17 @@
 package top.openadexchange.model;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serial;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * 实体类。
@@ -32,8 +33,7 @@ public class Publisher implements Serializable {
     private Long id;
 
     private String name;
-    //1-'individual', 2-'company'
-    private Integer type;
+    private String code;
 
     private String contactEmail;
 

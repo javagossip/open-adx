@@ -1,11 +1,11 @@
 package top.openadexchange.dto;
 
+import java.time.LocalDateTime;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -33,22 +33,13 @@ public class AdvertiserDto {
      */
     @Schema(description = "公司全称")
     private String companyName;
-    @Schema(description = "公司类型")
-    private String companyType;
-    @Schema(description = "公司所在国家, iso 3166-1 alpha-2国家编码")
-    private String country;
-
     /**
      * 统一社会信用代码
      */
     @Schema(description = "统一社会信用代码")
     private String businessLicenseNo;
-
-    /**
-     * 法人姓名
-     */
-    @Schema(description = "法人姓名")
-    private String legalPersonName;
+    @Schema(description = "行业编码")
+    private String industryCode;
     @Schema(description = "注册地址")
     private String registeredAddress;
     @Schema(description = "联系人名称")
@@ -59,10 +50,20 @@ public class AdvertiserDto {
     private String contactEmail;
 
     /**
+     * 法人姓名
+     */
+    @Schema(description = "法人姓名")
+    private String legalPersonName;
+    /**
      * 营业执照
      */
     @Schema(description = "营业执照")
     private String businessLicenseUrl;
+    /**
+     * 法人身份证
+     */
+    @Schema(description = "法人身份证")
+    private String legalPersonIdUrl;
 
     @Schema(description = "审核状态, PENDING-审核中, APPROVED-审核通过, REJECTED-审核拒绝")
     private String auditStatus;
@@ -70,11 +71,6 @@ public class AdvertiserDto {
     private String auditReason;
     @Schema(description = "审核时间")
     private LocalDateTime auditTime;
-    /**
-     * 法人身份证
-     */
-    @Schema(description = "法人身份证")
-    private String legalPersonIdUrl;
     /**
      * 1=启用 0=禁用
      */

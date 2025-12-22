@@ -17,9 +17,6 @@ public class PublisherDto {
     private String name;
     @Schema(description = "媒体登录密码")
     private String password;
-    @Schema(description = "媒体类型, 1-个人, 2-公司")
-    //1-'individual', 2-'company'
-    private Integer type;
     @Schema(description = "联系人邮箱")
     private String contactEmail;
     @Schema(description = "联系人电话")

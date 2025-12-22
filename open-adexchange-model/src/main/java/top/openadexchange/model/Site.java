@@ -49,6 +49,7 @@ public class Site implements Serializable {
     private Integer status;
     //ios, android, web
     private String platform;
+    private Long userId;
 
     private LocalDateTime createdAt;
 

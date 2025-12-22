@@ -18,4 +18,6 @@ public interface DspDao extends IService<Dsp> {
     void settingDspQpsLimit(Long id, Integer qpsLimit);
 
     Integer getDspQpsLimit(Long dspId);
+
+    Dsp getDspByToken(String token);
 }

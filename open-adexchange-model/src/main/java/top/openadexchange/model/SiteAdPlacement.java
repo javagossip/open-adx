@@ -1,12 +1,12 @@
 package top.openadexchange.model;
 
-import com.mybatisflex.annotation.Id;
-import com.mybatisflex.annotation.KeyType;
-import com.mybatisflex.annotation.Table;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import java.io.Serial;
+import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
+import com.mybatisflex.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,11 +36,12 @@ public class SiteAdPlacement implements Serializable {
      * 站点/app id
      */
     private Long siteId;
-
+    private Long userId;
     /**
      * 广告位id
      */
     private Long adPlacementId;
+    private String code;
     /**
      * 平台，ios,android,web
      */

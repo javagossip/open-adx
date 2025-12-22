@@ -1,12 +1,12 @@
 package top.openadexchange.model;
 
-import com.mybatisflex.annotation.Id;
-import com.mybatisflex.annotation.KeyType;
-import com.mybatisflex.annotation.Table;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import java.io.Serial;
+import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
+import com.mybatisflex.annotation.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- *  实体类。
+ * 实体类。
  *
  * @author weiping
  * @since 2025-12-14
@@ -31,7 +31,7 @@ public class Advertiser implements Serializable {
 
     @Id(keyType = KeyType.Auto)
     private Long id;
-
+    private String code;
     /**
      * 系统用户ID
      */
@@ -51,11 +51,10 @@ public class Advertiser implements Serializable {
      * 公司全称
      */
     private String companyName;
-
-    private String companyType;
-
-    private String country;
-
+    /**
+     * 行业代码
+     */
+    private String industryCode;
     /**
      * 统一社会信用代码
      */

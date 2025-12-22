@@ -3,6 +3,8 @@ package top.openadexchange.dao;
 import com.mybatisflex.core.service.IService;
 import top.openadexchange.model.NativeAsset;
 
+import java.util.List;
+
 /**
  * Native模板字段定义 服务层。
  *
@@ -11,4 +13,7 @@ import top.openadexchange.model.NativeAsset;
  */
 public interface NativeAssetDao extends IService<NativeAsset> {
 
+    void updateNativeAssetsByAdPlacementId(Long id, List<NativeAsset> nativeAssets);
+
+    List<NativeAsset> listByAdPlacementId(Long adPlacementId);
 }

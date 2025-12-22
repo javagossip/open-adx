@@ -31,13 +31,12 @@
 
     <modules>
         <module>open-adexchange-api</module>
-        <module>open-adexchange-api/open-adexchange-ssp-api</module>
-        <module>open-adexchange-api/open-adexchange-dsp-api</module>
         <module>open-adexchange-mos</module>
         <module>open-adexchange-model</module>
         <module>open-adexchange-dao</module>
         <module>open-adexchange-commons</module>
         <module>open-adexchange-dto</module>
+        <module>open-adexchange-constants</module>
     </modules>
 
     <properties>
@@ -46,16 +45,16 @@
         <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- 插件统一版本号 -->
-        <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
-        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
-        <maven-gpg-plugin.version>3.2.4</maven-gpg-plugin.version>
-        <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
-        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+        <!--        <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>-->
+        <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
+        <maven-release-plugin.version>3.3.1</maven-release-plugin.version>
+        <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
+        <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
+        <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
         <central-publishing-maven-plugin.version>0.6.0</central-publishing-maven-plugin.version>
         <central.server>ossrh</central.server>
         <!--依赖版本号管理 -->
-        <open-adexchange.version>1.0.0-SNAPSHOT</open-adexchange.version>
+        <open-adexchange.version>${project.version}</open-adexchange.version>
         <spring-boot.version>3.4.5</spring-boot.version>
         <mybatis-flex.version>1.10.9</mybatis-flex.version>
         <lombok.version>1.18.38</lombok.version>
@@ -67,6 +66,8 @@
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <epc.version>1.0.4-SNAPSHOT</epc.version>
         <tencent.cloud.spring-boot3-starter.version>1.0.1-SNAPSHOT</tencent.cloud.spring-boot3-starter.version>
+        <hashids.version>1.0.3</hashids.version>
+        <protobuf-java.version>4.33.2</protobuf-java.version>
         <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
 
@@ -104,6 +105,11 @@
             <dependency>
                 <groupId>top.openadexchange</groupId>
                 <artifactId>open-adexchange-commons</artifactId>
+                <version>${open-adexchange.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.openadexchange</groupId>
+                <artifactId>open-adexchange-constants</artifactId>
                 <version>${open-adexchange.version}</version>
             </dependency>
             <dependency>
@@ -159,11 +165,6 @@
                 <version>${swagger.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId>
-                <version>${mapstruct.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.chaincoretech</groupId>
                 <artifactId>epc</artifactId>
                 <version>${epc.version}</version>
@@ -172,6 +173,16 @@
                 <groupId>top.openadexchange</groupId>
                 <artifactId>tencent-cloud-cos-spring-boot3-starter</artifactId>
                 <version>${tencent.cloud.spring-boot3-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hashids</groupId>
+                <artifactId>hashids</artifactId>
+                <version>${hashids.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf-java.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -198,10 +209,9 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
                     <configuration>
-                        <!--                        <source>${java.version}</source>-->
-                        <!--                        <target>${java.version}</target>-->
                         <release>21</release>
                         <encoding>UTF-8</encoding>
+                        <failOnError>true</failOnError>
                         <annotationProcessorPaths>
                             <path>
                                 <groupId>org.springframework.boot</groupId>
@@ -218,30 +228,11 @@
                                 <artifactId>mybatis-flex-processor</artifactId>
                                 <version>${mybatis-flex.version}</version>
                             </path>
-                            <path>
-                                <groupId>org.mapstruct</groupId>
-                                <artifactId>mapstruct-processor</artifactId>
-                                <version>${mapstruct.version}</version>
-                            </path>
-                            <path>
-                                <groupId>org.projectlombok</groupId>
-                                <artifactId>lombok-mapstruct-binding</artifactId>
-                                <version>${lombok-mapstruct-binding.version}</version>
-                            </path>
                         </annotationProcessorPaths>
                         <showWarnings>true</showWarnings>
-                        <compilerArgs>
-                            <arg>
-                                -Amapstruct.suppressGeneratorTimestamp=true
-                            </arg>
-                            <arg>
-                                -Amapstruct.suppressGeneratorVersionInfoComment=true
-                            </arg>
-                            <arg>
-                                -Amapstruct.verbose=true
-                            </arg>
-                            <arg>-parameters</arg>
-                        </compilerArgs>
+                        <parameters>true</parameters>
+                        <!--                        <annotationProcessorPathsUseDepMgmt>true</annotationProcessorPathsUseDepMgmt>-->
+                        <!--                        <forceJavacCompilerUse>true</forceJavacCompilerUse>-->
                     </configuration>
                 </plugin>
 
@@ -309,6 +300,10 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.sonatype.central</groupId>

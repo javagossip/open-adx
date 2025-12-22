@@ -12,10 +12,10 @@
     <artifactId>open-adexchange-dao</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>top.openadexchange</groupId>
-            <artifactId>open-adexchange-commons</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>top.openadexchange</groupId>-->
+<!--            <artifactId>open-adexchange-commons</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>top.openadexchange</groupId>
             <artifactId>open-adexchange-model</artifactId>

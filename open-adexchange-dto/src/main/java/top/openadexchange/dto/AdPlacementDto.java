@@ -4,45 +4,35 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
+import top.openadexchange.constants.enums.AdFormat;
+import top.openadexchange.dto.adspecification.AudioAdSpecificationDto;
+import top.openadexchange.dto.adspecification.BannerAdSpecificationDto;
+import top.openadexchange.dto.adspecification.NativeAdSpecificationDto;
+import top.openadexchange.dto.adspecification.VideoAdSpecificationDto;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "广告位信息")
 public class AdPlacementDto {
+
     @Schema(description = "广告位ID")
     private Long id;
     @Schema(description = "广告位名称")
     private String name;
     /**
-     * banner,interstitial,native,video,rewarded,audio
+     * BANNER,VIDEO,AUDIO,NATIVE
      */
-    @Schema(description = "广告位格式, banner,interstitial,native,video,rewarded,audio")
-    private String adFormat;
-    @Schema(description = "广告位宽度")
-    private Integer width;
-    @Schema(description = "广告位高度")
-    private Integer height;
-
-    /**
-     * 广告位配置，不同格式的广告位属性不同,json格式
-     */
-    @Schema(description = "广告位配置,json格式")
-    private String adSpecification;
-
-    /**
-     * 广告位底价
-     */
-    @Schema(description = "广告位底价")
-    private BigDecimal floorPrice;
-
-    /**
-     * 结算币种
-     */
-    @Schema(description = "结算币种")
-    private String currency;
+    @Schema(description = "广告位格式, 参见：AdFormat枚举")
+    private AdFormat adFormat;
+    @Schema(description = "banner广告位配置, RTB规范中定义banner广告位")
+    private BannerAdSpecificationDto banner;
+    @Schema(description = "视频广告位配置")
+    private VideoAdSpecificationDto video;
+    @Schema(description = "音频广告位配置")
+    private AudioAdSpecificationDto audio;
+    @Schema(description = "原生广告位配置")
+    private NativeAdSpecificationDto nativeAd;
     @Schema(description = "广告位状态, 1-正常, 0-禁用")
     private Integer status;
 }

@@ -8,11 +8,15 @@ import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
 
 import jakarta.annotation.Resource;
+import top.openadexchange.constants.enums.AdFormat;
 import top.openadexchange.dao.AdPlacementDao;
+import top.openadexchange.dao.NativeAssetDao;
 import top.openadexchange.dto.AdPlacementDto;
 import top.openadexchange.dto.query.AdPlacementQueryDto;
 import top.openadexchange.model.AdPlacement;
+import top.openadexchange.model.NativeAsset;
 import top.openadexchange.mos.application.converter.AdPlacementConverter;
+import top.openadexchange.mos.application.converter.NativeAssetConverter;
 
 import static top.openadexchange.model.table.AdPlacementTableDef.*;
 
@@ -23,15 +27,23 @@ public class AdPlacementService {
     private AdPlacementDao adPlacementDao;
     @Resource
     private AdPlacementConverter adPlacementConverter;
+    @Resource
+    private NativeAssetConverter nativeAssetConverter;
+    @Resource
+    private NativeAssetDao nativeAssetDao;
 
     public Long addAdPlacement(AdPlacementDto adPlacementDto) {
         AdPlacement adPlacement = adPlacementConverter.from(adPlacementDto);
         adPlacementDao.save(adPlacement);
+        List<NativeAsset> nativeAssets = nativeAssetConverter.from(adPlacement.getId(), adPlacementDto.getNativeAd());
+        nativeAssetDao.saveBatch(nativeAssets);
         return adPlacement.getId();
     }
 
     public Boolean updateAdPlacement(AdPlacementDto adPlacementDto) {
         AdPlacement adPlacement = adPlacementConverter.from(adPlacementDto);
+        List<NativeAsset> nativeAssets = nativeAssetConverter.from(adPlacement.getId(), adPlacementDto.getNativeAd());
+        nativeAssetDao.updateNativeAssetsByAdPlacementId(adPlacement.getId(), nativeAssets);
         return adPlacementDao.updateById(adPlacement);
     }
 
@@ -40,7 +52,12 @@ public class AdPlacementService {
     }
 
     public AdPlacementDto getAdPlacement(Long id) {
-        return adPlacementConverter.toAdPlacementDto(adPlacementDao.getById(id));
+        AdPlacement adPlacement = adPlacementDao.getById(id);
+        AdPlacementDto adPlacementDto = adPlacementConverter.toAdPlacementDto(adPlacementDao.getById(id));
+        if (adPlacement != null && AdFormat.NATIVE == AdFormat.valueOf(adPlacement.getAdFormat())) {
+            adPlacementDto.setNativeAd(nativeAssetConverter.toNativeAssetDtoList(nativeAssetDao.listByAdPlacementId(id)));
+        }
+        return adPlacementDto;
     }
 
     public Boolean enableAdPlacement(Long id) {
@@ -55,6 +72,7 @@ public class AdPlacementService {
         return adPlacementDao.page(Page.of(queryDto.getPageNo(), queryDto.getPageSize()),
                 QueryWrapper.create()
                         .eq(AdPlacement::getName, queryDto.getName())
+                        .eq(AdPlacement::getCode, queryDto.getCode())
                         .eq(AdPlacement::getAdFormat, queryDto.getAdFormat())
                         .eq(AdPlacement::getStatus, queryDto.getStatus()));
     }

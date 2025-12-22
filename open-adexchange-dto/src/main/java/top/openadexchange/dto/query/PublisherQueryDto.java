@@ -9,8 +9,6 @@ public class PublisherQueryDto {
 
     @Schema(description = "名称")
     private String name;
-    @Schema(description = "类型, 1-媒体, 2-发布商")
-    private Integer type;
     @Schema(description = "状态, 1-正常, 0-禁用")
     private Integer status;
     @Schema(description = "页码, 默认1")

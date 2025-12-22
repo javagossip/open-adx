@@ -1,4 +1,4 @@
-package top.openadexchange.commons.enums;
+package top.openadexchange.constants.enums;
 
 import lombok.Getter;
 

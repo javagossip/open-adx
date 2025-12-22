@@ -23,5 +23,13 @@
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations-jakarta</artifactId>
         </dependency>
+        <dependency>
+            <groupId>top.openadexchange</groupId>
+            <artifactId>open-adexchange-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>top.openadexchange</groupId>
+            <artifactId>open-adexchange-constants</artifactId>
+        </dependency>
     </dependencies>
 </project>

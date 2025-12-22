@@ -2,6 +2,7 @@ package top.openadexchange.dao.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
 
 import top.openadexchange.dao.DspDao;
@@ -33,5 +34,10 @@ public class DspDaoImpl extends ServiceImpl<DspMapper, Dsp> implements DspDao {
     @Override
     public Integer getDspQpsLimit(Long dspId) {
         return getByIdOpt(dspId).map(Dsp::getQpsLimit).orElse(null);
+    }
+
+    @Override
+    public Dsp getDspByToken(String token) {
+        return getOne(QueryWrapper.create().eq(Dsp::getToken, token).eq(Dsp::getStatus, 1));
     }
 }
