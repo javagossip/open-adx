@@ -1,11 +1,13 @@
 package top.openadexchange.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
 import com.mybatisflex.core.BaseMapper;
+
+import org.apache.ibatis.annotations.Mapper;
+
 import top.openadexchange.model.AdPlacement;
 
 /**
- *  映射层。
+ * 映射层。
  *
  * @author top.openadexchange
  * @since 2025-12-14

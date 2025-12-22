@@ -21,8 +21,8 @@ public class DspDto {
     private String bidEndpoint;
     @Schema(description = "Win通知端点")
     private String winNoticeEndpoint;
-//    @Schema(description = "DSP Token")
-//    private String token;
+    //    @Schema(description = "DSP Token")
+    //    private String token;
     @Schema(description = "联系人名称")
     private String contactName;
     @Schema(description = "联系人电话")

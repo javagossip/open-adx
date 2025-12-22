@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 @Schema(description = "视频广告位规格配置")
 public class VideoAdSpecificationDto {
+
     @Schema(description = "宽")
     private int width;
     @Schema(description = "高")

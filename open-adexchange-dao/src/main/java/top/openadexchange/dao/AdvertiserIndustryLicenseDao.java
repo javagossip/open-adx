@@ -15,4 +15,6 @@ import top.openadexchange.model.AdvertiserIndustryLicense;
 public interface AdvertiserIndustryLicenseDao extends IService<AdvertiserIndustryLicense> {
 
     List<AdvertiserIndustryLicense> getByAdvertiserId(Long id);
+
+    void saveAdvertiserIndustryLicenses(Long id, List<AdvertiserIndustryLicense> advertiserIndustryLicenses);
 }

@@ -1,7 +1,6 @@
 package top.openadexchange.mos.application.converter;
 
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 import com.ruoyi.common.utils.SecurityUtils;
 
@@ -26,10 +25,10 @@ public class SiteConverter {
         site.setPlatform(siteDto.getPlatform());
         site.setSiteType(siteDto.getSiteType());
         site.setStatus(siteDto.getStatus());
-        
+
         // 设置userId
         site.setUserId(SecurityUtils.getUserId());
-        
+
         return site;
     }
 
@@ -48,7 +47,7 @@ public class SiteConverter {
         siteDto.setPlatform(site.getPlatform());
         siteDto.setSiteType(site.getSiteType());
         siteDto.setStatus(site.getStatus());
-        
+
         return siteDto;
     }
 }

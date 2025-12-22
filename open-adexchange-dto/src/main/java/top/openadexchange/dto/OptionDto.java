@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Schema(name = "字典选项")
 public class OptionDto {
+
     @Schema(description = "选项标签")
     private String label;
     @Schema(description = "选项值")

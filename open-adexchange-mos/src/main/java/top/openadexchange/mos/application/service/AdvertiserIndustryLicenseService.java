@@ -45,10 +45,8 @@ public class AdvertiserIndustryLicenseService {
     }
 
     public List<AdvertiserIndustryLicenseDto> getLicensesByAdvertiserId(Long advertiserId) {
-        List<AdvertiserIndustryLicense> licenses = advertiserIndustryLicenseDao.list(
-                QueryWrapper.create().eq(AdvertiserIndustryLicense::getAdvertiserId, advertiserId));
-        return licenses.stream()
-                .map(advertiserIndustryLicenseConverter::toDto)
-                .toList();
+        List<AdvertiserIndustryLicense> licenses = advertiserIndustryLicenseDao.list(QueryWrapper.create()
+                .eq(AdvertiserIndustryLicense::getAdvertiserId, advertiserId));
+        return licenses.stream().map(advertiserIndustryLicenseConverter::toDto).toList();
     }
 }

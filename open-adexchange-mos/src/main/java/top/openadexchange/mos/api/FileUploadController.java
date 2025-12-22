@@ -1,5 +1,8 @@
 package top.openadexchange.mos.api;
 
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.annotation.Resource;
+
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import io.swagger.v3.oas.annotations.Operation;
-import jakarta.annotation.Resource;
 import top.openadexchange.dto.commons.ApiResponse;
 import top.openadexchange.mos.domain.gateway.FileService;
 import top.openadexchange.mos.domain.gateway.factory.FileServices;

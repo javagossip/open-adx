@@ -1,11 +1,11 @@
 package top.openadexchange.model;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
-import java.io.Serializable;
-
-import java.io.Serial;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

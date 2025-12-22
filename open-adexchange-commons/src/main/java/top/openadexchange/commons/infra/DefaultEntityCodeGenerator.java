@@ -12,9 +12,9 @@ import top.openadexchange.model.SysSeq;
 @Extension(key = "default")
 public class DefaultEntityCodeGenerator implements EntityCodeGenerator {
 
+    private static final Hashids hashids = new Hashids("open-adexchange", 8);
     @Resource
     private SysSeqDao sysSeqDao;
-    private static final Hashids hashids = new Hashids("open-adexchange", 8);
 
     @Override
     public String generateCode() {

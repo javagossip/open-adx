@@ -1,23 +1,21 @@
 package top.openadexchange.codegen;
 
-import com.mybatisflex.codegen.Generator;
-import com.mybatisflex.codegen.config.GlobalConfig;
-import com.mybatisflex.codegen.config.StrategyConfig;
-import com.mybatisflex.codegen.config.TableConfig;
-import com.mybatisflex.core.keygen.CustomKeyGenerator;
-import com.zaxxer.hikari.HikariDataSource;
+import java.util.Objects;
 
 import javax.sql.DataSource;
-import java.util.Objects;
+
+import com.mybatisflex.codegen.Generator;
+import com.mybatisflex.codegen.config.GlobalConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 public class MyBatisFlexCodeGenerator {
 
     private static final String DB_URL = """
-            jdbc:mysql://101.126.128.177:13306/open-adexchange?\
-            allowPublicKeyRetrieval=true&remarks=true&\
-            useInformationSchema=true&useUnicode=true&characterEncoding=utf-8&\
-            useSSL=false&serverTimezone=UTC&tinyInt1isBit=true
-            """;
+                                         jdbc:mysql://101.126.128.177:13306/open-adexchange?\
+                                         allowPublicKeyRetrieval=true&remarks=true&\
+                                         useInformationSchema=true&useUnicode=true&characterEncoding=utf-8&\
+                                         useSSL=false&serverTimezone=UTC&tinyInt1isBit=true
+                                         """;
     private static final String PROJECT_NAME = "open-adexchange-codegen";
     private static final String ENTITIES_MODULE = "open-adexchange-model";
     private static final String DAO_MODULE = "open-adexchange-dao";

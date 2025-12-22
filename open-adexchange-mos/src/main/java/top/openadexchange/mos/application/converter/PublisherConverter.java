@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import com.ruoyi.common.utils.SecurityUtils;
 
 import jakarta.annotation.Resource;
-
 import top.openadexchange.commons.service.EntityCodeService;
 import top.openadexchange.dto.PublisherDto;
 import top.openadexchange.model.Publisher;
@@ -27,13 +26,13 @@ public class PublisherConverter {
         publisher.setContactEmail(publisherDto.getContactEmail());
         publisher.setContactPhone(publisherDto.getContactPhone());
         publisher.setStatus(publisherDto.getStatus());
-        
+
         // 设置code和userId
         if (entityCodeService != null) {
             publisher.setCode(entityCodeService.generatePublisherCode());
         }
         publisher.setUserId(SecurityUtils.getUserId());
-        
+
         return publisher;
     }
 
@@ -48,7 +47,7 @@ public class PublisherConverter {
         publisherDto.setContactEmail(publisher.getContactEmail());
         publisherDto.setContactPhone(publisher.getContactPhone());
         publisherDto.setStatus(publisher.getStatus());
-        
+
         return publisherDto;
     }
 }

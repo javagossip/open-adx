@@ -7,10 +7,10 @@ import jakarta.annotation.Resource;
 @Service
 public class EntityCodeService {
 
-    private static final String AD_PLACEMENT_CODE_PREFIX = "ADP";
-    private static final String PUBLISHER_CODE_PREFIX = "PUB";
     public static final String SITE_AD_PLACEMENT_CODE_PREFIX = "SAP";
     public static final String DSP_CODE_PREFIX = "DSP";
+    private static final String AD_PLACEMENT_CODE_PREFIX = "ADP";
+    private static final String PUBLISHER_CODE_PREFIX = "PUB";
     private static final String ADVERTISER_CODE_PREFIX = "ADV";
 
     @Resource

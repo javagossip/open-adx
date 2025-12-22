@@ -31,6 +31,8 @@ public class Advertiser implements Serializable {
 
     @Id(keyType = KeyType.Auto)
     private Long id;
+    //dsp平台广告主id
+    private String dspAdvertiserId;
     private String code;
     /**
      * 系统用户ID

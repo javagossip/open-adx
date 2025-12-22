@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Schema(description = "站点/app信息")
 public class SiteDto {
+
     @Schema(description = "站点/app id")
     private Long id;
     @Schema(description = "媒体/发布者id")

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import com.ruoyi.common.utils.SecurityUtils;
 
 import jakarta.annotation.Resource;
-
 import top.openadexchange.commons.service.EntityCodeService;
 import top.openadexchange.dto.AdvertiserDto;
 import top.openadexchange.model.Advertiser;
@@ -39,13 +38,13 @@ public class AdvertiserConverter {
         advertiser.setAuditReason(advertiserDto.getAuditReason());
         advertiser.setAuditTime(advertiserDto.getAuditTime());
         advertiser.setStatus(advertiserDto.getStatus());
-        
+
         // 设置code和userId
         if (entityCodeService != null) {
             advertiser.setCode(entityCodeService.generateAdvertiserCode());
         }
         advertiser.setUserId(SecurityUtils.getUserId());
-        
+
         return advertiser;
     }
 
@@ -72,7 +71,7 @@ public class AdvertiserConverter {
         advertiserDto.setAuditReason(advertiser.getAuditReason());
         advertiserDto.setAuditTime(advertiser.getAuditTime());
         advertiserDto.setStatus(advertiser.getStatus());
-        
+
         return advertiserDto;
     }
 }

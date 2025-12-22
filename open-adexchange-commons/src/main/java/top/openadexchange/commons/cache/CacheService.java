@@ -1,8 +1,8 @@
 package top.openadexchange.commons.cache;
 
-import com.chaincoretech.epc.annotation.ExtensionPoint;
-
 import java.util.concurrent.TimeUnit;
+
+import com.chaincoretech.epc.annotation.ExtensionPoint;
 
 @ExtensionPoint
 public interface CacheService {

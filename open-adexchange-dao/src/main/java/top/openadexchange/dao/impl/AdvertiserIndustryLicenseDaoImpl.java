@@ -26,4 +26,15 @@ public class AdvertiserIndustryLicenseDaoImpl
     public List<AdvertiserIndustryLicense> getByAdvertiserId(Long advertiserId) {
         return list(QueryWrapper.create().eq(AdvertiserIndustryLicense::getAdvertiserId, advertiserId));
     }
+
+    @Override
+    public void saveAdvertiserIndustryLicenses(Long advertiserId,
+            List<AdvertiserIndustryLicense> advertiserIndustryLicenses) {
+        if (advertiserIndustryLicenses == null) {
+            return;
+        }
+        advertiserIndustryLicenses.forEach(advertiserIndustryLicense -> advertiserIndustryLicense.setAdvertiserId(
+                advertiserId));
+        saveBatch(advertiserIndustryLicenses);
+    }
 }

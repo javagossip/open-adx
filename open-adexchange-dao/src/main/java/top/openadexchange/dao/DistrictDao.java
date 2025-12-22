@@ -1,9 +1,10 @@
 package top.openadexchange.dao;
 
-import com.mybatisflex.core.service.IService;
-import top.openadexchange.model.District;
-
 import java.util.List;
+
+import com.mybatisflex.core.service.IService;
+
+import top.openadexchange.model.District;
 
 /**
  * 数据来源：https://github.com/eduosi/district.git 服务层。

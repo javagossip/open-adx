@@ -22,8 +22,8 @@ import top.openadexchange.dto.AdvertiserIndustryLicenseDto;
 import top.openadexchange.dto.commons.ApiResponse;
 import top.openadexchange.dto.query.AdvertiserQueryDto;
 import top.openadexchange.model.Advertiser;
-import top.openadexchange.mos.application.service.AdvertiserService;
 import top.openadexchange.mos.application.service.AdvertiserIndustryLicenseService;
+import top.openadexchange.mos.application.service.AdvertiserService;
 
 @RestController
 @RequestMapping("/v1/advertisers")
@@ -33,7 +33,7 @@ public class AdvertiserController {
 
     @Resource
     private AdvertiserService advertiserService;
-    
+
     @Resource
     private AdvertiserIndustryLicenseService advertiserIndustryLicenseService;
 
@@ -84,13 +84,13 @@ public class AdvertiserController {
     public ApiResponse<Page<Advertiser>> pageListAdvertisers(AdvertiserQueryDto queryDto) {
         return ApiResponse.success(advertiserService.pageListAdvertisers(queryDto));
     }
-    
+
     // 广告主行业资质管理接口
-    
+
     @PostMapping("/{advertiserId}/licenses")
     @Operation(summary = "为广告主添加行业资质")
-    public ApiResponse<Long> addLicense(@PathVariable("advertiserId") Long advertiserId, 
-                                       @RequestBody AdvertiserIndustryLicenseDto licenseDto) {
+    public ApiResponse<Long> addLicense(@PathVariable("advertiserId") Long advertiserId,
+            @RequestBody AdvertiserIndustryLicenseDto licenseDto) {
         licenseDto.setAdvertiserId(advertiserId);
         return ApiResponse.success(advertiserIndustryLicenseService.addLicense(licenseDto));
     }
@@ -98,7 +98,7 @@ public class AdvertiserController {
     @PutMapping("/licenses/{licenseId}")
     @Operation(summary = "更新广告主行业资质")
     public ApiResponse<Boolean> updateLicense(@PathVariable("licenseId") Long licenseId,
-                                             @RequestBody AdvertiserIndustryLicenseDto licenseDto) {
+            @RequestBody AdvertiserIndustryLicenseDto licenseDto) {
         licenseDto.setId(licenseId);
         return ApiResponse.success(advertiserIndustryLicenseService.updateLicense(licenseDto));
     }
@@ -117,8 +117,7 @@ public class AdvertiserController {
 
     @GetMapping("/{advertiserId}/licenses")
     @Operation(summary = "获取广告主的所有行业资质")
-    public ApiResponse<List<AdvertiserIndustryLicenseDto>> getLicensesByAdvertiserId(
-            @PathVariable("advertiserId") Long advertiserId) {
+    public ApiResponse<List<AdvertiserIndustryLicenseDto>> getLicensesByAdvertiserId(@PathVariable("advertiserId") Long advertiserId) {
         return ApiResponse.success(advertiserIndustryLicenseService.getLicensesByAdvertiserId(advertiserId));
     }
 }

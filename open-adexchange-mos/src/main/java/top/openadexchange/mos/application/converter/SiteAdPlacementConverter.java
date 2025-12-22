@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import com.ruoyi.common.utils.SecurityUtils;
 
 import jakarta.annotation.Resource;
-
 import top.openadexchange.commons.service.EntityCodeService;
 import top.openadexchange.dto.SiteAdPlacementDto;
 import top.openadexchange.model.SiteAdPlacement;
@@ -29,13 +28,13 @@ public class SiteAdPlacementConverter {
         siteAdPlacement.setName(siteAdPlacementDto.getName());
         siteAdPlacement.setDemoUrl(siteAdPlacementDto.getDemoUrl());
         siteAdPlacement.setStatus(siteAdPlacementDto.getStatus());
-        
+
         // 设置code和userId
         if (entityCodeService != null) {
             siteAdPlacement.setCode(entityCodeService.generateSiteAdPlacementCode());
         }
         siteAdPlacement.setUserId(SecurityUtils.getUserId());
-        
+
         return siteAdPlacement;
     }
 
@@ -52,7 +51,7 @@ public class SiteAdPlacementConverter {
         siteAdPlacementDto.setName(siteAdPlacement.getName());
         siteAdPlacementDto.setDemoUrl(siteAdPlacement.getDemoUrl());
         siteAdPlacementDto.setStatus(siteAdPlacement.getStatus());
-        
+
         return siteAdPlacementDto;
     }
 }

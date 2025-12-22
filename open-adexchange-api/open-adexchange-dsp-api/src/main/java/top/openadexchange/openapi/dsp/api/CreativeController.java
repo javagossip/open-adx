@@ -1,16 +1,20 @@
 package top.openadexchange.openapi.dsp.api;
 
-import io.swagger.v3.oas.annotations.Operation;
+import java.util.List;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import top.openadexchange.commons.dto.ApiResponse;
+import top.openadexchange.openapi.dsp.application.dto.CreativeAuditResultDto;
 import top.openadexchange.openapi.dsp.application.dto.CreativeDto;
 import top.openadexchange.openapi.dsp.application.service.CreativeService;
 
@@ -31,7 +35,19 @@ public class CreativeController {
 
     @PutMapping
     @Operation(summary = "更新广告创意素材")
-    public ApiResponse<Boolean> updateCreative(@RequestBody CreativeDto creativeDto){
+    public ApiResponse<Boolean> updateCreative(@RequestBody CreativeDto creativeDto) {
         return ApiResponse.success(creativeService.updateCreative(creativeDto));
+    }
+
+    @GetMapping("/{creativeId}/audit-status")
+    @Operation(summary = "获取单个广告素材审核状态")
+    public ApiResponse<CreativeAuditResultDto> getCreativeAuditStatus(String creativeId) {
+        return ApiResponse.success(creativeService.getCreativeAuditStatus(creativeId));
+    }
+
+    @GetMapping("/audit-status")
+    @Operation(summary = "批量获取广告素材审核状态")
+    public ApiResponse<List<CreativeAuditResultDto>> getCreativeAuditStatusList(@RequestParam("creativeIds") List<String> creativeIds) {
+        return ApiResponse.success(creativeService.getCreativeAuditStatusList(creativeIds));
     }
 }

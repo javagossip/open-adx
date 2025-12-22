@@ -1,11 +1,19 @@
 package top.openadexchange.openapi.dsp.application.converter;
 
+import java.time.ZoneId;
+import java.util.List;
+import java.util.Objects;
+
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.Resource;
 import top.openadexchange.commons.service.EntityCodeService;
 import top.openadexchange.model.Advertiser;
+import top.openadexchange.model.AdvertiserIndustryLicense;
+import top.openadexchange.openapi.dsp.application.dto.AdvertiserAuditResultDto;
 import top.openadexchange.openapi.dsp.application.dto.AdvertiserDto;
+import top.openadexchange.openapi.dsp.application.dto.AdvertiserIndustryLicenseDto;
+import top.openadexchange.openapi.dsp.application.dto.AuditResult;
 
 @Component
 public class AdvertiserConverter {
@@ -19,6 +27,7 @@ public class AdvertiserConverter {
         }
 
         Advertiser advertiser = new Advertiser();
+        advertiser.setDspAdvertiserId(advertiserDto.getAdvertiserId());
         advertiser.setAdvertiserName(advertiserDto.getAdvertiserName());
         advertiser.setCompanyName(advertiserDto.getCompanyName());
         advertiser.setBusinessLicenseNo(advertiserDto.getBusinessLicenseNo());
@@ -30,14 +39,7 @@ public class AdvertiserConverter {
         advertiser.setLegalPersonName(advertiserDto.getLegalPersonName());
         advertiser.setBusinessLicenseUrl(advertiserDto.getBusinessLicenseUrl());
         advertiser.setLegalPersonIdUrl(advertiserDto.getLegalPersonIdUrl());
-        advertiser.setAuditStatus(advertiserDto.getAuditStatus());
-        advertiser.setAuditReason(advertiserDto.getAuditReason());
-        advertiser.setAuditTime(advertiserDto.getAuditTime());
-
-        // 设置code
-        if (entityCodeService != null) {
-            advertiser.setCode(entityCodeService.generateAdvertiserCode());
-        }
+        advertiser.setCode(entityCodeService.generateAdvertiserCode());
         return advertiser;
     }
 
@@ -58,10 +60,43 @@ public class AdvertiserConverter {
         advertiserDto.setLegalPersonName(advertiser.getLegalPersonName());
         advertiserDto.setBusinessLicenseUrl(advertiser.getBusinessLicenseUrl());
         advertiserDto.setLegalPersonIdUrl(advertiser.getLegalPersonIdUrl());
-        advertiserDto.setAuditStatus(advertiser.getAuditStatus());
-        advertiserDto.setAuditReason(advertiser.getAuditReason());
-        advertiserDto.setAuditTime(advertiser.getAuditTime());
 
         return advertiserDto;
+    }
+
+    public List<AdvertiserIndustryLicense> fromAdvertiserLicenses(List<AdvertiserIndustryLicenseDto> advertiserIndustryLicenses) {
+        return advertiserIndustryLicenses.stream().map(this::fromAdvertiserLicense).filter(Objects::nonNull).toList();
+    }
+
+    public AdvertiserIndustryLicense fromAdvertiserLicense(AdvertiserIndustryLicenseDto advertiserIndustryLicenseDto) {
+        if (advertiserIndustryLicenseDto == null) {
+            return null;
+        }
+        AdvertiserIndustryLicense advertiserIndustryLicense = new AdvertiserIndustryLicense();
+        //        advertiserIndustryLicense.setAdvertiserId();
+        advertiserIndustryLicense.setIndustryCode(advertiserIndustryLicenseDto.getIndustryCode());
+        advertiserIndustryLicense.setLicenseName(advertiserIndustryLicenseDto.getLicenseName());
+        advertiserIndustryLicense.setLicenseUrl(advertiserIndustryLicenseDto.getLicenseUrl());
+        return advertiserIndustryLicense;
+    }
+
+    public AdvertiserAuditResultDto toAdvertiserAuditResultDto(Advertiser advertiser) {
+        if (advertiser == null) {
+            return null;
+        }
+
+        AdvertiserAuditResultDto advertiserAuditDto = new AdvertiserAuditResultDto();
+        advertiserAuditDto.setAdvertiserId(advertiser.getDspAdvertiserId());
+
+        AuditResult auditResult = new AuditResult();
+        auditResult.setAuditStatus(advertiser.getAuditStatus());
+        auditResult.setAuditReason(advertiser.getAuditReason());
+        if (advertiser.getAuditTime() != null) {
+            auditResult.setAuditTime(advertiser.getAuditTime()
+                    .atZone(ZoneId.systemDefault())
+                    .toInstant()
+                    .toEpochMilli());
+        }
+        return advertiserAuditDto;
     }
 }
