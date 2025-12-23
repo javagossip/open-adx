@@ -14,5 +14,6 @@
     <modules>
         <module>open-adexchange-dsp-api</module>
         <module>open-adexchange-ssp-api</module>
+        <module>open-adexchange-tracking-api</module>
     </modules>
 </project>
