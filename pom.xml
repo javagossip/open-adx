@@ -64,8 +64,8 @@
         <springdoc-openapi.version>2.8.9</springdoc-openapi.version>
         <swagger.version>2.2.30</swagger.version>
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
-        <epc.version>1.0.4-SNAPSHOT</epc.version>
-        <tencent.cloud.spring-boot3-starter.version>1.0.1-SNAPSHOT</tencent.cloud.spring-boot3-starter.version>
+        <epc.version>1.0.4</epc.version>
+        <tencent.cloud.spring-boot3-starter.version>1.0.1</tencent.cloud.spring-boot3-starter.version>
         <hashids.version>1.0.3</hashids.version>
         <protobuf-java.version>4.33.2</protobuf-java.version>
         <additionalparam>-Xdoclint:none</additionalparam>
@@ -165,7 +165,7 @@
                 <version>${swagger.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.chaincoretech</groupId>
+                <groupId>top.openadexchange</groupId>
                 <artifactId>epc</artifactId>
                 <version>${epc.version}</version>
             </dependency>
@@ -346,30 +346,7 @@
             </properties>
         </profile>
     </profiles>
-    <repositories>
-        <repository>
-            <id>chaincoretech-releases</id>
-            <name>ChainCoreTech Releases</name>
-            <url>https://maven.helxpay.com/repository/maven-releases</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>chaincoretech-snapshots</id>
-            <name>ChainCoreTech Snapshots</name>
-            <url>https://maven.helxpay.com/repository/maven-snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-    </repositories>
+
     <distributionManagement>
         <snapshotRepository>
             <id>central</id>

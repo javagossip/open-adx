@@ -58,7 +58,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.chaincoretech</groupId>
+            <groupId>top.openadexchange</groupId>
             <artifactId>epc</artifactId>
         </dependency>
         <dependency>
