@@ -6,6 +6,7 @@ import java.util.Objects;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
+import top.openadexchange.commons.AssertUtils;
 import top.openadexchange.dao.AdvertiserDao;
 import top.openadexchange.dao.AdvertiserIndustryLicenseDao;
 import top.openadexchange.model.Advertiser;
@@ -13,6 +14,8 @@ import top.openadexchange.model.AdvertiserIndustryLicense;
 import top.openadexchange.openapi.dsp.application.converter.AdvertiserConverter;
 import top.openadexchange.openapi.dsp.application.dto.AdvertiserAuditResultDto;
 import top.openadexchange.openapi.dsp.application.dto.AdvertiserDto;
+import top.openadexchange.openapi.dsp.application.validator.AdvertiserValidator;
+import top.openadexchange.openapi.dsp.commons.ApiErrorCode;
 
 @Service
 public class AdvertiserService {
@@ -20,11 +23,15 @@ public class AdvertiserService {
     @Resource
     private AdvertiserConverter advertiserConverter;
     @Resource
+    private AdvertiserValidator advertiserValidator;
+    @Resource
     private AdvertiserDao advertiserDao;
     @Resource
     private AdvertiserIndustryLicenseDao advertiserIndustryLicenseDao;
 
     public String addAdvertiser(AdvertiserDto advertiserDto) {
+        advertiserValidator.validateForAddAdvertiser(advertiserDto);
+
         Advertiser advertiser = advertiserConverter.from(advertiserDto);
         List<AdvertiserIndustryLicense> advertiserIndustryLicenses =
                 advertiserConverter.fromAdvertiserLicenses(advertiserDto.getAdvertiserIndustryLicenses());
@@ -34,10 +41,12 @@ public class AdvertiserService {
     }
 
     public Boolean updateAdvertiser(AdvertiserDto advertiserDto) {
+        advertiserValidator.validateForUpdateAdvertiser(advertiserDto);
         return false;
     }
 
     public AdvertiserAuditResultDto getAuditStatus(String advertiserId) {
+        AssertUtils.notBlank(advertiserId, ApiErrorCode.ADVERTISER_ID_IS_REQUIRED);
         Advertiser advertiser = advertiserDao.getByDspAdvertiserId(advertiserId);
         return advertiserConverter.toAdvertiserAuditResultDto(advertiser);
     }

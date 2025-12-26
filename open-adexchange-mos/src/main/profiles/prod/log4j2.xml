@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <!-- 定义日志文件路径 -->
+        <Property name="LOG_DIR">/data/logs/oax</Property>
+        <Property name="INFO_LOG_FILE">${LOG_DIR}/info.log</Property>
+        <Property name="ERROR_LOG_FILE">${LOG_DIR}/error.log</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Info 日志文件 Appender -->
+        <RollingFile name="InfoFile" fileName="${INFO_LOG_FILE}" filePattern="${LOG_DIR}/info-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <!-- 按文件大小滚动，超过 500MB 滚动 -->
+                <SizeBasedTriggeringPolicy size="500 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10">
+                <!-- 最多保留 10 个归档文件 -->
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <!-- Error 日志文件 Appender -->
+        <RollingFile name="ErrorFile" fileName="${ERROR_LOG_FILE}"
+                filePattern="${LOG_DIR}/error-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <!-- 按文件大小滚动，超过 500MB 滚动 -->
+                <SizeBasedTriggeringPolicy size="500 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10">
+                <!-- 最多保留 10 个归档文件 -->
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <!-- 异步 Appender -->
+        <Async name="AsyncInfo" bufferSize="1024" blocking="false">
+            <AppenderRef ref="InfoFile"/>
+        </Async>
+        <Async name="AsyncError" bufferSize="1024" blocking="false">
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            <AppenderRef ref="ErrorFile"/>
+        </Async>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="AsyncInfo"/>
+            <AppenderRef ref="AsyncError"/>
+        </Root>
+        <Logger name="com.mybatis-flex" level="debug" additivity="false">
+            <AppenderRef ref="AsyncInfo"/>
+        </Logger>
+
+        <Logger name="org.apache.ibatis" level="debug" additivity="false">
+            <AppenderRef ref="AsyncInfo"/>
+        </Logger>
+        <Logger name="com.hexunion.mos.mapper" level="debug" additivity="false">
+            <AppenderRef ref="AsyncInfo"/>
+        </Logger>
+        <Logger name="org.apache.ibatis.executor.resultset.ResultSetHandler" level="debug" additivity="false">
+            <AppenderRef ref="AsyncInfo"/>
+        </Logger>
+    </Loggers>
+</Configuration>

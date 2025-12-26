@@ -5,9 +5,9 @@ import lombok.Getter;
 @Getter
 public class ValidateException extends RuntimeException {
 
-    private int code;
+    private String code;
 
-    public ValidateException(int code, String message) {
+    public ValidateException(String code, String message) {
         super(message);
         this.code = code;
     }

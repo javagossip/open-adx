@@ -50,7 +50,8 @@ public class SiteService {
                 QueryWrapper.create()
                         .eq(Site::getName, siteQueryDto.getName())
                         .eq(Site::getSiteType, siteQueryDto.getType())
-                        .eq(Site::getPlatform, siteQueryDto.getPlatform().name())
+                        .eq(Site::getPlatform,
+                                siteQueryDto.getPlatform() == null ? null : siteQueryDto.getPlatform().name())
                         .eq(Site::getStatus, siteQueryDto.getStatus()));
     }
 
