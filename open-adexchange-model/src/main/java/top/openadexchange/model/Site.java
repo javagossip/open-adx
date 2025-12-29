@@ -62,9 +62,9 @@ public class Site implements Serializable {
     private String keywords;
 
     /**
-     * 站点/app 分类
+     * 站点/app 分类,多个分类逗号分隔
      */
-    private String cat;
+    private String cats;
 
     private LocalDateTime createdAt;
 

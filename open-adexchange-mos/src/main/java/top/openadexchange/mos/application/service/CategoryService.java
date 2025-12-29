@@ -7,8 +7,10 @@ import org.springframework.util.Assert;
 
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
+import com.ruoyi.system.service.ISysConfigService;
 
 import jakarta.annotation.Resource;
+import top.openadexchange.constants.SysConfigKey;
 import top.openadexchange.dao.CategoryDao;
 import top.openadexchange.dto.CategoryDto;
 import top.openadexchange.dto.query.CategoryQueryDto;
@@ -23,6 +25,8 @@ public class CategoryService {
 
     @Resource
     private CategoryConverter categoryConverter;
+    @Resource
+    private ISysConfigService sysConfigService;
 
     public Long addCategory(CategoryDto categoryDto) {
         Category category = categoryConverter.from(categoryDto);
@@ -54,6 +58,9 @@ public class CategoryService {
     }
 
     public List<Category> listCategoriesByParentCode(String parentCode, String system) {
+        String categorySystem = sysConfigService.selectConfigByKey(SysConfigKey.SYS_CATEGORY_SYSTEM);
+        system = system == null ? categorySystem : system;
+
         Assert.hasText(system, "system cannot be null");
         if (parentCode == null) {
             return categoryDao.list(QueryWrapper.create()

@@ -28,7 +28,7 @@ public class SiteDto {
     @Schema(description = "平台, ios, android, web")
     private String platform;
     @Schema(description = "关键字，多个关键字逗号分隔")
-    private String keywords;
+    private List<String> keywords;
     @Schema(description = "内容分类,同一个app/site可以同时属于多个类别")
     private List<String> cats;
     /**

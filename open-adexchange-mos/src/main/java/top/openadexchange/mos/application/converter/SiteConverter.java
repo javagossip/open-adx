@@ -1,6 +1,7 @@
 package top.openadexchange.mos.application.converter;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import com.ruoyi.common.utils.SecurityUtils;
 
@@ -25,6 +26,8 @@ public class SiteConverter {
         site.setPlatform(siteDto.getPlatform());
         site.setSiteType(siteDto.getSiteType());
         site.setStatus(siteDto.getStatus());
+        site.setKeywords(StringUtils.collectionToCommaDelimitedString(siteDto.getKeywords()));
+        site.setCats(StringUtils.collectionToCommaDelimitedString(siteDto.getCats()));
 
         // 设置userId
         site.setUserId(SecurityUtils.getUserId());
