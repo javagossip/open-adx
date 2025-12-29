@@ -1,0 +1,135 @@
+syntax = "proto2";
+
+option java_outer_classname = "OaxSspApiProto";
+option java_package = "top.openadexchange.openapi.publisher.proto";
+
+package top.openadexchange.openapi.publisher.proto;
+
+//竞价请求对象
+message AdFetchRequest {
+  required string id = 1; //ssp广告请求id, 由ssp自动生成
+
+  repeated Imp imp = 2;
+  //站点对象, 网站流量使用
+  optional Site site = 3;
+  //移动应用，移动app流量使用
+  optional App app = 4;
+  //设备对象
+  optional Device device = 5;
+  optional bool test = 7;
+  optional bool debug = 6;
+  //竞价方式：1-一价；2-二价
+//  optional uint32 at = 8;
+//  扩展字段
+  map<string, string> ext = 9;
+
+  //保留扩展，扩展协议字段编号
+  extensions 200 to 299;
+
+  message Imp {
+    required string id = 1; //ssp自动生成, imp唯一标识
+    optional string tagid = 7;   //媒体广告位id，由Ad-Exchange定义和分配
+    extensions 200 to 299;
+  }
+  //end imp
+
+  message App {
+    optional string ver = 4;           //App版本
+    optional Content content = 6;      //App内容相关
+
+    extensions 200 to 299;
+  }
+
+  //站点对象定义
+  message Site {
+    optional Content content = 8;      //网站内容
+
+    extensions 200 to 299;
+  }
+
+  message Content {
+    optional string title = 2; //广告展示上下文相关内容标题
+    optional string keywords = 3; //广告展示上下文相关内容关键字
+  }
+
+  //设备对象
+  message Device {
+    optional string ua = 1;          //设备user-agent
+    optional Geo geo = 2;            //地理位置对象
+    optional string ip = 3;          //设备ip
+    optional string ipv6 = 4;        //ipv6地址
+    optional uint32 device_type = 5;  //设备类型, 1-phone,2-pad,3-pc,4-tv
+    optional string make = 6;        //设备制造商
+    optional string model = 7;       //设备型号, 如：iPhone
+    optional string os = 8;          //操作系统，如：ios/Android
+    optional string osv = 9;         //操作系统版本
+    optional string carrier = 10;    //运营商, 0-未知,1-移动,2-联通,3-电信
+
+    optional uint32 connection_type = 11; //网络连接类型, 1-wifi; 2-2G;3-3G;4-4G;5-5G; 0-未知
+    optional string ifa = 12;      //明文设备码，如安卓的imei或ios的idfa
+    optional string didmd5 = 13;   //md5设备码
+    optional string mac = 14;      //mac地址明文
+    optional string macmd5 = 15;   //md5 mac地址
+    optional string adid = 16; //安卓id
+    optional uint32 h = 17; //设备屏幕高
+    optional uint32 w = 18; //设备屏幕宽
+
+    //协议保留扩展
+    extensions 200 to 299;
+  }
+
+  message Geo {
+    optional float lat = 1;       //纬度
+    optional float lon = 2;       //经度
+
+    extensions 200 to 299;
+  }
+}
+
+message AdFetchResponse {
+  //竞价请求id, 和BidRequest的id保持一致
+  required string id = 1;
+  repeated SeatBid seatbid = 2;    //针对单个广告位的竞价响应
+  required string bidid = 3;       //dsp生成的竞价响应id
+
+  //协议保留扩展
+  extensions 200 to 299;
+
+  message NativeAd {
+    //原生广告模板id
+    optional string template_id = 1; //一个原生广告位可能支持多个广告模版
+    map<string, string> assets = 2;
+  }
+
+  message SeatBid {
+    repeated Bid bid = 1;        //同一个广告位的多个出价
+    optional string seat = 2;    //广告位名称
+
+    message Bid {
+      required string id = 1;        //dsp平台参与出价id
+      required string impid = 2;     //曝光id, 关联竞价请求中Imp中id
+      required float price = 3;      //广告出价, 单位是分
+      required string crid = 4;      //dsp平台创意id
+      optional string dealid = 5;    //请求pmp dealid
+
+      optional string nurl = 20; //如果不填写则不会发送winNotice通知
+      repeated string imp_trackers = 6; //曝光监测
+      repeated string clk_trackers = 7; //点击监测
+
+      optional string ldp = 8; //广告落地页
+      optional string creative_url = 9; //广告创意地址
+      optional uint32 click_type = 10; //点击类型：1-浏览器打开  2-安卓应用下载  3-deeplink，4-ios应用
+
+      //安卓应用包名或者ios的appid， 点击类型为安卓应用下载和ios应用时候，bundle必填
+      optional string bundle = 11;
+      //optional string adm = 12;    //动态广告代码
+      optional NativeAd nativeAd = 13; //原生广告响应
+      optional string app_download_url = 14; //应用下载地址
+      optional string app_name = 15; //应用名称
+      optional string deeplink = 16; //deeplink链接
+
+      //协议保留扩展
+      extensions 200 to 299;
+    }
+  }
+}

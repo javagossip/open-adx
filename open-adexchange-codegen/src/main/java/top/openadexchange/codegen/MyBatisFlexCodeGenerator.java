@@ -11,7 +11,7 @@ import com.zaxxer.hikari.HikariDataSource;
 public class MyBatisFlexCodeGenerator {
 
     private static final String DB_URL = """
-                                         jdbc:mysql://101.126.128.177:13306/open-adexchange?\
+                                         jdbc:mysql://101.126.128.177:13308/open-adexchange?\
                                          allowPublicKeyRetrieval=true&remarks=true&\
                                          useInformationSchema=true&useUnicode=true&characterEncoding=utf-8&\
                                          useSSL=false&serverTimezone=UTC&tinyInt1isBit=true
@@ -28,12 +28,12 @@ public class MyBatisFlexCodeGenerator {
 
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setJdbcUrl(DB_URL);
-        dataSource.setUsername("root");
+        dataSource.setUsername("OpenAdExchange");
         dataSource.setPassword("Hello%1234");
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
         String[] tables = new String[]{
-                "sys_entity_code"
+                "category","industry","site"
         };
         genEntities(projectPath, dataSource, tables);
         generateOthers(projectPath, dataSource, tables);

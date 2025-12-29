@@ -51,7 +51,10 @@ public class NativeAsset implements Serializable {
      * TEXT/IMAGE/VIDEO/NUMBER/CTA
      */
     private String assetType;
-
+    /**
+     * rating / likes / downloads / desc, 参见枚举类：DataSemanticType
+     */
+    private String dataSemanticType;
     /**
      * 是否必填
      */

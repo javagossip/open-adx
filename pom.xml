@@ -231,8 +231,6 @@
                         </annotationProcessorPaths>
                         <showWarnings>true</showWarnings>
                         <parameters>true</parameters>
-                        <!--                        <annotationProcessorPathsUseDepMgmt>true</annotationProcessorPathsUseDepMgmt>-->
-                        <!--                        <forceJavacCompilerUse>true</forceJavacCompilerUse>-->
                     </configuration>
                 </plugin>
 

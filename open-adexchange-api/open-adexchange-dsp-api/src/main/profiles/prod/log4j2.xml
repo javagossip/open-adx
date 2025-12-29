@@ -55,7 +55,7 @@
         <Logger name="org.apache.ibatis" level="debug" additivity="false">
             <AppenderRef ref="AsyncInfo"/>
         </Logger>
-        <Logger name="com.hexunion.mos.mapper" level="debug" additivity="false">
+        <Logger name="top.openadexchange.mapper" level="debug" additivity="false">
             <AppenderRef ref="AsyncInfo"/>
         </Logger>
         <Logger name="org.apache.ibatis.executor.resultset.ResultSetHandler" level="debug" additivity="false">

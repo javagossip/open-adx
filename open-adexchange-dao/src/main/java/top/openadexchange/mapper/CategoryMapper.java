@@ -2,15 +2,15 @@ package top.openadexchange.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import com.mybatisflex.core.BaseMapper;
-import top.openadexchange.model.Site;
+import top.openadexchange.model.Category;
 
 /**
- *  映射层。
+ * App/Site 内容分类字典表 映射层。
  *
  * @author top.openadexchange
  * @since 2025-12-29
  */
 @Mapper
-public interface SiteMapper extends BaseMapper<Site> {
+public interface CategoryMapper extends BaseMapper<Category> {
 
 }
