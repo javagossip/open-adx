@@ -31,7 +31,7 @@ public class Dsp implements Serializable {
 
     @Id(keyType = KeyType.Auto)
     private Long id;
-    private String code;
+    private String dspId;
     private Long userId;
     private String name;
 

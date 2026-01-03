@@ -54,7 +54,11 @@ public class NativeAsset implements Serializable {
     /**
      * rating / likes / downloads / desc, 参见枚举类：DataSemanticType
      */
-    private String dataSemanticType;
+    private String dataAssetType;
+    /**
+     * 数据资产类型，如 TEXT/NUMBER/MONEY
+     */
+    private String format;
     /**
      * 是否必填
      */
@@ -99,7 +103,10 @@ public class NativeAsset implements Serializable {
      * 最大大小(KB)
      */
     private Integer maxSizeKb;
-
+    /**
+     * 字段约束
+     */
+    private String constraints;
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;

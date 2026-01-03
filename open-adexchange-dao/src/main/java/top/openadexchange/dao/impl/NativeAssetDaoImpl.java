@@ -2,11 +2,13 @@ package top.openadexchange.dao.impl;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Result;
 import org.springframework.stereotype.Service;
 
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
 
+import top.openadexchange.dao.AdPlacementDao;
 import top.openadexchange.dao.NativeAssetDao;
 import top.openadexchange.mapper.NativeAssetMapper;
 import top.openadexchange.model.NativeAsset;
@@ -31,4 +33,5 @@ public class NativeAssetDaoImpl extends ServiceImpl<NativeAssetMapper, NativeAss
     public List<NativeAsset> listByAdPlacementId(Long adPlacementId) {
         return list(QueryWrapper.create().eq(NativeAsset::getAdPlacementId, adPlacementId));
     }
+
 }

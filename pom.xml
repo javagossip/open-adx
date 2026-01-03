@@ -195,6 +195,13 @@
                     <include>**/*</include>
                 </includes>
             </resource>
+            <resource>
+                <directory>src/main/profiles/${env.id}</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
         </resources>
         <pluginManagement>
             <plugins>

@@ -36,7 +36,7 @@ public class DspConverter {
 
         // 设置代码和安全密钥
         if (entityCodeService != null) {
-            dsp.setCode(entityCodeService.generateDspCode());
+            dsp.setDspId(entityCodeService.generateDspCode());
         }
 
         // 设置用户ID

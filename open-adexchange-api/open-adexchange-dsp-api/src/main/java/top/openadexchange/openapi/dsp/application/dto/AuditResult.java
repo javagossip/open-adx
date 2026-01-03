@@ -1,10 +1,14 @@
 package top.openadexchange.openapi.dsp.application.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Schema(description = "审核结果")
+@NoArgsConstructor
+@AllArgsConstructor
 public class AuditResult {
 
     @Schema(description = "审核状态,参见AuditStatus枚举： " + "PENDING:待审核,APPROVED:审核通过,REJECTED:审核拒绝")

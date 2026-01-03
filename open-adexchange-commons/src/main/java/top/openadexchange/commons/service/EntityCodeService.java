@@ -12,6 +12,7 @@ public class EntityCodeService {
     private static final String AD_PLACEMENT_CODE_PREFIX = "ADP";
     private static final String PUBLISHER_CODE_PREFIX = "PUB";
     private static final String ADVERTISER_CODE_PREFIX = "ADV";
+    private static final String CREATIVE_CODE_PREFIX = "CRT";
 
     @Resource
     private EntityCodeGenerator entityCodeGenerator;
@@ -34,5 +35,9 @@ public class EntityCodeService {
 
     public String generateAdvertiserCode() {
         return String.format("%s-%s", ADVERTISER_CODE_PREFIX, entityCodeGenerator.generateCode());
+    }
+
+    public String generateCreativeCode() {
+        return String.format("%s-%s", CREATIVE_CODE_PREFIX, entityCodeGenerator.generateCode());
     }
 }

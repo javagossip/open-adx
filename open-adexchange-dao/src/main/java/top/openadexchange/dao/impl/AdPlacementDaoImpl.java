@@ -1,8 +1,12 @@
 package top.openadexchange.dao.impl;
 
+import com.mybatisflex.core.query.QueryWrapper;
+
 import org.springframework.stereotype.Service;
 
 import com.mybatisflex.spring.service.impl.ServiceImpl;
+
+import org.springframework.util.Assert;
 
 import top.openadexchange.dao.AdPlacementDao;
 import top.openadexchange.mapper.AdPlacementMapper;
@@ -23,5 +27,11 @@ public class AdPlacementDaoImpl extends ServiceImpl<AdPlacementMapper, AdPlaceme
 
     public Boolean disableAdPlacement(Long id) {
         return updateChain().set(AdPlacement::getStatus, 0).eq(AdPlacement::getId, id).update();
+    }
+
+    @Override
+    public AdPlacement getByTemplateCode(String nativeTemplateCode) {
+        Assert.notNull(nativeTemplateCode, "nativeTemplateCode cannot be null");
+        return getOne(QueryWrapper.create().eq(AdPlacement::getCode, nativeTemplateCode));
     }
 }

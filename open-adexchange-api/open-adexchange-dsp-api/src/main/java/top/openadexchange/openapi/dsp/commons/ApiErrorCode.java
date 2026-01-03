@@ -11,7 +11,10 @@ public enum ApiErrorCode implements ErrorCode {
     BUSINESS_LICENSE_URL_IS_REQUIRED("A0017", "营业执照图片不能为空"),
 
     ADVERTISER_NOT_EXIST("A0002", "广告主不存在"),
-    ADVERTISER_EXISTS("A0011", "广告主已存在");
+    ADVERTISER_EXISTS("A0011", "广告主已存在"),
+    INVALID_CREATIVE_TYPE("A0030", "不支持的创意类型"),
+    DSP_CREATIVE_ID_IS_REQUIRED("A0031", "dsp平台创意ID不能为空"),
+    AUTH_FAILED("A0099", "认证失败");
 
     private final String code;
     private final String message;
