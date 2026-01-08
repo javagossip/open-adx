@@ -30,7 +30,7 @@ public class Dsp implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id(keyType = KeyType.Auto)
-    private Long id;
+    private Integer id;
     private String dspId;
     private Long userId;
     private String name;

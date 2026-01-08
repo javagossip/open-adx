@@ -14,9 +14,9 @@ import top.openadexchange.model.DspSiteAdPlacement;
  */
 public interface DspSiteAdPlacementDao extends IService<DspSiteAdPlacement> {
 
-    void addDspSiteAdPlacements(Long id, List<Long> siteAdPlacementIds);
+    void addDspSiteAdPlacements(Integer id, List<Integer> siteAdPlacementIds);
 
-    List<DspSiteAdPlacement> getDspSiteAdPlacements(Long dspId);
+    List<DspSiteAdPlacement> getDspSiteAdPlacements(Integer dspId);
 
-    List<Long> getDspSiteAdPlacementIds(Long dspId);
+    List<Integer> getDspSiteAdPlacementIds(Integer dspId);
 }

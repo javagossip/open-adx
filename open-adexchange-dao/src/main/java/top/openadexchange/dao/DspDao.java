@@ -12,13 +12,13 @@ import top.openadexchange.model.Dsp;
  */
 public interface DspDao extends IService<Dsp> {
 
-    Boolean enableDsp(Long id);
+    Boolean enableDsp(Integer id);
 
-    Boolean disableDsp(Long id);
+    Boolean disableDsp(Integer id);
 
-    void settingDspQpsLimit(Long id, Integer qpsLimit);
+    void settingDspQpsLimit(Integer id, Integer qpsLimit);
 
-    Integer getDspQpsLimit(Long dspId);
+    Integer getDspQpsLimit(Integer dspId);
 
     Dsp getDspByToken(String token);
 }

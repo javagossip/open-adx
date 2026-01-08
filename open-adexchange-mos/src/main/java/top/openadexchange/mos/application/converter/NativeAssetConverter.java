@@ -60,7 +60,7 @@ public class NativeAssetConverter {
         return nativeAssetDto;
     }
 
-    public List<NativeAsset> from(Long adPlacementId, NativeAdSpecificationDto nativeAdSpecDto) {
+    public List<NativeAsset> from(Integer adPlacementId, NativeAdSpecificationDto nativeAdSpecDto) {
         if (nativeAdSpecDto == null) {
             return null;
         }

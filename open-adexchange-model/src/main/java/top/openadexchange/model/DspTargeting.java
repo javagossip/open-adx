@@ -35,17 +35,17 @@ public class DspTargeting implements Serializable {
     /**
      * dsp ID
      */
-    private Long dspId;
+    private Integer dspId;
 
     /**
      * 定向操作系统，json数组格式
      */
     private String os;
 
-    /**
-     * 国家/地区
-     */
-    private String country;
+//    /**
+//     * 国家/地区
+//     */
+//    private String country;
 
     /**
      * 设备类型

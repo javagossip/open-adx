@@ -34,7 +34,7 @@ public class SiteAdPlacementController {
 
     @PostMapping
     @Operation(summary = "新增媒体广告位, 创建成功返回媒体广告位ID")
-    public ApiResponse<Long> addSiteAdPlacement(@RequestBody SiteAdPlacementDto siteAdPlacementDto) {
+    public ApiResponse<Integer> addSiteAdPlacement(@RequestBody SiteAdPlacementDto siteAdPlacementDto) {
         return ApiResponse.success(siteAdPlacementService.addSiteAdPlacement(siteAdPlacementDto));
     }
 

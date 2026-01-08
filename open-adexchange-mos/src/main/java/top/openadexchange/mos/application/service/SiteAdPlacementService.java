@@ -22,7 +22,7 @@ public class SiteAdPlacementService {
     @Resource
     private SiteAdPlacementConverter siteAdPlacementConverter;
 
-    public Long addSiteAdPlacement(SiteAdPlacementDto siteAdPlacementDto) {
+    public Integer addSiteAdPlacement(SiteAdPlacementDto siteAdPlacementDto) {
         SiteAdPlacement siteAdPlacement = siteAdPlacementConverter.from(siteAdPlacementDto);
         siteAdPlacementDao.save(siteAdPlacement);
         return siteAdPlacement.getId();

@@ -21,11 +21,11 @@ import top.openadexchange.model.AdPlacement;
 @Service
 public class AdPlacementDaoImpl extends ServiceImpl<AdPlacementMapper, AdPlacement> implements AdPlacementDao {
 
-    public Boolean enableAdPlacement(Long id) {
+    public Boolean enableAdPlacement(Integer id) {
         return updateChain().set(AdPlacement::getStatus, 1).eq(AdPlacement::getId, id).update();
     }
 
-    public Boolean disableAdPlacement(Long id) {
+    public Boolean disableAdPlacement(Integer id) {
         return updateChain().set(AdPlacement::getStatus, 0).eq(AdPlacement::getId, id).update();
     }
 

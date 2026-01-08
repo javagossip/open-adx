@@ -30,12 +30,12 @@ public class NativeAsset implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id(keyType = KeyType.Auto)
-    private Long id;
+    private Integer id;
 
     /**
      * 所属广告位id
      */
-    private Long adPlacementId;
+    private Integer adPlacementId;
 
     /**
      * 字段名称，展示使用

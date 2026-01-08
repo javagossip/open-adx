@@ -19,7 +19,7 @@ import top.openadexchange.model.DspTargeting;
 public class DspTargetingDaoImpl extends ServiceImpl<DspTargetingMapper, DspTargeting> implements DspTargetingDao {
 
     @Override
-    public DspTargeting getDspTargeting(Long dspId) {
+    public DspTargeting getDspTargeting(Integer dspId) {
         return getOne(QueryWrapper.create().eq(DspTargeting::getDspId, dspId));
     }
 }

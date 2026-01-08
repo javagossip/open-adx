@@ -1,0 +1,14 @@
+---
+description: oax项目执行上下文
+alwaysApply: false
+enabled: true
+updatedAt: 2026-01-08T03:10:57.157Z
+provider: 
+---
+
+- 将open-adx整个项目模块当做默认上下文
+- 生成代码要遵循已有项目的代码规范
+- 严格按照指令执行，不随意改动其他代码
+- 生成测试类的时候禁止使用SpringBootTest注解
+- 针对使用依赖的单元测试，如果要求必须使用真实依赖的话，请使用ContextConfiguration注解
+- 生成的代码需要自动确认是否有编译错误，如有需要修复

@@ -30,7 +30,7 @@ public class SiteAdPlacement implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id(keyType = KeyType.Auto)
-    private Long id;
+    private Integer id;
 
     /**
      * 站点/app id
@@ -40,7 +40,7 @@ public class SiteAdPlacement implements Serializable {
     /**
      * 广告位id
      */
-    private Long adPlacementId;
+    private Integer adPlacementId;
     private String code;
     /**
      * 平台，ios,android,web

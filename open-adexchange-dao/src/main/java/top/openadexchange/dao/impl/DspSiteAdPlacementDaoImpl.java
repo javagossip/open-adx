@@ -23,7 +23,7 @@ public class DspSiteAdPlacementDaoImpl extends ServiceImpl<DspSiteAdPlacementMap
         implements DspSiteAdPlacementDao {
 
     @Override
-    public void addDspSiteAdPlacements(Long id, List<Long> siteAdPlacementIds) {
+    public void addDspSiteAdPlacements(Integer id, List<Integer> siteAdPlacementIds) {
         remove(QueryWrapper.create().eq(DspSiteAdPlacement::getDspId, id));
         saveBatch(siteAdPlacementIds.stream().map(siteAdPlacementId -> {
             DspSiteAdPlacement dspSiteAdPlacement = new DspSiteAdPlacement();
@@ -34,12 +34,12 @@ public class DspSiteAdPlacementDaoImpl extends ServiceImpl<DspSiteAdPlacementMap
     }
 
     @Override
-    public List<DspSiteAdPlacement> getDspSiteAdPlacements(Long dspId) {
+    public List<DspSiteAdPlacement> getDspSiteAdPlacements(Integer dspId) {
         return list(QueryWrapper.create().eq(DspSiteAdPlacement::getDspId, dspId));
     }
 
     @Override
-    public List<Long> getDspSiteAdPlacementIds(Long dspId) {
+    public List<Integer> getDspSiteAdPlacementIds(Integer dspId) {
         return getDspSiteAdPlacements(dspId).stream()
                 .map(DspSiteAdPlacement::getSiteAdPlacementId)
                 .collect(Collectors.toList());

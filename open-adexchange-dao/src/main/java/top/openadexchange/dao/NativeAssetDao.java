@@ -14,7 +14,7 @@ import top.openadexchange.model.NativeAsset;
  */
 public interface NativeAssetDao extends IService<NativeAsset> {
 
-    void updateNativeAssetsByAdPlacementId(Long id, List<NativeAsset> nativeAssets);
+    void updateNativeAssetsByAdPlacementId(Integer id, List<NativeAsset> nativeAssets);
 
-    List<NativeAsset> listByAdPlacementId(Long adPlacementId);
+    List<NativeAsset> listByAdPlacementId(Integer adPlacementId);
 }

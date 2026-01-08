@@ -32,7 +32,7 @@ public class DspController {
 
     @PostMapping
     @Operation(summary = "新增DSP, 创建成功返回DSP ID")
-    public ApiResponse<Long> addDsp(@RequestBody DspDto dspDto) {
+    public ApiResponse<Integer> addDsp(@RequestBody DspDto dspDto) {
         return ApiResponse.success(dspService.addDsp(dspDto));
     }
 
@@ -44,25 +44,25 @@ public class DspController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "删除DSP")
-    public ApiResponse<Boolean> deleteDsp(@PathVariable("id") Long id) {
+    public ApiResponse<Boolean> deleteDsp(@PathVariable("id") Integer id) {
         return ApiResponse.success(dspService.deleteDsp(id));
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "获取DSP")
-    public ApiResponse<DspDto> getDsp(@PathVariable("id") Long id) {
+    public ApiResponse<DspDto> getDsp(@PathVariable("id") Integer id) {
         return ApiResponse.success(dspService.getDsp(id));
     }
 
     @PutMapping("/{id}/enable")
     @Operation(summary = "启用DSP")
-    public ApiResponse<Boolean> enableDsp(@PathVariable("id") Long id) {
+    public ApiResponse<Boolean> enableDsp(@PathVariable("id") Integer id) {
         return ApiResponse.success(dspService.enableDsp(id));
     }
 
     @PutMapping("/{id}/disable")
     @Operation(summary = "禁用DSP")
-    public ApiResponse<Boolean> disableDsp(@PathVariable("id") Long id) {
+    public ApiResponse<Boolean> disableDsp(@PathVariable("id") Integer id) {
         return ApiResponse.success(dspService.disableDsp(id));
     }
 
@@ -75,14 +75,14 @@ public class DspController {
     @PutMapping("/{id}/setting")
     @Operation(summary = "DSP设置",
             description = "DSP设置，包括广告位、QPS限制、定向")
-    public ApiResponse<Boolean> dspSetting(@PathVariable("id") Long dspId, @RequestBody DspSettingDto dspSettingDto) {
+    public ApiResponse<Boolean> dspSetting(@PathVariable("id") Integer dspId, @RequestBody DspSettingDto dspSettingDto) {
         return ApiResponse.success(dspService.dspSetting(dspId, dspSettingDto));
     }
 
 
     @GetMapping("/{id}/setting")
     @Operation(summary = "获取DSP设置")
-    public ApiResponse<DspSettingDto> getDspSetting(@PathVariable("id") Long dspId) {
+    public ApiResponse<DspSettingDto> getDspSetting(@PathVariable("id") Integer dspId) {
         return ApiResponse.success(dspService.getDspSetting(dspId));
     }
 }

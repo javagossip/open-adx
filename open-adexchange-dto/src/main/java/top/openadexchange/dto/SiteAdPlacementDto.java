@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 public class SiteAdPlacementDto {
 
     @Schema(description = "媒体广告位ID")
-    private Long id;
+    private Integer id;
 
     @Schema(description = "站点/app id")
     private Long siteId;
 
     @Schema(description = "广告位id")
-    private Long adPlacementId;
+    private Integer adPlacementId;
     @Schema(description = "平台，ios,android,web")
     private String platform;
 

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class DspDto {
 
     @Schema(description = "DSP ID")
-    private Long id;
+    private Integer id;
     @Schema(description = "DSP名称")
     private String name;
     @Schema(description = "DSP登录密码")

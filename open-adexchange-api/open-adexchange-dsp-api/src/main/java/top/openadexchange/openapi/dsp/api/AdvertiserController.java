@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,14 +31,14 @@ public class AdvertiserController {
     @PostMapping
     @Operation(summary = "添加广告主",
             description = "添加广告主, 广告主添加成功返回广告交易平台广告主编码")
-    public OpenApiResponse<String> addAdvertiser(AdvertiserDto advertiserDto) {
+    public OpenApiResponse<String> addAdvertiser(@RequestBody AdvertiserDto advertiserDto) {
         return OpenApiResponse.success(advertiserService.addAdvertiser(advertiserDto));
     }
 
     @PutMapping
     @Operation(summary = "更新广告主",
             description = "更新广告主信息,更新成功返回true,否则false")
-    public OpenApiResponse<Boolean> updateAdvertiser(AdvertiserDto advertiserDto) {
+    public OpenApiResponse<Boolean> updateAdvertiser(@RequestBody AdvertiserDto advertiserDto) {
         return OpenApiResponse.success(advertiserService.updateAdvertiser(advertiserDto));
     }
 

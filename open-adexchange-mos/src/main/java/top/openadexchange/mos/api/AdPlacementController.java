@@ -34,7 +34,7 @@ public class AdPlacementController {
 
     @PostMapping
     @Operation(summary = "新增广告位, 创建成功返回广告位ID")
-    public ApiResponse<Long> addAdPlacement(@RequestBody AdPlacementDto adPlacementDto) {
+    public ApiResponse<Integer> addAdPlacement(@RequestBody AdPlacementDto adPlacementDto) {
         return ApiResponse.success(adPlacementService.addAdPlacement(adPlacementDto));
     }
 
@@ -46,25 +46,25 @@ public class AdPlacementController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "删除广告位")
-    public ApiResponse<Boolean> deleteAdPlacement(@PathVariable("id") Long id) {
+    public ApiResponse<Boolean> deleteAdPlacement(@PathVariable("id") Integer id) {
         return ApiResponse.success(adPlacementService.deleteAdPlacement(id));
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "获取广告位")
-    public ApiResponse<AdPlacementDto> getAdPlacement(@PathVariable("id") Long id) {
+    public ApiResponse<AdPlacementDto> getAdPlacement(@PathVariable("id") Integer id) {
         return ApiResponse.success(adPlacementService.getAdPlacement(id));
     }
 
     @PutMapping("/{id}/enable")
     @Operation(summary = "启用广告位")
-    public ApiResponse<Boolean> enableAdPlacement(@PathVariable("id") Long id) {
+    public ApiResponse<Boolean> enableAdPlacement(@PathVariable("id") Integer id) {
         return ApiResponse.success(adPlacementService.enableAdPlacement(id));
     }
 
     @PutMapping("/{id}/disable")
     @Operation(summary = "禁用广告位")
-    public ApiResponse<Boolean> disableAdPlacement(@PathVariable("id") Long id) {
+    public ApiResponse<Boolean> disableAdPlacement(@PathVariable("id") Integer id) {
         return ApiResponse.success(adPlacementService.disableAdPlacement(id));
     }
 

@@ -37,6 +37,7 @@
         <module>open-adexchange-commons</module>
         <module>open-adexchange-dto</module>
         <module>open-adexchange-constants</module>
+        <module>open-adexchange-rtb-proto</module>
     </modules>
 
     <properties>
@@ -68,6 +69,10 @@
         <tencent.cloud.spring-boot3-starter.version>1.0.1</tencent.cloud.spring-boot3-starter.version>
         <hashids.version>1.0.3</hashids.version>
         <protobuf-java.version>4.33.2</protobuf-java.version>
+        <commons-codec.version>1.20.0</commons-codec.version>
+        <roaringbitmap.version>1.5.1</roaringbitmap.version>
+        <fastjson2.version>2.0.60</fastjson2.version>
+        <ip2region.version>3.3.4</ip2region.version>
         <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
 
@@ -115,6 +120,11 @@
             <dependency>
                 <groupId>top.openadexchange</groupId>
                 <artifactId>open-adexchange-dto</artifactId>
+                <version>${open-adexchange.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.openadexchange</groupId>
+                <artifactId>open-adexchange-rtb-proto</artifactId>
                 <version>${open-adexchange.version}</version>
             </dependency>
             <dependency>
@@ -184,6 +194,26 @@
                 <artifactId>protobuf-java</artifactId>
                 <version>${protobuf-java.version}</version>
             </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codec.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.RoaringBitmap.RoaringBitmap</groupId>
+                <artifactId>roaringbitmap</artifactId>
+                <version>${roaringbitmap.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lionsoul</groupId>
+                <artifactId>ip2region</artifactId>
+                <version>${ip2region.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
@@ -192,7 +222,9 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>**/*</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.yml</include>
+                    <include>**/*.properties</include>
                 </includes>
             </resource>
             <resource>
@@ -362,4 +394,10 @@
             <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 </project>

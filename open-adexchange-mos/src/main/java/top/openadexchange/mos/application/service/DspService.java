@@ -42,7 +42,7 @@ public class DspService {
     @Resource
     private UserFactory userFactory;
 
-    public Long addDsp(DspDto dspDto) {
+    public Integer addDsp(DspDto dspDto) {
         //创建dsp成功自动创建用户，然后绑定dsp角色
         SysUser sysUser = userFactory.forDsp(dspDto);
         sysUserService.insertUser(sysUser);
@@ -57,7 +57,7 @@ public class DspService {
         return dspDao.updateById(dsp);
     }
 
-    public Boolean deleteDsp(Long id) {
+    public Boolean deleteDsp(Integer id) {
         log.info("deleteDsp: {}", id);
         Dsp dsp = dspDao.getById(id);
         sysUserService.deleteUserById(dsp.getUserId());
@@ -65,15 +65,15 @@ public class DspService {
         return true;
     }
 
-    public DspDto getDsp(Long id) {
+    public DspDto getDsp(Integer id) {
         return dspConverter.toDspDto(dspDao.getById(id));
     }
 
-    public Boolean enableDsp(Long id) {
+    public Boolean enableDsp(Integer id) {
         return dspDao.enableDsp(id);
     }
 
-    public Boolean disableDsp(Long id) {
+    public Boolean disableDsp(Integer id) {
         return dspDao.disableDsp(id);
     }
 
@@ -83,8 +83,8 @@ public class DspService {
     }
 
     @Transactional
-    public Boolean dspSetting(Long id, DspSettingDto dspSettingDto) {
-        List<Long> siteAdPlacementIds = dspSettingDto.getSiteAdPlacementIds();
+    public Boolean dspSetting(Integer id, DspSettingDto dspSettingDto) {
+        List<Integer> siteAdPlacementIds = dspSettingDto.getSiteAdPlacementIds();
         settingDspSiteAdPlacements(id, siteAdPlacementIds);
         dspDao.settingDspQpsLimit(id, dspSettingDto.getQpsLimit());
 
@@ -94,7 +94,7 @@ public class DspService {
         if (dspTargetingDto.getOsList() != null) {
             dspTargeting.setOs(JSON.toJSONString(dspTargetingDto.getOsList()));
         }
-        dspTargeting.setCountry(dspTargetingDto.getCountry());
+//        dspTargeting.setCountry(dspTargetingDto.getCountry());
         if (dspTargetingDto.getDeviceTypes() != null) {
             dspTargeting.setDeviceType(JSON.toJSONString(dspTargetingDto.getDeviceTypes()));
         }
@@ -105,11 +105,11 @@ public class DspService {
         return true;
     }
 
-    public void settingDspSiteAdPlacements(Long id, List<Long> siteAdPlacementIds) {
+    public void settingDspSiteAdPlacements(Integer id, List<Integer> siteAdPlacementIds) {
         dspSiteAdPlacementDao.addDspSiteAdPlacements(id, siteAdPlacementIds);
     }
 
-    public DspSettingDto getDspSetting(Long dspId) {
+    public DspSettingDto getDspSetting(Integer dspId) {
         DspSettingDto dspSettingDto = new DspSettingDto();
         dspSettingDto.setSiteAdPlacementIds(dspSiteAdPlacementDao.getDspSiteAdPlacementIds(dspId));
         dspSettingDto.setQpsLimit(dspDao.getDspQpsLimit(dspId));
@@ -119,7 +119,7 @@ public class DspService {
             if (dspTargeting.getOs() != null) {
                 targetingDto.setOsList(JSON.parseArray(dspTargeting.getOs(), String.class));
             }
-            targetingDto.setCountry(dspTargeting.getCountry());
+            //            targetingDto.setCountry(dspTargeting.getCountry());
             if (dspTargeting.getDeviceType() != null) {
                 targetingDto.setDeviceTypes(JSON.parseArray(dspTargeting.getDeviceType(), String.class));
             }

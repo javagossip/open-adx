@@ -18,21 +18,21 @@ import top.openadexchange.model.Dsp;
 @Service
 public class DspDaoImpl extends ServiceImpl<DspMapper, Dsp> implements DspDao {
 
-    public Boolean enableDsp(Long id) {
+    public Boolean enableDsp(Integer id) {
         return updateChain().set(Dsp::getStatus, 1).eq(Dsp::getId, id).update();
     }
 
-    public Boolean disableDsp(Long id) {
+    public Boolean disableDsp(Integer id) {
         return updateChain().set(Dsp::getStatus, 0).eq(Dsp::getId, id).update();
     }
 
     @Override
-    public void settingDspQpsLimit(Long id, Integer qpsLimit) {
+    public void settingDspQpsLimit(Integer id, Integer qpsLimit) {
         updateChain().set(Dsp::getQpsLimit, qpsLimit).eq(Dsp::getId, id).update();
     }
 
     @Override
-    public Integer getDspQpsLimit(Long dspId) {
+    public Integer getDspQpsLimit(Integer dspId) {
         return getByIdOpt(dspId).map(Dsp::getQpsLimit).orElse(null);
     }
 

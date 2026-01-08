@@ -23,14 +23,14 @@ import top.openadexchange.model.NativeAsset;
 public class NativeAssetDaoImpl extends ServiceImpl<NativeAssetMapper, NativeAsset> implements NativeAssetDao {
 
     @Override
-    public void updateNativeAssetsByAdPlacementId(Long adPlacementId, List<NativeAsset> nativeAssets) {
+    public void updateNativeAssetsByAdPlacementId(Integer adPlacementId, List<NativeAsset> nativeAssets) {
         remove(QueryWrapper.create().eq(NativeAsset::getAdPlacementId, adPlacementId));
         nativeAssets.forEach(nativeAsset -> nativeAsset.setAdPlacementId(adPlacementId));
         saveBatch(nativeAssets);
     }
 
     @Override
-    public List<NativeAsset> listByAdPlacementId(Long adPlacementId) {
+    public List<NativeAsset> listByAdPlacementId(Integer adPlacementId) {
         return list(QueryWrapper.create().eq(NativeAsset::getAdPlacementId, adPlacementId));
     }
 

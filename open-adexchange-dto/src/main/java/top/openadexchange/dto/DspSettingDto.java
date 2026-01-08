@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class DspSettingDto {
 
     @Schema(description = "dsp关联的广告位id列表")
-    private List<Long> siteAdPlacementIds;
+    private List<Integer> siteAdPlacementIds;
     @Schema(description = "dsp QPS限制")
     private Integer qpsLimit;
     @Schema(description = "dsp定向配置")

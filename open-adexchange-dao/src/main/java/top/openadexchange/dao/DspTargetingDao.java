@@ -13,5 +13,5 @@ import top.openadexchange.model.DspTargeting;
 public interface DspTargetingDao extends IService<DspTargeting> {
 
     //根据dspId获取dsp定向信息
-    DspTargeting getDspTargeting(Long dspId);
+    DspTargeting getDspTargeting(Integer dspId);
 }

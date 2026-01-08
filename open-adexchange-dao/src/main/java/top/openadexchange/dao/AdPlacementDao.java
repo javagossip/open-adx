@@ -12,9 +12,9 @@ import top.openadexchange.model.AdPlacement;
  */
 public interface AdPlacementDao extends IService<AdPlacement> {
 
-    Boolean enableAdPlacement(Long id);
+    Boolean enableAdPlacement(Integer id);
 
-    Boolean disableAdPlacement(Long id);
+    Boolean disableAdPlacement(Integer id);
 
     AdPlacement getByTemplateCode(String nativeTemplateCode);
 }

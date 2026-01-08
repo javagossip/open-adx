@@ -32,7 +32,7 @@ public class AdPlacementService {
     @Resource
     private NativeAssetDao nativeAssetDao;
 
-    public Long addAdPlacement(AdPlacementDto adPlacementDto) {
+    public Integer addAdPlacement(AdPlacementDto adPlacementDto) {
         AdPlacement adPlacement = adPlacementConverter.from(adPlacementDto);
         adPlacementDao.save(adPlacement);
         List<NativeAsset> nativeAssets = nativeAssetConverter.from(adPlacement.getId(), adPlacementDto.getNativeAd());
@@ -47,11 +47,11 @@ public class AdPlacementService {
         return adPlacementDao.updateById(adPlacement);
     }
 
-    public Boolean deleteAdPlacement(Long id) {
+    public Boolean deleteAdPlacement(Integer id) {
         return adPlacementDao.removeById(id);
     }
 
-    public AdPlacementDto getAdPlacement(Long id) {
+    public AdPlacementDto getAdPlacement(Integer id) {
         AdPlacement adPlacement = adPlacementDao.getById(id);
         AdPlacementDto adPlacementDto = adPlacementConverter.toAdPlacementDto(adPlacementDao.getById(id));
         if (adPlacement != null && AdFormat.NATIVE == AdFormat.valueOf(adPlacement.getAdFormat())) {
@@ -60,11 +60,11 @@ public class AdPlacementService {
         return adPlacementDto;
     }
 
-    public Boolean enableAdPlacement(Long id) {
+    public Boolean enableAdPlacement(Integer id) {
         return adPlacementDao.enableAdPlacement(id);
     }
 
-    public Boolean disableAdPlacement(Long id) {
+    public Boolean disableAdPlacement(Integer id) {
         return adPlacementDao.disableAdPlacement(id);
     }
 

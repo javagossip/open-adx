@@ -24,6 +24,10 @@
             <artifactId>spring-boot-starter-undertow</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+        <dependency>
             <groupId>top.openadexchange</groupId>
             <artifactId>open-adexchange-commons</artifactId>
         </dependency>
@@ -44,10 +48,22 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>top.openadexchange</groupId>
+            <artifactId>epc</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
-        <finalName>oax-mos</finalName>
+        <finalName>oax-openapi-dsp</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

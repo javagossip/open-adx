@@ -31,12 +31,12 @@ public class DspSiteAdPlacement implements Serializable {
      * dsp平台ID
      */
     @Id
-    private Long dspId;
+    private Integer dspId;
 
     /**
      * 媒体广告位ID
      */
     @Id
-    private Long siteAdPlacementId;
+    private Integer siteAdPlacementId;
 
 }

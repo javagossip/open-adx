@@ -16,13 +16,13 @@ import top.openadexchange.constants.enums.NativeAssetType;
 public class NativeAssetDto {
 
     @Schema(description = "AssetID")
-    private Long id;
+    private Integer id;
 
     /**
      * 所属广告位id
      */
     @Schema(description = "所属广告位id")
-    private Long adPlacementId;
+    private Integer adPlacementId;
 
     /**
      * 字段名称，展示使用

@@ -26,15 +26,35 @@
 | signature | string | 是 | 签名字符串 |
 
 #### 签名生成规则
-1. 将请求参数按参数名ASCII码顺序排序
-2. 将排序后的参数与其对应值拼接成param1=value1&param2=value2...的格式
-3. 使用HmacSHA256算法对拼接后的字符串进行签名，密钥为分配的secretKey
-4. 将签名结果转换为十六进制字符串并转换为大写
+
+签名算法将以下参数按ASCII码顺序拼接后进行HmacSHA256签名：
+
+1. **Header认证参数**（固定包含）：
+   - `clientId`
+   - `timestamp`
+   - `nonce`
+
+2. **URL查询参数**（如有）：
+   - 支持多值参数，每个键值对都会参与签名
+   - 例如：`key=value1&key=value2`
+
+3. **请求体哈希**（如有POST/PUT请求体）：
+   - 使用SHA256对请求体内容进行哈希
+   - 参数名固定为：`bodyHash`
+
+4. **签名生成步骤**：
+   - 将以上所有参数按 `key=value` 格式拼接
+   - 对所有键值对字符串按ASCII码顺序排序
+   - 用 `&` 符号连接排序后的键值对
+   - 使用HmacSHA256算法对拼接后的字符串进行签名，密钥为分配的secretKey
+   - 将签名结果转换为十六进制字符串并转换为大写
 
 示例：
 ```java
 // 待签名字符串构造示例
-String stringToSign = "advertiserId=DSP001&nonce=550e8400-e29b-41d4-a716-446655440000&timestamp=1609459200000";
+// 假设请求包含：Header认证参数 + URL查询参数 + POST请求体
+// String stringToSign = "bodyHash=5f4d3e2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d&clientId=DSP001&nonce=550e8400-e29b-41d4-a716-446655440000&page=1&size=10&timestamp=1609459200000";
+
 // 使用HmacSHA256算法签名
 String signature = hmacSHA256(stringToSign, secretKey).toUpperCase();
 ```
@@ -60,10 +80,25 @@ public static String hmacSHA256(String data, String key) {
 Authorization: clientId={dspCode},timestamp={timestamp},nonce={nonce},signature={signature}
 ```
 
+示例：
+```
+Authorization: clientId=DSP001,timestamp=1609459200000,nonce=550e8400-e29b-41d4-a716-446655440000,signature=5F4D3E2A1B0C9D8E7F6A5B4C3D2E1F0A9B8C7D6E5F4A3B2C1D0E9F8A7B6C5D
+```
+
 #### 防重放攻击机制
 1. 服务端会检查nonce参数，确保同一nonce在5分钟内只能使用一次
 2. 服务端会检查timestamp参数，确保请求时间与服务器时间差不超过15分钟
 3. 若违反以上任一规则，将返回认证失败错误
+
+#### 认证错误处理
+当认证失败时，服务端会返回以下错误信息：
+- `认证信息缺失, Header: Authorization`：请求头中未包含Authorization字段
+- `认证参数缺失`：Authorization字段中缺少必需参数（clientId、timestamp、nonce、signature）
+- `请求时间戳已过期`：timestamp与服务器时间差超过15分钟
+- `DSP不存在或已停用`：clientId对应的DSP不存在或已被停用
+- `签名错误`：签名验证失败
+- `请求已使用，请勿重复请求`：nonce已被使用，检测到重放攻击
+- `认证过程发生错误`：其他认证过程中的异常
 
 ### 2.3 响应格式
 

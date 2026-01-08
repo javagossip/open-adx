@@ -17,7 +17,7 @@ import top.openadexchange.dto.adspecification.VideoAdSpecificationDto;
 public class AdPlacementDto {
 
     @Schema(description = "广告位ID")
-    private Long id;
+    private Integer id;
     @Schema(description = "广告位名称")
     private String name;
     /**
