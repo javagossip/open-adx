@@ -13,13 +13,13 @@ OpenADX 采用微服务架构，主要包括以下模块：
   - [open-adexchange-ssp-api](open-adexchange-api/open-adexchange-ssp-api/) - SSP 平台 API 接口定义
   - [open-adexchange-tracking-api](open-adexchange-api/open-adexchange-tracking-api/) - 广告追踪 API 接口定义
 
-- **[open-adexchange-mos](open-adexchange-mos/)** - 运营管理模块，提供给媒体方以及运营管理人员使用
+- **[open-adexchange-mos](open-adexchange-mos/)** - 主业务服务模块，包含广告交易的核心业务逻辑
 
 - **[open-adexchange-model](open-adexchange-model/)** - 数据模型模块，定义领域实体和数据传输对象
 
 - **[open-adexchange-dao](open-adexchange-dao/)** - 数据访问层，基于 MyBatis-Flex 实现数据持久化
 
-- **[open-adexchange-dto](open-adexchange-dto/)** - 数据传输对象模块，定义接口公共实体
+- **[open-adexchange-dto](open-adexchange-dto/)** - 数据传输对象模块，定义接口实体
 
 - **[open-adexchange-commons](open-adexchange-commons/)** - 公共组件模块，包含通用工具类和服务
 
@@ -30,6 +30,46 @@ OpenADX 采用微服务架构，主要包括以下模块：
 ### 代码生成模块
 
 - **[open-adexchange-codegen](open-adexchange-codegen/)** - 代码生成模块，包含 MyBatis-Flex 代码生成器
+
+## 模块依赖关系图
+
+```mermaid
+graph TD
+    subgraph "OpenADX Architecture"
+        mos[open-adexchange-mos<br/>主业务服务]
+        
+        api[open-adexchange-api<br/>API接口定义]
+        dsp_api[open-adexchange-dsp-api]
+        ssp_api[open-adexchange-ssp-api]
+        tracking_api[open-adexchange-tracking-api]
+        
+        model[open-adexchange-model<br/>数据模型]
+        dao[open-adexchange-dao<br/>数据访问层]
+        dto[open-adexchange-dto<br/>数据传输对象]
+        commons[open-adexchange-commons<br/>公共组件]
+        constants[open-adexchange-constants<br/>常量定义]
+        rtb_proto[open-adexchange-rtb-proto<br/>RTB协议定义]
+    end
+    
+    mos --> dao
+    mos --> model
+    mos --> dto
+    
+    dao --> model
+    
+    dto --> commons
+    dto --> constants
+    
+    api --> commons
+    api --> model
+    
+    dsp_api --> api
+    ssp_api --> api
+    tracking_api --> api
+    
+    dao --> model
+    mos --> rtb_proto
+```
 
 ## 项目特色
 
