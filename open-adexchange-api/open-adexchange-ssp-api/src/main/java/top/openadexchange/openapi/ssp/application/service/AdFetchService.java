@@ -9,7 +9,7 @@ import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.openapi.ssp.application.dto.AdFetchRequest;
 import top.openadexchange.openapi.ssp.application.dto.AdFetchResponse;
 import top.openadexchange.openapi.ssp.application.factory.IndexKeysBuilder;
-import top.openadexchange.openapi.ssp.domain.gateway.OpenApiSspServices;
+import top.openadexchange.openapi.ssp.domain.gateway.OaxEngineServices;
 import top.openadexchange.openapi.ssp.domain.model.IndexKeys;
 
 /**
@@ -19,7 +19,7 @@ import top.openadexchange.openapi.ssp.domain.model.IndexKeys;
 public class AdFetchService {
 
     @Resource
-    private OpenApiSspServices openApiSspServices;
+    private OaxEngineServices oaxEngineServices;
     @Resource
     private IndexKeysBuilder indexKeysBuilder;
 
@@ -33,8 +33,8 @@ public class AdFetchService {
         // 验证请求参数
         validateRequest(request);
         IndexKeys indexKeys = indexKeysBuilder.buildIndexKeys(request);
-        List<Integer> dspIds = openApiSspServices.getIndexService().searchDsps(indexKeys);
-        List<DspAggregate> matchDsps = openApiSspServices.getCachedMetadataRepository().getDspByIds(dspIds);
+        List<Integer> dspIds = oaxEngineServices.getIndexService().searchDsps(indexKeys);
+        List<DspAggregate> matchDsps = oaxEngineServices.getCachedMetadataRepository().getDspByIds(dspIds);
 
         // 根据请求匹配符合条件的DSP
         //RoaringBitmap matchedDspIds = dspIndexService.matchDspsByRequest(request);

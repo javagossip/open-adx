@@ -9,8 +9,7 @@ import org.springframework.util.CollectionUtils;
 import jakarta.annotation.Resource;
 import top.openadexchange.constants.Constants;
 import top.openadexchange.openapi.ssp.application.dto.AdFetchRequest;
-import top.openadexchange.openapi.ssp.domain.gateway.IP2RegionService;
-import top.openadexchange.openapi.ssp.domain.gateway.OpenApiSspServices;
+import top.openadexchange.openapi.ssp.domain.gateway.OaxEngineServices;
 import top.openadexchange.openapi.ssp.domain.model.IndexKeys;
 import top.openadexchange.openapi.ssp.domain.model.IpLocation;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
@@ -19,7 +18,7 @@ import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
 public class IndexKeysBuilder {
 
     @Resource
-    private OpenApiSspServices openApiSspServices;
+    private OaxEngineServices oaxEngineServices;
 
     public IndexKeys buildIndexKeys(AdFetchRequest request) {
         List<String> osKeys = new ArrayList<>();
@@ -29,7 +28,7 @@ public class IndexKeysBuilder {
         List<String> deviceTypeKeys = new ArrayList<>();
         deviceTypeKeys.add(Constants.DEFAULT_ALL_TARGETING);
 
-        IpLocation ipLocation = openApiSspServices.getIp2RegionService().getRegion(request.getDevice().getIp());
+        IpLocation ipLocation = oaxEngineServices.getIp2RegionService().getRegion(request.getDevice().getIp());
         List<String> regionKeys = new ArrayList<>();
         regionKeys.add(Constants.DEFAULT_ALL_TARGETING);
         if (ipLocation != null && ipLocation.getRegionCode() != null) {
@@ -58,7 +57,7 @@ public class IndexKeysBuilder {
         List<String> deviceTypeKeys = new ArrayList<>();
         deviceTypeKeys.add(Constants.DEFAULT_ALL_TARGETING);
 
-        IpLocation ipLocation = openApiSspServices.getIp2RegionService().getRegion(request.getDevice().getIp());
+        IpLocation ipLocation = oaxEngineServices.getIp2RegionService().getRegion(request.getDevice().getIp());
         List<String> regionKeys = new ArrayList<>();
         regionKeys.add(Constants.DEFAULT_ALL_TARGETING);
         if (ipLocation != null && ipLocation.getRegionCode() != null) {

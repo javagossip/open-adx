@@ -7,12 +7,12 @@ import com.chaincoretech.epc.ExtensionRegistry;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
-import top.openadexchange.openapi.ssp.config.OpenApiSspProperties;
+import top.openadexchange.openapi.ssp.config.OaxEngineProperties;
 
 //服务工厂
 @Component
-@EnableConfigurationProperties(OpenApiSspProperties.class)
-public class OpenApiSspServices {
+@EnableConfigurationProperties(OaxEngineProperties.class)
+public class OaxEngineServices {
 
     private IndexService indexService;
     private IP2RegionService ip2RegionService;
@@ -20,13 +20,13 @@ public class OpenApiSspServices {
     private MetadataRepository cachedMetadataRepository;
 
     @Resource
-    private OpenApiSspProperties openApiSspProperties;
+    private OaxEngineProperties oaxEngineProperties;
 
     @PostConstruct
     public void init() {
-        indexService = ExtensionRegistry.getExtensionByKey(IndexService.class, openApiSspProperties.getIndexService());
+        indexService = ExtensionRegistry.getExtensionByKey(IndexService.class, oaxEngineProperties.getIndexService());
         ip2RegionService =
-                ExtensionRegistry.getExtensionByKey(IP2RegionService.class, openApiSspProperties.getIp2RegionService());
+                ExtensionRegistry.getExtensionByKey(IP2RegionService.class, oaxEngineProperties.getIp2RegionService());
         dbMetadataRepository = ExtensionRegistry.getExtensionByKey(MetadataRepository.class, "db");
         cachedMetadataRepository = ExtensionRegistry.getExtensionByKey(MetadataRepository.class, "cache");
     }

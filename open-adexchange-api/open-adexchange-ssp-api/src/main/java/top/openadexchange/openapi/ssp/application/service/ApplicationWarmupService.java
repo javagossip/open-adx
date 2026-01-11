@@ -16,7 +16,7 @@ import top.openadexchange.model.Site;
 import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.openapi.ssp.domain.gateway.IndexService;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataCacheService;
-import top.openadexchange.openapi.ssp.domain.gateway.OpenApiSspServices;
+import top.openadexchange.openapi.ssp.domain.gateway.OaxEngineServices;
 import top.openadexchange.openapi.ssp.domain.repository.DspAggregateRepository;
 
 //应用预热服务
@@ -28,7 +28,7 @@ public class ApplicationWarmupService {
     @Resource
     private MetadataCacheService metadataCacheService;
     @Resource
-    private OpenApiSspServices openApiSspServices;
+    private OaxEngineServices oaxEngineServices;
     @Resource
     private SiteDao siteDao;
     @Resource
@@ -115,7 +115,7 @@ public class ApplicationWarmupService {
     }
 
     private void buildDspIndex(List<DspAggregate> dspAggregates) {
-        IndexService indexService = openApiSspServices.getIndexService();
+        IndexService indexService = oaxEngineServices.getIndexService();
         dspAggregates.forEach(dspAggregate -> indexService.indexDsp(dspAggregate));
     }
 }

@@ -5,8 +5,8 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
-@ConfigurationProperties(prefix = "openapi.ssp")
-public class OpenApiSspProperties {
+@ConfigurationProperties(prefix = "oax.engine")
+public class OaxEngineProperties {
 
     private String indexService;
     private String ip2RegionService;

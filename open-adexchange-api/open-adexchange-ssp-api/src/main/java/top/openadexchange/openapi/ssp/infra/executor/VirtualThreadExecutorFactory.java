@@ -1,14 +1,13 @@
 package top.openadexchange.openapi.ssp.infra.executor;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import com.chaincoretech.epc.annotation.Extension;
 
 import top.openadexchange.openapi.ssp.domain.gateway.ExecutorFactory;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-@Extension(keys = {"vthread"})
+@Extension(keys = {"virtualThread"})
 public class VirtualThreadExecutorFactory implements ExecutorFactory {
 
     @Override

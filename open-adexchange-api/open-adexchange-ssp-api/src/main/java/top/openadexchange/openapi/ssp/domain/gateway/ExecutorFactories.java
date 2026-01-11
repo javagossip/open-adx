@@ -7,19 +7,19 @@ import jakarta.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
-import top.openadexchange.openapi.ssp.config.OpenApiSspProperties;
+import top.openadexchange.openapi.ssp.config.OaxEngineProperties;
 
 @Component
 public class ExecutorFactories {
 
     @Resource
-    private OpenApiSspProperties openApiSspProperties;
+    private OaxEngineProperties oaxEngineProperties;
     private ExecutorFactory executorFactory;
 
     @PostConstruct
     public void init() {
         executorFactory =
-                ExtensionRegistry.getExtensionByKey(ExecutorFactory.class, openApiSspProperties.getExecutorFactory());
+                ExtensionRegistry.getExtensionByKey(ExecutorFactory.class, oaxEngineProperties.getExecutorFactory());
     }
 
     public ExecutorFactory getExecutorFactory() {

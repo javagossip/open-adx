@@ -13,7 +13,7 @@ import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.openapi.ssp.application.dto.AdFetchRequest;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataRepository;
-import top.openadexchange.openapi.ssp.domain.gateway.OpenApiSspServices;
+import top.openadexchange.openapi.ssp.domain.gateway.OaxEngineServices;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.App;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Content;
@@ -30,12 +30,12 @@ import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Site;
 public class BidRequestBuilder {
 
     @Resource
-    private OpenApiSspServices openApiSspServices;
+    private OaxEngineServices oaxEngineServices;
     private MetadataRepository metadataRepository;
 
     @PostConstruct
     public void init() {
-        metadataRepository = openApiSspServices.getCachedMetadataRepository();
+        metadataRepository = oaxEngineServices.getCachedMetadataRepository();
     }
 
     public BidRequest buildBidRequest(AdFetchRequest request) {

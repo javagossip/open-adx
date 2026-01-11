@@ -13,7 +13,7 @@ import jakarta.annotation.Resource;
 import top.openadexchange.openapi.ssp.domain.gateway.OaxHttpClient;
 import top.openadexchange.openapi.ssp.domain.model.OaxHttpResponse;
 
-@Extension(keys = "default")
+@Extension(keys = {"default", "jdk"})
 public class JdkHttpClient implements OaxHttpClient {
 
     @Resource

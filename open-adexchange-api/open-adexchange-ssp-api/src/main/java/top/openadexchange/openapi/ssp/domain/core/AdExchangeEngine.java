@@ -20,12 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.openapi.ssp.application.factory.IndexKeysBuilder;
-import top.openadexchange.openapi.ssp.config.OpenApiSspProperties;
+import top.openadexchange.openapi.ssp.config.OaxEngineProperties;
 import top.openadexchange.openapi.ssp.domain.gateway.ExecutorFactories;
 import top.openadexchange.openapi.ssp.domain.gateway.ExecutorFactory;
 import top.openadexchange.openapi.ssp.domain.gateway.IndexService;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataRepository;
-import top.openadexchange.openapi.ssp.domain.gateway.OpenApiSspServices;
+import top.openadexchange.openapi.ssp.domain.gateway.OaxEngineServices;
 import top.openadexchange.openapi.ssp.domain.model.IndexKeys;
 import top.openadexchange.openapi.ssp.spi.MacroContextBuilder;
 import top.openadexchange.openapi.ssp.spi.MacroProcessor;
@@ -46,9 +46,9 @@ public class AdExchangeEngine {
     @Resource
     private DspClient dspClient;
     @Resource
-    private OpenApiSspServices openApiSspServices;
+    private OaxEngineServices oaxEngineServices;
     @Resource
-    private OpenApiSspProperties openApiSspProperties;
+    private OaxEngineProperties oaxEngineProperties;
     @Resource
     private IndexKeysBuilder indexKeysBuilder;
     @Resource
@@ -125,8 +125,8 @@ public class AdExchangeEngine {
     //返回按照impid进行分组的竞价结果
     private Map<String, List<DspBid>> fetchAllBids(BidRequest request, /*<impid, floorPrice>*/
             Map<String, Long> impFloorMap) {
-        IndexService indexService = openApiSspServices.getIndexService();
-        MetadataRepository metadataRepository = openApiSspServices.getCachedMetadataRepository();
+        IndexService indexService = oaxEngineServices.getIndexService();
+        MetadataRepository metadataRepository = oaxEngineServices.getCachedMetadataRepository();
 
         IndexKeys indexKeys = indexKeysBuilder.buildIndexKeys(request);
         //从索引库中查询匹配当前广告流量的dsp列表
@@ -147,7 +147,7 @@ public class AdExchangeEngine {
         try {
             //向符合条件的 dsp发起实时竞价请求
             List<Future<BidResponse>> futures =
-                    executor.invokeAll(tasks, openApiSspProperties.getDspCallTimeout(), TimeUnit.MILLISECONDS);
+                    executor.invokeAll(tasks, oaxEngineProperties.getDspCallTimeout(), TimeUnit.MILLISECONDS);
             return futures.stream()
                     .map(future -> {
                         try {
