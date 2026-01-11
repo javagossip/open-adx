@@ -55,6 +55,8 @@ public class Dsp implements Serializable {
 
     private Integer timeoutMs;
     private String brandLogo;
+    //dsp rtb协议类型：1-标准 2- dsp平台自定义
+    private String protocol;
 
     private LocalDateTime createdAt;
 

@@ -6,5 +6,6 @@ public class Constants {
 
         String DSP = "dsp";
         String AD = "ad";
+        String AD_GROUP = "ad_group";
     }
 }

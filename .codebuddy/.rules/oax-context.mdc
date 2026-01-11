@@ -12,3 +12,4 @@ provider:
 - 生成测试类的时候禁止使用SpringBootTest注解
 - 针对使用依赖的单元测试，如果要求必须使用真实依赖的话，请使用ContextConfiguration注解
 - 生成的代码需要自动确认是否有编译错误，如有需要修复
+- 执行maven命令时，使用./mvnw不要使用mvn

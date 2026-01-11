@@ -55,7 +55,10 @@ public class SiteAdPlacement implements Serializable {
      * 广告位截图url
      */
     private String demoUrl;
-
+    /**
+     * 底价
+     */
+    private Double floorPrice;
     /**
      * 1-使用中, 0-禁用
      */

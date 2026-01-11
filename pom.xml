@@ -228,6 +228,13 @@
                 </includes>
             </resource>
             <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>xdb/*</include>
+                </includes>
+            </resource>
+            <resource>
                 <directory>src/main/profiles/${env.id}</directory>
                 <includes>
                     <include>**/*</include>

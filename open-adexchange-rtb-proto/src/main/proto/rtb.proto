@@ -41,7 +41,7 @@ message BidRequest {
 
     optional Pmp pmp = 6;            //私有竞价相关定义
     optional string tagid = 7;       //媒体广告位id，由Ad-Exchange定义
-    optional float bid_floor = 8;     //媒体广告位底价
+    optional double bid_floor = 8;     //媒体广告位底价
     optional string bid_floor_cur = 9; //USD or CNY
     //是否使用https, 0-不启用安全链接, 1-启用安全链接
     optional uint32 secure = 10;
@@ -202,7 +202,7 @@ message BidResponse {
     message Bid {
       required string id = 1;        //dsp平台参与出价id
       required string impid = 2;     //曝光id, 关联竞价请求中Imp中id
-      required float price = 3;      //广告出价, 单位是分
+      required double price = 3;      //广告出价, 单位是分
       required string crid = 4;      //dsp平台创意id
       optional string dealid = 5;    //请求pmp dealid
 
@@ -221,7 +221,7 @@ message BidResponse {
       optional string app_download_url = 14; //应用下载地址
       optional string app_name = 15; //应用名称
       optional string deeplink = 16; //deeplink链接
-
+      optional string dsp_id = 17; //dsp平台编码
       //协议保留扩展
       extensions 200 to 299;
     }

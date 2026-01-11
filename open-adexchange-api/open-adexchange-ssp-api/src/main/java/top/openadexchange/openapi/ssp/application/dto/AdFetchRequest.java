@@ -29,6 +29,7 @@ public class AdFetchRequest {
 
         private String id; // ssp自动生成, imp唯一标识
         private String tagid; // 媒体广告位id，由Ad-Exchange定义和分配
+        private Map<String, String> ext;
     }
 
     /**
@@ -39,6 +40,7 @@ public class AdFetchRequest {
 
         private String ver; // App版本
         private Content content; // App内容相关
+        private Map<String, String> ext;
     }
 
     /**
@@ -98,5 +100,13 @@ public class AdFetchRequest {
 
     public List<String> getImpTagIds() {
         return imp == null ? Collections.emptyList() : imp.stream().map(Imp::getTagid).toList();
+    }
+
+    public boolean isTest() {
+        return Boolean.TRUE.equals(test);
+    }
+
+    public boolean isDebug() {
+        return Boolean.TRUE.equals(debug);
     }
 }

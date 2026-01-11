@@ -1,0 +1,157 @@
+package top.openadexchange.openapi.ssp.application.service;
+
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import jakarta.annotation.Resource;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import top.openadexchange.domain.entity.DspAggregate;
+import top.openadexchange.model.Dsp;
+import top.openadexchange.openapi.ssp.application.factory.IndexKeysBuilder;
+import top.openadexchange.openapi.ssp.domain.gateway.ExecutorFactories;
+import top.openadexchange.openapi.ssp.domain.gateway.ExecutorFactory;
+import top.openadexchange.openapi.ssp.domain.gateway.IndexService;
+import top.openadexchange.openapi.ssp.domain.gateway.MetadataRepository;
+import top.openadexchange.openapi.ssp.domain.gateway.OpenApiSspServices;
+import top.openadexchange.openapi.ssp.domain.model.IndexKeys;
+import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
+import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Imp;
+import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse;
+import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid.Bid;
+
+@Service
+@Slf4j
+public class AdExchangeEngine {
+
+    private static final double DELTA = 1.0D; //1分
+
+    @Resource
+    private DspClient dspClient;
+    @Resource
+    private OpenApiSspServices openApiSspServices;
+    @Resource
+    private IndexKeysBuilder indexKeysBuilder;
+    @Resource
+    private ExecutorFactories executorFactories;
+
+    public Map<String, Bid> bidding(BidRequest request) {
+        // 1. 获取所有 DSP 的响应 (并发逻辑同前)
+        Map<String, Double> impFloorMap =
+                request.getImpList().stream().collect(Collectors.toMap(Imp::getId, Imp::getBidFloor, (a, b) -> a));
+        Map<String, List<DspBid>> validImpBids = fetchAllBids(request, impFloorMap);
+        if (validImpBids == null || validImpBids.isEmpty()) {
+            return null;
+        }
+        Map<String, Bid> winnerBids = new HashMap<>();
+        validImpBids.forEach((impId, bids) -> winnerBids.put(impId, selectWinBid(bids, impFloorMap.get(impId))));
+        return winnerBids;
+    }
+
+    private Bid selectWinBid(List<DspBid> bids, Double impFloor) {
+        // 3. 执行二价计费算法
+        List<DspBid> sortedBids = bids.stream()
+                .sorted(Comparator.comparingDouble(DspBid::getPrice).reversed())
+                .collect(Collectors.toList());
+        DspBid winner = sortedBids.get(0);
+        double settlementPrice;
+
+        if (sortedBids.size() > 1) {
+            // 有多个竞标者，取第二名价格 + DELTA
+            double secondPrice = sortedBids.get(1).getBid().getPrice();
+            settlementPrice = secondPrice + DELTA;
+
+            // 兜底：结算价不能超过中标者自己的出价
+            settlementPrice = Math.min(settlementPrice, winner.getBid().getPrice());
+        } else {
+            // 只有一个竞标者，按底价结算
+            settlementPrice = impFloor;
+        }
+
+        // 4. 设置最终结算价格并返回
+        Bid.Builder builder = Bid.newBuilder(winner.getBid()).setPrice(settlementPrice);
+        //5. 对WinNotice url以及点击/曝光监测地址进行宏替换处理
+        //6. 发送WinNotice请求
+        log.info("竞价完成，中标者: {}, 原始出价: {}, 最终结算价: {}",
+                winner.getDsp().getName(),
+                winner.getBid().getPrice(),
+                settlementPrice);
+
+        return builder.build();
+    }
+
+    //返回按照impid进行分组的竞价结果
+    private Map<String, List<DspBid>> fetchAllBids(BidRequest request, /*<impid, floorPrice>*/
+            Map<String, Double> impFloorMap) {
+        IndexService indexService = openApiSspServices.getIndexService();
+        MetadataRepository metadataRepository = openApiSspServices.getCachedMetadataRepository();
+
+        IndexKeys indexKeys = indexKeysBuilder.buildIndexKeys(request);
+        //从索引库中查询匹配当前广告流量的dsp列表
+        List<Integer> matchDspIds = indexService.searchDsps(indexKeys);
+
+        if (matchDspIds.isEmpty()) {
+            return null;
+        }
+        List<DspAggregate> matchDsps = metadataRepository.getDspByIds(matchDspIds);
+        // 1. 发起并发 RTB 请求
+        ExecutorFactory executorFactory = executorFactories.getExecutorFactory();
+        ExecutorService executor = executorFactory.getExecutor();
+
+        List<Callable<BidResponse>> tasks = matchDsps.stream()
+                .map(dsp -> (Callable<BidResponse>) () -> dspClient.bidding(dsp, request))
+                .collect(Collectors.toList());
+
+        try {
+            //向符合条件的 dsp发起实时竞价请求
+            List<Future<BidResponse>> futures = executor.invokeAll(tasks, 200, TimeUnit.MILLISECONDS);
+            return futures.stream()
+                    .map(future -> {
+                        try {
+                            return future.isDone() ? future.get() : null;
+                        } catch (Exception ex) {
+                        }
+                        return null;
+                    })
+                    .filter(Objects::nonNull)
+                    .flatMap(bidResponse -> bidResponse.getSeatbidList().stream())
+                    .flatMap(seatBid -> seatBid.getBidList().stream())
+                    .filter(bid -> {
+                        Double floor = impFloorMap.get(bid.getImpid());
+                        return floor != null && bid.getPrice() > floor;
+                    })
+                    .map(bid -> new DspBid(metadataRepository.getDspByDspId(bid.getDspId()), bid))
+                    .collect(Collectors.groupingBy(DspBid::getImpid));
+        } catch (InterruptedException ex) {
+            log.error("invokeAll error", ex);
+        }
+        return null;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class DspBid {
+
+        private Dsp dsp;
+        private Bid bid;
+
+        public String getImpid() {
+            return bid.getImpid();
+        }
+
+        public double getPrice() {
+            return bid.getPrice();
+        }
+    }
+}

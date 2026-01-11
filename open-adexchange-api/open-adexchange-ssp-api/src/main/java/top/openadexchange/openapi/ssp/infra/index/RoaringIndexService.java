@@ -1,40 +1,22 @@
-package top.openadexchange.openapi.ssp.application.service;
+package top.openadexchange.openapi.ssp.infra.index;
 
 import com.alibaba.fastjson2.JSON;
-import com.mybatisflex.core.query.QueryWrapper;
-
-import jakarta.annotation.PostConstruct;
+import com.chaincoretech.epc.annotation.Extension;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.roaringbitmap.IntIterator;
 import org.roaringbitmap.RoaringBitmap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
 import org.springframework.util.CollectionUtils;
-
 import org.springframework.util.StringUtils;
 
 import top.openadexchange.constants.Constants;
-import top.openadexchange.constants.enums.DeviceType;
-import top.openadexchange.dao.DspDao;
-import top.openadexchange.dao.DspSiteAdPlacementDao;
-import top.openadexchange.dao.DspTargetingDao;
-import top.openadexchange.dao.SiteAdPlacementDao;
 import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.model.Dsp;
-import top.openadexchange.model.DspSiteAdPlacement;
 import top.openadexchange.model.DspTargeting;
 import top.openadexchange.model.SiteAdPlacement;
-import top.openadexchange.openapi.ssp.application.dto.AdFetchRequest;
-
-import jakarta.annotation.Resource;
-import top.openadexchange.openapi.ssp.application.dto.AdFetchRequest.Imp;
-import top.openadexchange.openapi.ssp.domain.gateway.IP2RegionService;
-import top.openadexchange.openapi.ssp.domain.model.IpLocation;
-import top.openadexchange.openapi.ssp.repository.DspAggregateRepository;
+import top.openadexchange.openapi.ssp.domain.gateway.IndexService;
+import top.openadexchange.openapi.ssp.domain.model.IndexKeys;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -42,23 +24,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.Arrays;
 
-import static top.openadexchange.model.table.DspTableDef.DSP;
-import static top.openadexchange.model.table.DspTargetingTableDef.DSP_TARGETING;
-import static top.openadexchange.model.table.DspSiteAdPlacementTableDef.DSP_SITE_AD_PLACEMENT;
-
-/**
- * DSP索引服务 使用RoaringBitmap建立DSP索引，根据广告位ID和定向条件进行快速匹配
- */
-@Service
+@Extension(keys = {"roaringBitmap", "default"})
 @Slf4j
-public class DspIndexService {
+public class RoaringIndexService implements IndexService {
 
-    @Resource
-    private DspAggregateRepository dspAggregateRepository;
-    @Resource
-    private IP2RegionService ip2RegionService;
     // 广告位ID到DSP ID列表的索引
     private final Map<String, RoaringBitmap> adPlacementToDspIndex = new ConcurrentHashMap<>();
     //广告定向信息到 DSP ID列表的索引
@@ -69,37 +39,8 @@ public class DspIndexService {
     //区域定向->DSP ID索引列表
     private final Map<String, RoaringBitmap> regionIndex = new ConcurrentHashMap<>();
 
-    /**
-     * 初始化DSP索引
-     */
-    @PostConstruct
-    public void initDspIndex() {
-        log.info("开始初始化DSP索引...");
-        try {
-            buildDspIndex();
-            log.info("DSP索引初始化完成");
-        } catch (Exception ex) {
-            log.error("DSP索引初始化失败", ex);
-            throw new RuntimeException("DSP索引初始化失败", ex);
-        }
-    }
-
-    /**
-     * 构建DSP索引
-     */
-    private void buildDspIndex() {
-        int pageNo = 1;
-        while (true) {
-            List<DspAggregate> dspAggregates = dspAggregateRepository.listDspsByPageNo(pageNo);
-            if (dspAggregates.isEmpty()) {
-                break;
-            }
-            dspAggregates.forEach(dspAggregate -> internalBuildDspIndex(dspAggregate));
-        }
-        log.info("DSP索引构建完成，涉及{}个广告位", adPlacementToDspIndex.size());
-    }
-
-    private void internalBuildDspIndex(DspAggregate dspAggregate) {
+    @Override
+    public void indexDsp(DspAggregate dspAggregate) {
         DspTargeting targeting = dspAggregate.getDspTargeting();
         Dsp dsp = dspAggregate.getDsp();
         List<SiteAdPlacement> siteAdPlacements = dspAggregate.getDspSiteAdPlacments();
@@ -151,23 +92,17 @@ public class DspIndexService {
         }
     }
 
-    public List<Integer> matchDspIds(AdFetchRequest request) {
-        List<String> osKeys = new ArrayList<>(Arrays.asList(request.getDevice().getOs().toUpperCase(),
-                Constants.DEFAULT_ALL_TARGETING));
-        List<String> deviceTypeKeys =
-                new ArrayList<>(Arrays.asList(DeviceType.fromValue(request.getDevice().getDeviceType()).name(),
-                        Constants.DEFAULT_ALL_TARGETING));
+    @Override
+    public void indexAdGroup(DspAggregate dspAggregate) {
+        //TODO 暂不处理
+    }
 
-        IpLocation ipLocation = ip2RegionService.getRegion(request.getDevice().getIp());
-        List<String> regionKeys = new ArrayList<>(Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
-        if (ipLocation != null && ipLocation.getRegionCode() != null) {
-            regionKeys.add(ipLocation.getRegionCode());
-        }
-        List<String> tagIdKeys = new ArrayList<>(Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
-        List<String> tagIds = request.getImpTagIds();
-        if (!CollectionUtils.isEmpty(tagIds)) {
-            tagIds.forEach(tagId -> tagIdKeys.add(tagId));
-        }
+    @Override
+    public List<Integer> searchDsps(IndexKeys indexKeys) {
+        List<String> tagIdKeys = indexKeys.getTagIdKeys();
+        List<String> osKeys = indexKeys.getOsKeys();
+        List<String> deviceTypeKeys = indexKeys.getDeviceTypeKeys();
+        List<String> regionKeys = indexKeys.getRegionKeys();
 
         List<RoaringBitmap> adPlacementBitmaps =
                 tagIdKeys.stream().map(adPlacementToDspIndex::get).filter(Objects::nonNull).toList();

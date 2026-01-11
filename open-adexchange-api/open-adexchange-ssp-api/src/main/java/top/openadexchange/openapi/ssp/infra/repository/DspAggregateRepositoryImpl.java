@@ -1,4 +1,4 @@
-package top.openadexchange.openapi.ssp.repository.impl;
+package top.openadexchange.openapi.ssp.infra.repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ import top.openadexchange.model.Dsp;
 import top.openadexchange.model.DspSiteAdPlacement;
 import top.openadexchange.model.DspTargeting;
 import top.openadexchange.model.SiteAdPlacement;
-import top.openadexchange.openapi.ssp.repository.DspAggregateRepository;
+import top.openadexchange.openapi.ssp.domain.repository.DspAggregateRepository;
 
 import static top.openadexchange.model.table.DspSiteAdPlacementTableDef.*;
 import static top.openadexchange.model.table.DspTableDef.*;
@@ -57,7 +57,41 @@ public class DspAggregateRepositoryImpl implements DspAggregateRepository {
         // 获取当前页的DSP IDs
         List<Integer> dspIds = dspPage.getRecords().stream().map(Dsp::getId).collect(Collectors.toList());
 
-        // 查询对应的定向信息
+        // 查询对应的定向信息和广告位信息
+        Map<Integer, DspTargeting> dspTargetingMap = getDspTargetingMap(dspIds);
+        Map<Integer, List<Integer>> dspSiteAdPlacementMap = getDspSiteAdPlacementMap(dspIds);
+
+        // 组装聚合DTO
+        return buildDspAggregates(dspPage.getRecords(), dspTargetingMap, dspSiteAdPlacementMap);
+    }
+
+    @Override
+    public List<DspAggregate> getDspByIds(List<Integer> dspIds) {
+        if (dspIds == null || dspIds.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        // 查询DSP信息
+        List<Dsp> dsps = dspDao.list(QueryWrapper.create().where(DSP.ID.in(dspIds)));
+        if (dsps.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        // 获取有效的DSP IDs
+        List<Integer> validDspIds = dsps.stream().map(Dsp::getId).collect(Collectors.toList());
+
+        // 查询对应的定向信息和广告位信息
+        Map<Integer, DspTargeting> dspTargetingMap = getDspTargetingMap(validDspIds);
+        Map<Integer, List<Integer>> dspSiteAdPlacementMap = getDspSiteAdPlacementMap(validDspIds);
+
+        // 组装聚合DTO
+        return buildDspAggregates(dsps, dspTargetingMap, dspSiteAdPlacementMap);
+    }
+
+    /**
+     * 根据DSP IDs查询对应的定向信息
+     */
+    private Map<Integer, DspTargeting> getDspTargetingMap(List<Integer> dspIds) {
         Map<Integer, DspTargeting> dspTargetingMap = new HashMap<>();
         if (!dspIds.isEmpty()) {
             List<DspTargeting> dspTargetings =
@@ -66,8 +100,13 @@ public class DspAggregateRepositoryImpl implements DspAggregateRepository {
                 dspTargetingMap.put(targeting.getDspId(), targeting);
             }
         }
+        return dspTargetingMap;
+    }
 
-        // 查询对应的广告位信息
+    /**
+     * 根据DSP IDs查询对应的广告位信息
+     */
+    private Map<Integer, List<Integer>> getDspSiteAdPlacementMap(List<Integer> dspIds) {
         Map<Integer, List<Integer>> dspSiteAdPlacementMap = new HashMap<>();
         if (!dspIds.isEmpty()) {
             List<DspSiteAdPlacement> dspSiteAdPlacements =
@@ -77,10 +116,17 @@ public class DspAggregateRepositoryImpl implements DspAggregateRepository {
                         .add(dspSiteAdPlacement.getSiteAdPlacementId());
             }
         }
+        return dspSiteAdPlacementMap;
+    }
 
-        // 组装聚合DTO
+    /**
+     * 构建DSP聚合对象列表
+     */
+    private List<DspAggregate> buildDspAggregates(List<Dsp> dsps,
+            Map<Integer, DspTargeting> dspTargetingMap,
+            Map<Integer, List<Integer>> dspSiteAdPlacementMap) {
         List<DspAggregate> result = new ArrayList<>();
-        for (Dsp dsp : dspPage.getRecords()) {
+        for (Dsp dsp : dsps) {
             DspTargeting targeting = dspTargetingMap.get(dsp.getId());
             List<Integer> siteAdPlacementIds = dspSiteAdPlacementMap.getOrDefault(dsp.getId(), new ArrayList<>());
             if (siteAdPlacementIds.isEmpty()) {

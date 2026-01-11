@@ -444,7 +444,7 @@ public final class OaxRtbProto {
        *媒体广告位底价
        * </pre>
        *
-       * <code>optional float bid_floor = 8;</code>
+       * <code>optional double bid_floor = 8;</code>
        * @return Whether the bidFloor field is set.
        */
       boolean hasBidFloor();
@@ -453,10 +453,10 @@ public final class OaxRtbProto {
        *媒体广告位底价
        * </pre>
        *
-       * <code>optional float bid_floor = 8;</code>
+       * <code>optional double bid_floor = 8;</code>
        * @return The bidFloor.
        */
-      float getBidFloor();
+      double getBidFloor();
 
       /**
        * <pre>
@@ -6800,13 +6800,13 @@ public final class OaxRtbProto {
       }
 
       public static final int BID_FLOOR_FIELD_NUMBER = 8;
-      private float bidFloor_ = 0F;
+      private double bidFloor_ = 0D;
       /**
        * <pre>
        *媒体广告位底价
        * </pre>
        *
-       * <code>optional float bid_floor = 8;</code>
+       * <code>optional double bid_floor = 8;</code>
        * @return Whether the bidFloor field is set.
        */
       @java.lang.Override
@@ -6818,11 +6818,11 @@ public final class OaxRtbProto {
        *媒体广告位底价
        * </pre>
        *
-       * <code>optional float bid_floor = 8;</code>
+       * <code>optional double bid_floor = 8;</code>
        * @return The bidFloor.
        */
       @java.lang.Override
-      public float getBidFloor() {
+      public double getBidFloor() {
         return bidFloor_;
       }
 
@@ -7000,7 +7000,7 @@ public final class OaxRtbProto {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 7, tagid_);
         }
         if (((bitField0_ & 0x00000080) != 0)) {
-          output.writeFloat(8, bidFloor_);
+          output.writeDouble(8, bidFloor_);
         }
         if (((bitField0_ & 0x00000100) != 0)) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 9, bidFloorCur_);
@@ -7047,7 +7047,7 @@ public final class OaxRtbProto {
         }
         if (((bitField0_ & 0x00000080) != 0)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeFloatSize(8, bidFloor_);
+            .computeDoubleSize(8, bidFloor_);
         }
         if (((bitField0_ & 0x00000100) != 0)) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, bidFloorCur_);
@@ -7121,8 +7121,8 @@ public final class OaxRtbProto {
         }
         if (hasBidFloor() != other.hasBidFloor()) return false;
         if (hasBidFloor()) {
-          if (java.lang.Float.floatToIntBits(getBidFloor())
-              != java.lang.Float.floatToIntBits(
+          if (java.lang.Double.doubleToLongBits(getBidFloor())
+              != java.lang.Double.doubleToLongBits(
                   other.getBidFloor())) return false;
         }
         if (hasBidFloorCur() != other.hasBidFloorCur()) return false;
@@ -7183,8 +7183,8 @@ public final class OaxRtbProto {
         }
         if (hasBidFloor()) {
           hash = (37 * hash) + BID_FLOOR_FIELD_NUMBER;
-          hash = (53 * hash) + java.lang.Float.floatToIntBits(
-              getBidFloor());
+          hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+              java.lang.Double.doubleToLongBits(getBidFloor()));
         }
         if (hasBidFloorCur()) {
           hash = (37 * hash) + BID_FLOOR_CUR_FIELD_NUMBER;
@@ -7369,7 +7369,7 @@ public final class OaxRtbProto {
             pmpBuilder_ = null;
           }
           tagid_ = "";
-          bidFloor_ = 0F;
+          bidFloor_ = 0D;
           bidFloorCur_ = "";
           secure_ = 0;
           isNativeAd_ = false;
@@ -7653,11 +7653,11 @@ public final class OaxRtbProto {
                   bitField0_ |= 0x00000040;
                   break;
                 } // case 58
-                case 69: {
-                  bidFloor_ = input.readFloat();
+                case 65: {
+                  bidFloor_ = input.readDouble();
                   bitField0_ |= 0x00000080;
                   break;
-                } // case 69
+                } // case 65
                 case 74: {
                   bidFloorCur_ = input.readBytes();
                   bitField0_ |= 0x00000100;
@@ -8673,13 +8673,13 @@ public final class OaxRtbProto {
           return this;
         }
 
-        private float bidFloor_ ;
+        private double bidFloor_ ;
         /**
          * <pre>
          *媒体广告位底价
          * </pre>
          *
-         * <code>optional float bid_floor = 8;</code>
+         * <code>optional double bid_floor = 8;</code>
          * @return Whether the bidFloor field is set.
          */
         @java.lang.Override
@@ -8691,11 +8691,11 @@ public final class OaxRtbProto {
          *媒体广告位底价
          * </pre>
          *
-         * <code>optional float bid_floor = 8;</code>
+         * <code>optional double bid_floor = 8;</code>
          * @return The bidFloor.
          */
         @java.lang.Override
-        public float getBidFloor() {
+        public double getBidFloor() {
           return bidFloor_;
         }
         /**
@@ -8703,11 +8703,11 @@ public final class OaxRtbProto {
          *媒体广告位底价
          * </pre>
          *
-         * <code>optional float bid_floor = 8;</code>
+         * <code>optional double bid_floor = 8;</code>
          * @param value The bidFloor to set.
          * @return This builder for chaining.
          */
-        public Builder setBidFloor(float value) {
+        public Builder setBidFloor(double value) {
 
           bidFloor_ = value;
           bitField0_ |= 0x00000080;
@@ -8719,12 +8719,12 @@ public final class OaxRtbProto {
          *媒体广告位底价
          * </pre>
          *
-         * <code>optional float bid_floor = 8;</code>
+         * <code>optional double bid_floor = 8;</code>
          * @return This builder for chaining.
          */
         public Builder clearBidFloor() {
           bitField0_ = (bitField0_ & ~0x00000080);
-          bidFloor_ = 0F;
+          bidFloor_ = 0D;
           onChanged();
           return this;
         }
@@ -23756,7 +23756,7 @@ java.lang.String defaultValue) {
          *广告出价, 单位是分
          * </pre>
          *
-         * <code>required float price = 3;</code>
+         * <code>required double price = 3;</code>
          * @return Whether the price field is set.
          */
         boolean hasPrice();
@@ -23765,10 +23765,10 @@ java.lang.String defaultValue) {
          *广告出价, 单位是分
          * </pre>
          *
-         * <code>required float price = 3;</code>
+         * <code>required double price = 3;</code>
          * @return The price.
          */
-        float getPrice();
+        double getPrice();
 
         /**
          * <pre>
@@ -24158,6 +24158,35 @@ java.lang.String defaultValue) {
          */
         com.google.protobuf.ByteString
             getDeeplinkBytes();
+
+        /**
+         * <pre>
+         *dsp平台编码
+         * </pre>
+         *
+         * <code>optional string dsp_id = 17;</code>
+         * @return Whether the dspId field is set.
+         */
+        boolean hasDspId();
+        /**
+         * <pre>
+         *dsp平台编码
+         * </pre>
+         *
+         * <code>optional string dsp_id = 17;</code>
+         * @return The dspId.
+         */
+        java.lang.String getDspId();
+        /**
+         * <pre>
+         *dsp平台编码
+         * </pre>
+         *
+         * <code>optional string dsp_id = 17;</code>
+         * @return The bytes for dspId.
+         */
+        com.google.protobuf.ByteString
+            getDspIdBytes();
       }
       /**
        * Protobuf type {@code top.openadexchange.rtb.proto.BidResponse.SeatBid.Bid}
@@ -24188,6 +24217,7 @@ java.lang.String defaultValue) {
           appDownloadUrl_ = "";
           appName_ = "";
           deeplink_ = "";
+          dspId_ = "";
         }
 
         @java.lang.Override
@@ -24334,13 +24364,13 @@ java.lang.String defaultValue) {
         }
 
         public static final int PRICE_FIELD_NUMBER = 3;
-        private float price_ = 0F;
+        private double price_ = 0D;
         /**
          * <pre>
          *广告出价, 单位是分
          * </pre>
          *
-         * <code>required float price = 3;</code>
+         * <code>required double price = 3;</code>
          * @return Whether the price field is set.
          */
         @java.lang.Override
@@ -24352,11 +24382,11 @@ java.lang.String defaultValue) {
          *广告出价, 单位是分
          * </pre>
          *
-         * <code>required float price = 3;</code>
+         * <code>required double price = 3;</code>
          * @return The price.
          */
         @java.lang.Override
-        public float getPrice() {
+        public double getPrice() {
           return price_;
         }
 
@@ -25080,6 +25110,67 @@ java.lang.String defaultValue) {
           }
         }
 
+        public static final int DSP_ID_FIELD_NUMBER = 17;
+        @SuppressWarnings("serial")
+        private volatile java.lang.Object dspId_ = "";
+        /**
+         * <pre>
+         *dsp平台编码
+         * </pre>
+         *
+         * <code>optional string dsp_id = 17;</code>
+         * @return Whether the dspId field is set.
+         */
+        @java.lang.Override
+        public boolean hasDspId() {
+          return ((bitField0_ & 0x00004000) != 0);
+        }
+        /**
+         * <pre>
+         *dsp平台编码
+         * </pre>
+         *
+         * <code>optional string dsp_id = 17;</code>
+         * @return The dspId.
+         */
+        @java.lang.Override
+        public java.lang.String getDspId() {
+          java.lang.Object ref = dspId_;
+          if (ref instanceof java.lang.String) {
+            return (java.lang.String) ref;
+          } else {
+            com.google.protobuf.ByteString bs = 
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              dspId_ = s;
+            }
+            return s;
+          }
+        }
+        /**
+         * <pre>
+         *dsp平台编码
+         * </pre>
+         *
+         * <code>optional string dsp_id = 17;</code>
+         * @return The bytes for dspId.
+         */
+        @java.lang.Override
+        public com.google.protobuf.ByteString
+            getDspIdBytes() {
+          java.lang.Object ref = dspId_;
+          if (ref instanceof java.lang.String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            dspId_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+
         private byte memoizedIsInitialized = -1;
         @java.lang.Override
         public final boolean isInitialized() {
@@ -25124,7 +25215,7 @@ java.lang.String defaultValue) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 2, impid_);
           }
           if (((bitField0_ & 0x00000004) != 0)) {
-            output.writeFloat(3, price_);
+            output.writeDouble(3, price_);
           }
           if (((bitField0_ & 0x00000008) != 0)) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 4, crid_);
@@ -25162,6 +25253,9 @@ java.lang.String defaultValue) {
           if (((bitField0_ & 0x00002000) != 0)) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 16, deeplink_);
           }
+          if (((bitField0_ & 0x00004000) != 0)) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 17, dspId_);
+          }
           if (((bitField0_ & 0x00000020) != 0)) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 20, nurl_);
           }
@@ -25183,7 +25277,7 @@ java.lang.String defaultValue) {
           }
           if (((bitField0_ & 0x00000004) != 0)) {
             size += com.google.protobuf.CodedOutputStream
-              .computeFloatSize(3, price_);
+              .computeDoubleSize(3, price_);
           }
           if (((bitField0_ & 0x00000008) != 0)) {
             size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, crid_);
@@ -25233,6 +25327,9 @@ java.lang.String defaultValue) {
           if (((bitField0_ & 0x00002000) != 0)) {
             size += com.google.protobuf.GeneratedMessageV3.computeStringSize(16, deeplink_);
           }
+          if (((bitField0_ & 0x00004000) != 0)) {
+            size += com.google.protobuf.GeneratedMessageV3.computeStringSize(17, dspId_);
+          }
           if (((bitField0_ & 0x00000020) != 0)) {
             size += com.google.protobuf.GeneratedMessageV3.computeStringSize(20, nurl_);
           }
@@ -25264,8 +25361,8 @@ java.lang.String defaultValue) {
           }
           if (hasPrice() != other.hasPrice()) return false;
           if (hasPrice()) {
-            if (java.lang.Float.floatToIntBits(getPrice())
-                != java.lang.Float.floatToIntBits(
+            if (java.lang.Double.doubleToLongBits(getPrice())
+                != java.lang.Double.doubleToLongBits(
                     other.getPrice())) return false;
           }
           if (hasCrid() != other.hasCrid()) return false;
@@ -25327,6 +25424,11 @@ java.lang.String defaultValue) {
             if (!getDeeplink()
                 .equals(other.getDeeplink())) return false;
           }
+          if (hasDspId() != other.hasDspId()) return false;
+          if (hasDspId()) {
+            if (!getDspId()
+                .equals(other.getDspId())) return false;
+          }
           if (!getUnknownFields().equals(other.getUnknownFields())) return false;
           if (!getExtensionFields().equals(other.getExtensionFields()))
             return false;
@@ -25350,8 +25452,8 @@ java.lang.String defaultValue) {
           }
           if (hasPrice()) {
             hash = (37 * hash) + PRICE_FIELD_NUMBER;
-            hash = (53 * hash) + java.lang.Float.floatToIntBits(
-                getPrice());
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                java.lang.Double.doubleToLongBits(getPrice()));
           }
           if (hasCrid()) {
             hash = (37 * hash) + CRID_FIELD_NUMBER;
@@ -25404,6 +25506,10 @@ java.lang.String defaultValue) {
           if (hasDeeplink()) {
             hash = (37 * hash) + DEEPLINK_FIELD_NUMBER;
             hash = (53 * hash) + getDeeplink().hashCode();
+          }
+          if (hasDspId()) {
+            hash = (37 * hash) + DSP_ID_FIELD_NUMBER;
+            hash = (53 * hash) + getDspId().hashCode();
           }
           hash = hashFields(hash, getExtensionFields());
           hash = (29 * hash) + getUnknownFields().hashCode();
@@ -25546,7 +25652,7 @@ java.lang.String defaultValue) {
             bitField0_ = 0;
             id_ = "";
             impid_ = "";
-            price_ = 0F;
+            price_ = 0D;
             crid_ = "";
             dealid_ = "";
             nurl_ = "";
@@ -25566,6 +25672,7 @@ java.lang.String defaultValue) {
             appDownloadUrl_ = "";
             appName_ = "";
             deeplink_ = "";
+            dspId_ = "";
             return this;
           }
 
@@ -25665,6 +25772,10 @@ java.lang.String defaultValue) {
             if (((from_bitField0_ & 0x00008000) != 0)) {
               result.deeplink_ = deeplink_;
               to_bitField0_ |= 0x00002000;
+            }
+            if (((from_bitField0_ & 0x00010000) != 0)) {
+              result.dspId_ = dspId_;
+              to_bitField0_ |= 0x00004000;
             }
             result.bitField0_ |= to_bitField0_;
           }
@@ -25824,6 +25935,11 @@ java.lang.String defaultValue) {
               bitField0_ |= 0x00008000;
               onChanged();
             }
+            if (other.hasDspId()) {
+              dspId_ = other.dspId_;
+              bitField0_ |= 0x00010000;
+              onChanged();
+            }
             this.mergeExtensionFields(other);
             this.mergeUnknownFields(other.getUnknownFields());
             onChanged();
@@ -25876,11 +25992,11 @@ java.lang.String defaultValue) {
                     bitField0_ |= 0x00000002;
                     break;
                   } // case 18
-                  case 29: {
-                    price_ = input.readFloat();
+                  case 25: {
+                    price_ = input.readDouble();
                     bitField0_ |= 0x00000004;
                     break;
-                  } // case 29
+                  } // case 25
                   case 34: {
                     crid_ = input.readBytes();
                     bitField0_ |= 0x00000008;
@@ -25945,6 +26061,11 @@ java.lang.String defaultValue) {
                     bitField0_ |= 0x00008000;
                     break;
                   } // case 130
+                  case 138: {
+                    dspId_ = input.readBytes();
+                    bitField0_ |= 0x00010000;
+                    break;
+                  } // case 138
                   case 162: {
                     nurl_ = input.readBytes();
                     bitField0_ |= 0x00000020;
@@ -26175,13 +26296,13 @@ java.lang.String defaultValue) {
             return this;
           }
 
-          private float price_ ;
+          private double price_ ;
           /**
            * <pre>
            *广告出价, 单位是分
            * </pre>
            *
-           * <code>required float price = 3;</code>
+           * <code>required double price = 3;</code>
            * @return Whether the price field is set.
            */
           @java.lang.Override
@@ -26193,11 +26314,11 @@ java.lang.String defaultValue) {
            *广告出价, 单位是分
            * </pre>
            *
-           * <code>required float price = 3;</code>
+           * <code>required double price = 3;</code>
            * @return The price.
            */
           @java.lang.Override
-          public float getPrice() {
+          public double getPrice() {
             return price_;
           }
           /**
@@ -26205,11 +26326,11 @@ java.lang.String defaultValue) {
            *广告出价, 单位是分
            * </pre>
            *
-           * <code>required float price = 3;</code>
+           * <code>required double price = 3;</code>
            * @param value The price to set.
            * @return This builder for chaining.
            */
-          public Builder setPrice(float value) {
+          public Builder setPrice(double value) {
 
             price_ = value;
             bitField0_ |= 0x00000004;
@@ -26221,12 +26342,12 @@ java.lang.String defaultValue) {
            *广告出价, 单位是分
            * </pre>
            *
-           * <code>required float price = 3;</code>
+           * <code>required double price = 3;</code>
            * @return This builder for chaining.
            */
           public Builder clearPrice() {
             bitField0_ = (bitField0_ & ~0x00000004);
-            price_ = 0F;
+            price_ = 0D;
             onChanged();
             return this;
           }
@@ -27668,6 +27789,110 @@ java.lang.String defaultValue) {
             if (value == null) { throw new NullPointerException(); }
             deeplink_ = value;
             bitField0_ |= 0x00008000;
+            onChanged();
+            return this;
+          }
+
+          private java.lang.Object dspId_ = "";
+          /**
+           * <pre>
+           *dsp平台编码
+           * </pre>
+           *
+           * <code>optional string dsp_id = 17;</code>
+           * @return Whether the dspId field is set.
+           */
+          public boolean hasDspId() {
+            return ((bitField0_ & 0x00010000) != 0);
+          }
+          /**
+           * <pre>
+           *dsp平台编码
+           * </pre>
+           *
+           * <code>optional string dsp_id = 17;</code>
+           * @return The dspId.
+           */
+          public java.lang.String getDspId() {
+            java.lang.Object ref = dspId_;
+            if (!(ref instanceof java.lang.String)) {
+              com.google.protobuf.ByteString bs =
+                  (com.google.protobuf.ByteString) ref;
+              java.lang.String s = bs.toStringUtf8();
+              if (bs.isValidUtf8()) {
+                dspId_ = s;
+              }
+              return s;
+            } else {
+              return (java.lang.String) ref;
+            }
+          }
+          /**
+           * <pre>
+           *dsp平台编码
+           * </pre>
+           *
+           * <code>optional string dsp_id = 17;</code>
+           * @return The bytes for dspId.
+           */
+          public com.google.protobuf.ByteString
+              getDspIdBytes() {
+            java.lang.Object ref = dspId_;
+            if (ref instanceof String) {
+              com.google.protobuf.ByteString b = 
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                      (java.lang.String) ref);
+              dspId_ = b;
+              return b;
+            } else {
+              return (com.google.protobuf.ByteString) ref;
+            }
+          }
+          /**
+           * <pre>
+           *dsp平台编码
+           * </pre>
+           *
+           * <code>optional string dsp_id = 17;</code>
+           * @param value The dspId to set.
+           * @return This builder for chaining.
+           */
+          public Builder setDspId(
+              java.lang.String value) {
+            if (value == null) { throw new NullPointerException(); }
+            dspId_ = value;
+            bitField0_ |= 0x00010000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *dsp平台编码
+           * </pre>
+           *
+           * <code>optional string dsp_id = 17;</code>
+           * @return This builder for chaining.
+           */
+          public Builder clearDspId() {
+            dspId_ = getDefaultInstance().getDspId();
+            bitField0_ = (bitField0_ & ~0x00010000);
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *dsp平台编码
+           * </pre>
+           *
+           * <code>optional string dsp_id = 17;</code>
+           * @param value The bytes for dspId to set.
+           * @return This builder for chaining.
+           */
+          public Builder setDspIdBytes(
+              com.google.protobuf.ByteString value) {
+            if (value == null) { throw new NullPointerException(); }
+            dspId_ = value;
+            bitField0_ |= 0x00010000;
             onChanged();
             return this;
           }
@@ -30149,7 +30374,7 @@ java.lang.String defaultValue) {
       "io\030\016 \001(\01322.top.openadexchange.rtb.proto." +
       "BidRequest.Imp.Audio\022=\n\003pmp\030\006 \001(\01320.top." +
       "openadexchange.rtb.proto.BidRequest.Imp." +
-      "Pmp\022\r\n\005tagid\030\007 \001(\t\022\021\n\tbid_floor\030\010 \001(\002\022\025\n" +
+      "Pmp\022\r\n\005tagid\030\007 \001(\t\022\021\n\tbid_floor\030\010 \001(\001\022\025\n" +
       "\rbid_floor_cur\030\t \001(\t\022\016\n\006secure\030\n \001(\r\022\024\n\014" +
       "is_native_ad\030\014 \001(\010\032B\n\006Banner\022\t\n\001w\030\001 \001(\r\022" +
       "\t\n\001h\030\002 \001(\r\022\013\n\003pos\030\003 \001(\r\022\r\n\005mimes\030\004 \003(\t*\006" +
@@ -30183,26 +30408,27 @@ java.lang.String defaultValue) {
       "\006\010\310\001\020\254\002\032i\n\003Geo\022\013\n\003lat\030\001 \001(\002\022\013\n\003lon\030\002 \001(\002" +
       "\022\017\n\007country\030\003 \001(\t\022\016\n\006region\030\004 \001(\t\022\014\n\004cit" +
       "y\030\005 \001(\t\022\021\n\tarea_code\030\006 \001(\r*\006\010\310\001\020\254\002\032\032\n\004Us" +
-      "er\022\n\n\002id\030\001 \001(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002\"\320\005\n\013BidRe" +
+      "er\022\n\n\002id\030\001 \001(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002\"\340\005\n\013BidRe" +
       "sponse\022\n\n\002id\030\001 \002(\t\022B\n\007seatbid\030\002 \003(\01321.to" +
       "p.openadexchange.rtb.proto.BidResponse.S" +
       "eatBid\022\r\n\005bidid\030\003 \002(\t\032\236\001\n\010NativeAd\022\023\n\013te" +
       "mplate_id\030\001 \001(\t\022N\n\006assets\030\002 \003(\0132>.top.op" +
       "enadexchange.rtb.proto.BidResponse.Nativ" +
       "eAd.AssetsEntry\032-\n\013AssetsEntry\022\013\n\003key\030\001 " +
-      "\001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032\270\003\n\007SeatBid\022B\n\003bi" +
+      "\001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032\310\003\n\007SeatBid\022B\n\003bi" +
       "d\030\001 \003(\01325.top.openadexchange.rtb.proto.B" +
-      "idResponse.SeatBid.Bid\022\014\n\004seat\030\002 \001(\t\032\332\002\n" +
+      "idResponse.SeatBid.Bid\022\014\n\004seat\030\002 \001(\t\032\352\002\n" +
       "\003Bid\022\n\n\002id\030\001 \002(\t\022\r\n\005impid\030\002 \002(\t\022\r\n\005price" +
-      "\030\003 \002(\002\022\014\n\004crid\030\004 \002(\t\022\016\n\006dealid\030\005 \001(\t\022\014\n\004" +
+      "\030\003 \002(\001\022\014\n\004crid\030\004 \002(\t\022\016\n\006dealid\030\005 \001(\t\022\014\n\004" +
       "nurl\030\024 \001(\t\022\024\n\014imp_trackers\030\006 \003(\t\022\024\n\014clk_" +
       "trackers\030\007 \003(\t\022\013\n\003ldp\030\010 \001(\t\022\024\n\014creative_" +
       "url\030\t \001(\t\022\022\n\nclick_type\030\n \001(\r\022\016\n\006bundle\030" +
       "\013 \001(\t\022D\n\010nativeAd\030\r \001(\01322.top.openadexch" +
       "ange.rtb.proto.BidResponse.NativeAd\022\030\n\020a" +
       "pp_download_url\030\016 \001(\t\022\020\n\010app_name\030\017 \001(\t\022" +
-      "\020\n\010deeplink\030\020 \001(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002B+\n\034top" +
-      ".openadexchange.rtb.protoB\013OaxRtbProto"
+      "\020\n\010deeplink\030\020 \001(\t\022\016\n\006dsp_id\030\021 \001(\t*\006\010\310\001\020\254" +
+      "\002*\006\010\310\001\020\254\002B+\n\034top.openadexchange.rtb.prot" +
+      "oB\013OaxRtbProto"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -30321,7 +30547,7 @@ java.lang.String defaultValue) {
     internal_static_top_openadexchange_rtb_proto_BidResponse_SeatBid_Bid_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidResponse_SeatBid_Bid_descriptor,
-        new java.lang.String[] { "Id", "Impid", "Price", "Crid", "Dealid", "Nurl", "ImpTrackers", "ClkTrackers", "Ldp", "CreativeUrl", "ClickType", "Bundle", "NativeAd", "AppDownloadUrl", "AppName", "Deeplink", });
+        new java.lang.String[] { "Id", "Impid", "Price", "Crid", "Dealid", "Nurl", "ImpTrackers", "ClkTrackers", "Ldp", "CreativeUrl", "ClickType", "Bundle", "NativeAd", "AppDownloadUrl", "AppName", "Deeplink", "DspId", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

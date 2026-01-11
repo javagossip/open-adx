@@ -1,45 +1,55 @@
 package top.openadexchange.openapi.ssp.application.service;
 
-import org.roaringbitmap.RoaringBitmap;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
-import top.openadexchange.openapi.ssp.application.dto.AdFetchRequest;
-import top.openadexchange.openapi.ssp.application.dto.AdFetchResponse;
 
 import jakarta.annotation.Resource;
+import top.openadexchange.domain.entity.DspAggregate;
+import top.openadexchange.openapi.ssp.application.dto.AdFetchRequest;
+import top.openadexchange.openapi.ssp.application.dto.AdFetchResponse;
+import top.openadexchange.openapi.ssp.application.factory.IndexKeysBuilder;
+import top.openadexchange.openapi.ssp.domain.gateway.OpenApiSspServices;
+import top.openadexchange.openapi.ssp.domain.model.IndexKeys;
 
 /**
- * 广告获取服务
- * 处理来自媒体方的广告请求
+ * 广告获取服务 处理来自媒体方的广告请求
  */
 @Service
 public class AdFetchService {
 
     @Resource
-    private DspIndexService dspIndexService;
+    private OpenApiSspServices openApiSspServices;
+    @Resource
+    private IndexKeysBuilder indexKeysBuilder;
 
     /**
      * 获取广告
+     *
      * @param request 广告请求对象
      * @return 广告响应对象
      */
     public AdFetchResponse fetchAd(AdFetchRequest request) {
         // 验证请求参数
         validateRequest(request);
+        IndexKeys indexKeys = indexKeysBuilder.buildIndexKeys(request);
+        List<Integer> dspIds = openApiSspServices.getIndexService().searchDsps(indexKeys);
+        List<DspAggregate> matchDsps = openApiSspServices.getCachedMetadataRepository().getDspByIds(dspIds);
 
         // 根据请求匹配符合条件的DSP
         //RoaringBitmap matchedDspIds = dspIndexService.matchDspsByRequest(request);
-        
+
         // 实现广告获取逻辑
         AdFetchResponse response = new AdFetchResponse();
         response.setId(request.getId()); // 响应ID与请求ID保持一致
-        response.setBidid(generateBidId()); // 生成竞价响应ID
+        //response.setBidid(generateBidId()); // 生成竞价响应ID
 
         // TODO: 实现实际的广告查询和竞价逻辑
         // 1. 向匹配的DSP发起RTB请求
         // 2. 收集各DSP的竞价响应
         // 3. 执行竞价算法选择胜出的广告
         // 4. 构建最终响应对象
-        
+
         // 示例：打印匹配到的DSP数量
         //System.out.println("匹配到 " + matchedDspIds.getCardinality() + " 个DSP");
 
@@ -48,6 +58,7 @@ public class AdFetchService {
 
     /**
      * 验证请求参数
+     *
      * @param request 广告请求对象
      */
     private void validateRequest(AdFetchRequest request) {
@@ -64,6 +75,7 @@ public class AdFetchService {
 
     /**
      * 生成竞价响应ID
+     *
      * @return 竞价响应ID
      */
     private String generateBidId() {

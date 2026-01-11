@@ -56,7 +56,6 @@ public class DefaultIP2RegionService implements IP2RegionService {
             String[] ipLocationArray = ipLocationString.split("\\|");
             String regionCode = cityRegionCodeMap.get(String.format("%s-%s", ipLocationArray[1], ipLocationArray[2]));
             return new IpLocation(ipLocationArray[0],
-//                    ipLocationArray[1],
                     ipLocationArray[1],
                     ipLocationArray[2],
                     ipLocationArray[3],
