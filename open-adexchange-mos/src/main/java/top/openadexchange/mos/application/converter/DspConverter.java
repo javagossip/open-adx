@@ -44,8 +44,8 @@ public class DspConverter {
 
         // 生成API令牌和加密密钥
         dsp.setToken(SecurityKeyUtils.getApiToken());
-        dsp.setEncryptionKey(SecurityKeyUtils.generateSecurityKey());
-        dsp.setIntegrationKey(SecurityKeyUtils.generateSecurityKey());
+        dsp.setEncryptionKey(SecurityKeyUtils.generateEncryptionKey());
+        dsp.setIntegrationKey(SecurityKeyUtils.generateIntegrationKey());
 
         return dsp;
     }

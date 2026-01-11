@@ -41,7 +41,7 @@ message BidRequest {
 
     optional Pmp pmp = 6;            //私有竞价相关定义
     optional string tagid = 7;       //媒体广告位id，由Ad-Exchange定义
-    optional double bid_floor = 8;     //媒体广告位底价
+    optional uint64 bid_floor = 8;     //媒体广告位底价,采用微单位表示，1元=1000000微单位
     optional string bid_floor_cur = 9; //USD or CNY
     //是否使用https, 0-不启用安全链接, 1-启用安全链接
     optional uint32 secure = 10;
@@ -202,7 +202,7 @@ message BidResponse {
     message Bid {
       required string id = 1;        //dsp平台参与出价id
       required string impid = 2;     //曝光id, 关联竞价请求中Imp中id
-      required double price = 3;      //广告出价, 单位是分
+      required uint64 price = 3;      //广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
       required string crid = 4;      //dsp平台创意id
       optional string dealid = 5;    //请求pmp dealid
 

@@ -25,7 +25,15 @@ public class SecurityKeyUtils {
         return generateSecurityKey(KEY_BYTE_LENGTH);
     }
 
+    public static String generateEncryptionKey() {
+        return generateSecurityKey(KEY_BYTE_LENGTH);
+    }
+
+    public static String generateIntegrationKey() {
+        return generateSecurityKey(16);
+    }
+
     public static void main(String[] args) {
-        System.out.println(generateSecurityKey());
+        System.out.println(generateIntegrationKey());
     }
 }

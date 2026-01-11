@@ -72,5 +72,9 @@
             <groupId>org.lionsoul</groupId>
             <artifactId>ip2region</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
     </dependencies>
 </project>

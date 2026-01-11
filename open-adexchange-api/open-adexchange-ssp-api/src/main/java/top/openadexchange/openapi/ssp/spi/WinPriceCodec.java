@@ -2,13 +2,15 @@ package top.openadexchange.openapi.ssp.spi;
 
 import com.chaincoretech.epc.annotation.ExtensionPoint;
 
+import top.openadexchange.model.Dsp;
+
 /**
  * 竞价结果价格编码解码器
  */
 @ExtensionPoint
 public interface WinPriceCodec {
 
-    String encode(double price);
+    String encode(long price, Dsp dsp);
 
-    double decode(String price);
+    long decode(String price, Dsp dsp);
 }

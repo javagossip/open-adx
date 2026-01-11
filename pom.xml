@@ -73,6 +73,7 @@
         <roaringbitmap.version>1.5.1</roaringbitmap.version>
         <fastjson2.version>2.0.60</fastjson2.version>
         <ip2region.version>3.3.4</ip2region.version>
+        <guava.version>33.5.0-jre</guava.version>
         <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
 
@@ -213,6 +214,11 @@
                 <groupId>org.lionsoul</groupId>
                 <artifactId>ip2region</artifactId>
                 <version>${ip2region.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

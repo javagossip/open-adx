@@ -13,4 +13,6 @@ public class OpenApiSspProperties {
     private String metadataRepository;
     private String executorFactory;
     private String httpClient;
+
+    private int dspCallTimeout = 200;
 }

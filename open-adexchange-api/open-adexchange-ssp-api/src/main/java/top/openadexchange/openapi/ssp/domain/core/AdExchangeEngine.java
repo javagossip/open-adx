@@ -1,4 +1,4 @@
-package top.openadexchange.openapi.ssp.application.service;
+package top.openadexchange.openapi.ssp.domain.core;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -20,27 +20,35 @@ import lombok.extern.slf4j.Slf4j;
 import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.openapi.ssp.application.factory.IndexKeysBuilder;
+import top.openadexchange.openapi.ssp.config.OpenApiSspProperties;
 import top.openadexchange.openapi.ssp.domain.gateway.ExecutorFactories;
 import top.openadexchange.openapi.ssp.domain.gateway.ExecutorFactory;
 import top.openadexchange.openapi.ssp.domain.gateway.IndexService;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataRepository;
 import top.openadexchange.openapi.ssp.domain.gateway.OpenApiSspServices;
 import top.openadexchange.openapi.ssp.domain.model.IndexKeys;
+import top.openadexchange.openapi.ssp.spi.MacroContextBuilder;
+import top.openadexchange.openapi.ssp.spi.MacroProcessor;
+import top.openadexchange.openapi.ssp.spi.factory.OaxSpiFactory;
+import top.openadexchange.openapi.ssp.spi.model.MacroContext;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Imp;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid.Bid;
+import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid.Bid.Builder;
 
 @Service
 @Slf4j
 public class AdExchangeEngine {
 
-    private static final double DELTA = 1.0D; //1分
+    private static final long DELTA = 10000; //1分
 
     @Resource
     private DspClient dspClient;
     @Resource
     private OpenApiSspServices openApiSspServices;
+    @Resource
+    private OpenApiSspProperties openApiSspProperties;
     @Resource
     private IndexKeysBuilder indexKeysBuilder;
     @Resource
@@ -48,7 +56,7 @@ public class AdExchangeEngine {
 
     public Map<String, Bid> bidding(BidRequest request) {
         // 1. 获取所有 DSP 的响应 (并发逻辑同前)
-        Map<String, Double> impFloorMap =
+        Map<String, Long> impFloorMap =
                 request.getImpList().stream().collect(Collectors.toMap(Imp::getId, Imp::getBidFloor, (a, b) -> a));
         Map<String, List<DspBid>> validImpBids = fetchAllBids(request, impFloorMap);
         if (validImpBids == null || validImpBids.isEmpty()) {
@@ -59,17 +67,17 @@ public class AdExchangeEngine {
         return winnerBids;
     }
 
-    private Bid selectWinBid(List<DspBid> bids, Double impFloor) {
+    private Bid selectWinBid(List<DspBid> bids, long impFloor) {
         // 3. 执行二价计费算法
         List<DspBid> sortedBids = bids.stream()
                 .sorted(Comparator.comparingDouble(DspBid::getPrice).reversed())
                 .collect(Collectors.toList());
         DspBid winner = sortedBids.get(0);
-        double settlementPrice;
+        long settlementPrice;
 
         if (sortedBids.size() > 1) {
             // 有多个竞标者，取第二名价格 + DELTA
-            double secondPrice = sortedBids.get(1).getBid().getPrice();
+            long secondPrice = sortedBids.get(1).getBid().getPrice();
             settlementPrice = secondPrice + DELTA;
 
             // 兜底：结算价不能超过中标者自己的出价
@@ -80,20 +88,43 @@ public class AdExchangeEngine {
         }
 
         // 4. 设置最终结算价格并返回
+        Dsp winDsp = winner.getDsp();
         Bid.Builder builder = Bid.newBuilder(winner.getBid()).setPrice(settlementPrice);
         //5. 对WinNotice url以及点击/曝光监测地址进行宏替换处理
+        replaceMacros(builder, winner);
         //6. 发送WinNotice请求
         log.info("竞价完成，中标者: {}, 原始出价: {}, 最终结算价: {}",
-                winner.getDsp().getName(),
+                winDsp.getName(),
                 winner.getBid().getPrice(),
                 settlementPrice);
 
         return builder.build();
     }
 
+    private void replaceMacros(Builder builder, DspBid dspBid) {
+        MacroContextBuilder macroContextBuilder = OaxSpiFactory.getMacroContextBuilder(dspBid.getDspId());
+        MacroContext macroContext = macroContextBuilder.build(dspBid);
+
+        MacroProcessor macroProcessor = OaxSpiFactory.getMacroProcessor(dspBid.getDspId());
+        builder.setNurl(macroProcessor.process(builder.getNurl(), macroContext));
+
+        List<String> origImpTrackingUrls = builder.getImpTrackersList();
+        List<String> origClkTrackingUrls = builder.getClkTrackersList();
+
+        List<String> impTrackingUrls = origImpTrackingUrls.stream()
+                .map(url -> macroProcessor.process(url, macroContext))
+                .collect(Collectors.toList());
+        List<String> clkTrackingUrls = origClkTrackingUrls.stream()
+                .map(url -> macroProcessor.process(url, macroContext))
+                .collect(Collectors.toList());
+
+        builder.clearImpTrackers().addAllImpTrackers(impTrackingUrls);
+        builder.clearClkTrackers().addAllClkTrackers(clkTrackingUrls);
+    }
+
     //返回按照impid进行分组的竞价结果
     private Map<String, List<DspBid>> fetchAllBids(BidRequest request, /*<impid, floorPrice>*/
-            Map<String, Double> impFloorMap) {
+            Map<String, Long> impFloorMap) {
         IndexService indexService = openApiSspServices.getIndexService();
         MetadataRepository metadataRepository = openApiSspServices.getCachedMetadataRepository();
 
@@ -115,12 +146,14 @@ public class AdExchangeEngine {
 
         try {
             //向符合条件的 dsp发起实时竞价请求
-            List<Future<BidResponse>> futures = executor.invokeAll(tasks, 200, TimeUnit.MILLISECONDS);
+            List<Future<BidResponse>> futures =
+                    executor.invokeAll(tasks, openApiSspProperties.getDspCallTimeout(), TimeUnit.MILLISECONDS);
             return futures.stream()
                     .map(future -> {
                         try {
                             return future.isDone() ? future.get() : null;
                         } catch (Exception ex) {
+                            log.error("invokeAll error", ex);
                         }
                         return null;
                     })
@@ -128,7 +161,7 @@ public class AdExchangeEngine {
                     .flatMap(bidResponse -> bidResponse.getSeatbidList().stream())
                     .flatMap(seatBid -> seatBid.getBidList().stream())
                     .filter(bid -> {
-                        Double floor = impFloorMap.get(bid.getImpid());
+                        Long floor = impFloorMap.get(bid.getImpid());
                         return floor != null && bid.getPrice() > floor;
                     })
                     .map(bid -> new DspBid(metadataRepository.getDspByDspId(bid.getDspId()), bid))
@@ -150,8 +183,12 @@ public class AdExchangeEngine {
             return bid.getImpid();
         }
 
-        public double getPrice() {
+        public long getPrice() {
             return bid.getPrice();
+        }
+
+        public String getDspId() {
+            return bid.getDspId();
         }
     }
 }

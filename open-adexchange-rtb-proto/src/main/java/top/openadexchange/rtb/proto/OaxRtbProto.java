@@ -441,22 +441,22 @@ public final class OaxRtbProto {
 
       /**
        * <pre>
-       *媒体广告位底价
+       *媒体广告位底价,采用微单位表示，1元=1000000微单位
        * </pre>
        *
-       * <code>optional double bid_floor = 8;</code>
+       * <code>optional uint64 bid_floor = 8;</code>
        * @return Whether the bidFloor field is set.
        */
       boolean hasBidFloor();
       /**
        * <pre>
-       *媒体广告位底价
+       *媒体广告位底价,采用微单位表示，1元=1000000微单位
        * </pre>
        *
-       * <code>optional double bid_floor = 8;</code>
+       * <code>optional uint64 bid_floor = 8;</code>
        * @return The bidFloor.
        */
-      double getBidFloor();
+      long getBidFloor();
 
       /**
        * <pre>
@@ -6800,13 +6800,13 @@ public final class OaxRtbProto {
       }
 
       public static final int BID_FLOOR_FIELD_NUMBER = 8;
-      private double bidFloor_ = 0D;
+      private long bidFloor_ = 0L;
       /**
        * <pre>
-       *媒体广告位底价
+       *媒体广告位底价,采用微单位表示，1元=1000000微单位
        * </pre>
        *
-       * <code>optional double bid_floor = 8;</code>
+       * <code>optional uint64 bid_floor = 8;</code>
        * @return Whether the bidFloor field is set.
        */
       @java.lang.Override
@@ -6815,14 +6815,14 @@ public final class OaxRtbProto {
       }
       /**
        * <pre>
-       *媒体广告位底价
+       *媒体广告位底价,采用微单位表示，1元=1000000微单位
        * </pre>
        *
-       * <code>optional double bid_floor = 8;</code>
+       * <code>optional uint64 bid_floor = 8;</code>
        * @return The bidFloor.
        */
       @java.lang.Override
-      public double getBidFloor() {
+      public long getBidFloor() {
         return bidFloor_;
       }
 
@@ -7000,7 +7000,7 @@ public final class OaxRtbProto {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 7, tagid_);
         }
         if (((bitField0_ & 0x00000080) != 0)) {
-          output.writeDouble(8, bidFloor_);
+          output.writeUInt64(8, bidFloor_);
         }
         if (((bitField0_ & 0x00000100) != 0)) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 9, bidFloorCur_);
@@ -7047,7 +7047,7 @@ public final class OaxRtbProto {
         }
         if (((bitField0_ & 0x00000080) != 0)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeDoubleSize(8, bidFloor_);
+            .computeUInt64Size(8, bidFloor_);
         }
         if (((bitField0_ & 0x00000100) != 0)) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, bidFloorCur_);
@@ -7121,9 +7121,8 @@ public final class OaxRtbProto {
         }
         if (hasBidFloor() != other.hasBidFloor()) return false;
         if (hasBidFloor()) {
-          if (java.lang.Double.doubleToLongBits(getBidFloor())
-              != java.lang.Double.doubleToLongBits(
-                  other.getBidFloor())) return false;
+          if (getBidFloor()
+              != other.getBidFloor()) return false;
         }
         if (hasBidFloorCur() != other.hasBidFloorCur()) return false;
         if (hasBidFloorCur()) {
@@ -7184,7 +7183,7 @@ public final class OaxRtbProto {
         if (hasBidFloor()) {
           hash = (37 * hash) + BID_FLOOR_FIELD_NUMBER;
           hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-              java.lang.Double.doubleToLongBits(getBidFloor()));
+              getBidFloor());
         }
         if (hasBidFloorCur()) {
           hash = (37 * hash) + BID_FLOOR_CUR_FIELD_NUMBER;
@@ -7369,7 +7368,7 @@ public final class OaxRtbProto {
             pmpBuilder_ = null;
           }
           tagid_ = "";
-          bidFloor_ = 0D;
+          bidFloor_ = 0L;
           bidFloorCur_ = "";
           secure_ = 0;
           isNativeAd_ = false;
@@ -7653,11 +7652,11 @@ public final class OaxRtbProto {
                   bitField0_ |= 0x00000040;
                   break;
                 } // case 58
-                case 65: {
-                  bidFloor_ = input.readDouble();
+                case 64: {
+                  bidFloor_ = input.readUInt64();
                   bitField0_ |= 0x00000080;
                   break;
-                } // case 65
+                } // case 64
                 case 74: {
                   bidFloorCur_ = input.readBytes();
                   bitField0_ |= 0x00000100;
@@ -8673,13 +8672,13 @@ public final class OaxRtbProto {
           return this;
         }
 
-        private double bidFloor_ ;
+        private long bidFloor_ ;
         /**
          * <pre>
-         *媒体广告位底价
+         *媒体广告位底价,采用微单位表示，1元=1000000微单位
          * </pre>
          *
-         * <code>optional double bid_floor = 8;</code>
+         * <code>optional uint64 bid_floor = 8;</code>
          * @return Whether the bidFloor field is set.
          */
         @java.lang.Override
@@ -8688,26 +8687,26 @@ public final class OaxRtbProto {
         }
         /**
          * <pre>
-         *媒体广告位底价
+         *媒体广告位底价,采用微单位表示，1元=1000000微单位
          * </pre>
          *
-         * <code>optional double bid_floor = 8;</code>
+         * <code>optional uint64 bid_floor = 8;</code>
          * @return The bidFloor.
          */
         @java.lang.Override
-        public double getBidFloor() {
+        public long getBidFloor() {
           return bidFloor_;
         }
         /**
          * <pre>
-         *媒体广告位底价
+         *媒体广告位底价,采用微单位表示，1元=1000000微单位
          * </pre>
          *
-         * <code>optional double bid_floor = 8;</code>
+         * <code>optional uint64 bid_floor = 8;</code>
          * @param value The bidFloor to set.
          * @return This builder for chaining.
          */
-        public Builder setBidFloor(double value) {
+        public Builder setBidFloor(long value) {
 
           bidFloor_ = value;
           bitField0_ |= 0x00000080;
@@ -8716,15 +8715,15 @@ public final class OaxRtbProto {
         }
         /**
          * <pre>
-         *媒体广告位底价
+         *媒体广告位底价,采用微单位表示，1元=1000000微单位
          * </pre>
          *
-         * <code>optional double bid_floor = 8;</code>
+         * <code>optional uint64 bid_floor = 8;</code>
          * @return This builder for chaining.
          */
         public Builder clearBidFloor() {
           bitField0_ = (bitField0_ & ~0x00000080);
-          bidFloor_ = 0D;
+          bidFloor_ = 0L;
           onChanged();
           return this;
         }
@@ -23753,22 +23752,22 @@ java.lang.String defaultValue) {
 
         /**
          * <pre>
-         *广告出价, 单位是分
+         *广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
          * </pre>
          *
-         * <code>required double price = 3;</code>
+         * <code>required uint64 price = 3;</code>
          * @return Whether the price field is set.
          */
         boolean hasPrice();
         /**
          * <pre>
-         *广告出价, 单位是分
+         *广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
          * </pre>
          *
-         * <code>required double price = 3;</code>
+         * <code>required uint64 price = 3;</code>
          * @return The price.
          */
-        double getPrice();
+        long getPrice();
 
         /**
          * <pre>
@@ -24364,13 +24363,13 @@ java.lang.String defaultValue) {
         }
 
         public static final int PRICE_FIELD_NUMBER = 3;
-        private double price_ = 0D;
+        private long price_ = 0L;
         /**
          * <pre>
-         *广告出价, 单位是分
+         *广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
          * </pre>
          *
-         * <code>required double price = 3;</code>
+         * <code>required uint64 price = 3;</code>
          * @return Whether the price field is set.
          */
         @java.lang.Override
@@ -24379,14 +24378,14 @@ java.lang.String defaultValue) {
         }
         /**
          * <pre>
-         *广告出价, 单位是分
+         *广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
          * </pre>
          *
-         * <code>required double price = 3;</code>
+         * <code>required uint64 price = 3;</code>
          * @return The price.
          */
         @java.lang.Override
-        public double getPrice() {
+        public long getPrice() {
           return price_;
         }
 
@@ -25215,7 +25214,7 @@ java.lang.String defaultValue) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 2, impid_);
           }
           if (((bitField0_ & 0x00000004) != 0)) {
-            output.writeDouble(3, price_);
+            output.writeUInt64(3, price_);
           }
           if (((bitField0_ & 0x00000008) != 0)) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 4, crid_);
@@ -25277,7 +25276,7 @@ java.lang.String defaultValue) {
           }
           if (((bitField0_ & 0x00000004) != 0)) {
             size += com.google.protobuf.CodedOutputStream
-              .computeDoubleSize(3, price_);
+              .computeUInt64Size(3, price_);
           }
           if (((bitField0_ & 0x00000008) != 0)) {
             size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, crid_);
@@ -25361,9 +25360,8 @@ java.lang.String defaultValue) {
           }
           if (hasPrice() != other.hasPrice()) return false;
           if (hasPrice()) {
-            if (java.lang.Double.doubleToLongBits(getPrice())
-                != java.lang.Double.doubleToLongBits(
-                    other.getPrice())) return false;
+            if (getPrice()
+                != other.getPrice()) return false;
           }
           if (hasCrid() != other.hasCrid()) return false;
           if (hasCrid()) {
@@ -25453,7 +25451,7 @@ java.lang.String defaultValue) {
           if (hasPrice()) {
             hash = (37 * hash) + PRICE_FIELD_NUMBER;
             hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-                java.lang.Double.doubleToLongBits(getPrice()));
+                getPrice());
           }
           if (hasCrid()) {
             hash = (37 * hash) + CRID_FIELD_NUMBER;
@@ -25652,7 +25650,7 @@ java.lang.String defaultValue) {
             bitField0_ = 0;
             id_ = "";
             impid_ = "";
-            price_ = 0D;
+            price_ = 0L;
             crid_ = "";
             dealid_ = "";
             nurl_ = "";
@@ -25992,11 +25990,11 @@ java.lang.String defaultValue) {
                     bitField0_ |= 0x00000002;
                     break;
                   } // case 18
-                  case 25: {
-                    price_ = input.readDouble();
+                  case 24: {
+                    price_ = input.readUInt64();
                     bitField0_ |= 0x00000004;
                     break;
-                  } // case 25
+                  } // case 24
                   case 34: {
                     crid_ = input.readBytes();
                     bitField0_ |= 0x00000008;
@@ -26296,13 +26294,13 @@ java.lang.String defaultValue) {
             return this;
           }
 
-          private double price_ ;
+          private long price_ ;
           /**
            * <pre>
-           *广告出价, 单位是分
+           *广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
            * </pre>
            *
-           * <code>required double price = 3;</code>
+           * <code>required uint64 price = 3;</code>
            * @return Whether the price field is set.
            */
           @java.lang.Override
@@ -26311,26 +26309,26 @@ java.lang.String defaultValue) {
           }
           /**
            * <pre>
-           *广告出价, 单位是分
+           *广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
            * </pre>
            *
-           * <code>required double price = 3;</code>
+           * <code>required uint64 price = 3;</code>
            * @return The price.
            */
           @java.lang.Override
-          public double getPrice() {
+          public long getPrice() {
             return price_;
           }
           /**
            * <pre>
-           *广告出价, 单位是分
+           *广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
            * </pre>
            *
-           * <code>required double price = 3;</code>
+           * <code>required uint64 price = 3;</code>
            * @param value The price to set.
            * @return This builder for chaining.
            */
-          public Builder setPrice(double value) {
+          public Builder setPrice(long value) {
 
             price_ = value;
             bitField0_ |= 0x00000004;
@@ -26339,15 +26337,15 @@ java.lang.String defaultValue) {
           }
           /**
            * <pre>
-           *广告出价, 单位是分
+           *广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
            * </pre>
            *
-           * <code>required double price = 3;</code>
+           * <code>required uint64 price = 3;</code>
            * @return This builder for chaining.
            */
           public Builder clearPrice() {
             bitField0_ = (bitField0_ & ~0x00000004);
-            price_ = 0D;
+            price_ = 0L;
             onChanged();
             return this;
           }
@@ -30374,7 +30372,7 @@ java.lang.String defaultValue) {
       "io\030\016 \001(\01322.top.openadexchange.rtb.proto." +
       "BidRequest.Imp.Audio\022=\n\003pmp\030\006 \001(\01320.top." +
       "openadexchange.rtb.proto.BidRequest.Imp." +
-      "Pmp\022\r\n\005tagid\030\007 \001(\t\022\021\n\tbid_floor\030\010 \001(\001\022\025\n" +
+      "Pmp\022\r\n\005tagid\030\007 \001(\t\022\021\n\tbid_floor\030\010 \001(\004\022\025\n" +
       "\rbid_floor_cur\030\t \001(\t\022\016\n\006secure\030\n \001(\r\022\024\n\014" +
       "is_native_ad\030\014 \001(\010\032B\n\006Banner\022\t\n\001w\030\001 \001(\r\022" +
       "\t\n\001h\030\002 \001(\r\022\013\n\003pos\030\003 \001(\r\022\r\n\005mimes\030\004 \003(\t*\006" +
@@ -30419,7 +30417,7 @@ java.lang.String defaultValue) {
       "d\030\001 \003(\01325.top.openadexchange.rtb.proto.B" +
       "idResponse.SeatBid.Bid\022\014\n\004seat\030\002 \001(\t\032\352\002\n" +
       "\003Bid\022\n\n\002id\030\001 \002(\t\022\r\n\005impid\030\002 \002(\t\022\r\n\005price" +
-      "\030\003 \002(\001\022\014\n\004crid\030\004 \002(\t\022\016\n\006dealid\030\005 \001(\t\022\014\n\004" +
+      "\030\003 \002(\004\022\014\n\004crid\030\004 \002(\t\022\016\n\006dealid\030\005 \001(\t\022\014\n\004" +
       "nurl\030\024 \001(\t\022\024\n\014imp_trackers\030\006 \003(\t\022\024\n\014clk_" +
       "trackers\030\007 \003(\t\022\013\n\003ldp\030\010 \001(\t\022\024\n\014creative_" +
       "url\030\t \001(\t\022\022\n\nclick_type\030\n \001(\r\022\016\n\006bundle\030" +

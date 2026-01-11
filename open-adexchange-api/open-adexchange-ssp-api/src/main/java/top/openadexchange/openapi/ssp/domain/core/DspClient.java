@@ -1,4 +1,4 @@
-package top.openadexchange.openapi.ssp.application.service;
+package top.openadexchange.openapi.ssp.domain.core;
 
 import org.springframework.stereotype.Component;
 
