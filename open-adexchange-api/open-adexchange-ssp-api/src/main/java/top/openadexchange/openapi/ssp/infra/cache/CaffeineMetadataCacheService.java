@@ -8,6 +8,7 @@ import com.github.benmanes.caffeine.cache.Cache;
 
 import jakarta.annotation.Resource;
 import top.openadexchange.domain.entity.AdGroupAggregate;
+import top.openadexchange.domain.entity.AdPlacementAggregate;
 import top.openadexchange.domain.entity.CreativeAggregate;
 import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.model.AdPlacement;
@@ -33,6 +34,8 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
     private Cache<Long, Site> siteCache;
     @Resource
     private Cache<Long, CreativeAggregate> creativeCache;
+    @Resource
+    private Cache<Integer, AdPlacementAggregate> adPlacementAggregateCache;
 
     @Override
     public void addDsp(DspAggregate dspAggregate) {
@@ -82,5 +85,10 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
     @Override
     public Dsp getDspByDspId(String dspId) {
         return dspCacheByDspId.getIfPresent(dspId);
+    }
+
+    @Override
+    public AdPlacementAggregate getAdPlacementAggregate(Integer adPlacementId) {
+        return adPlacementAggregateCache.getIfPresent(adPlacementId);
     }
 }

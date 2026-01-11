@@ -32,7 +32,9 @@ public class AdPlacementConverter {
 
         // 设置code和userId
         if (entityCodeService != null) {
-            adPlacement.setCode(entityCodeService.generateAdPlacementCode());
+            if (adPlacementDto.getCode() == null) {
+                adPlacement.setCode(entityCodeService.generateAdPlacementCode());
+            }
         }
 
         // 处理广告格式和相应属性
@@ -85,6 +87,7 @@ public class AdPlacementConverter {
         AdPlacementDto adPlacementDto = new AdPlacementDto();
         adPlacementDto.setId(adPlacement.getId());
         adPlacementDto.setName(adPlacement.getName());
+        adPlacementDto.setCode(adPlacement.getCode());
         adPlacementDto.setStatus(adPlacement.getStatus());
 
         // 处理广告格式

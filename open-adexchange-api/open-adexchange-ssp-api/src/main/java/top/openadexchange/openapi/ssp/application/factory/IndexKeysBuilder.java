@@ -8,7 +8,7 @@ import org.springframework.util.CollectionUtils;
 
 import jakarta.annotation.Resource;
 import top.openadexchange.constants.Constants;
-import top.openadexchange.openapi.ssp.application.dto.AdFetchRequest;
+import top.openadexchange.openapi.ssp.application.dto.AdGetRequest;
 import top.openadexchange.openapi.ssp.domain.gateway.OaxEngineServices;
 import top.openadexchange.openapi.ssp.domain.model.IndexKeys;
 import top.openadexchange.openapi.ssp.domain.model.IpLocation;
@@ -20,7 +20,7 @@ public class IndexKeysBuilder {
     @Resource
     private OaxEngineServices oaxEngineServices;
 
-    public IndexKeys buildIndexKeys(AdFetchRequest request) {
+    public IndexKeys buildIndexKeys(AdGetRequest request) {
         List<String> osKeys = new ArrayList<>();
         osKeys.add(request.getDevice().getOs().toUpperCase());
         osKeys.add(Constants.DEFAULT_ALL_TARGETING);

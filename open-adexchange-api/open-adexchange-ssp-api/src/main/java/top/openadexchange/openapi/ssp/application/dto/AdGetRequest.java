@@ -10,7 +10,7 @@ import java.util.Map;
  * 竞价请求对象DTO
  */
 @Data
-public class AdFetchRequest {
+public class AdGetRequest {
 
     private String id; // ssp广告请求id, 由ssp自动生成
     private List<Imp> imp; // 曝光对象，一次请求可包含多个imp
@@ -18,7 +18,7 @@ public class AdFetchRequest {
     private App app; // 移动应用，移动app流量使用
     private Device device; // 设备对象
     private Boolean debug;
-    private Boolean test; // 竞价方式：1-一价；2-二价
+    private Boolean test; //是否测试流量
     private Map<String, String> ext; // 扩展字段
 
     /**
@@ -100,6 +100,18 @@ public class AdFetchRequest {
 
     public List<String> getImpTagIds() {
         return imp == null ? Collections.emptyList() : imp.stream().map(Imp::getTagid).toList();
+    }
+
+    public String getTagIdByImpId(String impid) {
+        if (imp == null || imp.isEmpty()) {
+            return null;
+        }
+        for (Imp imp : imp) {
+            if (imp.getId().equals(impid)) {
+                return imp.getTagid();
+            }
+        }
+        return null;
     }
 
     public boolean isTest() {

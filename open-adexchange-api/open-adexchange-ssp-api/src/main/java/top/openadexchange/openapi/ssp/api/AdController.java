@@ -4,8 +4,8 @@ import jakarta.annotation.Resource;
 
 import org.springframework.web.bind.annotation.*;
 
-import top.openadexchange.openapi.ssp.application.dto.AdFetchRequest;
-import top.openadexchange.openapi.ssp.application.dto.AdFetchResponse;
+import top.openadexchange.openapi.ssp.application.dto.AdGetRequest;
+import top.openadexchange.openapi.ssp.application.dto.AdGetResponse;
 import top.openadexchange.openapi.ssp.application.service.AdFetchService;
 
 /**
@@ -13,7 +13,7 @@ import top.openadexchange.openapi.ssp.application.service.AdFetchService;
  */
 @RestController
 @RequestMapping("/v1/ads")
-public class AdFetchController {
+public class AdController {
 
     @Resource
     private AdFetchService adFetchService;
@@ -24,8 +24,8 @@ public class AdFetchController {
      * @param request 广告请求对象
      * @return 广告响应对象
      */
-    @PostMapping("/fetch")
-    public AdFetchResponse fetchAd(@RequestBody AdFetchRequest request) {
+    @PostMapping
+    public AdGetResponse fetchAd(@RequestBody AdGetRequest request) {
         return adFetchService.fetchAd(request);
     }
 }

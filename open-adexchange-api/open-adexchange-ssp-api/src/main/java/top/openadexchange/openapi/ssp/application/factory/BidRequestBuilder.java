@@ -11,7 +11,7 @@ import top.openadexchange.constants.enums.AdFormat;
 import top.openadexchange.constants.enums.SiteType;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.SiteAdPlacement;
-import top.openadexchange.openapi.ssp.application.dto.AdFetchRequest;
+import top.openadexchange.openapi.ssp.application.dto.AdGetRequest;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataRepository;
 import top.openadexchange.openapi.ssp.domain.gateway.OaxEngineServices;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
@@ -38,7 +38,7 @@ public class BidRequestBuilder {
         metadataRepository = oaxEngineServices.getCachedMetadataRepository();
     }
 
-    public BidRequest buildBidRequest(AdFetchRequest request) {
+    public BidRequest buildBidRequest(AdGetRequest request) {
         BidRequest.Builder builder = BidRequest.newBuilder();
 
         builder.setId(request.getId());
@@ -53,7 +53,7 @@ public class BidRequestBuilder {
         return builder.build();
     }
 
-    private Imp buildImp(boolean isTest, AdFetchRequest.Imp imp) {
+    private Imp buildImp(boolean isTest, AdGetRequest.Imp imp) {
         Imp.Builder builder = Imp.newBuilder();
         builder.setId(imp.getId());
         builder.setTagid(imp.getTagid());
@@ -90,13 +90,13 @@ public class BidRequestBuilder {
         builder.setBidFloorCur("CNY");
         builder.setBidFloor(siteAdPlacement.getFloorPrice());
         if (isTest) {
-            builder.setBidFloor(0D);
+            builder.setBidFloor(0);
         }
         return builder.build();
     }
 
-    private Device buildDevice(AdFetchRequest request) {
-        AdFetchRequest.Device device = request.getDevice();
+    private Device buildDevice(AdGetRequest request) {
+        AdGetRequest.Device device = request.getDevice();
         int connectionType = device.getConnectionType() == null ? 0 : device.getConnectionType();
         int deviceType = device.getDeviceType() == null ? 0 : device.getDeviceType();
 
@@ -127,14 +127,14 @@ public class BidRequestBuilder {
         return builder.build();
     }
 
-    private Site buildSite(AdFetchRequest request) {
+    private Site buildSite(AdGetRequest request) {
         //获取任何一个imp对应的广告位编码，因为无论哪个广告位对应的site/app都是同一个
         top.openadexchange.model.Site site = getSite(request);
 
         if (SiteType.WEBSITE != SiteType.fromValue(site.getSiteType())) {
             return Site.newBuilder().build();
         }
-        AdFetchRequest.Site reqSite = request.getSite();
+        AdGetRequest.Site reqSite = request.getSite();
         return Site.newBuilder()
                 .setDomain(site.getDomain())
                 .addAllCat(List.of(StringUtils.tokenizeToStringArray(site.getCats(), ",")))
@@ -144,7 +144,7 @@ public class BidRequestBuilder {
                 .build();
     }
 
-    private top.openadexchange.model.Site getSite(AdFetchRequest request) {
+    private top.openadexchange.model.Site getSite(AdGetRequest request) {
         String tagId = request.getImp().getFirst().getTagid();
         SiteAdPlacement siteAdPlacement = metadataRepository.getSiteAdPlacementByTagId(tagId);
         Long siteId = siteAdPlacement.getSiteId();
@@ -152,19 +152,19 @@ public class BidRequestBuilder {
         return site;
     }
 
-    private Content buildSiteOrAppContent(AdFetchRequest.Content content) {
+    private Content buildSiteOrAppContent(AdGetRequest.Content content) {
         if (content == null) {
             return Content.newBuilder().build();
         }
         return Content.newBuilder().setTitle(content.getTitle()).setKeywords(content.getKeywords()).build();
     }
 
-    private App buildApp(AdFetchRequest request) {
+    private App buildApp(AdGetRequest request) {
         top.openadexchange.model.Site site = getSite(request);
         if (SiteType.APP != SiteType.fromValue(site.getSiteType())) {
             return App.newBuilder().build();
         }
-        AdFetchRequest.App reqApp = request.getApp();
+        AdGetRequest.App reqApp = request.getApp();
         return App.newBuilder()
                 .setBundle(site.getAppBundle())
                 .setId(site.getAppId())

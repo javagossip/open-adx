@@ -1,4 +1,4 @@
-package top.openadexchange.openapi.ssp.infra.repository;
+package top.openadexchange.repository.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
 
-import jakarta.annotation.Resource;
 import top.openadexchange.dao.DspDao;
 import top.openadexchange.dao.DspSiteAdPlacementDao;
 import top.openadexchange.dao.DspTargetingDao;
@@ -21,7 +21,7 @@ import top.openadexchange.model.Dsp;
 import top.openadexchange.model.DspSiteAdPlacement;
 import top.openadexchange.model.DspTargeting;
 import top.openadexchange.model.SiteAdPlacement;
-import top.openadexchange.openapi.ssp.domain.repository.DspAggregateRepository;
+import top.openadexchange.repository.DspAggregateRepository;
 
 import static top.openadexchange.model.table.DspSiteAdPlacementTableDef.*;
 import static top.openadexchange.model.table.DspTableDef.*;
@@ -32,13 +32,13 @@ public class DspAggregateRepositoryImpl implements DspAggregateRepository {
 
     private static final int PAGE_SIZE = 100;
 
-    @Resource
+    @Autowired
     private DspDao dspDao;
-    @Resource
+    @Autowired
     private DspTargetingDao dspTargetingDao;
-    @Resource
+    @Autowired
     private DspSiteAdPlacementDao dspSiteAdPlacementDao;
-    @Resource
+    @Autowired
     private SiteAdPlacementDao siteAdPlacementDao;
 
     @Override

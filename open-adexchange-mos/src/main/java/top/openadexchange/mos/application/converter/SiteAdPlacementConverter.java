@@ -30,7 +30,7 @@ public class SiteAdPlacementConverter {
         siteAdPlacement.setStatus(siteAdPlacementDto.getStatus());
 
         // 设置code和userId
-        if (entityCodeService != null) {
+        if (entityCodeService != null && siteAdPlacement.getCode() == null) {
             siteAdPlacement.setCode(entityCodeService.generateSiteAdPlacementCode());
         }
         siteAdPlacement.setUserId(SecurityUtils.getUserId());
@@ -49,6 +49,7 @@ public class SiteAdPlacementConverter {
         siteAdPlacementDto.setAdPlacementId(siteAdPlacement.getAdPlacementId());
         siteAdPlacementDto.setPlatform(siteAdPlacement.getPlatform());
         siteAdPlacementDto.setName(siteAdPlacement.getName());
+        siteAdPlacementDto.setCode(siteAdPlacement.getCode());
         siteAdPlacementDto.setDemoUrl(siteAdPlacement.getDemoUrl());
         siteAdPlacementDto.setStatus(siteAdPlacement.getStatus());
 

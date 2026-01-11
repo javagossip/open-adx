@@ -2,6 +2,7 @@ package top.openadexchange.openapi.ssp.domain.gateway;
 
 import com.chaincoretech.epc.annotation.ExtensionPoint;
 
+import top.openadexchange.domain.entity.AdPlacementAggregate;
 import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 @ExtensionPoint
 public interface MetadataRepository {
+
     /**
      * 根据tagId获取广告位信息
      *
@@ -36,4 +38,6 @@ public interface MetadataRepository {
     AdPlacement getAdPlacement(Integer id);
 
     Dsp getDspByDspId(String dspId);
+
+    AdPlacementAggregate getAdPlacementAggregate(Integer adPlacementId);
 }

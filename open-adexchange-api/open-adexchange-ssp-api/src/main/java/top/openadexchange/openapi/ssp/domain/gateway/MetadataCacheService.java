@@ -2,6 +2,7 @@ package top.openadexchange.openapi.ssp.domain.gateway;
 
 import com.chaincoretech.epc.annotation.ExtensionPoint;
 
+import top.openadexchange.domain.entity.AdPlacementAggregate;
 import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
@@ -33,4 +34,6 @@ public interface MetadataCacheService {
     void addAdPlacement(AdPlacement adPlacement);
 
     Dsp getDspByDspId(String dspId);
+
+    AdPlacementAggregate getAdPlacementAggregate(Integer adPlacementId);
 }

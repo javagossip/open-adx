@@ -7,6 +7,7 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 
 import top.openadexchange.domain.entity.AdGroupAggregate;
+import top.openadexchange.domain.entity.AdPlacementAggregate;
 import top.openadexchange.domain.entity.CreativeAggregate;
 import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.model.AdPlacement;
@@ -51,5 +52,10 @@ public class CaffeineCacheConfig {
     @Bean
     public Cache<Integer, CreativeAggregate> creativeCache() {
         return Caffeine.newBuilder().initialCapacity(100).maximumSize(500).build();
+    }
+
+    @Bean
+    public Cache<Integer, AdPlacementAggregate> adPlacementAggregateCache() {
+        return Caffeine.newBuilder().initialCapacity(50).maximumSize(200).build();
     }
 }

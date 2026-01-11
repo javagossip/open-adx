@@ -24,6 +24,8 @@ public class SiteAdPlacementDto {
 
     @Schema(description = "site广告位名称")
     private String name;
+    @Schema(description = "广告位编码")
+    private String code;
 
     @Schema(description = "广告位截图url")
     private String demoUrl;

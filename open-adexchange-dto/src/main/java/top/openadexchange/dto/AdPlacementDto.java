@@ -20,6 +20,8 @@ public class AdPlacementDto {
     private Integer id;
     @Schema(description = "广告位名称")
     private String name;
+    @Schema(description = "广告位编码")
+    private String code;
     /**
      * BANNER,VIDEO,AUDIO,NATIVE
      */

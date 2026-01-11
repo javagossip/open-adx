@@ -17,7 +17,7 @@ import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.openapi.ssp.domain.gateway.IndexService;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataCacheService;
 import top.openadexchange.openapi.ssp.domain.gateway.OaxEngineServices;
-import top.openadexchange.openapi.ssp.domain.repository.DspAggregateRepository;
+import top.openadexchange.repository.DspAggregateRepository;
 
 //应用预热服务
 @Service

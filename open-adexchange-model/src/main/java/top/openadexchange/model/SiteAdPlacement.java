@@ -58,7 +58,7 @@ public class SiteAdPlacement implements Serializable {
     /**
      * 底价
      */
-    private Double floorPrice;
+    private Long floorPrice;
     /**
      * 1-使用中, 0-禁用
      */

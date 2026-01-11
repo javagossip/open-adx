@@ -57,13 +57,17 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
             <groupId>top.openadexchange</groupId>
             <artifactId>epc</artifactId>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>oax-openapi-dsp</finalName>
+        <finalName>oax-dsp-api</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

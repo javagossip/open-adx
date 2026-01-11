@@ -9,7 +9,7 @@ import java.util.Map;
  * 广告响应对象
  */
 @Data
-public class AdFetchResponse {
+public class AdGetResponse {
 
     private String id; // 请求id, 和BidRequest的id保持一致
     private List<Ad> ads; // 针对单个广告位的竞价响应
@@ -21,6 +21,8 @@ public class AdFetchResponse {
     public static class NativeAd {
 
         private String templateId; // 原生广告模板id，一个原生广告位可能支持多个广告模版
+        private Map<String, String> assets; //原生广告属性
+
         private String title;
         private String mainImage;
         private String icon;
@@ -38,7 +40,6 @@ public class AdFetchResponse {
         private String phone; //电话
         private String address; //地址
         private String displayUrl; //展示地址
-        private Map<String, String> ext; //其他字段
     }
 
     /**

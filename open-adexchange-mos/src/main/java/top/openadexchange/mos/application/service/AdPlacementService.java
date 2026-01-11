@@ -36,14 +36,19 @@ public class AdPlacementService {
         AdPlacement adPlacement = adPlacementConverter.from(adPlacementDto);
         adPlacementDao.save(adPlacement);
         List<NativeAsset> nativeAssets = nativeAssetConverter.from(adPlacement.getId(), adPlacementDto.getNativeAd());
-        nativeAssetDao.saveBatch(nativeAssets);
+        if (nativeAssets != null && !nativeAssets.isEmpty()) {
+            nativeAssetDao.saveBatch(nativeAssets);
+        }
+        //        nativeAssetDao.saveBatch(nativeAssets);
         return adPlacement.getId();
     }
 
     public Boolean updateAdPlacement(AdPlacementDto adPlacementDto) {
         AdPlacement adPlacement = adPlacementConverter.from(adPlacementDto);
         List<NativeAsset> nativeAssets = nativeAssetConverter.from(adPlacement.getId(), adPlacementDto.getNativeAd());
-        nativeAssetDao.updateNativeAssetsByAdPlacementId(adPlacement.getId(), nativeAssets);
+        if (nativeAssets != null && !nativeAssets.isEmpty()) {
+            nativeAssetDao.updateNativeAssetsByAdPlacementId(adPlacement.getId(), nativeAssets);
+        }
         return adPlacementDao.updateById(adPlacement);
     }
 

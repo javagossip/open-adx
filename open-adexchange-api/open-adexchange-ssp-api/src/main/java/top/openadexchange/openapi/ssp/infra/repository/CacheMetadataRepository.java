@@ -6,6 +6,7 @@ import java.util.List;
 import com.chaincoretech.epc.annotation.Extension;
 
 import jakarta.annotation.Resource;
+import top.openadexchange.domain.entity.AdPlacementAggregate;
 import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
@@ -43,5 +44,10 @@ public class CacheMetadataRepository implements MetadataRepository {
     @Override
     public Dsp getDspByDspId(String dspId) {
         return metadataCacheService.getDspByDspId(dspId);
+    }
+
+    @Override
+    public AdPlacementAggregate getAdPlacementAggregate(Integer adPlacementId) {
+        return metadataCacheService.getAdPlacementAggregate(adPlacementId);
     }
 }

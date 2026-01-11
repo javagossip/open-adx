@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import com.chaincoretech.epc.ExtensionRegistry;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import top.openadexchange.openapi.ssp.config.OaxEngineProperties;
 
@@ -16,34 +15,34 @@ public class OaxEngineServices {
 
     private IndexService indexService;
     private IP2RegionService ip2RegionService;
-    private MetadataRepository dbMetadataRepository;
-    private MetadataRepository cachedMetadataRepository;
+    private MetadataRepository metadataRepository;
 
     @Resource
     private OaxEngineProperties oaxEngineProperties;
 
-    @PostConstruct
-    public void init() {
-        indexService = ExtensionRegistry.getExtensionByKey(IndexService.class, oaxEngineProperties.getIndexService());
-        ip2RegionService =
-                ExtensionRegistry.getExtensionByKey(IP2RegionService.class, oaxEngineProperties.getIp2RegionService());
-        dbMetadataRepository = ExtensionRegistry.getExtensionByKey(MetadataRepository.class, "db");
-        cachedMetadataRepository = ExtensionRegistry.getExtensionByKey(MetadataRepository.class, "cache");
-    }
-
     public IndexService getIndexService() {
+        if (indexService != null) {
+            return indexService;
+        }
+        indexService = ExtensionRegistry.getExtensionByKey(IndexService.class, oaxEngineProperties.getIndexService());
         return indexService;
     }
 
     public IP2RegionService getIp2RegionService() {
+        if (ip2RegionService != null) {
+            return ip2RegionService;
+        }
+        ip2RegionService =
+                ExtensionRegistry.getExtensionByKey(IP2RegionService.class, oaxEngineProperties.getIp2RegionService());
         return ip2RegionService;
     }
 
-    public MetadataRepository getDbMetadataRepository() {
-        return dbMetadataRepository;
-    }
-
     public MetadataRepository getCachedMetadataRepository() {
-        return cachedMetadataRepository;
+        if (metadataRepository != null) {
+            return metadataRepository;
+        }
+        metadataRepository = ExtensionRegistry.getExtensionByKey(MetadataRepository.class,
+                oaxEngineProperties.getMetadataRepository());
+        return metadataRepository;
     }
 }
