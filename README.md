@@ -98,13 +98,13 @@ graph TD
 
 ### API 文档
 
-- [DSP-API 对接文档](open-adexchange-api/open-adexchange-dsp-api/docs/DSP-API对接文档.md) - DSP 平台 API 对接说明
+- [OAX-DSP-API对接文档](open-adexchange-api/open-adexchange-dsp-api/docs/OAX-DSP-API对接文档.md) - DSP 平台 API 对接说明
 - [OAX_RTB 接口规范](open-adexchange-api/open-adexchange-dsp-api/docs/OAX_RTB_接口规范.md) - 实时竞价协议规范
 
 ### 服务端 API 文档
 
-- [SSP-API 对接文档](open-adexchange-api/open-adexchange-ssp-api/docs/SSP-API对接文档.md) - SSP 平台 API 对接说明
-- [Publisher API 规范](open-adexchange-api/open-adexchange-ssp-api/docs/publisher-api.proto) - Publisher 接入协议定义
+- [OAX-PUBLISHER-API接口文档](open-adexchange-api/open-adexchange-ssp-api/docs/OAX-PUBLISHER-API接口文档.md) - SSP 平台 API 对接说明
+- [Publisher API 规范](open-adexchange-api/open-adexchange-ssp-api/docs/oax-publisher-api.proto) - Publisher 接入协议定义
 
 ## 快速开始
 
