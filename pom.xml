@@ -60,7 +60,8 @@
         <mybatis-flex.version>1.10.9</mybatis-flex.version>
         <lombok.version>1.18.38</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
-        <top.openadexchange.ruoyi.version>1.0.0</top.openadexchange.ruoyi.version>
+        <jib-maven-plugin.version>3.4.0</jib-maven-plugin.version>
+        <top.openadexchange.ruoyi.version>1.0.1</top.openadexchange.ruoyi.version>
         <jasypt-spring-boot.version>3.0.5</jasypt-spring-boot.version>
         <springdoc-openapi.version>2.8.9</springdoc-openapi.version>
         <swagger.version>2.2.30</swagger.version>
@@ -256,6 +257,38 @@
                     <version>${central-publishing-maven-plugin.version}</version>
                 </plugin>
 
+                <!-- 构建以及推送docker镜像插件 -->
+                <plugin>
+                    <groupId>com.google.cloud.tools</groupId>
+                    <artifactId>jib-maven-plugin</artifactId>
+                    <version>${jib-maven-plugin.version}</version>
+                    <configuration>
+                        <from>
+                            <image>eclipse-temurin:21-jre-alpine</image>
+                        </from>
+                        <to>
+                            <auth>
+                                <username>${env.ACR_USERNAME}</username>
+                                <password>${env.ACR_PASSWORD}</password>
+                            </auth>
+                        </to>
+                        <container>
+                            <environment>
+                                <JAVA_OPTS>-Xmx1g -Dfile.encoding=UTF-8</JAVA_OPTS>
+                            </environment>
+                            <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+                        </container>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -393,6 +426,12 @@
             <id>staging</id>
             <properties>
                 <env.id>staging</env.id>
+            </properties>
+        </profile>
+        <profile>
+            <id>docker</id>
+            <properties>
+                <env.id>docker</env.id>
             </properties>
         </profile>
     </profiles>
