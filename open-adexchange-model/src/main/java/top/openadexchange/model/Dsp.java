@@ -41,7 +41,8 @@ public class Dsp implements Serializable {
     private String token;
     //dsp价格加解密密钥配置
     private String encryptionKey;
-    private String integrationKey;
+    // dsp完整性密钥
+    private String integrityKey;
 
     private String contactName;
     private String contactPhone;
@@ -56,7 +57,7 @@ public class Dsp implements Serializable {
     private Integer timeoutMs;
     private String brandLogo;
     //dsp rtb协议类型：1-标准 2- dsp平台自定义
-    private String protocol;
+    private int rtbProtocolType;
 
     private LocalDateTime createdAt;
 

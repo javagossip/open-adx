@@ -4386,6 +4386,7 @@ VALUES
 /*!40000 ALTER TABLE `sys_user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
+ALTER TABLE `dsp` CHANGE `integration_key` `integrity_key` VARCHAR(64)  CHARACTER SET utf8mb4  COLLATE utf8mb4_0900_ai_ci  NULL  DEFAULT NULL  COMMENT '数据校验密钥';
 
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

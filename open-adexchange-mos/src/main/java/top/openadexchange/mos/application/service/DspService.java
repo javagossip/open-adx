@@ -13,10 +13,14 @@ import com.ruoyi.system.service.ISysUserService;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.util.Assert;
+
 import top.openadexchange.dao.DspDao;
 import top.openadexchange.dao.DspSiteAdPlacementDao;
 import top.openadexchange.dao.DspTargetingDao;
 import top.openadexchange.dto.DspDto;
+import top.openadexchange.dto.DspSecretDto;
 import top.openadexchange.dto.DspSettingDto;
 import top.openadexchange.dto.DspSettingDto.DspTargetingDto;
 import top.openadexchange.dto.query.DspQueryDto;
@@ -94,7 +98,6 @@ public class DspService {
         if (dspTargetingDto.getOsList() != null) {
             dspTargeting.setOs(JSON.toJSONString(dspTargetingDto.getOsList()));
         }
-//        dspTargeting.setCountry(dspTargetingDto.getCountry());
         if (dspTargetingDto.getDeviceTypes() != null) {
             dspTargeting.setDeviceType(JSON.toJSONString(dspTargetingDto.getDeviceTypes()));
         }
@@ -129,5 +132,16 @@ public class DspService {
             dspSettingDto.setTargeting(targetingDto);
         }
         return dspSettingDto;
+    }
+
+    public DspSecretDto getDspSecret(Integer dspId) {
+        Assert.notNull(dspId, "dspId cannot be null");
+
+        Dsp dsp = dspDao.getById(dspId);
+        DspSecretDto dspSecretDto = new DspSecretDto();
+        dspSecretDto.setApiToken(dsp.getToken());
+        dspSecretDto.setEncryptionKey(dsp.getEncryptionKey());
+        dspSecretDto.setIntegrityKey(dsp.getIntegrityKey());
+        return dspSecretDto;
     }
 }

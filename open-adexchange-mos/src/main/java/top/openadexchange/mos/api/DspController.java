@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import top.openadexchange.dto.DspDto;
+import top.openadexchange.dto.DspSecretDto;
 import top.openadexchange.dto.DspSettingDto;
 import top.openadexchange.dto.commons.ApiResponse;
 import top.openadexchange.dto.query.DspQueryDto;
@@ -75,7 +76,8 @@ public class DspController {
     @PutMapping("/{id}/setting")
     @Operation(summary = "DSP设置",
             description = "DSP设置，包括广告位、QPS限制、定向")
-    public ApiResponse<Boolean> dspSetting(@PathVariable("id") Integer dspId, @RequestBody DspSettingDto dspSettingDto) {
+    public ApiResponse<Boolean> dspSetting(@PathVariable("id") Integer dspId,
+            @RequestBody DspSettingDto dspSettingDto) {
         return ApiResponse.success(dspService.dspSetting(dspId, dspSettingDto));
     }
 
@@ -84,5 +86,12 @@ public class DspController {
     @Operation(summary = "获取DSP设置")
     public ApiResponse<DspSettingDto> getDspSetting(@PathVariable("id") Integer dspId) {
         return ApiResponse.success(dspService.getDspSetting(dspId));
+    }
+
+    @GetMapping("/{id}/secret")
+    @Operation(summary = "查看DSP密钥信息",
+            description = "获取DSP密钥相关信息，包括API令牌、加密密钥、集成密钥")
+    public ApiResponse<DspSecretDto> getDspSecret(@PathVariable("id") Integer dspId) {
+        return ApiResponse.success(dspService.getDspSecret(dspId));
     }
 }

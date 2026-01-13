@@ -22,7 +22,7 @@ public class OaxWinPriceCodec implements WinPriceCodec {
     @Override
     public String encode(long price, Dsp dsp) {
         byte[] eKey = BaseEncoding.base64Url().decode(dsp.getEncryptionKey());
-        byte[] iKey = BaseEncoding.base64Url().decode(dsp.getIntegrationKey());
+        byte[] iKey = BaseEncoding.base64Url().decode(dsp.getIntegrityKey());
 
         byte[] iv = new byte[16];
         new SecureRandom().nextBytes(iv);
@@ -47,7 +47,7 @@ public class OaxWinPriceCodec implements WinPriceCodec {
     @Override
     public long decode(String encryptedPrice, Dsp dsp) {
         byte[] eKey = BaseEncoding.base64Url().decode(dsp.getEncryptionKey());
-        byte[] iKey = BaseEncoding.base64Url().decode(dsp.getIntegrationKey());
+        byte[] iKey = BaseEncoding.base64Url().decode(dsp.getIntegrityKey());
         // 1. WebSafe Base64 解码 (Guava 提供的 BaseEncoding 会自动处理 URL 安全字符)
         byte[] decoded = BaseEncoding.base64Url().decode(encryptedPrice);
 

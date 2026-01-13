@@ -15,14 +15,14 @@ public class DspDto {
     private Integer id;
     @Schema(description = "DSP名称")
     private String name;
+    @Schema(description = "DSP编码")
+    private String code;
     @Schema(description = "DSP登录密码")
     private String password;
     @Schema(description = "Bid端点")
     private String bidEndpoint;
     @Schema(description = "Win通知端点")
     private String winNoticeEndpoint;
-    //    @Schema(description = "DSP Token")
-    //    private String token;
     @Schema(description = "联系人名称")
     private String contactName;
     @Schema(description = "联系人电话")
@@ -40,4 +40,6 @@ public class DspDto {
     private Integer timeoutMs;
     @Schema(description = "品牌logo地址")
     private String brandLogo;
+    @Schema(description = "DSP RTB协议类型：1-标准 2- dsp平台自有协议")
+    private int rtbProtocolType;
 }

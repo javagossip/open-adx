@@ -7,6 +7,7 @@ import com.ruoyi.common.utils.SecurityUtils;
 import jakarta.annotation.Resource;
 import top.openadexchange.commons.crypto.SecurityKeyUtils;
 import top.openadexchange.commons.service.EntityCodeService;
+import top.openadexchange.dao.DspDao;
 import top.openadexchange.dto.DspDto;
 import top.openadexchange.model.Dsp;
 
@@ -15,12 +16,15 @@ public class DspConverter {
 
     @Resource
     protected EntityCodeService entityCodeService;
+    @Resource
+    private DspDao dspDao;
 
     public Dsp from(DspDto dspDto) {
         if (dspDto == null) {
             return null;
         }
 
+        Dsp origDsp = dspDto.getId() == null ? null : dspDao.getById(dspDto.getId());
         Dsp dsp = new Dsp();
         dsp.setId(dspDto.getId());
         dsp.setName(dspDto.getName());
@@ -33,9 +37,10 @@ public class DspConverter {
         dsp.setQpsLimit(dspDto.getQpsLimit());
         dsp.setTimeoutMs(dspDto.getTimeoutMs());
         dsp.setBrandLogo(dspDto.getBrandLogo());
+        dsp.setRtbProtocolType(dspDto.getRtbProtocolType());
 
         // 设置代码和安全密钥
-        if (entityCodeService != null) {
+        if (entityCodeService != null && dspDto.getCode() == null) {
             dsp.setDspId(entityCodeService.generateDspCode());
         }
 
@@ -43,9 +48,21 @@ public class DspConverter {
         dsp.setUserId(SecurityUtils.getUserId());
 
         // 生成API令牌和加密密钥
-        dsp.setToken(SecurityKeyUtils.getApiToken());
-        dsp.setEncryptionKey(SecurityKeyUtils.generateEncryptionKey());
-        dsp.setIntegrationKey(SecurityKeyUtils.generateIntegrationKey());
+        if (origDsp == null) {
+            dsp.setToken(SecurityKeyUtils.getApiToken());
+            dsp.setEncryptionKey(SecurityKeyUtils.generateEncryptionKey());
+            dsp.setIntegrityKey(SecurityKeyUtils.generateIntegrationKey());
+        } else {
+            if (origDsp.getToken() == null) {
+                dsp.setToken(SecurityKeyUtils.getApiToken());
+            }
+            if (origDsp.getEncryptionKey() == null) {
+                dsp.setEncryptionKey(SecurityKeyUtils.generateEncryptionKey());
+            }
+            if (origDsp.getIntegrityKey() == null) {
+                dsp.setIntegrityKey(SecurityKeyUtils.generateIntegrationKey());
+            }
+        }
 
         return dsp;
     }
@@ -67,6 +84,8 @@ public class DspConverter {
         dspDto.setQpsLimit(dsp.getQpsLimit());
         dspDto.setTimeoutMs(dsp.getTimeoutMs());
         dspDto.setBrandLogo(dsp.getBrandLogo());
+        dspDto.setCode(dsp.getDspId());
+        dspDto.setRtbProtocolType(dsp.getRtbProtocolType());
 
         return dspDto;
     }

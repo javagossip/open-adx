@@ -30,7 +30,7 @@ public class SecurityKeyUtils {
     }
 
     public static String generateIntegrationKey() {
-        return generateSecurityKey(16);
+        return generateSecurityKey(32);
     }
 
     public static void main(String[] args) {
