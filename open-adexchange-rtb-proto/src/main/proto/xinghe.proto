@@ -1,0 +1,215 @@
+syntax = "proto3";
+
+option go_package = "./;OpenPb3";
+
+option java_package = "top.openadexchange.rtb.proto.provider.xinhe";
+option java_outer_classname = "XinHeRtbProto";
+
+message BidRequest {
+    string id = 1;
+    repeated Imp imp = 2;
+    Device device = 3;
+    App app = 4;
+    User user = 5;
+    int32 tmax = 7;
+    bool test = 8;
+    Ext ext = 9;
+}
+
+message Imp {
+    string slot_id = 1;
+    int32 bidfloor = 2;
+    repeated string dealIds = 3;
+    int32 width = 4;
+    int32 height = 5;
+}
+
+message Device {
+    Geo geo = 1;
+    string ua = 2;
+    string ip = 3;
+    string ipv6 = 4;
+    DeviceType devicetype = 5;
+    string os = 6;
+    string osv = 7;
+    int32 w = 8;
+    int32 h = 9;
+    string make = 10;
+    string model = 11;
+    int32 ppi = 12;
+    double pxrate = 13;
+    ConnectionType connectiontype = 14;
+    OperatorType operatortype = 15;
+    string language = 16;
+    string didmd5 = 17;
+    string dpidmd5 = 18;
+    string macmd5 = 19;
+    string oaidmd5 = 20;
+    string mac = 25;
+    string did = 26;
+    string dpid = 27;
+    string oaid = 28;
+    repeated string appinstalled = 29;
+    string bootMark = 31; // 系统启动标识，bootid，每次开机都会产生的一个唯一ID
+    string updateMark = 32; // 系统更新标识，用C++代码获取的是data/data目录的存取执行的时间+修改的时间，形成的字符串
+    string vercodeofag = 33; // 应用市场版本号。与下载类广告的转化路径有关。
+    string vercodeofhms = 34; // HMS Core 版本号，实现被推广应用的静默安装依赖 HMS Core能力。
+    string devicenamemd5 = 35; // 设备名称的MD5值
+    string hardwaremachine = 36; // 设备machine值
+    int64 physicalmemorysize = 37; // 物理内存大小(字节)
+    int64 harddisksize = 38; // 硬盘大小(字节)
+    string systemupdatetime = 39; // 系统更新时间
+    string countrycode = 40; // 国家,如:CN
+    string timezone = 41; // 时区,如:28800
+    string deviceinitializetime = 42; // 设备初始化时间
+    string t2 = 43; // 深度因子 T2
+    string t8 = 44; //  深度因子 T8
+    string kid = 45; // keychain 持久化 ID
+    string caid = 46; // caid参数（已弃用）
+    repeated Caid caids = 47; // caid 及对应的 version,有多个 caid 则传多个
+    string paid = 48; // PDD归因参数v1.3
+    string paid_new = 49; // 拼多多归因参数V1.4
+    OrientationType orientation = 50; // 屏幕方向0:未知；1竖屏；2、横屏
+}
+
+message Geo {
+    double lat = 1;
+    double lon = 2;
+    int32 geo_type = 3; ////0 高德, 1 百度, 2 腾讯, 3 谷歌, 4 WGS84
+    string province = 4; //弃用
+    string city = 5;// 弃用
+    int32 city_code = 6;// 城市代码， 弃用
+    int32 province_code = 7;//省份编码，弃用
+}
+
+message App {
+    string name = 1;
+    string bundle = 2;
+    string ver = 3;
+}
+
+message User {
+    int32 age = 1;
+    Gender gender = 2;
+}
+
+message Ext {
+    bool deeplinkSupported = 1;
+    bool httpsRequired = 2;
+}
+
+message Caid {
+    string version = 1;
+    string caid = 2;
+}
+
+enum DeviceType {
+    DT_UNKNOWN = 0;
+    DT_PHONE = 1;
+    DT_PAD = 2;
+    DT_PC = 3;
+    DT_TV = 4;
+}
+
+enum OrientationType {
+    UNKNOWN = 0;
+    VERTICAL = 1;
+    HORIZONTAL = 2;
+}
+
+enum ConnectionType {
+    CT_UNKNOWN = 0;
+    CT_ETHERNET = 1;
+    CT_WIFI = 2;
+    CT_CELLULAR = 3;
+    CT_CELLULAR_2G = 4;
+    CT_CELLULAR_3G = 5;
+    CT_CELLULAR_4G = 6;
+    CT_CELLULAR_5G = 7;
+}
+
+enum OperatorType {
+    OT_UNKNOWN = 0;
+    OT_MOBILE = 1; //移动
+    OT_TELECOM = 2; //电信
+    OT_UNICOM = 3; //联通
+    OT_RATIO = 4; //广电
+    OT_OTHERS = 99;
+}
+
+enum Gender {
+    MALE = 0;
+    FEMALE = 1;
+    ALL = 2;
+}
+
+message BidResponse {
+    string id = 1;
+    repeated SeatBid seatBid = 2;
+    string bidid = 3;
+    string processtime = 4;
+    int32 code = 5; //0: 有返回
+    int64 nbtendtime = 6; // nbt结束时间
+}
+
+message SeatBid {
+    repeated Bid bid = 1;
+}
+
+message Bid {
+    string id = 1;
+    int32 price = 2;
+    string nurl = 3;
+    int32 ctype = 4;
+    int32 templateid = 5;
+    string adid = 6;
+    string crid = 7;
+    int32 w = 8;
+    int32 h = 9;
+    string curl = 10;
+    string durl = 11;
+    string title = 12;
+    string source = 13;
+    string summary = 14;
+    repeated string aurl = 15;
+    repeated string murl = 16;
+    repeated string cmurl = 17;
+    repeated string dmurl = 18;
+    string dpkgname = 19;
+    string deeplinkurl = 20;
+    repeated string deeplinkmurl = 21;
+    repeated string downsuccessurl = 22;
+    repeated string playvideomurl = 23;
+    repeated string finishvideomurl = 24;
+    Video video = 25;
+    MiniProgram miniProgram = 26;
+    int32 is_support_app_info = 27;
+    AppInfo app_info = 28;
+    string icon = 29;
+    string lossurl = 30;
+    repeated string lossurls = 31;
+}
+
+message MiniProgram {
+    string mpUserName = 1;
+    string mpPath = 2;
+}
+
+message Video {
+    int32 w = 1;
+    int32 h = 2;
+    int64 size = 3;
+    int64 videoduration = 4;
+    string videourl = 5;
+    string logourl = 6;
+}
+
+message AppInfo {
+    string app_name = 1;//app名称
+    string version_name = 2;//app版本号
+    string developer_name = 3;//开发者名称
+    string privacy_policy_url = 5;//隐私政策链接
+    string permission_url = 6;//用户权限url
+    string app_desc_url = 7;//app应用介绍url
+    string permission_desc = 8; //用户权限描述
+}

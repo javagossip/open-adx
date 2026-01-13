@@ -19,14 +19,6 @@ public class AdExchangeMosApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AdExchangeMosApplication.class, args);
-
-//        StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
-//        encryptor.setPassword(Objects.requireNonNull("top.openadexchange"));
-//        encryptor.setAlgorithm("PBEWithMD5AndTripleDES");
-//
-//        //System.out.println(encryptor.encrypt("OpenAdExchange_2025"));
-//        //下面是 kafka账户 oax的密码：OpenAdExchange@250109
-//        System.out.println(encryptor.encrypt("OpenAdExchange@250109"));
     }
 
     @Bean(name = "jasyptStringEncryptor")

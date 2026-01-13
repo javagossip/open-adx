@@ -16,13 +16,10 @@ public class ExecutorFactories {
     private OaxEngineProperties oaxEngineProperties;
     private ExecutorFactory executorFactory;
 
-    @PostConstruct
-    public void init() {
-        executorFactory =
-                ExtensionRegistry.getExtensionByKey(ExecutorFactory.class, oaxEngineProperties.getExecutorFactory());
-    }
-
     public ExecutorFactory getExecutorFactory() {
+        if (executorFactory == null) {
+            executorFactory = ExtensionRegistry.getExtensionByKey(ExecutorFactory.class, "default");
+        }
         return executorFactory;
     }
 }

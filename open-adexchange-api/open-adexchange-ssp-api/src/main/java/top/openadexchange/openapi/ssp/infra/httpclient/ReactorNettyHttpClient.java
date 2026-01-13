@@ -6,12 +6,13 @@ import top.openadexchange.openapi.ssp.domain.gateway.OaxHttpClient;
 import top.openadexchange.openapi.ssp.domain.model.OaxHttpResponse;
 
 import java.time.Duration;
+import java.util.Map;
 
 @Extension(keys = {"reactor-netty"})
 public class ReactorNettyHttpClient implements OaxHttpClient {
 
     @Override
-    public OaxHttpResponse post(String url, Duration timeout, byte[] body) {
+    public OaxHttpResponse post(Map<String, String> headers, String url, Duration timeout, byte[] body) {
         return null;
     }
 }

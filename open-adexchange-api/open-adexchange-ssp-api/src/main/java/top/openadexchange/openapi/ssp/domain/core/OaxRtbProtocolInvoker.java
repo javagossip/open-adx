@@ -1,6 +1,7 @@
 package top.openadexchange.openapi.ssp.domain.core;
 
 import java.time.Duration;
+import java.util.Map;
 
 import com.chaincoretech.epc.annotation.Extension;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -22,7 +23,10 @@ public class OaxRtbProtocolInvoker implements RtbProtocolInvoker<BidRequest, Bid
     @Override
     public BidResponse invoke(Dsp dsp, BidRequest request) {
         OaxHttpResponse oaxHttpResponse = oaxHttpClientFactory.getOaxHttpClient()
-                .post(dsp.getBidEndpoint(), Duration.ofMillis(dsp.getTimeoutMs()), request.toByteArray());
+                .post(Map.of("Content-Type", "application/protobuf"),
+                        dsp.getBidEndpoint(),
+                        Duration.ofMillis(dsp.getTimeoutMs()),
+                        request.toByteArray());
         if (oaxHttpResponse.getStatusCode() == 200) {
             try {
                 BidResponse.Builder builder = BidResponse.newBuilder().mergeFrom(oaxHttpResponse.getBody());

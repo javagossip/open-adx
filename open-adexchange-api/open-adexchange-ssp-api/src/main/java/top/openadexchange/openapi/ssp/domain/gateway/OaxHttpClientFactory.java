@@ -11,12 +11,10 @@ public class OaxHttpClientFactory {
 
     private OaxHttpClient oaxHttpClient;
 
-    @PostConstruct
-    public void init() {
-        oaxHttpClient = ExtensionRegistry.getExtensionByKey(OaxHttpClient.class, "default");
-    }
-
     public OaxHttpClient getOaxHttpClient() {
+        if (oaxHttpClient == null) {
+            oaxHttpClient = ExtensionRegistry.getExtensionByKey(OaxHttpClient.class, "default");
+        }
         return oaxHttpClient;
     }
 }

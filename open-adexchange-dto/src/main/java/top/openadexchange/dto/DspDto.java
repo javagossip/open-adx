@@ -42,4 +42,8 @@ public class DspDto {
     private String brandLogo;
     @Schema(description = "DSP RTB协议类型：1-标准 2- dsp平台自有协议")
     private int rtbProtocolType;
+    @Schema(description = "加密密钥")
+    private String encryptionKey;
+    @Schema(description = "完整性密钥")
+    private String integrityKey;
 }
