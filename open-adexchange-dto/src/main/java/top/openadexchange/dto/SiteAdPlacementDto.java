@@ -1,9 +1,14 @@
 package top.openadexchange.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import top.openadexchange.commons.FloorPriceUtils;
 
 @Data
 @NoArgsConstructor
@@ -26,10 +31,18 @@ public class SiteAdPlacementDto {
     private String name;
     @Schema(description = "广告位编码")
     private String code;
+    @Schema(description = "广告位底价（币种：CNY)")
+    @JsonIgnore
+    private Double floorPrice;
 
     @Schema(description = "广告位截图url")
     private String demoUrl;
 
     @Schema(description = "状态, 1-使用中, 0-禁用")
     private Integer status;
+
+    @JsonProperty("floorPrice")
+    public String floorPriceAsString() {
+        return FloorPriceUtils.centToYuan(floorPrice);
+    }
 }

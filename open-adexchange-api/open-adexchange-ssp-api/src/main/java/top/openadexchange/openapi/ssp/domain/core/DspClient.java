@@ -20,8 +20,8 @@ public class DspClient {
         //2. 获取协议调用扩展点
         RtbProtocolInvoker invoker = OaxSpiFactory.getRtbProtocolInvoker(dspId);
         //3. 发起rtb请求调用
-        Object response = invoker.invoke(dsp.getDsp(), rtbProtocolConverter.to(request));
-        BidResponse bidResponse = rtbProtocolConverter.from(response);
+        Object response = invoker.invoke(dsp.getDsp(), rtbProtocolConverter.to(dsp.getDsp(), request));
+        BidResponse bidResponse = rtbProtocolConverter.from(dsp.getDsp(), response);
 
         if (bidResponse != null) {
             BidResponse.Builder builder = BidResponse.newBuilder(bidResponse);

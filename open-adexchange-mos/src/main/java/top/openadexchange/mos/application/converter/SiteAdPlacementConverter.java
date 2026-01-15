@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import com.ruoyi.common.utils.SecurityUtils;
 
 import jakarta.annotation.Resource;
+import top.openadexchange.commons.FloorPriceUtils;
 import top.openadexchange.commons.service.EntityCodeService;
 import top.openadexchange.dto.SiteAdPlacementDto;
 import top.openadexchange.model.SiteAdPlacement;
@@ -28,6 +29,7 @@ public class SiteAdPlacementConverter {
         siteAdPlacement.setName(siteAdPlacementDto.getName());
         siteAdPlacement.setDemoUrl(siteAdPlacementDto.getDemoUrl());
         siteAdPlacement.setStatus(siteAdPlacementDto.getStatus());
+        siteAdPlacement.setFloorPrice(FloorPriceUtils.yuanToCent(siteAdPlacementDto.getFloorPrice()));
 
         // 设置code和userId
         if (entityCodeService != null && siteAdPlacement.getCode() == null) {
@@ -52,6 +54,7 @@ public class SiteAdPlacementConverter {
         siteAdPlacementDto.setCode(siteAdPlacement.getCode());
         siteAdPlacementDto.setDemoUrl(siteAdPlacement.getDemoUrl());
         siteAdPlacementDto.setStatus(siteAdPlacement.getStatus());
+        siteAdPlacementDto.setFloorPrice(FloorPriceUtils.centToYuanDouble(siteAdPlacement.getFloorPrice()));
 
         return siteAdPlacementDto;
     }

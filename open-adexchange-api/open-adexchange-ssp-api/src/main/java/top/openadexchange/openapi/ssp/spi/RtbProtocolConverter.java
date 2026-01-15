@@ -2,6 +2,7 @@ package top.openadexchange.openapi.ssp.spi;
 
 import com.chaincoretech.epc.annotation.ExtensionPoint;
 
+import top.openadexchange.model.Dsp;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse;
 
@@ -9,7 +10,7 @@ import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse;
 @ExtensionPoint
 public interface RtbProtocolConverter<REQ, RSP> {
 
-    REQ to(BidRequest bidRequest);
+    REQ to(Dsp dsp,BidRequest bidRequest);
 
-    BidResponse from(RSP rsp);
+    BidResponse from(Dsp dsp,RSP rsp);
 }

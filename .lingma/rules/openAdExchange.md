@@ -9,3 +9,4 @@ trigger: always_on
 - maven install模块的时候，默认跳过测试，跳过 gpg签名
 - 生成测试类的时候禁止使用SpringBootTest注解
 - 针对使用依赖的单元测试，如果要求必须使用真实依赖的话，请使用ContextConfiguration注解
+- 生成代码的时候要严格按照当前项目结构规范和编码规范

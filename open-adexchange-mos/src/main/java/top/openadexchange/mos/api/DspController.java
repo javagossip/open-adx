@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mybatisflex.core.paginate.Page;
@@ -15,12 +16,17 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import top.openadexchange.dto.DspDto;
+import top.openadexchange.dto.DspPlacementMappingDto;
+import top.openadexchange.dto.DspPlacementMappingQuery;
 import top.openadexchange.dto.DspSecretDto;
 import top.openadexchange.dto.DspSettingDto;
 import top.openadexchange.dto.commons.ApiResponse;
 import top.openadexchange.dto.query.DspQueryDto;
 import top.openadexchange.model.Dsp;
+import top.openadexchange.model.DspPlacementMapping;
 import top.openadexchange.mos.application.service.DspService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/dsps")
@@ -90,8 +96,33 @@ public class DspController {
 
     @GetMapping("/{id}/secret")
     @Operation(summary = "查看DSP密钥信息",
-            description = "获取DSP密钥相关信息，包括API令牌、加密密钥、集成密钥")
+            description = "获取DSP密钥相关信息，包括API令牌、加密密钥、完整性密钥")
     public ApiResponse<DspSecretDto> getDspSecret(@PathVariable("id") Integer dspId) {
         return ApiResponse.success(dspService.getDspSecret(dspId));
+    }
+
+    @GetMapping("/search")
+    @Operation(summary = "搜索DSP, 按DSP名称模糊搜索")
+    public ApiResponse<List<Dsp>> search(@RequestParam(name = "searchKey",
+            required = false) String searchKey) {
+        return ApiResponse.success(dspService.search(searchKey));
+    }
+
+    @GetMapping("/placement-mappings")
+    @Operation(summary = "分页查询DSP广告位映射")
+    public ApiResponse<Page<DspPlacementMappingDto>> pageDspPlacementMappings(DspPlacementMappingQuery query) {
+        return ApiResponse.success(dspService.pageDspPlacementMappings(query));
+    }
+
+    @PostMapping("/placement-mappings")
+    @Operation(summary = "新增DSP广告位映射")
+    public ApiResponse<Integer> addDspPlacementMapping(@RequestBody DspPlacementMapping dspPlacementMapping) {
+        return ApiResponse.success(dspService.addDspPlacementMapping(dspPlacementMapping));
+    }
+
+    @DeleteMapping("/placement-mappings/{id}")
+    @Operation(summary = "删除DSP广告位映射")
+    public ApiResponse<Boolean> deleteDspPlacementMapping(@PathVariable("id") Integer id) {
+        return ApiResponse.success(dspService.deleteDspPlacementMapping(id));
     }
 }

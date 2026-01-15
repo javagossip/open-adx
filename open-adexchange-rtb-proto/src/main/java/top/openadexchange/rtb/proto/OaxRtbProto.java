@@ -24046,7 +24046,36 @@ java.lang.String defaultValue) {
 
         /**
          * <pre>
-         *optional string adm = 12;    //动态广告代码
+         *基于 vast格式的视频广告以及原生广告响应
+         * </pre>
+         *
+         * <code>optional string adm = 12;</code>
+         * @return Whether the adm field is set.
+         */
+        boolean hasAdm();
+        /**
+         * <pre>
+         *基于 vast格式的视频广告以及原生广告响应
+         * </pre>
+         *
+         * <code>optional string adm = 12;</code>
+         * @return The adm.
+         */
+        java.lang.String getAdm();
+        /**
+         * <pre>
+         *基于 vast格式的视频广告以及原生广告响应
+         * </pre>
+         *
+         * <code>optional string adm = 12;</code>
+         * @return The bytes for adm.
+         */
+        com.google.protobuf.ByteString
+            getAdmBytes();
+
+        /**
+         * <pre>
+         *原生广告响应
          * </pre>
          *
          * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -24055,7 +24084,7 @@ java.lang.String defaultValue) {
         boolean hasNativeAd();
         /**
          * <pre>
-         *optional string adm = 12;    //动态广告代码
+         *原生广告响应
          * </pre>
          *
          * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -24064,7 +24093,7 @@ java.lang.String defaultValue) {
         top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAd getNativeAd();
         /**
          * <pre>
-         *optional string adm = 12;    //动态广告代码
+         *原生广告响应
          * </pre>
          *
          * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -24213,6 +24242,7 @@ java.lang.String defaultValue) {
           ldp_ = "";
           creativeUrl_ = "";
           bundle_ = "";
+          adm_ = "";
           appDownloadUrl_ = "";
           appName_ = "";
           deeplink_ = "";
@@ -24888,11 +24918,72 @@ java.lang.String defaultValue) {
           }
         }
 
+        public static final int ADM_FIELD_NUMBER = 12;
+        @SuppressWarnings("serial")
+        private volatile java.lang.Object adm_ = "";
+        /**
+         * <pre>
+         *基于 vast格式的视频广告以及原生广告响应
+         * </pre>
+         *
+         * <code>optional string adm = 12;</code>
+         * @return Whether the adm field is set.
+         */
+        @java.lang.Override
+        public boolean hasAdm() {
+          return ((bitField0_ & 0x00000400) != 0);
+        }
+        /**
+         * <pre>
+         *基于 vast格式的视频广告以及原生广告响应
+         * </pre>
+         *
+         * <code>optional string adm = 12;</code>
+         * @return The adm.
+         */
+        @java.lang.Override
+        public java.lang.String getAdm() {
+          java.lang.Object ref = adm_;
+          if (ref instanceof java.lang.String) {
+            return (java.lang.String) ref;
+          } else {
+            com.google.protobuf.ByteString bs = 
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              adm_ = s;
+            }
+            return s;
+          }
+        }
+        /**
+         * <pre>
+         *基于 vast格式的视频广告以及原生广告响应
+         * </pre>
+         *
+         * <code>optional string adm = 12;</code>
+         * @return The bytes for adm.
+         */
+        @java.lang.Override
+        public com.google.protobuf.ByteString
+            getAdmBytes() {
+          java.lang.Object ref = adm_;
+          if (ref instanceof java.lang.String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            adm_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+
         public static final int NATIVEAD_FIELD_NUMBER = 13;
         private top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAd nativeAd_;
         /**
          * <pre>
-         *optional string adm = 12;    //动态广告代码
+         *原生广告响应
          * </pre>
          *
          * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -24900,11 +24991,11 @@ java.lang.String defaultValue) {
          */
         @java.lang.Override
         public boolean hasNativeAd() {
-          return ((bitField0_ & 0x00000400) != 0);
+          return ((bitField0_ & 0x00000800) != 0);
         }
         /**
          * <pre>
-         *optional string adm = 12;    //动态广告代码
+         *原生广告响应
          * </pre>
          *
          * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -24916,7 +25007,7 @@ java.lang.String defaultValue) {
         }
         /**
          * <pre>
-         *optional string adm = 12;    //动态广告代码
+         *原生广告响应
          * </pre>
          *
          * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -24939,7 +25030,7 @@ java.lang.String defaultValue) {
          */
         @java.lang.Override
         public boolean hasAppDownloadUrl() {
-          return ((bitField0_ & 0x00000800) != 0);
+          return ((bitField0_ & 0x00001000) != 0);
         }
         /**
          * <pre>
@@ -25000,7 +25091,7 @@ java.lang.String defaultValue) {
          */
         @java.lang.Override
         public boolean hasAppName() {
-          return ((bitField0_ & 0x00001000) != 0);
+          return ((bitField0_ & 0x00002000) != 0);
         }
         /**
          * <pre>
@@ -25061,7 +25152,7 @@ java.lang.String defaultValue) {
          */
         @java.lang.Override
         public boolean hasDeeplink() {
-          return ((bitField0_ & 0x00002000) != 0);
+          return ((bitField0_ & 0x00004000) != 0);
         }
         /**
          * <pre>
@@ -25122,7 +25213,7 @@ java.lang.String defaultValue) {
          */
         @java.lang.Override
         public boolean hasDspId() {
-          return ((bitField0_ & 0x00004000) != 0);
+          return ((bitField0_ & 0x00008000) != 0);
         }
         /**
          * <pre>
@@ -25241,18 +25332,21 @@ java.lang.String defaultValue) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 11, bundle_);
           }
           if (((bitField0_ & 0x00000400) != 0)) {
-            output.writeMessage(13, getNativeAd());
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 12, adm_);
           }
           if (((bitField0_ & 0x00000800) != 0)) {
-            com.google.protobuf.GeneratedMessageV3.writeString(output, 14, appDownloadUrl_);
+            output.writeMessage(13, getNativeAd());
           }
           if (((bitField0_ & 0x00001000) != 0)) {
-            com.google.protobuf.GeneratedMessageV3.writeString(output, 15, appName_);
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 14, appDownloadUrl_);
           }
           if (((bitField0_ & 0x00002000) != 0)) {
-            com.google.protobuf.GeneratedMessageV3.writeString(output, 16, deeplink_);
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 15, appName_);
           }
           if (((bitField0_ & 0x00004000) != 0)) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 16, deeplink_);
+          }
+          if (((bitField0_ & 0x00008000) != 0)) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 17, dspId_);
           }
           if (((bitField0_ & 0x00000020) != 0)) {
@@ -25314,19 +25408,22 @@ java.lang.String defaultValue) {
             size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, bundle_);
           }
           if (((bitField0_ & 0x00000400) != 0)) {
+            size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, adm_);
+          }
+          if (((bitField0_ & 0x00000800) != 0)) {
             size += com.google.protobuf.CodedOutputStream
               .computeMessageSize(13, getNativeAd());
           }
-          if (((bitField0_ & 0x00000800) != 0)) {
+          if (((bitField0_ & 0x00001000) != 0)) {
             size += com.google.protobuf.GeneratedMessageV3.computeStringSize(14, appDownloadUrl_);
           }
-          if (((bitField0_ & 0x00001000) != 0)) {
+          if (((bitField0_ & 0x00002000) != 0)) {
             size += com.google.protobuf.GeneratedMessageV3.computeStringSize(15, appName_);
           }
-          if (((bitField0_ & 0x00002000) != 0)) {
+          if (((bitField0_ & 0x00004000) != 0)) {
             size += com.google.protobuf.GeneratedMessageV3.computeStringSize(16, deeplink_);
           }
-          if (((bitField0_ & 0x00004000) != 0)) {
+          if (((bitField0_ & 0x00008000) != 0)) {
             size += com.google.protobuf.GeneratedMessageV3.computeStringSize(17, dspId_);
           }
           if (((bitField0_ & 0x00000020) != 0)) {
@@ -25401,6 +25498,11 @@ java.lang.String defaultValue) {
           if (hasBundle()) {
             if (!getBundle()
                 .equals(other.getBundle())) return false;
+          }
+          if (hasAdm() != other.hasAdm()) return false;
+          if (hasAdm()) {
+            if (!getAdm()
+                .equals(other.getAdm())) return false;
           }
           if (hasNativeAd() != other.hasNativeAd()) return false;
           if (hasNativeAd()) {
@@ -25488,6 +25590,10 @@ java.lang.String defaultValue) {
           if (hasBundle()) {
             hash = (37 * hash) + BUNDLE_FIELD_NUMBER;
             hash = (53 * hash) + getBundle().hashCode();
+          }
+          if (hasAdm()) {
+            hash = (37 * hash) + ADM_FIELD_NUMBER;
+            hash = (53 * hash) + getAdm().hashCode();
           }
           if (hasNativeAd()) {
             hash = (37 * hash) + NATIVEAD_FIELD_NUMBER;
@@ -25662,6 +25768,7 @@ java.lang.String defaultValue) {
             creativeUrl_ = "";
             clickType_ = 0;
             bundle_ = "";
+            adm_ = "";
             nativeAd_ = null;
             if (nativeAdBuilder_ != null) {
               nativeAdBuilder_.dispose();
@@ -25754,26 +25861,30 @@ java.lang.String defaultValue) {
               to_bitField0_ |= 0x00000200;
             }
             if (((from_bitField0_ & 0x00001000) != 0)) {
-              result.nativeAd_ = nativeAdBuilder_ == null
-                  ? nativeAd_
-                  : nativeAdBuilder_.build();
+              result.adm_ = adm_;
               to_bitField0_ |= 0x00000400;
             }
             if (((from_bitField0_ & 0x00002000) != 0)) {
-              result.appDownloadUrl_ = appDownloadUrl_;
+              result.nativeAd_ = nativeAdBuilder_ == null
+                  ? nativeAd_
+                  : nativeAdBuilder_.build();
               to_bitField0_ |= 0x00000800;
             }
             if (((from_bitField0_ & 0x00004000) != 0)) {
-              result.appName_ = appName_;
+              result.appDownloadUrl_ = appDownloadUrl_;
               to_bitField0_ |= 0x00001000;
             }
             if (((from_bitField0_ & 0x00008000) != 0)) {
-              result.deeplink_ = deeplink_;
+              result.appName_ = appName_;
               to_bitField0_ |= 0x00002000;
             }
             if (((from_bitField0_ & 0x00010000) != 0)) {
-              result.dspId_ = dspId_;
+              result.deeplink_ = deeplink_;
               to_bitField0_ |= 0x00004000;
+            }
+            if (((from_bitField0_ & 0x00020000) != 0)) {
+              result.dspId_ = dspId_;
+              to_bitField0_ |= 0x00008000;
             }
             result.bitField0_ |= to_bitField0_;
           }
@@ -25915,27 +26026,32 @@ java.lang.String defaultValue) {
               bitField0_ |= 0x00000800;
               onChanged();
             }
+            if (other.hasAdm()) {
+              adm_ = other.adm_;
+              bitField0_ |= 0x00001000;
+              onChanged();
+            }
             if (other.hasNativeAd()) {
               mergeNativeAd(other.getNativeAd());
             }
             if (other.hasAppDownloadUrl()) {
               appDownloadUrl_ = other.appDownloadUrl_;
-              bitField0_ |= 0x00002000;
+              bitField0_ |= 0x00004000;
               onChanged();
             }
             if (other.hasAppName()) {
               appName_ = other.appName_;
-              bitField0_ |= 0x00004000;
+              bitField0_ |= 0x00008000;
               onChanged();
             }
             if (other.hasDeeplink()) {
               deeplink_ = other.deeplink_;
-              bitField0_ |= 0x00008000;
+              bitField0_ |= 0x00010000;
               onChanged();
             }
             if (other.hasDspId()) {
               dspId_ = other.dspId_;
-              bitField0_ |= 0x00010000;
+              bitField0_ |= 0x00020000;
               onChanged();
             }
             this.mergeExtensionFields(other);
@@ -26037,31 +26153,36 @@ java.lang.String defaultValue) {
                     bitField0_ |= 0x00000800;
                     break;
                   } // case 90
+                  case 98: {
+                    adm_ = input.readBytes();
+                    bitField0_ |= 0x00001000;
+                    break;
+                  } // case 98
                   case 106: {
                     input.readMessage(
                         getNativeAdFieldBuilder().getBuilder(),
                         extensionRegistry);
-                    bitField0_ |= 0x00001000;
+                    bitField0_ |= 0x00002000;
                     break;
                   } // case 106
                   case 114: {
                     appDownloadUrl_ = input.readBytes();
-                    bitField0_ |= 0x00002000;
+                    bitField0_ |= 0x00004000;
                     break;
                   } // case 114
                   case 122: {
                     appName_ = input.readBytes();
-                    bitField0_ |= 0x00004000;
+                    bitField0_ |= 0x00008000;
                     break;
                   } // case 122
                   case 130: {
                     deeplink_ = input.readBytes();
-                    bitField0_ |= 0x00008000;
+                    bitField0_ |= 0x00010000;
                     break;
                   } // case 130
                   case 138: {
                     dspId_ = input.readBytes();
-                    bitField0_ |= 0x00010000;
+                    bitField0_ |= 0x00020000;
                     break;
                   } // case 138
                   case 162: {
@@ -27322,23 +27443,127 @@ java.lang.String defaultValue) {
             return this;
           }
 
+          private java.lang.Object adm_ = "";
+          /**
+           * <pre>
+           *基于 vast格式的视频广告以及原生广告响应
+           * </pre>
+           *
+           * <code>optional string adm = 12;</code>
+           * @return Whether the adm field is set.
+           */
+          public boolean hasAdm() {
+            return ((bitField0_ & 0x00001000) != 0);
+          }
+          /**
+           * <pre>
+           *基于 vast格式的视频广告以及原生广告响应
+           * </pre>
+           *
+           * <code>optional string adm = 12;</code>
+           * @return The adm.
+           */
+          public java.lang.String getAdm() {
+            java.lang.Object ref = adm_;
+            if (!(ref instanceof java.lang.String)) {
+              com.google.protobuf.ByteString bs =
+                  (com.google.protobuf.ByteString) ref;
+              java.lang.String s = bs.toStringUtf8();
+              if (bs.isValidUtf8()) {
+                adm_ = s;
+              }
+              return s;
+            } else {
+              return (java.lang.String) ref;
+            }
+          }
+          /**
+           * <pre>
+           *基于 vast格式的视频广告以及原生广告响应
+           * </pre>
+           *
+           * <code>optional string adm = 12;</code>
+           * @return The bytes for adm.
+           */
+          public com.google.protobuf.ByteString
+              getAdmBytes() {
+            java.lang.Object ref = adm_;
+            if (ref instanceof String) {
+              com.google.protobuf.ByteString b = 
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                      (java.lang.String) ref);
+              adm_ = b;
+              return b;
+            } else {
+              return (com.google.protobuf.ByteString) ref;
+            }
+          }
+          /**
+           * <pre>
+           *基于 vast格式的视频广告以及原生广告响应
+           * </pre>
+           *
+           * <code>optional string adm = 12;</code>
+           * @param value The adm to set.
+           * @return This builder for chaining.
+           */
+          public Builder setAdm(
+              java.lang.String value) {
+            if (value == null) { throw new NullPointerException(); }
+            adm_ = value;
+            bitField0_ |= 0x00001000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *基于 vast格式的视频广告以及原生广告响应
+           * </pre>
+           *
+           * <code>optional string adm = 12;</code>
+           * @return This builder for chaining.
+           */
+          public Builder clearAdm() {
+            adm_ = getDefaultInstance().getAdm();
+            bitField0_ = (bitField0_ & ~0x00001000);
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *基于 vast格式的视频广告以及原生广告响应
+           * </pre>
+           *
+           * <code>optional string adm = 12;</code>
+           * @param value The bytes for adm to set.
+           * @return This builder for chaining.
+           */
+          public Builder setAdmBytes(
+              com.google.protobuf.ByteString value) {
+            if (value == null) { throw new NullPointerException(); }
+            adm_ = value;
+            bitField0_ |= 0x00001000;
+            onChanged();
+            return this;
+          }
+
           private top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAd nativeAd_;
           private com.google.protobuf.SingleFieldBuilderV3<
               top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAd, top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAd.Builder, top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAdOrBuilder> nativeAdBuilder_;
           /**
            * <pre>
-           *optional string adm = 12;    //动态广告代码
+           *原生广告响应
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
            * @return Whether the nativeAd field is set.
            */
           public boolean hasNativeAd() {
-            return ((bitField0_ & 0x00001000) != 0);
+            return ((bitField0_ & 0x00002000) != 0);
           }
           /**
            * <pre>
-           *optional string adm = 12;    //动态广告代码
+           *原生广告响应
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -27353,7 +27578,7 @@ java.lang.String defaultValue) {
           }
           /**
            * <pre>
-           *optional string adm = 12;    //动态广告代码
+           *原生广告响应
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -27367,13 +27592,13 @@ java.lang.String defaultValue) {
             } else {
               nativeAdBuilder_.setMessage(value);
             }
-            bitField0_ |= 0x00001000;
+            bitField0_ |= 0x00002000;
             onChanged();
             return this;
           }
           /**
            * <pre>
-           *optional string adm = 12;    //动态广告代码
+           *原生广告响应
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -27385,20 +27610,20 @@ java.lang.String defaultValue) {
             } else {
               nativeAdBuilder_.setMessage(builderForValue.build());
             }
-            bitField0_ |= 0x00001000;
+            bitField0_ |= 0x00002000;
             onChanged();
             return this;
           }
           /**
            * <pre>
-           *optional string adm = 12;    //动态广告代码
+           *原生广告响应
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
            */
           public Builder mergeNativeAd(top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAd value) {
             if (nativeAdBuilder_ == null) {
-              if (((bitField0_ & 0x00001000) != 0) &&
+              if (((bitField0_ & 0x00002000) != 0) &&
                 nativeAd_ != null &&
                 nativeAd_ != top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAd.getDefaultInstance()) {
                 getNativeAdBuilder().mergeFrom(value);
@@ -27409,20 +27634,20 @@ java.lang.String defaultValue) {
               nativeAdBuilder_.mergeFrom(value);
             }
             if (nativeAd_ != null) {
-              bitField0_ |= 0x00001000;
+              bitField0_ |= 0x00002000;
               onChanged();
             }
             return this;
           }
           /**
            * <pre>
-           *optional string adm = 12;    //动态广告代码
+           *原生广告响应
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
            */
           public Builder clearNativeAd() {
-            bitField0_ = (bitField0_ & ~0x00001000);
+            bitField0_ = (bitField0_ & ~0x00002000);
             nativeAd_ = null;
             if (nativeAdBuilder_ != null) {
               nativeAdBuilder_.dispose();
@@ -27433,19 +27658,19 @@ java.lang.String defaultValue) {
           }
           /**
            * <pre>
-           *optional string adm = 12;    //动态广告代码
+           *原生广告响应
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
            */
           public top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAd.Builder getNativeAdBuilder() {
-            bitField0_ |= 0x00001000;
+            bitField0_ |= 0x00002000;
             onChanged();
             return getNativeAdFieldBuilder().getBuilder();
           }
           /**
            * <pre>
-           *optional string adm = 12;    //动态广告代码
+           *原生广告响应
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -27460,7 +27685,7 @@ java.lang.String defaultValue) {
           }
           /**
            * <pre>
-           *optional string adm = 12;    //动态广告代码
+           *原生广告响应
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -27489,7 +27714,7 @@ java.lang.String defaultValue) {
            * @return Whether the appDownloadUrl field is set.
            */
           public boolean hasAppDownloadUrl() {
-            return ((bitField0_ & 0x00002000) != 0);
+            return ((bitField0_ & 0x00004000) != 0);
           }
           /**
            * <pre>
@@ -27547,7 +27772,7 @@ java.lang.String defaultValue) {
               java.lang.String value) {
             if (value == null) { throw new NullPointerException(); }
             appDownloadUrl_ = value;
-            bitField0_ |= 0x00002000;
+            bitField0_ |= 0x00004000;
             onChanged();
             return this;
           }
@@ -27561,7 +27786,7 @@ java.lang.String defaultValue) {
            */
           public Builder clearAppDownloadUrl() {
             appDownloadUrl_ = getDefaultInstance().getAppDownloadUrl();
-            bitField0_ = (bitField0_ & ~0x00002000);
+            bitField0_ = (bitField0_ & ~0x00004000);
             onChanged();
             return this;
           }
@@ -27578,7 +27803,7 @@ java.lang.String defaultValue) {
               com.google.protobuf.ByteString value) {
             if (value == null) { throw new NullPointerException(); }
             appDownloadUrl_ = value;
-            bitField0_ |= 0x00002000;
+            bitField0_ |= 0x00004000;
             onChanged();
             return this;
           }
@@ -27593,7 +27818,7 @@ java.lang.String defaultValue) {
            * @return Whether the appName field is set.
            */
           public boolean hasAppName() {
-            return ((bitField0_ & 0x00004000) != 0);
+            return ((bitField0_ & 0x00008000) != 0);
           }
           /**
            * <pre>
@@ -27651,7 +27876,7 @@ java.lang.String defaultValue) {
               java.lang.String value) {
             if (value == null) { throw new NullPointerException(); }
             appName_ = value;
-            bitField0_ |= 0x00004000;
+            bitField0_ |= 0x00008000;
             onChanged();
             return this;
           }
@@ -27665,7 +27890,7 @@ java.lang.String defaultValue) {
            */
           public Builder clearAppName() {
             appName_ = getDefaultInstance().getAppName();
-            bitField0_ = (bitField0_ & ~0x00004000);
+            bitField0_ = (bitField0_ & ~0x00008000);
             onChanged();
             return this;
           }
@@ -27682,7 +27907,7 @@ java.lang.String defaultValue) {
               com.google.protobuf.ByteString value) {
             if (value == null) { throw new NullPointerException(); }
             appName_ = value;
-            bitField0_ |= 0x00004000;
+            bitField0_ |= 0x00008000;
             onChanged();
             return this;
           }
@@ -27697,7 +27922,7 @@ java.lang.String defaultValue) {
            * @return Whether the deeplink field is set.
            */
           public boolean hasDeeplink() {
-            return ((bitField0_ & 0x00008000) != 0);
+            return ((bitField0_ & 0x00010000) != 0);
           }
           /**
            * <pre>
@@ -27755,7 +27980,7 @@ java.lang.String defaultValue) {
               java.lang.String value) {
             if (value == null) { throw new NullPointerException(); }
             deeplink_ = value;
-            bitField0_ |= 0x00008000;
+            bitField0_ |= 0x00010000;
             onChanged();
             return this;
           }
@@ -27769,7 +27994,7 @@ java.lang.String defaultValue) {
            */
           public Builder clearDeeplink() {
             deeplink_ = getDefaultInstance().getDeeplink();
-            bitField0_ = (bitField0_ & ~0x00008000);
+            bitField0_ = (bitField0_ & ~0x00010000);
             onChanged();
             return this;
           }
@@ -27786,7 +28011,7 @@ java.lang.String defaultValue) {
               com.google.protobuf.ByteString value) {
             if (value == null) { throw new NullPointerException(); }
             deeplink_ = value;
-            bitField0_ |= 0x00008000;
+            bitField0_ |= 0x00010000;
             onChanged();
             return this;
           }
@@ -27801,7 +28026,7 @@ java.lang.String defaultValue) {
            * @return Whether the dspId field is set.
            */
           public boolean hasDspId() {
-            return ((bitField0_ & 0x00010000) != 0);
+            return ((bitField0_ & 0x00020000) != 0);
           }
           /**
            * <pre>
@@ -27859,7 +28084,7 @@ java.lang.String defaultValue) {
               java.lang.String value) {
             if (value == null) { throw new NullPointerException(); }
             dspId_ = value;
-            bitField0_ |= 0x00010000;
+            bitField0_ |= 0x00020000;
             onChanged();
             return this;
           }
@@ -27873,7 +28098,7 @@ java.lang.String defaultValue) {
            */
           public Builder clearDspId() {
             dspId_ = getDefaultInstance().getDspId();
-            bitField0_ = (bitField0_ & ~0x00010000);
+            bitField0_ = (bitField0_ & ~0x00020000);
             onChanged();
             return this;
           }
@@ -27890,7 +28115,7 @@ java.lang.String defaultValue) {
               com.google.protobuf.ByteString value) {
             if (value == null) { throw new NullPointerException(); }
             dspId_ = value;
-            bitField0_ |= 0x00010000;
+            bitField0_ |= 0x00020000;
             onChanged();
             return this;
           }
@@ -30406,27 +30631,27 @@ java.lang.String defaultValue) {
       "\006\010\310\001\020\254\002\032i\n\003Geo\022\013\n\003lat\030\001 \001(\002\022\013\n\003lon\030\002 \001(\002" +
       "\022\017\n\007country\030\003 \001(\t\022\016\n\006region\030\004 \001(\t\022\014\n\004cit" +
       "y\030\005 \001(\t\022\021\n\tarea_code\030\006 \001(\r*\006\010\310\001\020\254\002\032\032\n\004Us" +
-      "er\022\n\n\002id\030\001 \001(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002\"\340\005\n\013BidRe" +
+      "er\022\n\n\002id\030\001 \001(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002\"\355\005\n\013BidRe" +
       "sponse\022\n\n\002id\030\001 \002(\t\022B\n\007seatbid\030\002 \003(\01321.to" +
       "p.openadexchange.rtb.proto.BidResponse.S" +
       "eatBid\022\r\n\005bidid\030\003 \002(\t\032\236\001\n\010NativeAd\022\023\n\013te" +
       "mplate_id\030\001 \001(\t\022N\n\006assets\030\002 \003(\0132>.top.op" +
       "enadexchange.rtb.proto.BidResponse.Nativ" +
       "eAd.AssetsEntry\032-\n\013AssetsEntry\022\013\n\003key\030\001 " +
-      "\001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032\310\003\n\007SeatBid\022B\n\003bi" +
+      "\001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032\325\003\n\007SeatBid\022B\n\003bi" +
       "d\030\001 \003(\01325.top.openadexchange.rtb.proto.B" +
-      "idResponse.SeatBid.Bid\022\014\n\004seat\030\002 \001(\t\032\352\002\n" +
+      "idResponse.SeatBid.Bid\022\014\n\004seat\030\002 \001(\t\032\367\002\n" +
       "\003Bid\022\n\n\002id\030\001 \002(\t\022\r\n\005impid\030\002 \002(\t\022\r\n\005price" +
       "\030\003 \002(\004\022\014\n\004crid\030\004 \002(\t\022\016\n\006dealid\030\005 \001(\t\022\014\n\004" +
       "nurl\030\024 \001(\t\022\024\n\014imp_trackers\030\006 \003(\t\022\024\n\014clk_" +
       "trackers\030\007 \003(\t\022\013\n\003ldp\030\010 \001(\t\022\024\n\014creative_" +
       "url\030\t \001(\t\022\022\n\nclick_type\030\n \001(\r\022\016\n\006bundle\030" +
-      "\013 \001(\t\022D\n\010nativeAd\030\r \001(\01322.top.openadexch" +
-      "ange.rtb.proto.BidResponse.NativeAd\022\030\n\020a" +
-      "pp_download_url\030\016 \001(\t\022\020\n\010app_name\030\017 \001(\t\022" +
-      "\020\n\010deeplink\030\020 \001(\t\022\016\n\006dsp_id\030\021 \001(\t*\006\010\310\001\020\254" +
-      "\002*\006\010\310\001\020\254\002B+\n\034top.openadexchange.rtb.prot" +
-      "oB\013OaxRtbProto"
+      "\013 \001(\t\022\013\n\003adm\030\014 \001(\t\022D\n\010nativeAd\030\r \001(\01322.t" +
+      "op.openadexchange.rtb.proto.BidResponse." +
+      "NativeAd\022\030\n\020app_download_url\030\016 \001(\t\022\020\n\010ap" +
+      "p_name\030\017 \001(\t\022\020\n\010deeplink\030\020 \001(\t\022\016\n\006dsp_id" +
+      "\030\021 \001(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002B+\n\034top.openadexch" +
+      "ange.rtb.protoB\013OaxRtbProto"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -30545,7 +30770,7 @@ java.lang.String defaultValue) {
     internal_static_top_openadexchange_rtb_proto_BidResponse_SeatBid_Bid_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidResponse_SeatBid_Bid_descriptor,
-        new java.lang.String[] { "Id", "Impid", "Price", "Crid", "Dealid", "Nurl", "ImpTrackers", "ClkTrackers", "Ldp", "CreativeUrl", "ClickType", "Bundle", "NativeAd", "AppDownloadUrl", "AppName", "Deeplink", "DspId", });
+        new java.lang.String[] { "Id", "Impid", "Price", "Crid", "Dealid", "Nurl", "ImpTrackers", "ClkTrackers", "Ldp", "CreativeUrl", "ClickType", "Bundle", "Adm", "NativeAd", "AppDownloadUrl", "AppName", "Deeplink", "DspId", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -24,4 +24,12 @@ public class DistrictDaoImpl extends ServiceImpl<DistrictMapper, District> imple
     public List<District> getDistrictsByParentId(Integer parentId) {
         return list(QueryWrapper.create().eq(District::getParentId, parentId == null ? 0 : parentId));
     }
+
+    @Override
+    public List<District> getDistrictsByCodes(List<String> codes) {
+        if (codes == null || codes.isEmpty()) {
+            return List.of();
+        }
+        return list(QueryWrapper.create().in(District::getCode, codes));
+    }
 }

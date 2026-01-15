@@ -216,7 +216,7 @@ message BidResponse {
 
       //安卓应用包名或者ios的appid， 点击类型为安卓应用下载和ios应用时候，bundle必填
       optional string bundle = 11;
-      //optional string adm = 12;    //动态广告代码
+      optional string adm = 12;    //基于 vast格式的视频广告以及原生广告响应
       optional NativeAd nativeAd = 13; //原生广告响应
       optional string app_download_url = 14; //应用下载地址
       optional string app_name = 15; //应用名称

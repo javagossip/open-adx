@@ -8,6 +8,9 @@ import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
 
 import jakarta.annotation.Resource;
+
+import org.springframework.util.StringUtils;
+
 import top.openadexchange.dao.SiteAdPlacementDao;
 import top.openadexchange.dto.SiteAdPlacementDto;
 import top.openadexchange.dto.query.SiteAdPlacementQueryDto;
@@ -62,8 +65,11 @@ public class SiteAdPlacementService {
     }
 
     public List<SiteAdPlacement> searchSiteAdPlacements(String searchKey, Integer size) {
+        if (!StringUtils.hasText(searchKey)) {
+            return siteAdPlacementDao.list(QueryWrapper.create().limit(size == null ? 100 : size));
+        }
         return siteAdPlacementDao.list(QueryWrapper.create()
                 .like(SiteAdPlacement::getName, searchKey)
-                .limit(size == null ? 20 : size));
+                .limit(size == null ? 100 : size));
     }
 }
