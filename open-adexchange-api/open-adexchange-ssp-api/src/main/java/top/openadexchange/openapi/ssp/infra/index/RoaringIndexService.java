@@ -19,6 +19,7 @@ import top.openadexchange.openapi.ssp.domain.gateway.IndexService;
 import top.openadexchange.openapi.ssp.domain.model.IndexKeys;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -63,8 +64,12 @@ public class RoaringIndexService implements IndexService {
         //如果dsp有os定向，则只有特定os的流量会发给这个dsp
         if (StringUtils.hasText(targeting.getOs())) {
             List<String> osList = JSON.parseArray(targeting.getOs(), String.class);
-            osList.forEach(os -> osIndex.computeIfAbsent(os.toUpperCase(), key -> new RoaringBitmap())
-                    .add(dsp.getId()));
+            if (osList == null || osList.isEmpty()) {
+                osIndex.computeIfAbsent(Constants.DEFAULT_ALL_TARGETING, key -> new RoaringBitmap()).add(dsp.getId());
+            } else {
+                osList.forEach(os -> osIndex.computeIfAbsent(os.toUpperCase(), key -> new RoaringBitmap())
+                        .add(dsp.getId()));
+            }
         } else {
             //不限os
             osIndex.computeIfAbsent(Constants.DEFAULT_ALL_TARGETING, key -> new RoaringBitmap()).add(dsp.getId());
@@ -72,8 +77,13 @@ public class RoaringIndexService implements IndexService {
         //设备类型定向
         if (StringUtils.hasText(targeting.getDeviceType())) {
             List<String> deviceTypes = JSON.parseArray(targeting.getDeviceType(), String.class);
-            deviceTypes.forEach(deviceType -> deviceTypeIndex.computeIfAbsent(deviceType.toUpperCase(),
-                    key -> new RoaringBitmap()).add(dsp.getId()));
+            if (deviceTypes == null || deviceTypes.isEmpty()) {
+                deviceTypeIndex.computeIfAbsent(Constants.DEFAULT_ALL_TARGETING, key -> new RoaringBitmap())
+                        .add(dsp.getId());
+            } else {
+                deviceTypes.forEach(deviceType -> deviceTypeIndex.computeIfAbsent(deviceType.toUpperCase(),
+                        key -> new RoaringBitmap()).add(dsp.getId()));
+            }
         } else {
             //不限设备类型
             deviceTypeIndex.computeIfAbsent(Constants.DEFAULT_ALL_TARGETING, key -> new RoaringBitmap())
@@ -82,10 +92,15 @@ public class RoaringIndexService implements IndexService {
         //区域定向
         if (StringUtils.hasText(targeting.getRegion())) {
             List<String> regions = JSON.parseArray(targeting.getRegion(), String.class);
-            regions.forEach(region -> {
-                //regionCode是 6位数字，如 100000，支持省、市、县三级定向，如果dsp定向区域是 100000, 用户访问流量区域是 101100，则该DSP会收到该流量
-                regionIndex.computeIfAbsent(region, key -> new RoaringBitmap()).add(dsp.getId()); //县
-            });
+            if (regions == null || regions.isEmpty()) {
+                regionIndex.computeIfAbsent(Constants.DEFAULT_ALL_TARGETING, key -> new RoaringBitmap())
+                        .add(dsp.getId());
+            } else {
+                regions.forEach(region -> {
+                    //regionCode是 6位数字，如 100000，支持省、市、县三级定向，如果dsp定向区域是 100000, 用户访问流量区域是 101100，则该DSP会收到该流量
+                    regionIndex.computeIfAbsent(region, key -> new RoaringBitmap()).add(dsp.getId()); //县
+                });
+            }
         } else {
             //不限区域
             regionIndex.computeIfAbsent(Constants.DEFAULT_ALL_TARGETING, key -> new RoaringBitmap()).add(dsp.getId());
@@ -104,20 +119,22 @@ public class RoaringIndexService implements IndexService {
         List<String> deviceTypeKeys = indexKeys.getDeviceTypeKeys();
         List<String> regionKeys = indexKeys.getRegionKeys();
 
-        List<RoaringBitmap> adPlacementBitmaps =
-                tagIdKeys.stream().map(adPlacementToDspIndex::get).filter(Objects::nonNull).toList();
-        RoaringBitmap adPlacementBitmap = RoaringBitmap.or(adPlacementBitmaps.iterator());
-
-        List<RoaringBitmap> osBitmaps = osKeys.stream().map(osIndex::get).filter(Objects::nonNull).toList();
-        RoaringBitmap osBitmap = RoaringBitmap.or(osBitmaps.iterator());
-
-        List<RoaringBitmap> deviceTypeBitmaps =
-                deviceTypeKeys.stream().map(deviceTypeIndex::get).filter(Objects::nonNull).toList();
-        RoaringBitmap deviceTypeBitmap = RoaringBitmap.or(deviceTypeBitmaps.iterator());
-
-        List<RoaringBitmap> regionBitmaps = regionKeys.stream().map(regionIndex::get).filter(Objects::nonNull).toList();
-        RoaringBitmap regionBitmap = RoaringBitmap.or(regionBitmaps.iterator());
-
+        RoaringBitmap adPlacementBitmap = mergeBitmaps(tagIdKeys, adPlacementToDspIndex);
+        if (adPlacementBitmap.getCardinality() == 0) {
+            return Collections.emptyList();
+        }
+        RoaringBitmap osBitmap = mergeBitmaps(osKeys, osIndex);
+        if (osBitmap.getCardinality() == 0) {
+            return Collections.emptyList();
+        }
+        RoaringBitmap deviceTypeBitmap = mergeBitmaps(deviceTypeKeys, deviceTypeIndex);
+        if (deviceTypeBitmap.getCardinality() == 0) {
+            return Collections.emptyList();
+        }
+        RoaringBitmap regionBitmap = mergeBitmaps(regionKeys, regionIndex);
+        if (regionBitmap.getCardinality() == 0) {
+            return Collections.emptyList();
+        }
         List<RoaringBitmap> must =
                 new ArrayList<>(List.of(adPlacementBitmap, osBitmap, deviceTypeBitmap, regionBitmap));
         // 排序后 AND
@@ -129,12 +146,16 @@ public class RoaringIndexService implements IndexService {
                 break;
             }
         }
-
         List<Integer> dspIds = new ArrayList<>(candidate.getCardinality());
         IntIterator it = candidate.getIntIterator();
         while (it.hasNext()) {
             dspIds.add(it.next());
         }
         return dspIds;
+    }
+
+    private RoaringBitmap mergeBitmaps(List<String> keys, Map<String, RoaringBitmap> index) {
+        List<RoaringBitmap> bitmaps = keys.stream().map(index::get).filter(Objects::nonNull).toList();
+        return RoaringBitmap.or(bitmaps.iterator());
     }
 }

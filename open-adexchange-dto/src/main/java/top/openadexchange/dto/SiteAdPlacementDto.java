@@ -32,7 +32,7 @@ public class SiteAdPlacementDto {
     @Schema(description = "广告位编码")
     private String code;
     @Schema(description = "广告位底价（币种：CNY)")
-    @JsonIgnore
+    //@JsonIgnore
     private Double floorPrice;
 
     @Schema(description = "广告位截图url")

@@ -13,11 +13,13 @@ import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
 
 import top.openadexchange.dao.DspDao;
+import top.openadexchange.dao.DspPlacementMappingDao;
 import top.openadexchange.dao.DspSiteAdPlacementDao;
 import top.openadexchange.dao.DspTargetingDao;
 import top.openadexchange.dao.SiteAdPlacementDao;
 import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.model.Dsp;
+import top.openadexchange.model.DspPlacementMapping;
 import top.openadexchange.model.DspSiteAdPlacement;
 import top.openadexchange.model.DspTargeting;
 import top.openadexchange.model.SiteAdPlacement;
@@ -40,6 +42,8 @@ public class DspAggregateRepositoryImpl implements DspAggregateRepository {
     private DspSiteAdPlacementDao dspSiteAdPlacementDao;
     @Autowired
     private SiteAdPlacementDao siteAdPlacementDao;
+    @Autowired
+    private DspPlacementMappingDao dspPlacementMappingDao;
 
     @Override
     public List<DspAggregate> listDspsByPageNo(int pageNo) {
@@ -60,9 +64,9 @@ public class DspAggregateRepositoryImpl implements DspAggregateRepository {
         // 查询对应的定向信息和广告位信息
         Map<Integer, DspTargeting> dspTargetingMap = getDspTargetingMap(dspIds);
         Map<Integer, List<Integer>> dspSiteAdPlacementMap = getDspSiteAdPlacementMap(dspIds);
-
+        Map<Integer, List<DspPlacementMapping>> dspPlacementMappingMap = getDspPlacementMappingMap(dspIds);
         // 组装聚合DTO
-        return buildDspAggregates(dspPage.getRecords(), dspTargetingMap, dspSiteAdPlacementMap);
+        return buildDspAggregates(dspPage.getRecords(), dspTargetingMap, dspSiteAdPlacementMap, dspPlacementMappingMap);
     }
 
     @Override
@@ -83,9 +87,15 @@ public class DspAggregateRepositoryImpl implements DspAggregateRepository {
         // 查询对应的定向信息和广告位信息
         Map<Integer, DspTargeting> dspTargetingMap = getDspTargetingMap(validDspIds);
         Map<Integer, List<Integer>> dspSiteAdPlacementMap = getDspSiteAdPlacementMap(validDspIds);
-
+        Map<Integer, List<DspPlacementMapping>> dspPlacementMappingMap = getDspPlacementMappingMap(validDspIds);
         // 组装聚合DTO
-        return buildDspAggregates(dsps, dspTargetingMap, dspSiteAdPlacementMap);
+        return buildDspAggregates(dsps, dspTargetingMap, dspSiteAdPlacementMap, dspPlacementMappingMap);
+    }
+
+    private Map<Integer, List<DspPlacementMapping>> getDspPlacementMappingMap(List<Integer> validDspIds) {
+        return dspPlacementMappingDao.list(QueryWrapper.create().in(DspPlacementMapping::getDspId, validDspIds))
+                .stream()
+                .collect(Collectors.groupingBy(DspPlacementMapping::getDspId));
     }
 
     /**
@@ -124,7 +134,8 @@ public class DspAggregateRepositoryImpl implements DspAggregateRepository {
      */
     private List<DspAggregate> buildDspAggregates(List<Dsp> dsps,
             Map<Integer, DspTargeting> dspTargetingMap,
-            Map<Integer, List<Integer>> dspSiteAdPlacementMap) {
+            Map<Integer, List<Integer>> dspSiteAdPlacementMap,
+            Map<Integer, List<DspPlacementMapping>> dspPlacementMappingMap) {
         List<DspAggregate> result = new ArrayList<>();
         for (Dsp dsp : dsps) {
             DspTargeting targeting = dspTargetingMap.get(dsp.getId());
@@ -134,7 +145,11 @@ public class DspAggregateRepositoryImpl implements DspAggregateRepository {
             }
             List<SiteAdPlacement> siteAdPlacements =
                     siteAdPlacementDao.list(QueryWrapper.create().in(SiteAdPlacement::getId, siteAdPlacementIds));
-            DspAggregate aggregateDto = new DspAggregate(dsp, targeting, siteAdPlacementIds, siteAdPlacements);
+            DspAggregate aggregateDto = new DspAggregate(dsp,
+                    targeting,
+                    siteAdPlacementIds,
+                    siteAdPlacements,
+                    dspPlacementMappingMap.get(dsp.getId()));
             result.add(aggregateDto);
         }
         return result;

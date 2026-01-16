@@ -7,7 +7,7 @@ import com.chaincoretech.epc.annotation.Extension;
 
 import top.openadexchange.openapi.ssp.domain.gateway.ExecutorFactory;
 
-@Extension(keys = {"virtualThread"})
+@Extension(keys = {"virtualThread","default"})
 public class VirtualThreadExecutorFactory implements ExecutorFactory {
 
     @Override

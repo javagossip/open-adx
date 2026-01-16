@@ -76,11 +76,6 @@ public class FloorPriceService {
         return floorPriceConverter.toDto(floorPrice);
     }
 
-    public List<FloorPriceDto> getAllFloorPrices() {
-        List<FloorPrice> floorPrices = floorPriceDao.list();
-        return floorPrices.stream().map(floorPriceConverter::toDto).collect(Collectors.toList());
-    }
-
     public Page<FloorPriceDto> getFloorPricePage(FloorPriceQueryDto queryDto) {
         return floorPriceDao.pageAs(Page.of(queryDto.getPageNo(), queryDto.getPageSize()),
                 QueryWrapper.create()
@@ -92,12 +87,17 @@ public class FloorPriceService {
                                 "t1.name AS site_ad_placement_name",
                                 "t2.name AS industry_name",
                                 "t3.name AS region_level_name")
-                        .from(FLOOR_PRICE).as("t")
-                        .leftJoin(SITE_AD_PLACEMENT).as("t1")
+                        .from(FLOOR_PRICE)
+                        .as("t")
+                        .leftJoin(SITE_AD_PLACEMENT)
+                        .as("t1")
                         .on(FLOOR_PRICE.SITE_AD_PLACEMENT_ID.eq(SITE_AD_PLACEMENT.ID))
-                        .leftJoin(INDUSTRY).as("t2")
+                        .leftJoin(INDUSTRY)
+                        .as("t2")
                         .on(FLOOR_PRICE.INDUSTRY_ID.eq(INDUSTRY.ID))
-                        .leftJoin(REGION_PKG).as("t3").on(FLOOR_PRICE.REGION_LEVEL_ID.eq(REGION_PKG.ID))
+                        .leftJoin(REGION_PKG)
+                        .as("t3")
+                        .on(FLOOR_PRICE.REGION_LEVEL_ID.eq(REGION_PKG.ID))
                         .eq(FloorPrice::getSiteAdPlacementId, queryDto.getSiteAdPlacementId())
                         .eq(FloorPrice::getStatus, queryDto.getStatus())
                         .eq(FloorPrice::getIndustryId, queryDto.getIndustryId())

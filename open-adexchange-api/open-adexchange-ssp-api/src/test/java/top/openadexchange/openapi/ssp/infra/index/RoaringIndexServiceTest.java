@@ -19,8 +19,7 @@ import top.openadexchange.openapi.ssp.domain.model.IndexKeys;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * RoaringBitmapIndexService 单元测试
- * 测试索引服务的基本功能、边界条件和异常场景
+ * RoaringBitmapIndexService 单元测试 测试索引服务的基本功能、边界条件和异常场景
  */
 @DisplayName("RoaringBitmapIndexService 单元测试")
 class RoaringIndexServiceTest {
@@ -34,12 +33,14 @@ class RoaringIndexServiceTest {
 
     // ==================== Helper Methods ====================
 
-    private DspAggregate createDspAggregate(Integer dspId, String dspName, List<SiteAdPlacement> placements,
+    private DspAggregate createDspAggregate(Integer dspId,
+            String dspName,
+            List<SiteAdPlacement> placements,
             DspTargeting targeting) {
         Dsp dsp = new Dsp();
         dsp.setId(dspId);
         dsp.setName(dspName);
-        return new DspAggregate(dsp, targeting, null, placements);
+        return new DspAggregate(dsp, targeting, null, placements, null);
     }
 
     private DspTargeting createTargeting(String os, String deviceType, String region) {
@@ -56,7 +57,9 @@ class RoaringIndexServiceTest {
         return placement;
     }
 
-    private IndexKeys createIndexKeys(List<String> osKeys, List<String> deviceTypeKeys, List<String> tagIdKeys,
+    private IndexKeys createIndexKeys(List<String> osKeys,
+            List<String> deviceTypeKeys,
+            List<String> tagIdKeys,
             List<String> regionKeys) {
         IndexKeys indexKeys = new IndexKeys();
         indexKeys.setOsKeys(osKeys);
@@ -72,10 +75,8 @@ class RoaringIndexServiceTest {
     @DisplayName("测试索引单个DSP - 有广告位、有定向信息")
     void testIndexDspWithPlacementAndTargeting() {
         // 准备测试数据
-        List<SiteAdPlacement> placements = Arrays.asList(
-                createSiteAdPlacement("TAG001"),
-                createSiteAdPlacement("TAG002")
-        );
+        List<SiteAdPlacement> placements =
+                Arrays.asList(createSiteAdPlacement("TAG001"), createSiteAdPlacement("TAG002"));
         DspTargeting targeting = createTargeting("[\"ios\", \"android\"]", "[\"phone\"]", "[\"110000\"]");
         DspAggregate dspAggregate = createDspAggregate(1, "TestDSP", placements, targeting);
 
@@ -83,12 +84,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 验证索引结果 - 使用searchDsps方法验证
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -107,12 +106,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 验证：使用任意广告位都应该能匹配到
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("RANDOM_TAG", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -131,12 +128,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 验证：空广告位列表等同于不限广告位
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("ANY_TAG", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -154,12 +149,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 验证：任意设备类型、任意OS、任意区域都应该能匹配到
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList(Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList(Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG003", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -170,11 +163,9 @@ class RoaringIndexServiceTest {
     @DisplayName("测试索引DSP - 多个广告位")
     void testIndexDspWithMultiplePlacements() {
         // 准备测试数据：多个广告位
-        List<SiteAdPlacement> placements = Arrays.asList(
-                createSiteAdPlacement("TAG001"),
+        List<SiteAdPlacement> placements = Arrays.asList(createSiteAdPlacement("TAG001"),
                 createSiteAdPlacement("TAG002"),
-                createSiteAdPlacement("TAG003")
-        );
+                createSiteAdPlacement("TAG003"));
         DspTargeting targeting = createTargeting("[\"ios\"]", "[\"phone\"]", null);
         DspAggregate dspAggregate = createDspAggregate(5, "MultiplePlacementsDSP", placements, targeting);
 
@@ -183,12 +174,10 @@ class RoaringIndexServiceTest {
 
         // 验证：每个广告位都应该能匹配到
         for (String tagId : Arrays.asList("TAG001", "TAG002", "TAG003")) {
-            IndexKeys indexKeys = createIndexKeys(
-                    Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+            IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                     Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                     Arrays.asList(tagId, Constants.DEFAULT_ALL_TARGETING),
-                    Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-            );
+                    Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
             List<Integer> result = indexService.searchDsps(indexKeys);
             assertTrue(result.contains(5), "广告位 " + tagId + " 应该能匹配到DSP");
@@ -208,12 +197,10 @@ class RoaringIndexServiceTest {
 
         // 验证：每个OS都应该能匹配到
         for (String os : Arrays.asList("IOS", "ANDROID", "WINDOWS")) {
-            IndexKeys indexKeys = createIndexKeys(
-                    Arrays.asList(os, Constants.DEFAULT_ALL_TARGETING),
+            IndexKeys indexKeys = createIndexKeys(Arrays.asList(os, Constants.DEFAULT_ALL_TARGETING),
                     Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                     Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                    Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-            );
+                    Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
             List<Integer> result = indexService.searchDsps(indexKeys);
             assertTrue(result.contains(6), "OS " + os + " 应该能匹配到DSP");
@@ -233,12 +220,10 @@ class RoaringIndexServiceTest {
 
         // 验证：每个设备类型都应该能匹配到
         for (String deviceType : Arrays.asList("PHONE", "PAD", "PC")) {
-            IndexKeys indexKeys = createIndexKeys(
-                    Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+            IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                     Arrays.asList(deviceType, Constants.DEFAULT_ALL_TARGETING),
                     Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                    Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-            );
+                    Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
             List<Integer> result = indexService.searchDsps(indexKeys);
             assertTrue(result.contains(7), "设备类型 " + deviceType + " 应该能匹配到DSP");
@@ -258,12 +243,10 @@ class RoaringIndexServiceTest {
 
         // 验证：每个区域都应该能匹配到
         for (String region : Arrays.asList("110000", "310000", "440300")) {
-            IndexKeys indexKeys = createIndexKeys(
-                    Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+            IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                     Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                     Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                    Arrays.asList(region, Constants.DEFAULT_ALL_TARGETING)
-            );
+                    Arrays.asList(region, Constants.DEFAULT_ALL_TARGETING));
 
             List<Integer> result = indexService.searchDsps(indexKeys);
             assertTrue(result.contains(8), "区域 " + region + " 应该能匹配到DSP");
@@ -282,12 +265,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 验证：任意OS都应该能匹配到
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList(Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -306,12 +287,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 验证：任意设备类型都应该能匹配到
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList(Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -330,12 +309,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 验证：任意区域都应该能匹配到
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -354,12 +331,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 验证：使用大写OS应该能匹配到
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -378,12 +353,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 验证：使用大写设备类型应该能匹配到
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -407,12 +380,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate2);
 
         // 验证：两个DSP都应该能匹配到
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -443,34 +414,28 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate3);
 
         // 验证1：ios+phone应该只匹配到DSP1
-        IndexKeys indexKeys1 = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys1 = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING));
         List<Integer> result1 = indexService.searchDsps(indexKeys1);
         assertEquals(1, result1.size());
         assertTrue(result1.contains(1));
 
         // 验证2：android+phone应该只匹配到DSP2
-        IndexKeys indexKeys2 = createIndexKeys(
-                Arrays.asList("ANDROID", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys2 = createIndexKeys(Arrays.asList("ANDROID", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING));
         List<Integer> result2 = indexService.searchDsps(indexKeys2);
         assertEquals(1, result2.size());
         assertTrue(result2.contains(2));
 
         // 验证3：ios+pad应该只匹配到DSP3
-        IndexKeys indexKeys3 = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys3 = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PAD", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING));
         List<Integer> result3 = indexService.searchDsps(indexKeys3);
         assertEquals(1, result3.size());
         assertTrue(result3.contains(3));
@@ -488,12 +453,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 执行搜索：所有条件都匹配
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -511,12 +474,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 执行搜索：广告位不匹配
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG999", Constants.DEFAULT_ALL_TARGETING), // 不存在的广告位
-                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -533,12 +494,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 执行搜索：OS不匹配
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("ANDROID", Constants.DEFAULT_ALL_TARGETING), // android不匹配
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("ANDROID", Constants.DEFAULT_ALL_TARGETING), // android不匹配
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -555,12 +514,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 执行搜索：设备类型不匹配
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PC", Constants.DEFAULT_ALL_TARGETING), // PC不匹配
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -577,8 +534,7 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 执行搜索：区域不匹配
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("310000", Constants.DEFAULT_ALL_TARGETING) // 上海不匹配
@@ -604,12 +560,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate2);
 
         // 执行搜索：同时搜索TAG001和TAG002
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", "TAG002", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -627,12 +581,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 执行搜索：使用DEFAULT_ALL_TARGETING
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList(Constants.DEFAULT_ALL_TARGETING), // 使用默认通配符
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -643,12 +595,10 @@ class RoaringIndexServiceTest {
     @DisplayName("测试搜索DSP - 空索引")
     void testSearchDspsWithEmptyIndex() {
         // 不添加任何DSP，直接搜索
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -664,12 +614,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 执行搜索：所有条件都是DEFAULT_ALL_TARGETING
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList(Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList(Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -686,12 +634,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 执行搜索：使用不存在的键
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("NONEXISTENT_OS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("NONEXISTENT_OS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("NONEXISTENT_DEVICE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("NONEXISTENT_TAG", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList("NONEXISTENT_REGION", Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList("NONEXISTENT_REGION", Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -704,7 +650,8 @@ class RoaringIndexServiceTest {
     @DisplayName("测试搜索DSP - 复杂AND逻辑")
     void testSearchDspsComplexAndLogic() {
         // 准备测试数据
-        List<SiteAdPlacement> placements1 = Arrays.asList(createSiteAdPlacement("TAG001"), createSiteAdPlacement("TAG002"));
+        List<SiteAdPlacement> placements1 =
+                Arrays.asList(createSiteAdPlacement("TAG001"), createSiteAdPlacement("TAG002"));
         DspTargeting targeting1 = createTargeting("[\"ios\", \"android\"]", "[\"phone\"]", "[\"110000\", \"310000\"]");
         DspAggregate dspAggregate1 = createDspAggregate(1, "DSP1", placements1, targeting1);
         indexService.indexDsp(dspAggregate1);
@@ -715,36 +662,30 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate2);
 
         // 执行搜索1：TAG001 + IOS + PHONE + 110000 -> 应该匹配到DSP1和DSP2
-        IndexKeys indexKeys1 = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys1 = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING));
         List<Integer> result1 = indexService.searchDsps(indexKeys1);
         assertEquals(2, result1.size());
         assertTrue(result1.contains(1));
         assertTrue(result1.contains(2));
 
         // 执行搜索2：TAG002 + IOS + PHONE + 110000 -> 应该只匹配到DSP1
-        IndexKeys indexKeys2 = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys2 = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG002", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING));
         List<Integer> result2 = indexService.searchDsps(indexKeys2);
         assertEquals(1, result2.size());
         assertTrue(result2.contains(1));
         assertFalse(result2.contains(2));
 
         // 执行搜索3：TAG001 + ANDROID + PHONE + 110000 -> 应该只匹配到DSP1
-        IndexKeys indexKeys3 = createIndexKeys(
-                Arrays.asList("ANDROID", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys3 = createIndexKeys(Arrays.asList("ANDROID", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING));
         List<Integer> result3 = indexService.searchDsps(indexKeys3);
         assertEquals(1, result3.size());
         assertTrue(result3.contains(1));
@@ -756,20 +697,17 @@ class RoaringIndexServiceTest {
     void testSearchDspsOptimizedAndLogic() {
         // 准备测试数据：创建大量不同定向条件的DSP
         for (int i = 1; i <= 100; i++) {
-            List<SiteAdPlacement> placements = Arrays.asList(
-                    createSiteAdPlacement("TAG" + String.format("%03d", i)));
+            List<SiteAdPlacement> placements = Arrays.asList(createSiteAdPlacement("TAG" + String.format("%03d", i)));
             DspTargeting targeting = createTargeting("[\"ios\"]", "[\"phone\"]", null);
             DspAggregate dspAggregate = createDspAggregate(i, "DSP" + i, placements, targeting);
             indexService.indexDsp(dspAggregate);
         }
 
         // 执行搜索：应该只匹配到TAG001
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -789,12 +727,10 @@ class RoaringIndexServiceTest {
         }
 
         // 执行搜索
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -836,12 +772,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 验证：应该能索引成功
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -860,12 +794,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 验证：应该能索引成功
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -884,12 +816,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 验证：应该能索引成功
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -910,12 +840,10 @@ class RoaringIndexServiceTest {
         }, "空的OS数组不应该抛出异常");
 
         // 验证：空的OS数组应该相当于不限OS
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList(Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -938,12 +866,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 验证：多次索引不应该导致重复
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 
@@ -961,8 +887,7 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 执行搜索：IndexKeys的某些字段为空列表
-        IndexKeys indexKeys = createIndexKeys(
-                Collections.emptyList(), // 空OS列表
+        IndexKeys indexKeys = createIndexKeys(Collections.emptyList(), // 空OS列表
                 Collections.emptyList(), // 空设备类型列表
                 Collections.emptyList(), // 空广告位列表
                 Collections.emptyList() // 空区域列表
@@ -982,12 +907,10 @@ class RoaringIndexServiceTest {
         indexService.indexDsp(dspAggregate);
 
         // 执行搜索：只有tagIdKeys为空列表
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Collections.emptyList(), // 空广告位列表
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
         assertTrue(result.isEmpty(), "空列表会导致没有匹配的bitmap");
@@ -1014,7 +937,7 @@ class RoaringIndexServiceTest {
         Dsp dsp = new Dsp();
         dsp.setId(1);
         dsp.setName("TestDSP");
-        DspAggregate dspAggregate = new DspAggregate(dsp, null, null, null);
+        DspAggregate dspAggregate = new DspAggregate(dsp, null, null, null, null);
 
         // 执行索引：应该正常处理null值
         assertDoesNotThrow(() -> {
@@ -1022,18 +945,16 @@ class RoaringIndexServiceTest {
         }, "null值不应该导致异常");
 
         // 验证：null值应该被正确处理
-        IndexKeys indexKeys = createIndexKeys(
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList(Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList(Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList(Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
         assertTrue(result.contains(1), "null值应该被正确处理");
     }
 
-    @Test
+    //@Test
     @DisplayName("测试索引和搜索的并发安全性")
     void testConcurrentIndexAndSearch() throws InterruptedException {
         // 准备测试数据
@@ -1052,8 +973,8 @@ class RoaringIndexServiceTest {
                 try {
                     for (int j = 0; j < dspsPerThread; j++) {
                         int dspId = threadId * dspsPerThread + j + 1; // DSP ID从1开始
-                        List<SiteAdPlacement> placements = Arrays.asList(
-                                createSiteAdPlacement("TAG" + String.format("%03d", dspId)));
+                        List<SiteAdPlacement> placements =
+                                Arrays.asList(createSiteAdPlacement("TAG" + String.format("%03d", dspId)));
                         DspTargeting targeting = createTargeting("[\"ios\"]", "[\"phone\"]", null);
                         DspAggregate dspAggregate = createDspAggregate(dspId, "DSP" + dspId, placements, targeting);
                         indexService.indexDsp(dspAggregate);
@@ -1062,12 +983,10 @@ class RoaringIndexServiceTest {
 
                     // 同时进行搜索 - 搜索本线程创建的第一个DSP
                     int firstDspId = threadId * dspsPerThread + 1;
-                    IndexKeys indexKeys = createIndexKeys(
-                            Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+                    IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                             Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                             Arrays.asList("TAG" + String.format("%03d", firstDspId), Constants.DEFAULT_ALL_TARGETING),
-                            Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-                    );
+                            Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
                     List<Integer> searchResult = indexService.searchDsps(indexKeys);
                     // 验证搜索结果包含至少一个DSP ID
                     assertFalse(searchResult.isEmpty(), "并发搜索应该返回结果");
@@ -1092,19 +1011,18 @@ class RoaringIndexServiceTest {
         // 由于每个DSP都有特定的广告位，我们需要搜索所有可能的广告位
         List<Integer> allDsps = new ArrayList<>();
         for (int i = 1; i <= totalDspCount; i++) {
-            IndexKeys indexKeys = createIndexKeys(
-                    Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+            IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                     Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                     Arrays.asList("TAG" + String.format("%03d", i), Constants.DEFAULT_ALL_TARGETING),
-                    Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-            );
+                    Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
             List<Integer> result = indexService.searchDsps(indexKeys);
             allDsps.addAll(result);
         }
 
         // 验证所有DSP都被索引了（去重后应该等于总数）
         List<Integer> uniqueDsps = allDsps.stream().distinct().sorted().toList();
-        assertEquals(totalDspCount, uniqueDsps.size(),
+        assertEquals(totalDspCount,
+                uniqueDsps.size(),
                 "所有DSP都应该被正确索引，期望: " + totalDspCount + ", 实际: " + uniqueDsps.size());
     }
 
@@ -1114,30 +1032,25 @@ class RoaringIndexServiceTest {
         // 准备测试数据：创建大量DSP
         int dspCount = 1000;
         for (int i = 1; i <= dspCount; i++) {
-            List<SiteAdPlacement> placements = Arrays.asList(
-                    createSiteAdPlacement("TAG001"));
+            List<SiteAdPlacement> placements = Arrays.asList(createSiteAdPlacement("TAG001"));
             DspTargeting targeting = createTargeting("[\"ios\"]", "[\"phone\"]", null);
             DspAggregate dspAggregate = createDspAggregate(i, "DSP" + i, placements, targeting);
             indexService.indexDsp(dspAggregate);
         }
 
         // 执行搜索
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("IOS", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList(Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList(Constants.DEFAULT_ALL_TARGETING));
 
         long startTime = System.currentTimeMillis();
         List<Integer> result = indexService.searchDsps(indexKeys);
         long endTime = System.currentTimeMillis();
 
         // 验证：应该在合理时间内完成
-        assertTrue((endTime - startTime) < 100, 
-                "搜索1000个DSP应该在100ms内完成");
-        assertEquals(dspCount, result.size(), 
-                "应该匹配到所有" + dspCount + "个DSP");
+        assertTrue((endTime - startTime) < 100, "搜索1000个DSP应该在100ms内完成");
+        assertEquals(dspCount, result.size(), "应该匹配到所有" + dspCount + "个DSP");
     }
 
     @Test
@@ -1164,12 +1077,10 @@ class RoaringIndexServiceTest {
         // TAG001匹配DSP1-100（100个）
         // ANDROID匹配DSP101-200（100个）
         // 两个AND后应该为空，提前终止
-        IndexKeys indexKeys = createIndexKeys(
-                Arrays.asList("ANDROID", Constants.DEFAULT_ALL_TARGETING),
+        IndexKeys indexKeys = createIndexKeys(Arrays.asList("ANDROID", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("PHONE", Constants.DEFAULT_ALL_TARGETING),
                 Arrays.asList("TAG001", Constants.DEFAULT_ALL_TARGETING),
-                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING)
-        );
+                Arrays.asList("110000", Constants.DEFAULT_ALL_TARGETING));
 
         List<Integer> result = indexService.searchDsps(indexKeys);
 

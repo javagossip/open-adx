@@ -11,12 +11,12 @@ import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse;
 public class OaxRtbProtocolConverter implements RtbProtocolConverter<BidRequest, BidResponse> {
 
     @Override
-    public BidRequest to(Dsp dsp,BidRequest bidRequest) {
+    public BidRequest to(Dsp dsp, BidRequest bidRequest) {
         return bidRequest;
     }
 
     @Override
-    public BidResponse from(Dsp dsp,BidResponse bidResponse) {
+    public BidResponse from(Dsp dsp, BidRequest bidRequest, BidResponse bidResponse) {
         return bidResponse;
     }
 }

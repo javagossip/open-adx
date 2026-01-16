@@ -12,5 +12,5 @@ public interface RtbProtocolConverter<REQ, RSP> {
 
     REQ to(Dsp dsp,BidRequest bidRequest);
 
-    BidResponse from(Dsp dsp,RSP rsp);
+    BidResponse from(Dsp dsp,BidRequest req,RSP rsp);
 }

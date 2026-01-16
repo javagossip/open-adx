@@ -1,5 +1,7 @@
 package top.openadexchange.openapi.ssp.domain.core;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Component;
 
 import top.openadexchange.domain.entity.DspAggregate;
@@ -10,6 +12,7 @@ import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse;
 
 @Component
+@Slf4j
 public class DspClient {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -20,8 +23,12 @@ public class DspClient {
         //2. 获取协议调用扩展点
         RtbProtocolInvoker invoker = OaxSpiFactory.getRtbProtocolInvoker(dspId);
         //3. 发起rtb请求调用
-        Object response = invoker.invoke(dsp.getDsp(), rtbProtocolConverter.to(dsp.getDsp(), request));
-        BidResponse bidResponse = rtbProtocolConverter.from(dsp.getDsp(), response);
+        if (request.getTest()) {
+            log.info("BidRequest: {}", request.toString());
+        }
+        Object dspRequest = rtbProtocolConverter.to(dsp.getDsp(), request);
+        Object response = invoker.invoke(dsp.getDsp(), dspRequest);
+        BidResponse bidResponse = rtbProtocolConverter.from(dsp.getDsp(), request, response);
 
         if (bidResponse != null) {
             BidResponse.Builder builder = BidResponse.newBuilder(bidResponse);

@@ -40,6 +40,7 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
     @Override
     public void addDsp(DspAggregate dspAggregate) {
         dspCache.put(dspAggregate.getDsp().getId(), dspAggregate);
+        dspCacheByDspId.put(dspAggregate.getDsp().getDspId(), dspAggregate.getDsp());
     }
 
     @Override

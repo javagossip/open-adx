@@ -18,7 +18,10 @@ import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid.Bid;
 
 @Component
 @Slf4j
-public class AdGetResponseBuilder {
+public class V2AdGetResponseBuilder {
+
+    @Resource
+    private MetadataRepository metadataRepository;
 
     public AdGetResponse buildAdGetResponse(AdGetRequest request, Map<String, Bid> bids) {
         if (bids == null || bids.isEmpty()) {
@@ -54,7 +57,7 @@ public class AdGetResponseBuilder {
         if (!bid.hasNativeAd()) {
             return null;
         }
-        AdGetResponse.NativeAd _nativeAd = new AdGetResponse.NativeAd();
+        NativeAd _nativeAd = new NativeAd();
         _nativeAd.setAssets(nativeAd.getAssetsMap());
         return _nativeAd;
     }

@@ -3,7 +3,10 @@ package top.openadexchange.openapi.ssp.spi.provider.xinhe;
 import com.alibaba.fastjson2.JSON;
 import com.chaincoretech.epc.annotation.Extension;
 
+import jakarta.annotation.Resource;
 import top.openadexchange.model.Dsp;
+import top.openadexchange.model.DspPlacementMapping;
+import top.openadexchange.openapi.ssp.domain.gateway.MetadataRepository;
 import top.openadexchange.openapi.ssp.spi.RtbProtocolConverter;
 import top.openadexchange.rtb.proto.OaxRtbProto;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAd;
@@ -15,15 +18,12 @@ import top.openadexchange.rtb.proto.provider.xinhe.XinHeRtbProto.BidResponse;
 import top.openadexchange.rtb.proto.provider.xinhe.XinHeRtbProto.ConnectionType;
 import top.openadexchange.rtb.proto.provider.xinhe.XinHeRtbProto.Device;
 import top.openadexchange.rtb.proto.provider.xinhe.XinHeRtbProto.DeviceType;
-import top.openadexchange.rtb.proto.provider.xinhe.XinHeRtbProto.Gender;
 import top.openadexchange.rtb.proto.provider.xinhe.XinHeRtbProto.Geo;
 import top.openadexchange.rtb.proto.provider.xinhe.XinHeRtbProto.Imp;
 import top.openadexchange.rtb.proto.provider.xinhe.XinHeRtbProto.OperatorType;
-import top.openadexchange.rtb.proto.provider.xinhe.XinHeRtbProto.User;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Extension(keys = {"xinhe"})
 public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidRequest, BidResponse> {
@@ -36,8 +36,8 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
 
     // OAX设备类型 -> 信和设备类型映射
     public static final Map<Integer, DeviceType> DEVICE_TYPE_MAP = new HashMap<>();
-    private static final /**<tagId,impId>**/
-            Map<String, String> TAGID_IMP_MAP = new HashMap<>();
+    //    private static final /**<tagId,impId>**/
+    //            Map<String, String> TAGID_IMP_MAP = new HashMap<>();
 
     static {
         // 连接类型映射: OAX (0-未知, 1-wifi, 2-2G, 3-3G, 4-4G, 5-5G) -> 信和
@@ -61,6 +61,9 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
         DEVICE_TYPE_MAP.put(4, DeviceType.DT_TV);     // tv -> TV
     }
 
+    @Resource
+    private MetadataRepository metadataRepository;
+
     @Override
     public BidRequest to(Dsp dsp, OaxRtbProto.BidRequest bidRequest) {
         BidRequest.Builder builder = BidRequest.newBuilder();
@@ -71,7 +74,7 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
         builder.setApp(buildApp(dsp, bidRequest));
         builder.setDevice(buildDevice(dsp, bidRequest));
         bidRequest.getImpList().forEach(imp -> builder.addImp(buildImp(dsp, imp)));
-        builder.setUser(User.newBuilder().setGender(Gender.UNRECOGNIZED).build());
+        //builder.setUser(User.newBuilder().setGender(Gender.UNRECOGNIZED).build());
 
         return builder.build();
     }
@@ -112,9 +115,10 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
     }
 
     private Imp buildImp(Dsp dsp, OaxRtbProto.BidRequest.Imp imp) {
+        DspPlacementMapping dspPlacementMapping =
+                metadataRepository.getDspPlacementMapping(dsp.getId(), imp.getTagid());
         Imp.Builder builder = Imp.newBuilder();
-        builder.setSlotId(imp.getTagid());
-        TAGID_IMP_MAP.put(imp.getTagid(), imp.getId());
+        builder.setSlotId(dspPlacementMapping.getDspSlotId());
         builder.setBidfloor((int) imp.getBidFloor());
         imp.getPmp().getDealsList().forEach(deal -> builder.addDealIds(deal.getId()));
 
@@ -129,21 +133,20 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
     }
 
     @Override
-    public OaxRtbProto.BidResponse from(Dsp dsp, BidResponse bidResponse) {
+    public OaxRtbProto.BidResponse from(Dsp dsp, OaxRtbProto.BidRequest bidRequest, BidResponse bidResponse) {
         OaxRtbProto.BidResponse.Builder builder = OaxRtbProto.BidResponse.newBuilder();
         builder.setId(bidResponse.getId());
         builder.setBidid(bidResponse.getBidid());
 
+        String impid = bidRequest.getImpList().get(0).getId();
         // 处理SeatBid
         for (XinHeRtbProto.SeatBid xinheSeatBid : bidResponse.getSeatBidList()) {
             OaxRtbProto.BidResponse.SeatBid.Builder seatBidBuilder = OaxRtbProto.BidResponse.SeatBid.newBuilder();
-            //seatBidBuilder.
-            xinheSeatBid.getBidList().forEach(xinheBid -> seatBidBuilder.addBid(buildOaxBid(xinheBid)));
             // 处理Bid
             // 注意：信和协议的Bid没有impid字段，这意味着无法准确关联到具体的Imp
             // 在实际使用中，可能需要通过其他方式（如上下文）来确定Imp的关联
             for (XinHeRtbProto.Bid xinheBid : xinheSeatBid.getBidList()) {
-                seatBidBuilder.addBid(buildOaxBid(xinheBid));
+                seatBidBuilder.addBid(buildOaxBid(impid, xinheBid));
             }
             builder.addSeatbid(seatBidBuilder.build());
         }
@@ -153,16 +156,18 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
     /**
      * 将信和的Bid转换为OAX的Bid 注意：信和协议的Bid没有impid字段，这里生成的OaxBid也不会有impid
      */
-    private OaxRtbProto.BidResponse.SeatBid.Bid buildOaxBid(XinHeRtbProto.Bid xinheBid) {
+    private OaxRtbProto.BidResponse.SeatBid.Bid buildOaxBid(String impid, Bid xinheBid) {
         OaxRtbProto.BidResponse.SeatBid.Bid.Builder builder = OaxRtbProto.BidResponse.SeatBid.Bid.newBuilder();
         builder.setNurl(xinheBid.getNurl());
         builder.setPrice(xinheBid.getPrice());
         builder.setId(xinheBid.getId());
+        builder.setImpid(impid);
         builder.setBundle(xinheBid.getDpkgname());
         builder.setAppName(xinheBid.getAppInfo().getAppName());
         builder.setAppDownloadUrl(xinheBid.getDurl());
         builder.setClickType(xinheBid.getCtype());
         builder.setLdp(xinheBid.getCurl());
+        builder.setCrid(xinheBid.getCrid());
 
         //图片广告获取第一张图片
         builder.setCreativeUrl(xinheBid.getAurlList().isEmpty() ? "" : xinheBid.getAurlList().get(0));

@@ -1,5 +1,6 @@
 package top.openadexchange.openapi.ssp.application.factory;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -31,12 +32,6 @@ public class BidRequestBuilder {
 
     @Resource
     private OaxEngineServices oaxEngineServices;
-    private MetadataRepository metadataRepository;
-
-    @PostConstruct
-    public void init() {
-        metadataRepository = oaxEngineServices.getCachedMetadataRepository();
-    }
 
     public BidRequest buildBidRequest(AdGetRequest request) {
         BidRequest.Builder builder = BidRequest.newBuilder();
@@ -58,31 +53,45 @@ public class BidRequestBuilder {
         builder.setId(imp.getId());
         builder.setTagid(imp.getTagid());
 
+        MetadataRepository metadataRepository = oaxEngineServices.getCachedMetadataRepository();
         SiteAdPlacement siteAdPlacement = metadataRepository.getSiteAdPlacementByTagId(imp.getTagid());
-        AdPlacement adPlacementSpec = metadataRepository.getAdPlacement(siteAdPlacement.getId());
+        AdPlacement adPlacementSpec = metadataRepository.getAdPlacement(siteAdPlacement.getAdPlacementId());
         AdFormat adFormat = AdFormat.valueOf(adPlacementSpec.getAdFormat().toUpperCase());
         if (adFormat == AdFormat.BANNER) {
             builder.setBanner(Banner.newBuilder()
                     .setH(adPlacementSpec.getHeight())
                     .setW(adPlacementSpec.getWidth())
-                    .addAllMimes(adPlacementSpec.getMimes())
-                    .build());
+                    .addAllMimes(
+                            adPlacementSpec.getMimes() == null ? Collections.emptyList() : adPlacementSpec.getMimes()));
         } else if (adFormat == AdFormat.NATIVE) {
             builder.setNativeSpec(NativeSpec.newBuilder().addTemplateId(adPlacementSpec.getCode()).build());
         } else if (adFormat == AdFormat.VIDEO) {
-            builder.setVideo(Video.newBuilder()
-                    .setH(adPlacementSpec.getHeight())
-                    .setW(adPlacementSpec.getWidth())
-                    .addAllMimes(adPlacementSpec.getMimes())
-                    .setMinDuration(adPlacementSpec.getMinDuration())
-                    .setMaxDuration(adPlacementSpec.getMaxDuration())
-                    .setSkipAfter(adPlacementSpec.getSkipAfter())
-                    .setSkipMin(adPlacementSpec.getSkipMin())
-                    .setSkippable(adPlacementSpec.getSkippable())
-                    .build());
+            Video.Builder videoBuilder = Video.newBuilder();
+            if (adPlacementSpec.getWidth() != null) {
+                videoBuilder.setW(adPlacementSpec.getWidth());
+            }
+            if (adPlacementSpec.getHeight() != null) {
+                videoBuilder.setH(adPlacementSpec.getHeight());
+            }
+            if (adPlacementSpec.getMimes() != null) {
+                videoBuilder.addAllMimes(adPlacementSpec.getMimes());
+            }
+            videoBuilder.setMaxDuration(adPlacementSpec.getMaxDuration())
+                    .setMinDuration(adPlacementSpec.getMinDuration());
+            if (adPlacementSpec.getSkippable() != null) {
+                videoBuilder.setSkippable(adPlacementSpec.getSkippable());
+            }
+            if (adPlacementSpec.getSkipAfter() != null) {
+                videoBuilder.setSkipAfter(adPlacementSpec.getSkipAfter());
+            }
+            if (adPlacementSpec.getSkipMin() != null) {
+                videoBuilder.setSkipMin(adPlacementSpec.getSkipMin());
+            }
+            builder.setVideo(videoBuilder);
         } else if (adFormat == AdFormat.AUDIO) {
             builder.setAudio(Audio.newBuilder()
-                    .addAllMimes(adPlacementSpec.getMimes())
+                    .addAllMimes(
+                            adPlacementSpec.getMimes() == null ? Collections.emptyList() : adPlacementSpec.getMimes())
                     .setMinDuration(adPlacementSpec.getMinDuration())
                     .setMaxDuration(adPlacementSpec.getMaxDuration())
                     .build());
@@ -100,24 +109,52 @@ public class BidRequestBuilder {
         int connectionType = device.getConnectionType() == null ? 0 : device.getConnectionType();
         int deviceType = device.getDeviceType() == null ? 0 : device.getDeviceType();
 
+        //AdGetRequest.Device device = request.getDevice();
+
         Device.Builder builder = Device.newBuilder();
-        builder.setUa(request.getDevice().getUa());
-        builder.setIp(request.getDevice().getIp());
-        builder.setIpv6(request.getDevice().getIpv6());
+        if (device.getUa() != null) {
+            builder.setUa(device.getUa());
+        }
+        if (device.getIp() != null) {
+            builder.setIp(device.getIp());
+        }
+        if (device.getIpv6() != null) {
+            builder.setIpv6(device.getIpv6());
+        }
         builder.setDeviceType(deviceType);
         builder.setConnectionType(connectionType);
-        builder.setIfa(request.getDevice().getIfa());
-        builder.setDidmd5(request.getDevice().getDidmd5());
-        builder.setAdid(request.getDevice().getAdid());
-        builder.setMac(request.getDevice().getMac());
-        builder.setMacmd5(device.getMacmd5());
-        builder.setOs(device.getOs());
-        builder.setOsv(device.getOsv());
-        builder.setCarrier(device.getCarrier());
+        if (device.getIfa() != null) {
+            builder.setIfa(device.getIfa());
+        }
+        if (device.getDidmd5() != null) {
+            builder.setDidmd5(device.getDidmd5());
+        }
+        if (device.getAdid() != null) {
+            builder.setAdid(device.getAdid());
+        }
+        if (device.getMac() != null) {
+            builder.setMac(device.getMac());
+        }
+        if (device.getMacmd5() != null) {
+            builder.setMacmd5(device.getMacmd5());
+        }
+        if (device.getOs() != null) {
+            builder.setOs(device.getOs());
+        }
+        if (device.getOsv() != null) {
+            builder.setOsv(device.getOsv());
+        }
+        if (device.getCarrier() != null) {
+            builder.setCarrier(device.getCarrier());
+        }
         builder.setH(device.getH() == null ? 0 : device.getH());
         builder.setW(device.getW() == null ? 0 : device.getW());
-        builder.setModel(device.getModel());
-        builder.setMake(device.getMake());
+        if (device.getModel() != null) {
+            builder.setModel(device.getModel());
+        }
+        if (device.getMake() != null) {
+            builder.setMake(device.getMake());
+        }
         if (device.getGeo() != null) {
             builder.setGeo(Geo.newBuilder()
                     .setLat(device.getGeo().getLat() == null ? 0F : device.getGeo().getLat())
@@ -135,16 +172,24 @@ public class BidRequestBuilder {
             return Site.newBuilder().build();
         }
         AdGetRequest.Site reqSite = request.getSite();
-        return Site.newBuilder()
-                .setDomain(site.getDomain())
-                .addAllCat(List.of(StringUtils.tokenizeToStringArray(site.getCats(), ",")))
-                .setKeywords(site.getKeywords())
-                .setName(site.getName())
-                .setContent(buildSiteOrAppContent(reqSite != null ? reqSite.getContent() : null))
-                .build();
+        Site.Builder builder = Site.newBuilder();
+        if (site.getDomain() != null) {
+            builder.setDomain(site.getDomain());
+        }
+        if (site.getCats() != null) {
+            builder.addAllCat(List.of(StringUtils.tokenizeToStringArray(site.getCats(), ",")));
+        }
+        if (site.getName() != null) {
+            builder.setName(site.getName());
+        }
+        if (site.getKeywords() != null) {
+            builder.setKeywords(site.getKeywords());
+        }
+        return builder.setContent(buildSiteOrAppContent(reqSite != null ? reqSite.getContent() : null)).build();
     }
 
     private top.openadexchange.model.Site getSite(AdGetRequest request) {
+        MetadataRepository metadataRepository = oaxEngineServices.getCachedMetadataRepository();
         String tagId = request.getImp().getFirst().getTagid();
         SiteAdPlacement siteAdPlacement = metadataRepository.getSiteAdPlacementByTagId(tagId);
         Long siteId = siteAdPlacement.getSiteId();
@@ -156,7 +201,14 @@ public class BidRequestBuilder {
         if (content == null) {
             return Content.newBuilder().build();
         }
-        return Content.newBuilder().setTitle(content.getTitle()).setKeywords(content.getKeywords()).build();
+        Content.Builder builder = Content.newBuilder();
+        if (content.getTitle() != null) {
+            builder.setTitle(content.getTitle());
+        }
+        if (content.getKeywords() != null) {
+            builder.setKeywords(content.getKeywords());
+        }
+        return builder.build();
     }
 
     private App buildApp(AdGetRequest request) {
@@ -165,13 +217,16 @@ public class BidRequestBuilder {
             return App.newBuilder().build();
         }
         AdGetRequest.App reqApp = request.getApp();
+        if (reqApp == null) {
+            return App.newBuilder().build();
+        }
         return App.newBuilder()
-                .setBundle(site.getAppBundle())
-                .setId(site.getAppId())
-                .setName(site.getName())
-                .setKeywords(site.getKeywords())
+                .setBundle(site.getAppBundle() == null ? "" : site.getAppBundle())
+                .setId(site.getAppId() == null ? "" : site.getAppId())
+                .setName(site.getName() == null ? "" : site.getName())
+                .setKeywords(site.getKeywords() == null ? "" : site.getKeywords())
                 .addAllCat(List.of(StringUtils.tokenizeToStringArray(site.getCats(), ",")))
-                .setVer(reqApp.getVer())
+                .setVer(reqApp.getVer() == null ? "" : reqApp.getVer())
                 .setContent(buildSiteOrAppContent(reqApp != null ? reqApp.getContent() : null))
                 .build();
     }

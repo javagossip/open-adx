@@ -38,6 +38,7 @@ public class DspConverter {
         dsp.setTimeoutMs(dspDto.getTimeoutMs());
         dsp.setBrandLogo(dspDto.getBrandLogo());
         dsp.setRtbProtocolType(dspDto.getRtbProtocolType());
+        dsp.setDspId(dspDto.getCode());
 
         // 设置代码和安全密钥
         if (entityCodeService != null && dspDto.getCode() == null) {
@@ -50,16 +51,26 @@ public class DspConverter {
         // 生成API令牌和加密密钥
         if (origDsp == null) {
             dsp.setToken(SecurityKeyUtils.getApiToken());
-            dsp.setEncryptionKey(SecurityKeyUtils.generateEncryptionKey());
-            dsp.setIntegrityKey(SecurityKeyUtils.generateIntegrationKey());
+            if (dsp.getEncryptionKey() == null) {
+                dsp.setEncryptionKey(SecurityKeyUtils.generateEncryptionKey());
+            }
+            if (dsp.getIntegrityKey() == null) {
+                dsp.setIntegrityKey(SecurityKeyUtils.generateIntegrationKey());
+            }
         } else {
             if (origDsp.getToken() == null) {
                 dsp.setToken(SecurityKeyUtils.getApiToken());
             }
-            if (origDsp.getEncryptionKey() == null) {
+            if (dspDto.getEncryptionKey() != null) {
+                dsp.setEncryptionKey(dspDto.getEncryptionKey());
+            }
+            if (dspDto.getIntegrityKey() != null) {
+                dsp.setIntegrityKey(dspDto.getIntegrityKey());
+            }
+            if (dsp.getEncryptionKey() == null) {
                 dsp.setEncryptionKey(SecurityKeyUtils.generateEncryptionKey());
             }
-            if (origDsp.getIntegrityKey() == null) {
+            if (dsp.getIntegrityKey() == null) {
                 dsp.setIntegrityKey(SecurityKeyUtils.generateIntegrationKey());
             }
         }
@@ -86,6 +97,11 @@ public class DspConverter {
         dspDto.setBrandLogo(dsp.getBrandLogo());
         dspDto.setCode(dsp.getDspId());
         dspDto.setRtbProtocolType(dsp.getRtbProtocolType());
+        dspDto.setCode(dsp.getDspId());
+        if (dsp.getRtbProtocolType() == 2) {
+            dspDto.setEncryptionKey(dsp.getEncryptionKey());
+            dspDto.setIntegrityKey(dsp.getIntegrityKey());
+        }
 
         return dspDto;
     }

@@ -50,6 +50,7 @@ public class AdGetRequest {
     public static class Site {
 
         private Content content; // 网站内容
+
     }
 
     /**

@@ -1,15 +1,15 @@
 package top.openadexchange.openapi.ssp.application.dto;
 
-import lombok.Data;
-
 import java.util.List;
 import java.util.Map;
+
+import lombok.Data;
 
 /**
  * 广告响应对象
  */
 @Data
-public class AdGetResponse {
+public class V2AdGetResponse {
 
     private String id; // 请求id, 和BidRequest的id保持一致
     private List<Ad> ads; // 针对单个广告位的竞价响应
@@ -41,6 +41,7 @@ public class AdGetResponse {
         private String bundle; // 安卓应用包名或者ios的appid， 点击类型为安卓应用下载和ios应用时候，bundle必填
         private String adl; // 应用下载地址
         private String dlk; // deeplink链接
-        private NativeAd nativeAd; // 原生广告响应
+        //        private NativeAd nativeAd; // 原生广告响应
+        private String adm; //  VAST广告响应/HTML/原生广告响应
     }
 }

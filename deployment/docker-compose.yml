@@ -203,9 +203,9 @@ services:
           cpus: '0.25'
 
   # open-adexchange-ssp-api 服务
-  openadx-ssp-api:
-    image: registry.cn-beijing.aliyuncs.com/oax/oax-ssp-api:latest
-    container_name: openadx-ssp-api-app
+  openadx-publisher-api:
+    image: registry.cn-beijing.aliyuncs.com/oax/oax-publisher-api:latest
+    container_name: openadx-publisher-api-app
     depends_on:
       mysql:
         condition: service_healthy

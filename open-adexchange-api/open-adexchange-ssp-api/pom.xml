@@ -14,6 +14,9 @@
     <name>open-adexchange-ssp-api</name>
     <description>open-adexchange-ssp-api</description>
 
+    <properties>
+        <mainClass>top.openadexchange.openapi.ssp.SspOpenApiApplication</mainClass>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -97,13 +100,40 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>top.openadexchange.openapi.ssp.SspOpenApiApplication</mainClass>
+                    <mainClass>${mainClass}</mainClass>
                 </configuration>
                 <executions>
                     <execution>
                         <id>repackage</id>
                         <goals>
                             <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <configuration>
+                    <to>
+                        <image>registry.cn-beijing.aliyuncs.com/oax/oax-publisher-api</image>
+                        <tags>
+                            <tag>${project.version}</tag>
+                            <tag>latest</tag>
+                        </tags>
+                    </to>
+                    <container>
+                        <mainClass>${mainClass}</mainClass>
+                        <ports>
+                            <port>9091</port>
+                        </ports>
+                    </container>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
                         </goals>
                     </execution>
                 </executions>

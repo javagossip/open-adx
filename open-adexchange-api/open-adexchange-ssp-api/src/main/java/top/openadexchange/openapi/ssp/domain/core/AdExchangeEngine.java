@@ -158,6 +158,7 @@ public class AdExchangeEngine {
                         return null;
                     })
                     .filter(Objects::nonNull)
+                    .peek(bidResponse -> log.info("peek bidResponse: {}", bidResponse))
                     .flatMap(bidResponse -> bidResponse.getSeatbidList().stream())
                     .flatMap(seatBid -> seatBid.getBidList().stream())
                     .filter(bid -> {

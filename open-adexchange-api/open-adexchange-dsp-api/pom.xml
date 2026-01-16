@@ -14,6 +14,9 @@
     <name>open-adexchange-dsp-api</name>
     <description>open-adexchange-dsp-api</description>
 
+    <properties>
+        <mainClass>top.openadexchange.openapi.dsp.DspOpenApiApplication</mainClass>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -74,7 +77,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>top.openadexchange.openapi.dsp.DspOpenApiApplication</mainClass>
+                    <mainClass>${mainClass}</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -97,7 +100,7 @@
                         </tags>
                     </to>
                     <container>
-                        <mainClass>top.openadexchange.openapi.dsp.DspOpenApiApplication</mainClass>
+                        <mainClass>${mainClass}</mainClass>
                         <ports>
                             <port>9091</port>
                         </ports>

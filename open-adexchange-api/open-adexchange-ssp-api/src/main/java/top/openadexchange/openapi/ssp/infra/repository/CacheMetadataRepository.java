@@ -10,6 +10,7 @@ import top.openadexchange.domain.entity.AdPlacementAggregate;
 import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
+import top.openadexchange.model.DspPlacementMapping;
 import top.openadexchange.model.Site;
 import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataCacheService;
@@ -49,5 +50,10 @@ public class CacheMetadataRepository implements MetadataRepository {
     @Override
     public AdPlacementAggregate getAdPlacementAggregate(Integer adPlacementId) {
         return metadataCacheService.getAdPlacementAggregate(adPlacementId);
+    }
+
+    @Override
+    public DspPlacementMapping getDspPlacementMapping(Integer dspId, String tagid) {
+        return metadataCacheService.getDsp(dspId).getDspPlacementMapping(tagid);
     }
 }

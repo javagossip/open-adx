@@ -6,6 +6,7 @@ import top.openadexchange.domain.entity.AdPlacementAggregate;
 import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
+import top.openadexchange.model.DspPlacementMapping;
 import top.openadexchange.model.Site;
 import top.openadexchange.model.SiteAdPlacement;
 
@@ -40,4 +41,6 @@ public interface MetadataRepository {
     Dsp getDspByDspId(String dspId);
 
     AdPlacementAggregate getAdPlacementAggregate(Integer adPlacementId);
+
+    DspPlacementMapping getDspPlacementMapping(Integer id, String tagid);
 }

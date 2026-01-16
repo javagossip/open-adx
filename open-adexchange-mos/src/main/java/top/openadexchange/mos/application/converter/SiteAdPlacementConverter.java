@@ -54,7 +54,7 @@ public class SiteAdPlacementConverter {
         siteAdPlacementDto.setCode(siteAdPlacement.getCode());
         siteAdPlacementDto.setDemoUrl(siteAdPlacement.getDemoUrl());
         siteAdPlacementDto.setStatus(siteAdPlacement.getStatus());
-        siteAdPlacementDto.setFloorPrice(FloorPriceUtils.centToYuanDouble(siteAdPlacement.getFloorPrice()));
+        siteAdPlacementDto.setFloorPrice(siteAdPlacement.getFloorPrice().doubleValue());
 
         return siteAdPlacementDto;
     }

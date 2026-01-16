@@ -1,6 +1,9 @@
 package top.openadexchange.openapi.ssp.api;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.Resource;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +16,7 @@ import top.openadexchange.openapi.ssp.application.service.AdFetchService;
  */
 @RestController
 @RequestMapping("/v1/ads")
-public class AdController {
+public class ADController {
 
     @Resource
     private AdFetchService adFetchService;
@@ -25,7 +28,12 @@ public class AdController {
      * @return 广告响应对象
      */
     @PostMapping
-    public AdGetResponse fetchAd(@RequestBody AdGetRequest request) {
-        return adFetchService.fetchAd(request);
+    @Operation(summary = "拉取广告")
+    public AdGetResponse fetchAd(@RequestBody AdGetRequest request, HttpServletResponse response) {
+        AdGetResponse adGetResponse = adFetchService.fetchAd(request);
+        if (adGetResponse == null) {
+            response.setStatus(204);
+        }
+        return adGetResponse;
     }
 }

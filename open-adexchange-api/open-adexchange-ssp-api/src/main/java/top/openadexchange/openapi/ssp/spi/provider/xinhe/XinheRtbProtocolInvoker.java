@@ -26,6 +26,9 @@ public class XinheRtbProtocolInvoker implements RtbProtocolInvoker<BidRequest, B
 
     @Override
     public BidResponse invoke(Dsp dsp, BidRequest request) {
+        if (request.getTest()) {
+            log.info("xinhe's BidRequest: {}", request.toString());
+        }
         OaxHttpClient httpClient = oaxHttpClientFactory.getOaxHttpClient();
         try {
             OaxHttpResponse response = httpClient.post(Map.of("Content-Type", "application/protobuf"),
@@ -35,7 +38,11 @@ public class XinheRtbProtocolInvoker implements RtbProtocolInvoker<BidRequest, B
             if (response.getStatusCode() != 200) {
                 return null;
             }
-            return BidResponse.parseFrom(response.getBody());
+            BidResponse bidResponse = BidResponse.parseFrom(response.getBody());
+            if (request.getTest()) {
+                log.info("xinhe's BidResponse: {}", bidResponse.toString());
+            }
+            return bidResponse;
         } catch (InvalidProtocolBufferException ex) {
             log.error("parse xinhe bid response error", ex);
             return null;
