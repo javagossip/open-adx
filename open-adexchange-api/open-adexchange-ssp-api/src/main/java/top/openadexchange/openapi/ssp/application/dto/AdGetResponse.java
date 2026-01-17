@@ -20,8 +20,24 @@ public class AdGetResponse {
     @Data
     public static class NativeAd {
 
-        private String templateId; // 原生广告模板id，一个原生广告位可能支持多个广告模版
-        private Map<String, String> assets; //原生广告属性
+        private String title;
+        private String icon;
+        private String desc;
+        private String main_image;
+        private List<String> images;
+        private String video;
+        private String ctaText;
+        private String rating;
+        private String likes;
+        private String downloads;
+        private String sponsored;
+        private String price;
+        private String salePrice;
+        private String phone;
+        private String address;
+        private String desc2;
+        private String displayUrl;
+        private Map<String, String> ext;
     }
 
     /**

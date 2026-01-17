@@ -1,5 +1,7 @@
 package top.openadexchange.openapi.ssp.domain.core;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +36,7 @@ import top.openadexchange.openapi.ssp.spi.model.MacroContext;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Imp;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse;
+import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid.Bid;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid.Bid.Builder;
 
@@ -140,33 +143,39 @@ public class AdExchangeEngine {
         ExecutorFactory executorFactory = executorFactories.getExecutorFactory();
         ExecutorService executor = executorFactory.getExecutor();
 
-        List<Callable<BidResponse>> tasks = matchDsps.stream()
-                .map(dsp -> (Callable<BidResponse>) () -> dspClient.bidding(dsp, request))
+        List<Callable<DspBidResponse>> tasks = matchDsps.stream()
+                .map(dspAggregate -> (Callable<DspBidResponse>) () -> DspBidResponse.of(dspAggregate.getDsp(),
+                        dspClient.bidding(dspAggregate, request)))
                 .collect(Collectors.toList());
 
         try {
-            //向符合条件的 dsp发起实时竞价请求
-            List<Future<BidResponse>> futures =
+            //向符合条件的 dsp发起实时竞价请求, 并获得竞价响应
+            List<Future<DspBidResponse>> futures =
                     executor.invokeAll(tasks, oaxEngineProperties.getDspCallTimeout(), TimeUnit.MILLISECONDS);
-            return futures.stream()
-                    .map(future -> {
-                        try {
-                            return future.isDone() ? future.get() : null;
-                        } catch (Exception ex) {
-                            log.error("invokeAll error", ex);
-                        }
-                        return null;
-                    })
-                    .filter(Objects::nonNull)
-                    .peek(bidResponse -> log.info("peek bidResponse: {}", bidResponse))
-                    .flatMap(bidResponse -> bidResponse.getSeatbidList().stream())
-                    .flatMap(seatBid -> seatBid.getBidList().stream())
-                    .filter(bid -> {
+            List<DspBidResponse> dspBidResponses = futures.stream().map(future -> {
+                try {
+                    return future.isDone() ? future.get() : null;
+                } catch (Exception ex) {
+                    log.error("invokeAll error", ex);
+                }
+                return null;
+            }).filter(Objects::nonNull).collect(Collectors.toList());
+
+            Map<String, List<DspBid>> validImpBids = new HashMap<>();
+            for (DspBidResponse dspBidResponse : dspBidResponses) {
+                Dsp dsp = dspBidResponse.getDsp();
+                List<SeatBid> seatBids = dspBidResponse.getSeatbidList();
+                for (SeatBid seatBid : seatBids) {
+                    for (Bid bid : seatBid.getBidList()) {
                         Long floor = impFloorMap.get(bid.getImpid());
-                        return floor != null && bid.getPrice() > floor;
-                    })
-                    .map(bid -> new DspBid(metadataRepository.getDspByDspId(bid.getDspId()), bid))
-                    .collect(Collectors.groupingBy(DspBid::getImpid));
+                        if (floor != null && bid.getPrice() > floor) {
+                            validImpBids.computeIfAbsent(bid.getImpid(), k -> new ArrayList<>())
+                                    .add(new DspBid(dsp, bid));
+                        }
+                    }
+                }
+            }
+            return validImpBids;
         } catch (InterruptedException ex) {
             log.error("invokeAll error", ex);
         }
@@ -189,7 +198,27 @@ public class AdExchangeEngine {
         }
 
         public String getDspId() {
-            return bid.getDspId();
+            return dsp.getDspId();
+        }
+    }
+
+    @Data
+    public static class DspBidResponse {
+
+        private Dsp dsp;
+        private BidResponse bidResponse;
+
+        private DspBidResponse(Dsp dsp, BidResponse bidResponse) {
+            this.dsp = dsp;
+            this.bidResponse = bidResponse;
+        }
+
+        public static DspBidResponse of(Dsp dsp, BidResponse bidResponse) {
+            return new DspBidResponse(dsp, bidResponse);
+        }
+
+        public List<SeatBid> getSeatbidList() {
+            return bidResponse.getSeatbidList();
         }
     }
 }

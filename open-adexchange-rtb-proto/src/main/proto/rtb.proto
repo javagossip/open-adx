@@ -41,11 +41,11 @@ message BidRequest {
 
     optional Pmp pmp = 6;            //私有竞价相关定义
     optional string tagid = 7;       //媒体广告位id，由Ad-Exchange定义
-    optional uint64 bid_floor = 8;     //媒体广告位底价,采用微单位表示，1元=1000000微单位
+    optional uint64 bid_floor = 8;     //媒体广告位底价,单位分
     optional string bid_floor_cur = 9; //USD or CNY
     //是否使用https, 0-不启用安全链接, 1-启用安全链接
     optional uint32 secure = 10;
-    optional bool is_native_ad = 12; //是否原生广告，原生广告dsp平台可以根据tagid来进行匹配
+    optional bool is_native_ad = 12; //是否原生广告，原生广告dsp平台可以根据tagid来进行快速匹配
 
     //协议扩展保留字段
     extensions 200 to 299;
@@ -86,6 +86,7 @@ message BidRequest {
     //这里只定义原生广告位模板id，dsp平台根据这个模板id来进行匹配，匹配规则由dsp平台自己定义
     message NativeSpec {
       //原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+      //大部分场景一个广告位只关联一种模版
       repeated string template_id = 1;
     }
 
@@ -129,7 +130,7 @@ message BidRequest {
   }
 
   message Content {
-    optional string id = 1;
+    optional string id = 1 [deprecated = true];
     optional string title = 2;
     optional string keywords = 3;
   }
@@ -148,13 +149,12 @@ message BidRequest {
 
     optional uint32 connection_type = 11; //网络连接类型, 1-wifi; 2-2G;3-3G;4-4G;5-5G; 0-未知
     optional string ifa = 12;      //明文设备码，iOS → IDFA,Android → GAID
-    optional string didmd5 = 13;   //md5设备码
-    optional string mac = 14;      //mac地址明文
-    optional string macmd5 = 15;   //md5 mac地址
-    optional string adid = 16;     //安卓id
+    optional string didmd5 = 13 [deprecated = true];   //md5设备码
+    optional string mac = 14 [deprecated = true];      //mac地址明文
+    optional string macmd5 = 15 [deprecated = true];   //md5 mac地址
+    optional string adid = 16 [deprecated = true];     //安卓id
     optional uint32 h = 17;        //设备屏幕高
     optional uint32 w = 18;        //设备屏幕宽
-    optional uint32 lmt = 19;      //限制跟踪,1-不限制跟踪,2-限制跟踪
     optional Geo geo = 2;          //地理位置对象
     //协议保留扩展
     extensions 200 to 299;
@@ -164,17 +164,17 @@ message BidRequest {
     optional float lat = 1;       //纬度
     optional float lon = 2;       //经度
     optional string country = 3;  //国家编码
-    optional string region = 4;   //地区编码
-    optional string city = 5;     //城市编码
-    //6位地域码
-    optional uint32 area_code = 6; //6位地域码
+    optional string region = 4 [deprecated = true];   //地区编码
+    optional string city = 5 [deprecated = true];     //城市编码
+    //6位地域码, 后续废弃，dsp平台按照IP地址来自行获取地域编码
+    optional uint32 area_code = 6 [deprecated = true];
 
     extensions 200 to 299;
   }
 
   message User {
-    optional string id = 1;    //Ad-Exchange用户标识,这个意义不大，后续可能废弃
-
+    //Ad-Exchange用户标识,这个意义不大，后续可能废弃
+    optional string id = 1 [deprecated = true];
     extensions 200 to 299;
   }
 }
@@ -191,19 +191,37 @@ message BidResponse {
   message NativeAd {
     //原生广告模板id
     optional string template_id = 1;
-    map<string, string> assets = 2;
+    //废弃字段
+    map<string, string> assets = 2 [deprecated = true];
+    optional string title = 3;
+    optional string desc = 4;
+    optional string icon = 5;
+    optional string main_image = 6;
+    repeated string images = 7;
+    optional string sponsored = 8;
+    optional string rating = 9;
+    optional string likes = 10;
+    optional string downloads = 11;
+    optional string price = 12;
+    optional string sale_price = 13;
+    optional string phone = 14;
+    optional string address = 15;
+    optional string display_url = 16;
+    optional string cta = 17;
   }
 
   message SeatBid {
-    repeated Bid bid = 1;        //同一个广告位的多个出价
-    optional string seat = 2;    //广告位名称
+    //同一个广告位的多个出价
+    repeated Bid bid = 1;
+    //广告位名称
+    optional string seat = 2;
 
     message Bid {
       required string id = 1;        //dsp平台参与出价id
       required string impid = 2;     //曝光id, 关联竞价请求中Imp中id
-      required uint64 price = 3;      //广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
+      required uint64 price = 3;      //广告出价, 单位分
       required string crid = 4;      //dsp平台创意id
-      optional string dealid = 5;    //请求pmp dealid
+      optional string dealid = 5;    //pmp dealid
 
       optional string nurl = 20; //如果不填写则不会发送winNotice通知
       repeated string imp_trackers = 6; //曝光监测
@@ -214,13 +232,20 @@ message BidResponse {
       optional uint32 click_type = 10; //点击类型：1-浏览器打开  2-安卓应用下载  3-deeplink，4-ios应用
 
       //安卓应用包名或者ios的appid， 点击类型为安卓应用下载和ios应用时候，bundle必填
-      optional string bundle = 11;
+      optional string bundle = 11; //安卓应用包名以及ios的bundle_id
+      optional string appstore_id = 23; //应用市场id
       optional string adm = 12;    //基于 vast格式的视频广告以及原生广告响应
-      optional NativeAd nativeAd = 13; //原生广告响应
+      optional NativeAd nativeAd = 13; //原生广告响应，如果dsp平台本身创意已经上传到广告交易平台的话，则无需回传
       optional string app_download_url = 14; //应用下载地址
       optional string app_name = 15; //应用名称
+      optional string app_icon_url = 25;
       optional string deeplink = 16; //deeplink链接
-      optional string dsp_id = 17; //dsp平台编码, 由ad-exchange分配定义
+
+      optional uint32 duration = 18; //音视频广告时长
+      repeated string play_trackers = 19; //音视频播放开始监测
+      repeated string completed_trackers = 22; //音视频播放完成监测
+      repeated string error_trackers = 21; //音视频播放错误监测
+      repeated string close_trackers = 24; //音视频广告关闭监测
 
       //协议保留扩展
       extensions 200 to 299;

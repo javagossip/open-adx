@@ -1,0 +1,16 @@
+package top.openadexchange.constants.enums;
+
+public enum DomainEventType {
+    DSP_CREATED,
+    DSP_UPDATED,
+    DSP_DELETED,
+    SITE_CREATED,
+    SITE_UPDATED,
+    SITE_DELETED,
+    SITE_AD_PLACEMENT_CREATED,
+    SITE_AD_PLACEMENT_UPDATED,
+    SITE_AD_PLACEMENT_DELETED,
+    AD_PLACEMENT_CREATED,
+    AD_PLACEMENT_UPDATED,
+    AD_PLACEMENT_DELETED
+}

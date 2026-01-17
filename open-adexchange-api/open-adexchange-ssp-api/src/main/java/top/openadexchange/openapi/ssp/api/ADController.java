@@ -32,7 +32,7 @@ public class ADController {
     public AdGetResponse fetchAd(@RequestBody AdGetRequest request, HttpServletResponse response) {
         AdGetResponse adGetResponse = adFetchService.fetchAd(request);
         if (adGetResponse == null) {
-            response.setStatus(204);
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         }
         return adGetResponse;
     }

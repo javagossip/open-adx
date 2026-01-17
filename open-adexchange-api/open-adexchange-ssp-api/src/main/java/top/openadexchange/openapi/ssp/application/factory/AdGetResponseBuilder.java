@@ -28,7 +28,7 @@ public class AdGetResponseBuilder {
         adGetResponse.setId(request.getId());
 
         List<Ad> ads = new ArrayList<>(bids.size());
-        bids.forEach((impid, bid) -> ads.add(buildAd(request, impid, bid)));
+        bids.forEach((impId, bid) -> ads.add(buildAd(request, impId, bid)));
         adGetResponse.setAds(ads);
         return adGetResponse;
     }
@@ -36,7 +36,7 @@ public class AdGetResponseBuilder {
     private Ad buildAd(AdGetRequest request, String impid, Bid bid) {
         String tagId = request.getTagIdByImpId(impid);
         Ad ad = new Ad();
-        ad.setCm(bid.getImpTrackersList());
+        ad.setPm(bid.getImpTrackersList());
         ad.setCm(bid.getClkTrackersList());
         ad.setCrid(bid.getCrid());
         ad.setDlk(bid.getDeeplink());

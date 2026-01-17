@@ -210,6 +210,25 @@ public final class OaxRtbProto {
      * @return The at.
      */
     int getAt();
+
+    /**
+     * <pre>
+     *请求超时时间，单位毫秒
+     * </pre>
+     *
+     * <code>optional uint32 tmax = 9;</code>
+     * @return Whether the tmax field is set.
+     */
+    boolean hasTmax();
+    /**
+     * <pre>
+     *请求超时时间，单位毫秒
+     * </pre>
+     *
+     * <code>optional uint32 tmax = 9;</code>
+     * @return The tmax.
+     */
+    int getTmax();
   }
   /**
    * <pre>
@@ -441,7 +460,7 @@ public final class OaxRtbProto {
 
       /**
        * <pre>
-       *媒体广告位底价,采用微单位表示，1元=1000000微单位
+       *媒体广告位底价,单位分
        * </pre>
        *
        * <code>optional uint64 bid_floor = 8;</code>
@@ -450,7 +469,7 @@ public final class OaxRtbProto {
       boolean hasBidFloor();
       /**
        * <pre>
-       *媒体广告位底价,采用微单位表示，1元=1000000微单位
+       *媒体广告位底价,单位分
        * </pre>
        *
        * <code>optional uint64 bid_floor = 8;</code>
@@ -508,7 +527,7 @@ public final class OaxRtbProto {
 
       /**
        * <pre>
-       *是否原生广告，原生广告dsp平台可以根据tagid来进行匹配
+       *是否原生广告，原生广告dsp平台可以根据tagid来进行快速匹配
        * </pre>
        *
        * <code>optional bool is_native_ad = 12;</code>
@@ -517,7 +536,7 @@ public final class OaxRtbProto {
       boolean hasIsNativeAd();
       /**
        * <pre>
-       *是否原生广告，原生广告dsp平台可以根据tagid来进行匹配
+       *是否原生广告，原生广告dsp平台可以根据tagid来进行快速匹配
        * </pre>
        *
        * <code>optional bool is_native_ad = 12;</code>
@@ -4324,6 +4343,7 @@ public final class OaxRtbProto {
         /**
          * <pre>
          *原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+         *大部分场景一个广告位只关联一种模版
          * </pre>
          *
          * <code>repeated string template_id = 1;</code>
@@ -4334,6 +4354,7 @@ public final class OaxRtbProto {
         /**
          * <pre>
          *原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+         *大部分场景一个广告位只关联一种模版
          * </pre>
          *
          * <code>repeated string template_id = 1;</code>
@@ -4343,6 +4364,7 @@ public final class OaxRtbProto {
         /**
          * <pre>
          *原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+         *大部分场景一个广告位只关联一种模版
          * </pre>
          *
          * <code>repeated string template_id = 1;</code>
@@ -4353,6 +4375,7 @@ public final class OaxRtbProto {
         /**
          * <pre>
          *原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+         *大部分场景一个广告位只关联一种模版
          * </pre>
          *
          * <code>repeated string template_id = 1;</code>
@@ -4411,6 +4434,7 @@ public final class OaxRtbProto {
         /**
          * <pre>
          *原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+         *大部分场景一个广告位只关联一种模版
          * </pre>
          *
          * <code>repeated string template_id = 1;</code>
@@ -4423,6 +4447,7 @@ public final class OaxRtbProto {
         /**
          * <pre>
          *原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+         *大部分场景一个广告位只关联一种模版
          * </pre>
          *
          * <code>repeated string template_id = 1;</code>
@@ -4434,6 +4459,7 @@ public final class OaxRtbProto {
         /**
          * <pre>
          *原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+         *大部分场景一个广告位只关联一种模版
          * </pre>
          *
          * <code>repeated string template_id = 1;</code>
@@ -4446,6 +4472,7 @@ public final class OaxRtbProto {
         /**
          * <pre>
          *原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+         *大部分场景一个广告位只关联一种模版
          * </pre>
          *
          * <code>repeated string template_id = 1;</code>
@@ -4814,6 +4841,7 @@ public final class OaxRtbProto {
           /**
            * <pre>
            *原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+           *大部分场景一个广告位只关联一种模版
            * </pre>
            *
            * <code>repeated string template_id = 1;</code>
@@ -4827,6 +4855,7 @@ public final class OaxRtbProto {
           /**
            * <pre>
            *原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+           *大部分场景一个广告位只关联一种模版
            * </pre>
            *
            * <code>repeated string template_id = 1;</code>
@@ -4838,6 +4867,7 @@ public final class OaxRtbProto {
           /**
            * <pre>
            *原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+           *大部分场景一个广告位只关联一种模版
            * </pre>
            *
            * <code>repeated string template_id = 1;</code>
@@ -4850,6 +4880,7 @@ public final class OaxRtbProto {
           /**
            * <pre>
            *原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+           *大部分场景一个广告位只关联一种模版
            * </pre>
            *
            * <code>repeated string template_id = 1;</code>
@@ -4863,6 +4894,7 @@ public final class OaxRtbProto {
           /**
            * <pre>
            *原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+           *大部分场景一个广告位只关联一种模版
            * </pre>
            *
            * <code>repeated string template_id = 1;</code>
@@ -4882,6 +4914,7 @@ public final class OaxRtbProto {
           /**
            * <pre>
            *原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+           *大部分场景一个广告位只关联一种模版
            * </pre>
            *
            * <code>repeated string template_id = 1;</code>
@@ -4900,6 +4933,7 @@ public final class OaxRtbProto {
           /**
            * <pre>
            *原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+           *大部分场景一个广告位只关联一种模版
            * </pre>
            *
            * <code>repeated string template_id = 1;</code>
@@ -4918,6 +4952,7 @@ public final class OaxRtbProto {
           /**
            * <pre>
            *原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+           *大部分场景一个广告位只关联一种模版
            * </pre>
            *
            * <code>repeated string template_id = 1;</code>
@@ -4933,6 +4968,7 @@ public final class OaxRtbProto {
           /**
            * <pre>
            *原生广告位规格id, 同一个原生广告广告位同时可能支持多种广告样式
+           *大部分场景一个广告位只关联一种模版
            * </pre>
            *
            * <code>repeated string template_id = 1;</code>
@@ -6803,7 +6839,7 @@ public final class OaxRtbProto {
       private long bidFloor_ = 0L;
       /**
        * <pre>
-       *媒体广告位底价,采用微单位表示，1元=1000000微单位
+       *媒体广告位底价,单位分
        * </pre>
        *
        * <code>optional uint64 bid_floor = 8;</code>
@@ -6815,7 +6851,7 @@ public final class OaxRtbProto {
       }
       /**
        * <pre>
-       *媒体广告位底价,采用微单位表示，1元=1000000微单位
+       *媒体广告位底价,单位分
        * </pre>
        *
        * <code>optional uint64 bid_floor = 8;</code>
@@ -6918,7 +6954,7 @@ public final class OaxRtbProto {
       private boolean isNativeAd_ = false;
       /**
        * <pre>
-       *是否原生广告，原生广告dsp平台可以根据tagid来进行匹配
+       *是否原生广告，原生广告dsp平台可以根据tagid来进行快速匹配
        * </pre>
        *
        * <code>optional bool is_native_ad = 12;</code>
@@ -6930,7 +6966,7 @@ public final class OaxRtbProto {
       }
       /**
        * <pre>
-       *是否原生广告，原生广告dsp平台可以根据tagid来进行匹配
+       *是否原生广告，原生广告dsp平台可以根据tagid来进行快速匹配
        * </pre>
        *
        * <code>optional bool is_native_ad = 12;</code>
@@ -8675,7 +8711,7 @@ public final class OaxRtbProto {
         private long bidFloor_ ;
         /**
          * <pre>
-         *媒体广告位底价,采用微单位表示，1元=1000000微单位
+         *媒体广告位底价,单位分
          * </pre>
          *
          * <code>optional uint64 bid_floor = 8;</code>
@@ -8687,7 +8723,7 @@ public final class OaxRtbProto {
         }
         /**
          * <pre>
-         *媒体广告位底价,采用微单位表示，1元=1000000微单位
+         *媒体广告位底价,单位分
          * </pre>
          *
          * <code>optional uint64 bid_floor = 8;</code>
@@ -8699,7 +8735,7 @@ public final class OaxRtbProto {
         }
         /**
          * <pre>
-         *媒体广告位底价,采用微单位表示，1元=1000000微单位
+         *媒体广告位底价,单位分
          * </pre>
          *
          * <code>optional uint64 bid_floor = 8;</code>
@@ -8715,7 +8751,7 @@ public final class OaxRtbProto {
         }
         /**
          * <pre>
-         *媒体广告位底价,采用微单位表示，1元=1000000微单位
+         *媒体广告位底价,单位分
          * </pre>
          *
          * <code>optional uint64 bid_floor = 8;</code>
@@ -8891,7 +8927,7 @@ public final class OaxRtbProto {
         private boolean isNativeAd_ ;
         /**
          * <pre>
-         *是否原生广告，原生广告dsp平台可以根据tagid来进行匹配
+         *是否原生广告，原生广告dsp平台可以根据tagid来进行快速匹配
          * </pre>
          *
          * <code>optional bool is_native_ad = 12;</code>
@@ -8903,7 +8939,7 @@ public final class OaxRtbProto {
         }
         /**
          * <pre>
-         *是否原生广告，原生广告dsp平台可以根据tagid来进行匹配
+         *是否原生广告，原生广告dsp平台可以根据tagid来进行快速匹配
          * </pre>
          *
          * <code>optional bool is_native_ad = 12;</code>
@@ -8915,7 +8951,7 @@ public final class OaxRtbProto {
         }
         /**
          * <pre>
-         *是否原生广告，原生广告dsp平台可以根据tagid来进行匹配
+         *是否原生广告，原生广告dsp平台可以根据tagid来进行快速匹配
          * </pre>
          *
          * <code>optional bool is_native_ad = 12;</code>
@@ -8931,7 +8967,7 @@ public final class OaxRtbProto {
         }
         /**
          * <pre>
-         *是否原生广告，原生广告dsp平台可以根据tagid来进行匹配
+         *是否原生广告，原生广告dsp平台可以根据tagid来进行快速匹配
          * </pre>
          *
          * <code>optional bool is_native_ad = 12;</code>
@@ -12995,20 +13031,26 @@ public final class OaxRtbProto {
         com.google.protobuf.MessageOrBuilder {
 
       /**
-       * <code>optional string id = 1;</code>
+       * <code>optional string id = 1 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
+       *     See rtb.proto;l=132
        * @return Whether the id field is set.
        */
-      boolean hasId();
+      @java.lang.Deprecated boolean hasId();
       /**
-       * <code>optional string id = 1;</code>
+       * <code>optional string id = 1 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
+       *     See rtb.proto;l=132
        * @return The id.
        */
-      java.lang.String getId();
+      @java.lang.Deprecated java.lang.String getId();
       /**
-       * <code>optional string id = 1;</code>
+       * <code>optional string id = 1 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
+       *     See rtb.proto;l=132
        * @return The bytes for id.
        */
-      com.google.protobuf.ByteString
+      @java.lang.Deprecated com.google.protobuf.ByteString
           getIdBytes();
 
       /**
@@ -13088,19 +13130,23 @@ public final class OaxRtbProto {
       @SuppressWarnings("serial")
       private volatile java.lang.Object id_ = "";
       /**
-       * <code>optional string id = 1;</code>
+       * <code>optional string id = 1 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
+       *     See rtb.proto;l=132
        * @return Whether the id field is set.
        */
       @java.lang.Override
-      public boolean hasId() {
+      @java.lang.Deprecated public boolean hasId() {
         return ((bitField0_ & 0x00000001) != 0);
       }
       /**
-       * <code>optional string id = 1;</code>
+       * <code>optional string id = 1 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
+       *     See rtb.proto;l=132
        * @return The id.
        */
       @java.lang.Override
-      public java.lang.String getId() {
+      @java.lang.Deprecated public java.lang.String getId() {
         java.lang.Object ref = id_;
         if (ref instanceof java.lang.String) {
           return (java.lang.String) ref;
@@ -13115,11 +13161,13 @@ public final class OaxRtbProto {
         }
       }
       /**
-       * <code>optional string id = 1;</code>
+       * <code>optional string id = 1 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
+       *     See rtb.proto;l=132
        * @return The bytes for id.
        */
       @java.lang.Override
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getIdBytes() {
         java.lang.Object ref = id_;
         if (ref instanceof java.lang.String) {
@@ -13627,17 +13675,21 @@ public final class OaxRtbProto {
 
         private java.lang.Object id_ = "";
         /**
-         * <code>optional string id = 1;</code>
+         * <code>optional string id = 1 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
+         *     See rtb.proto;l=132
          * @return Whether the id field is set.
          */
-        public boolean hasId() {
+        @java.lang.Deprecated public boolean hasId() {
           return ((bitField0_ & 0x00000001) != 0);
         }
         /**
-         * <code>optional string id = 1;</code>
+         * <code>optional string id = 1 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
+         *     See rtb.proto;l=132
          * @return The id.
          */
-        public java.lang.String getId() {
+        @java.lang.Deprecated public java.lang.String getId() {
           java.lang.Object ref = id_;
           if (!(ref instanceof java.lang.String)) {
             com.google.protobuf.ByteString bs =
@@ -13652,10 +13704,12 @@ public final class OaxRtbProto {
           }
         }
         /**
-         * <code>optional string id = 1;</code>
+         * <code>optional string id = 1 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
+         *     See rtb.proto;l=132
          * @return The bytes for id.
          */
-        public com.google.protobuf.ByteString
+        @java.lang.Deprecated public com.google.protobuf.ByteString
             getIdBytes() {
           java.lang.Object ref = id_;
           if (ref instanceof String) {
@@ -13669,11 +13723,13 @@ public final class OaxRtbProto {
           }
         }
         /**
-         * <code>optional string id = 1;</code>
+         * <code>optional string id = 1 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
+         *     See rtb.proto;l=132
          * @param value The id to set.
          * @return This builder for chaining.
          */
-        public Builder setId(
+        @java.lang.Deprecated public Builder setId(
             java.lang.String value) {
           if (value == null) { throw new NullPointerException(); }
           id_ = value;
@@ -13682,21 +13738,25 @@ public final class OaxRtbProto {
           return this;
         }
         /**
-         * <code>optional string id = 1;</code>
+         * <code>optional string id = 1 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
+         *     See rtb.proto;l=132
          * @return This builder for chaining.
          */
-        public Builder clearId() {
+        @java.lang.Deprecated public Builder clearId() {
           id_ = getDefaultInstance().getId();
           bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
           return this;
         }
         /**
-         * <code>optional string id = 1;</code>
+         * <code>optional string id = 1 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
+         *     See rtb.proto;l=132
          * @param value The bytes for id to set.
          * @return This builder for chaining.
          */
-        public Builder setIdBytes(
+        @java.lang.Deprecated public Builder setIdBytes(
             com.google.protobuf.ByteString value) {
           if (value == null) { throw new NullPointerException(); }
           id_ = value;
@@ -13964,33 +14024,6 @@ public final class OaxRtbProto {
 
       /**
        * <pre>
-       *地理位置对象
-       * </pre>
-       *
-       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
-       * @return Whether the geo field is set.
-       */
-      boolean hasGeo();
-      /**
-       * <pre>
-       *地理位置对象
-       * </pre>
-       *
-       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
-       * @return The geo.
-       */
-      top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo getGeo();
-      /**
-       * <pre>
-       *地理位置对象
-       * </pre>
-       *
-       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
-       */
-      top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.GeoOrBuilder getGeoOrBuilder();
-
-      /**
-       * <pre>
        *设备ip
        * </pre>
        *
@@ -14232,7 +14265,7 @@ public final class OaxRtbProto {
 
       /**
        * <pre>
-       *明文设备码，如安卓的imei或ios的idfa
+       *明文设备码，iOS → IDFA,Android → GAID
        * </pre>
        *
        * <code>optional string ifa = 12;</code>
@@ -14241,7 +14274,7 @@ public final class OaxRtbProto {
       boolean hasIfa();
       /**
        * <pre>
-       *明文设备码，如安卓的imei或ios的idfa
+       *明文设备码，iOS → IDFA,Android → GAID
        * </pre>
        *
        * <code>optional string ifa = 12;</code>
@@ -14250,7 +14283,7 @@ public final class OaxRtbProto {
       java.lang.String getIfa();
       /**
        * <pre>
-       *明文设备码，如安卓的imei或ios的idfa
+       *明文设备码，iOS → IDFA,Android → GAID
        * </pre>
        *
        * <code>optional string ifa = 12;</code>
@@ -14264,28 +14297,34 @@ public final class OaxRtbProto {
        *md5设备码
        * </pre>
        *
-       * <code>optional string didmd5 = 13;</code>
+       * <code>optional string didmd5 = 13 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
+       *     See rtb.proto;l=151
        * @return Whether the didmd5 field is set.
        */
-      boolean hasDidmd5();
+      @java.lang.Deprecated boolean hasDidmd5();
       /**
        * <pre>
        *md5设备码
        * </pre>
        *
-       * <code>optional string didmd5 = 13;</code>
+       * <code>optional string didmd5 = 13 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
+       *     See rtb.proto;l=151
        * @return The didmd5.
        */
-      java.lang.String getDidmd5();
+      @java.lang.Deprecated java.lang.String getDidmd5();
       /**
        * <pre>
        *md5设备码
        * </pre>
        *
-       * <code>optional string didmd5 = 13;</code>
+       * <code>optional string didmd5 = 13 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
+       *     See rtb.proto;l=151
        * @return The bytes for didmd5.
        */
-      com.google.protobuf.ByteString
+      @java.lang.Deprecated com.google.protobuf.ByteString
           getDidmd5Bytes();
 
       /**
@@ -14293,28 +14332,34 @@ public final class OaxRtbProto {
        *mac地址明文
        * </pre>
        *
-       * <code>optional string mac = 14;</code>
+       * <code>optional string mac = 14 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
+       *     See rtb.proto;l=152
        * @return Whether the mac field is set.
        */
-      boolean hasMac();
+      @java.lang.Deprecated boolean hasMac();
       /**
        * <pre>
        *mac地址明文
        * </pre>
        *
-       * <code>optional string mac = 14;</code>
+       * <code>optional string mac = 14 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
+       *     See rtb.proto;l=152
        * @return The mac.
        */
-      java.lang.String getMac();
+      @java.lang.Deprecated java.lang.String getMac();
       /**
        * <pre>
        *mac地址明文
        * </pre>
        *
-       * <code>optional string mac = 14;</code>
+       * <code>optional string mac = 14 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
+       *     See rtb.proto;l=152
        * @return The bytes for mac.
        */
-      com.google.protobuf.ByteString
+      @java.lang.Deprecated com.google.protobuf.ByteString
           getMacBytes();
 
       /**
@@ -14322,28 +14367,34 @@ public final class OaxRtbProto {
        *md5 mac地址
        * </pre>
        *
-       * <code>optional string macmd5 = 15;</code>
+       * <code>optional string macmd5 = 15 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
+       *     See rtb.proto;l=153
        * @return Whether the macmd5 field is set.
        */
-      boolean hasMacmd5();
+      @java.lang.Deprecated boolean hasMacmd5();
       /**
        * <pre>
        *md5 mac地址
        * </pre>
        *
-       * <code>optional string macmd5 = 15;</code>
+       * <code>optional string macmd5 = 15 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
+       *     See rtb.proto;l=153
        * @return The macmd5.
        */
-      java.lang.String getMacmd5();
+      @java.lang.Deprecated java.lang.String getMacmd5();
       /**
        * <pre>
        *md5 mac地址
        * </pre>
        *
-       * <code>optional string macmd5 = 15;</code>
+       * <code>optional string macmd5 = 15 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
+       *     See rtb.proto;l=153
        * @return The bytes for macmd5.
        */
-      com.google.protobuf.ByteString
+      @java.lang.Deprecated com.google.protobuf.ByteString
           getMacmd5Bytes();
 
       /**
@@ -14351,28 +14402,34 @@ public final class OaxRtbProto {
        *安卓id
        * </pre>
        *
-       * <code>optional string adid = 16;</code>
+       * <code>optional string adid = 16 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
+       *     See rtb.proto;l=154
        * @return Whether the adid field is set.
        */
-      boolean hasAdid();
+      @java.lang.Deprecated boolean hasAdid();
       /**
        * <pre>
        *安卓id
        * </pre>
        *
-       * <code>optional string adid = 16;</code>
+       * <code>optional string adid = 16 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
+       *     See rtb.proto;l=154
        * @return The adid.
        */
-      java.lang.String getAdid();
+      @java.lang.Deprecated java.lang.String getAdid();
       /**
        * <pre>
        *安卓id
        * </pre>
        *
-       * <code>optional string adid = 16;</code>
+       * <code>optional string adid = 16 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
+       *     See rtb.proto;l=154
        * @return The bytes for adid.
        */
-      com.google.protobuf.ByteString
+      @java.lang.Deprecated com.google.protobuf.ByteString
           getAdidBytes();
 
       /**
@@ -14412,6 +14469,33 @@ public final class OaxRtbProto {
        * @return The w.
        */
       int getW();
+
+      /**
+       * <pre>
+       *地理位置对象
+       * </pre>
+       *
+       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
+       * @return Whether the geo field is set.
+       */
+      boolean hasGeo();
+      /**
+       * <pre>
+       *地理位置对象
+       * </pre>
+       *
+       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
+       * @return The geo.
+       */
+      top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo getGeo();
+      /**
+       * <pre>
+       *地理位置对象
+       * </pre>
+       *
+       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
+       */
+      top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.GeoOrBuilder getGeoOrBuilder();
     }
     /**
      * <pre>
@@ -14528,44 +14612,6 @@ public final class OaxRtbProto {
         }
       }
 
-      public static final int GEO_FIELD_NUMBER = 2;
-      private top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo geo_;
-      /**
-       * <pre>
-       *地理位置对象
-       * </pre>
-       *
-       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
-       * @return Whether the geo field is set.
-       */
-      @java.lang.Override
-      public boolean hasGeo() {
-        return ((bitField0_ & 0x00000002) != 0);
-      }
-      /**
-       * <pre>
-       *地理位置对象
-       * </pre>
-       *
-       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
-       * @return The geo.
-       */
-      @java.lang.Override
-      public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo getGeo() {
-        return geo_ == null ? top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.getDefaultInstance() : geo_;
-      }
-      /**
-       * <pre>
-       *地理位置对象
-       * </pre>
-       *
-       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
-       */
-      @java.lang.Override
-      public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.GeoOrBuilder getGeoOrBuilder() {
-        return geo_ == null ? top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.getDefaultInstance() : geo_;
-      }
-
       public static final int IP_FIELD_NUMBER = 3;
       @SuppressWarnings("serial")
       private volatile java.lang.Object ip_ = "";
@@ -14579,7 +14625,7 @@ public final class OaxRtbProto {
        */
       @java.lang.Override
       public boolean hasIp() {
-        return ((bitField0_ & 0x00000004) != 0);
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <pre>
@@ -14640,7 +14686,7 @@ public final class OaxRtbProto {
        */
       @java.lang.Override
       public boolean hasIpv6() {
-        return ((bitField0_ & 0x00000008) != 0);
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <pre>
@@ -14700,7 +14746,7 @@ public final class OaxRtbProto {
        */
       @java.lang.Override
       public boolean hasDeviceType() {
-        return ((bitField0_ & 0x00000010) != 0);
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <pre>
@@ -14728,7 +14774,7 @@ public final class OaxRtbProto {
        */
       @java.lang.Override
       public boolean hasMake() {
-        return ((bitField0_ & 0x00000020) != 0);
+        return ((bitField0_ & 0x00000010) != 0);
       }
       /**
        * <pre>
@@ -14789,7 +14835,7 @@ public final class OaxRtbProto {
        */
       @java.lang.Override
       public boolean hasModel() {
-        return ((bitField0_ & 0x00000040) != 0);
+        return ((bitField0_ & 0x00000020) != 0);
       }
       /**
        * <pre>
@@ -14850,7 +14896,7 @@ public final class OaxRtbProto {
        */
       @java.lang.Override
       public boolean hasOs() {
-        return ((bitField0_ & 0x00000080) != 0);
+        return ((bitField0_ & 0x00000040) != 0);
       }
       /**
        * <pre>
@@ -14911,7 +14957,7 @@ public final class OaxRtbProto {
        */
       @java.lang.Override
       public boolean hasOsv() {
-        return ((bitField0_ & 0x00000100) != 0);
+        return ((bitField0_ & 0x00000080) != 0);
       }
       /**
        * <pre>
@@ -14972,7 +15018,7 @@ public final class OaxRtbProto {
        */
       @java.lang.Override
       public boolean hasCarrier() {
-        return ((bitField0_ & 0x00000200) != 0);
+        return ((bitField0_ & 0x00000100) != 0);
       }
       /**
        * <pre>
@@ -15032,7 +15078,7 @@ public final class OaxRtbProto {
        */
       @java.lang.Override
       public boolean hasConnectionType() {
-        return ((bitField0_ & 0x00000400) != 0);
+        return ((bitField0_ & 0x00000200) != 0);
       }
       /**
        * <pre>
@@ -15052,7 +15098,7 @@ public final class OaxRtbProto {
       private volatile java.lang.Object ifa_ = "";
       /**
        * <pre>
-       *明文设备码，如安卓的imei或ios的idfa
+       *明文设备码，iOS → IDFA,Android → GAID
        * </pre>
        *
        * <code>optional string ifa = 12;</code>
@@ -15060,11 +15106,11 @@ public final class OaxRtbProto {
        */
       @java.lang.Override
       public boolean hasIfa() {
-        return ((bitField0_ & 0x00000800) != 0);
+        return ((bitField0_ & 0x00000400) != 0);
       }
       /**
        * <pre>
-       *明文设备码，如安卓的imei或ios的idfa
+       *明文设备码，iOS → IDFA,Android → GAID
        * </pre>
        *
        * <code>optional string ifa = 12;</code>
@@ -15087,7 +15133,7 @@ public final class OaxRtbProto {
       }
       /**
        * <pre>
-       *明文设备码，如安卓的imei或ios的idfa
+       *明文设备码，iOS → IDFA,Android → GAID
        * </pre>
        *
        * <code>optional string ifa = 12;</code>
@@ -15116,23 +15162,27 @@ public final class OaxRtbProto {
        *md5设备码
        * </pre>
        *
-       * <code>optional string didmd5 = 13;</code>
+       * <code>optional string didmd5 = 13 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
+       *     See rtb.proto;l=151
        * @return Whether the didmd5 field is set.
        */
       @java.lang.Override
-      public boolean hasDidmd5() {
-        return ((bitField0_ & 0x00001000) != 0);
+      @java.lang.Deprecated public boolean hasDidmd5() {
+        return ((bitField0_ & 0x00000800) != 0);
       }
       /**
        * <pre>
        *md5设备码
        * </pre>
        *
-       * <code>optional string didmd5 = 13;</code>
+       * <code>optional string didmd5 = 13 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
+       *     See rtb.proto;l=151
        * @return The didmd5.
        */
       @java.lang.Override
-      public java.lang.String getDidmd5() {
+      @java.lang.Deprecated public java.lang.String getDidmd5() {
         java.lang.Object ref = didmd5_;
         if (ref instanceof java.lang.String) {
           return (java.lang.String) ref;
@@ -15151,11 +15201,13 @@ public final class OaxRtbProto {
        *md5设备码
        * </pre>
        *
-       * <code>optional string didmd5 = 13;</code>
+       * <code>optional string didmd5 = 13 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
+       *     See rtb.proto;l=151
        * @return The bytes for didmd5.
        */
       @java.lang.Override
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getDidmd5Bytes() {
         java.lang.Object ref = didmd5_;
         if (ref instanceof java.lang.String) {
@@ -15177,23 +15229,27 @@ public final class OaxRtbProto {
        *mac地址明文
        * </pre>
        *
-       * <code>optional string mac = 14;</code>
+       * <code>optional string mac = 14 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
+       *     See rtb.proto;l=152
        * @return Whether the mac field is set.
        */
       @java.lang.Override
-      public boolean hasMac() {
-        return ((bitField0_ & 0x00002000) != 0);
+      @java.lang.Deprecated public boolean hasMac() {
+        return ((bitField0_ & 0x00001000) != 0);
       }
       /**
        * <pre>
        *mac地址明文
        * </pre>
        *
-       * <code>optional string mac = 14;</code>
+       * <code>optional string mac = 14 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
+       *     See rtb.proto;l=152
        * @return The mac.
        */
       @java.lang.Override
-      public java.lang.String getMac() {
+      @java.lang.Deprecated public java.lang.String getMac() {
         java.lang.Object ref = mac_;
         if (ref instanceof java.lang.String) {
           return (java.lang.String) ref;
@@ -15212,11 +15268,13 @@ public final class OaxRtbProto {
        *mac地址明文
        * </pre>
        *
-       * <code>optional string mac = 14;</code>
+       * <code>optional string mac = 14 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
+       *     See rtb.proto;l=152
        * @return The bytes for mac.
        */
       @java.lang.Override
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getMacBytes() {
         java.lang.Object ref = mac_;
         if (ref instanceof java.lang.String) {
@@ -15238,23 +15296,27 @@ public final class OaxRtbProto {
        *md5 mac地址
        * </pre>
        *
-       * <code>optional string macmd5 = 15;</code>
+       * <code>optional string macmd5 = 15 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
+       *     See rtb.proto;l=153
        * @return Whether the macmd5 field is set.
        */
       @java.lang.Override
-      public boolean hasMacmd5() {
-        return ((bitField0_ & 0x00004000) != 0);
+      @java.lang.Deprecated public boolean hasMacmd5() {
+        return ((bitField0_ & 0x00002000) != 0);
       }
       /**
        * <pre>
        *md5 mac地址
        * </pre>
        *
-       * <code>optional string macmd5 = 15;</code>
+       * <code>optional string macmd5 = 15 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
+       *     See rtb.proto;l=153
        * @return The macmd5.
        */
       @java.lang.Override
-      public java.lang.String getMacmd5() {
+      @java.lang.Deprecated public java.lang.String getMacmd5() {
         java.lang.Object ref = macmd5_;
         if (ref instanceof java.lang.String) {
           return (java.lang.String) ref;
@@ -15273,11 +15335,13 @@ public final class OaxRtbProto {
        *md5 mac地址
        * </pre>
        *
-       * <code>optional string macmd5 = 15;</code>
+       * <code>optional string macmd5 = 15 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
+       *     See rtb.proto;l=153
        * @return The bytes for macmd5.
        */
       @java.lang.Override
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getMacmd5Bytes() {
         java.lang.Object ref = macmd5_;
         if (ref instanceof java.lang.String) {
@@ -15299,23 +15363,27 @@ public final class OaxRtbProto {
        *安卓id
        * </pre>
        *
-       * <code>optional string adid = 16;</code>
+       * <code>optional string adid = 16 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
+       *     See rtb.proto;l=154
        * @return Whether the adid field is set.
        */
       @java.lang.Override
-      public boolean hasAdid() {
-        return ((bitField0_ & 0x00008000) != 0);
+      @java.lang.Deprecated public boolean hasAdid() {
+        return ((bitField0_ & 0x00004000) != 0);
       }
       /**
        * <pre>
        *安卓id
        * </pre>
        *
-       * <code>optional string adid = 16;</code>
+       * <code>optional string adid = 16 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
+       *     See rtb.proto;l=154
        * @return The adid.
        */
       @java.lang.Override
-      public java.lang.String getAdid() {
+      @java.lang.Deprecated public java.lang.String getAdid() {
         java.lang.Object ref = adid_;
         if (ref instanceof java.lang.String) {
           return (java.lang.String) ref;
@@ -15334,11 +15402,13 @@ public final class OaxRtbProto {
        *安卓id
        * </pre>
        *
-       * <code>optional string adid = 16;</code>
+       * <code>optional string adid = 16 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
+       *     See rtb.proto;l=154
        * @return The bytes for adid.
        */
       @java.lang.Override
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getAdidBytes() {
         java.lang.Object ref = adid_;
         if (ref instanceof java.lang.String) {
@@ -15364,7 +15434,7 @@ public final class OaxRtbProto {
        */
       @java.lang.Override
       public boolean hasH() {
-        return ((bitField0_ & 0x00010000) != 0);
+        return ((bitField0_ & 0x00008000) != 0);
       }
       /**
        * <pre>
@@ -15391,7 +15461,7 @@ public final class OaxRtbProto {
        */
       @java.lang.Override
       public boolean hasW() {
-        return ((bitField0_ & 0x00020000) != 0);
+        return ((bitField0_ & 0x00010000) != 0);
       }
       /**
        * <pre>
@@ -15404,6 +15474,44 @@ public final class OaxRtbProto {
       @java.lang.Override
       public int getW() {
         return w_;
+      }
+
+      public static final int GEO_FIELD_NUMBER = 2;
+      private top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo geo_;
+      /**
+       * <pre>
+       *地理位置对象
+       * </pre>
+       *
+       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
+       * @return Whether the geo field is set.
+       */
+      @java.lang.Override
+      public boolean hasGeo() {
+        return ((bitField0_ & 0x00020000) != 0);
+      }
+      /**
+       * <pre>
+       *地理位置对象
+       * </pre>
+       *
+       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
+       * @return The geo.
+       */
+      @java.lang.Override
+      public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo getGeo() {
+        return geo_ == null ? top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.getDefaultInstance() : geo_;
+      }
+      /**
+       * <pre>
+       *地理位置对象
+       * </pre>
+       *
+       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
+       */
+      @java.lang.Override
+      public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.GeoOrBuilder getGeoOrBuilder() {
+        return geo_ == null ? top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.getDefaultInstance() : geo_;
       }
 
       private byte memoizedIsInitialized = -1;
@@ -15436,55 +15544,55 @@ public final class OaxRtbProto {
         if (((bitField0_ & 0x00000001) != 0)) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ua_);
         }
-        if (((bitField0_ & 0x00000002) != 0)) {
+        if (((bitField0_ & 0x00020000) != 0)) {
           output.writeMessage(2, getGeo());
         }
-        if (((bitField0_ & 0x00000004) != 0)) {
+        if (((bitField0_ & 0x00000002) != 0)) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 3, ip_);
         }
-        if (((bitField0_ & 0x00000008) != 0)) {
+        if (((bitField0_ & 0x00000004) != 0)) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 4, ipv6_);
         }
-        if (((bitField0_ & 0x00000010) != 0)) {
+        if (((bitField0_ & 0x00000008) != 0)) {
           output.writeUInt32(5, deviceType_);
         }
-        if (((bitField0_ & 0x00000020) != 0)) {
+        if (((bitField0_ & 0x00000010) != 0)) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 6, make_);
         }
-        if (((bitField0_ & 0x00000040) != 0)) {
+        if (((bitField0_ & 0x00000020) != 0)) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 7, model_);
         }
-        if (((bitField0_ & 0x00000080) != 0)) {
+        if (((bitField0_ & 0x00000040) != 0)) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 8, os_);
         }
-        if (((bitField0_ & 0x00000100) != 0)) {
+        if (((bitField0_ & 0x00000080) != 0)) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 9, osv_);
         }
-        if (((bitField0_ & 0x00000200) != 0)) {
+        if (((bitField0_ & 0x00000100) != 0)) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 10, carrier_);
         }
-        if (((bitField0_ & 0x00000400) != 0)) {
+        if (((bitField0_ & 0x00000200) != 0)) {
           output.writeUInt32(11, connectionType_);
         }
-        if (((bitField0_ & 0x00000800) != 0)) {
+        if (((bitField0_ & 0x00000400) != 0)) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 12, ifa_);
         }
-        if (((bitField0_ & 0x00001000) != 0)) {
+        if (((bitField0_ & 0x00000800) != 0)) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 13, didmd5_);
         }
-        if (((bitField0_ & 0x00002000) != 0)) {
+        if (((bitField0_ & 0x00001000) != 0)) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 14, mac_);
         }
-        if (((bitField0_ & 0x00004000) != 0)) {
+        if (((bitField0_ & 0x00002000) != 0)) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 15, macmd5_);
         }
-        if (((bitField0_ & 0x00008000) != 0)) {
+        if (((bitField0_ & 0x00004000) != 0)) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 16, adid_);
         }
-        if (((bitField0_ & 0x00010000) != 0)) {
+        if (((bitField0_ & 0x00008000) != 0)) {
           output.writeUInt32(17, h_);
         }
-        if (((bitField0_ & 0x00020000) != 0)) {
+        if (((bitField0_ & 0x00010000) != 0)) {
           output.writeUInt32(18, w_);
         }
         extensionWriter.writeUntil(300, output);
@@ -15500,59 +15608,59 @@ public final class OaxRtbProto {
         if (((bitField0_ & 0x00000001) != 0)) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ua_);
         }
-        if (((bitField0_ & 0x00000002) != 0)) {
+        if (((bitField0_ & 0x00020000) != 0)) {
           size += com.google.protobuf.CodedOutputStream
             .computeMessageSize(2, getGeo());
         }
-        if (((bitField0_ & 0x00000004) != 0)) {
+        if (((bitField0_ & 0x00000002) != 0)) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, ip_);
         }
-        if (((bitField0_ & 0x00000008) != 0)) {
+        if (((bitField0_ & 0x00000004) != 0)) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, ipv6_);
         }
-        if (((bitField0_ & 0x00000010) != 0)) {
+        if (((bitField0_ & 0x00000008) != 0)) {
           size += com.google.protobuf.CodedOutputStream
             .computeUInt32Size(5, deviceType_);
         }
-        if (((bitField0_ & 0x00000020) != 0)) {
+        if (((bitField0_ & 0x00000010) != 0)) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, make_);
         }
-        if (((bitField0_ & 0x00000040) != 0)) {
+        if (((bitField0_ & 0x00000020) != 0)) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, model_);
         }
-        if (((bitField0_ & 0x00000080) != 0)) {
+        if (((bitField0_ & 0x00000040) != 0)) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, os_);
         }
-        if (((bitField0_ & 0x00000100) != 0)) {
+        if (((bitField0_ & 0x00000080) != 0)) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, osv_);
         }
-        if (((bitField0_ & 0x00000200) != 0)) {
+        if (((bitField0_ & 0x00000100) != 0)) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, carrier_);
         }
-        if (((bitField0_ & 0x00000400) != 0)) {
+        if (((bitField0_ & 0x00000200) != 0)) {
           size += com.google.protobuf.CodedOutputStream
             .computeUInt32Size(11, connectionType_);
         }
-        if (((bitField0_ & 0x00000800) != 0)) {
+        if (((bitField0_ & 0x00000400) != 0)) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, ifa_);
         }
-        if (((bitField0_ & 0x00001000) != 0)) {
+        if (((bitField0_ & 0x00000800) != 0)) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, didmd5_);
         }
-        if (((bitField0_ & 0x00002000) != 0)) {
+        if (((bitField0_ & 0x00001000) != 0)) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(14, mac_);
         }
-        if (((bitField0_ & 0x00004000) != 0)) {
+        if (((bitField0_ & 0x00002000) != 0)) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(15, macmd5_);
         }
-        if (((bitField0_ & 0x00008000) != 0)) {
+        if (((bitField0_ & 0x00004000) != 0)) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(16, adid_);
         }
-        if (((bitField0_ & 0x00010000) != 0)) {
+        if (((bitField0_ & 0x00008000) != 0)) {
           size += com.google.protobuf.CodedOutputStream
             .computeUInt32Size(17, h_);
         }
-        if (((bitField0_ & 0x00020000) != 0)) {
+        if (((bitField0_ & 0x00010000) != 0)) {
           size += com.google.protobuf.CodedOutputStream
             .computeUInt32Size(18, w_);
         }
@@ -15576,11 +15684,6 @@ public final class OaxRtbProto {
         if (hasUa()) {
           if (!getUa()
               .equals(other.getUa())) return false;
-        }
-        if (hasGeo() != other.hasGeo()) return false;
-        if (hasGeo()) {
-          if (!getGeo()
-              .equals(other.getGeo())) return false;
         }
         if (hasIp() != other.hasIp()) return false;
         if (hasIp()) {
@@ -15662,6 +15765,11 @@ public final class OaxRtbProto {
           if (getW()
               != other.getW()) return false;
         }
+        if (hasGeo() != other.hasGeo()) return false;
+        if (hasGeo()) {
+          if (!getGeo()
+              .equals(other.getGeo())) return false;
+        }
         if (!getUnknownFields().equals(other.getUnknownFields())) return false;
         if (!getExtensionFields().equals(other.getExtensionFields()))
           return false;
@@ -15678,10 +15786,6 @@ public final class OaxRtbProto {
         if (hasUa()) {
           hash = (37 * hash) + UA_FIELD_NUMBER;
           hash = (53 * hash) + getUa().hashCode();
-        }
-        if (hasGeo()) {
-          hash = (37 * hash) + GEO_FIELD_NUMBER;
-          hash = (53 * hash) + getGeo().hashCode();
         }
         if (hasIp()) {
           hash = (37 * hash) + IP_FIELD_NUMBER;
@@ -15746,6 +15850,10 @@ public final class OaxRtbProto {
         if (hasW()) {
           hash = (37 * hash) + W_FIELD_NUMBER;
           hash = (53 * hash) + getW();
+        }
+        if (hasGeo()) {
+          hash = (37 * hash) + GEO_FIELD_NUMBER;
+          hash = (53 * hash) + getGeo().hashCode();
         }
         hash = hashFields(hash, getExtensionFields());
         hash = (29 * hash) + getUnknownFields().hashCode();
@@ -15891,11 +15999,6 @@ public final class OaxRtbProto {
           super.clear();
           bitField0_ = 0;
           ua_ = "";
-          geo_ = null;
-          if (geoBuilder_ != null) {
-            geoBuilder_.dispose();
-            geoBuilder_ = null;
-          }
           ip_ = "";
           ipv6_ = "";
           deviceType_ = 0;
@@ -15912,6 +16015,11 @@ public final class OaxRtbProto {
           adid_ = "";
           h_ = 0;
           w_ = 0;
+          geo_ = null;
+          if (geoBuilder_ != null) {
+            geoBuilder_.dispose();
+            geoBuilder_ = null;
+          }
           return this;
         }
 
@@ -15951,73 +16059,73 @@ public final class OaxRtbProto {
             to_bitField0_ |= 0x00000001;
           }
           if (((from_bitField0_ & 0x00000002) != 0)) {
-            result.geo_ = geoBuilder_ == null
-                ? geo_
-                : geoBuilder_.build();
+            result.ip_ = ip_;
             to_bitField0_ |= 0x00000002;
           }
           if (((from_bitField0_ & 0x00000004) != 0)) {
-            result.ip_ = ip_;
+            result.ipv6_ = ipv6_;
             to_bitField0_ |= 0x00000004;
           }
           if (((from_bitField0_ & 0x00000008) != 0)) {
-            result.ipv6_ = ipv6_;
+            result.deviceType_ = deviceType_;
             to_bitField0_ |= 0x00000008;
           }
           if (((from_bitField0_ & 0x00000010) != 0)) {
-            result.deviceType_ = deviceType_;
+            result.make_ = make_;
             to_bitField0_ |= 0x00000010;
           }
           if (((from_bitField0_ & 0x00000020) != 0)) {
-            result.make_ = make_;
+            result.model_ = model_;
             to_bitField0_ |= 0x00000020;
           }
           if (((from_bitField0_ & 0x00000040) != 0)) {
-            result.model_ = model_;
+            result.os_ = os_;
             to_bitField0_ |= 0x00000040;
           }
           if (((from_bitField0_ & 0x00000080) != 0)) {
-            result.os_ = os_;
+            result.osv_ = osv_;
             to_bitField0_ |= 0x00000080;
           }
           if (((from_bitField0_ & 0x00000100) != 0)) {
-            result.osv_ = osv_;
+            result.carrier_ = carrier_;
             to_bitField0_ |= 0x00000100;
           }
           if (((from_bitField0_ & 0x00000200) != 0)) {
-            result.carrier_ = carrier_;
+            result.connectionType_ = connectionType_;
             to_bitField0_ |= 0x00000200;
           }
           if (((from_bitField0_ & 0x00000400) != 0)) {
-            result.connectionType_ = connectionType_;
+            result.ifa_ = ifa_;
             to_bitField0_ |= 0x00000400;
           }
           if (((from_bitField0_ & 0x00000800) != 0)) {
-            result.ifa_ = ifa_;
+            result.didmd5_ = didmd5_;
             to_bitField0_ |= 0x00000800;
           }
           if (((from_bitField0_ & 0x00001000) != 0)) {
-            result.didmd5_ = didmd5_;
+            result.mac_ = mac_;
             to_bitField0_ |= 0x00001000;
           }
           if (((from_bitField0_ & 0x00002000) != 0)) {
-            result.mac_ = mac_;
+            result.macmd5_ = macmd5_;
             to_bitField0_ |= 0x00002000;
           }
           if (((from_bitField0_ & 0x00004000) != 0)) {
-            result.macmd5_ = macmd5_;
+            result.adid_ = adid_;
             to_bitField0_ |= 0x00004000;
           }
           if (((from_bitField0_ & 0x00008000) != 0)) {
-            result.adid_ = adid_;
+            result.h_ = h_;
             to_bitField0_ |= 0x00008000;
           }
           if (((from_bitField0_ & 0x00010000) != 0)) {
-            result.h_ = h_;
+            result.w_ = w_;
             to_bitField0_ |= 0x00010000;
           }
           if (((from_bitField0_ & 0x00020000) != 0)) {
-            result.w_ = w_;
+            result.geo_ = geoBuilder_ == null
+                ? geo_
+                : geoBuilder_.build();
             to_bitField0_ |= 0x00020000;
           }
           result.bitField0_ |= to_bitField0_;
@@ -16099,17 +16207,14 @@ public final class OaxRtbProto {
             bitField0_ |= 0x00000001;
             onChanged();
           }
-          if (other.hasGeo()) {
-            mergeGeo(other.getGeo());
-          }
           if (other.hasIp()) {
             ip_ = other.ip_;
-            bitField0_ |= 0x00000004;
+            bitField0_ |= 0x00000002;
             onChanged();
           }
           if (other.hasIpv6()) {
             ipv6_ = other.ipv6_;
-            bitField0_ |= 0x00000008;
+            bitField0_ |= 0x00000004;
             onChanged();
           }
           if (other.hasDeviceType()) {
@@ -16117,27 +16222,27 @@ public final class OaxRtbProto {
           }
           if (other.hasMake()) {
             make_ = other.make_;
-            bitField0_ |= 0x00000020;
+            bitField0_ |= 0x00000010;
             onChanged();
           }
           if (other.hasModel()) {
             model_ = other.model_;
-            bitField0_ |= 0x00000040;
+            bitField0_ |= 0x00000020;
             onChanged();
           }
           if (other.hasOs()) {
             os_ = other.os_;
-            bitField0_ |= 0x00000080;
+            bitField0_ |= 0x00000040;
             onChanged();
           }
           if (other.hasOsv()) {
             osv_ = other.osv_;
-            bitField0_ |= 0x00000100;
+            bitField0_ |= 0x00000080;
             onChanged();
           }
           if (other.hasCarrier()) {
             carrier_ = other.carrier_;
-            bitField0_ |= 0x00000200;
+            bitField0_ |= 0x00000100;
             onChanged();
           }
           if (other.hasConnectionType()) {
@@ -16145,27 +16250,27 @@ public final class OaxRtbProto {
           }
           if (other.hasIfa()) {
             ifa_ = other.ifa_;
-            bitField0_ |= 0x00000800;
+            bitField0_ |= 0x00000400;
             onChanged();
           }
           if (other.hasDidmd5()) {
             didmd5_ = other.didmd5_;
-            bitField0_ |= 0x00001000;
+            bitField0_ |= 0x00000800;
             onChanged();
           }
           if (other.hasMac()) {
             mac_ = other.mac_;
-            bitField0_ |= 0x00002000;
+            bitField0_ |= 0x00001000;
             onChanged();
           }
           if (other.hasMacmd5()) {
             macmd5_ = other.macmd5_;
-            bitField0_ |= 0x00004000;
+            bitField0_ |= 0x00002000;
             onChanged();
           }
           if (other.hasAdid()) {
             adid_ = other.adid_;
-            bitField0_ |= 0x00008000;
+            bitField0_ |= 0x00004000;
             onChanged();
           }
           if (other.hasH()) {
@@ -16173,6 +16278,9 @@ public final class OaxRtbProto {
           }
           if (other.hasW()) {
             setW(other.getW());
+          }
+          if (other.hasGeo()) {
+            mergeGeo(other.getGeo());
           }
           this.mergeExtensionFields(other);
           this.mergeUnknownFields(other.getUnknownFields());
@@ -16218,87 +16326,87 @@ public final class OaxRtbProto {
                   input.readMessage(
                       getGeoFieldBuilder().getBuilder(),
                       extensionRegistry);
-                  bitField0_ |= 0x00000002;
+                  bitField0_ |= 0x00020000;
                   break;
                 } // case 18
                 case 26: {
                   ip_ = input.readBytes();
-                  bitField0_ |= 0x00000004;
+                  bitField0_ |= 0x00000002;
                   break;
                 } // case 26
                 case 34: {
                   ipv6_ = input.readBytes();
-                  bitField0_ |= 0x00000008;
+                  bitField0_ |= 0x00000004;
                   break;
                 } // case 34
                 case 40: {
                   deviceType_ = input.readUInt32();
-                  bitField0_ |= 0x00000010;
+                  bitField0_ |= 0x00000008;
                   break;
                 } // case 40
                 case 50: {
                   make_ = input.readBytes();
-                  bitField0_ |= 0x00000020;
+                  bitField0_ |= 0x00000010;
                   break;
                 } // case 50
                 case 58: {
                   model_ = input.readBytes();
-                  bitField0_ |= 0x00000040;
+                  bitField0_ |= 0x00000020;
                   break;
                 } // case 58
                 case 66: {
                   os_ = input.readBytes();
-                  bitField0_ |= 0x00000080;
+                  bitField0_ |= 0x00000040;
                   break;
                 } // case 66
                 case 74: {
                   osv_ = input.readBytes();
-                  bitField0_ |= 0x00000100;
+                  bitField0_ |= 0x00000080;
                   break;
                 } // case 74
                 case 82: {
                   carrier_ = input.readBytes();
-                  bitField0_ |= 0x00000200;
+                  bitField0_ |= 0x00000100;
                   break;
                 } // case 82
                 case 88: {
                   connectionType_ = input.readUInt32();
-                  bitField0_ |= 0x00000400;
+                  bitField0_ |= 0x00000200;
                   break;
                 } // case 88
                 case 98: {
                   ifa_ = input.readBytes();
-                  bitField0_ |= 0x00000800;
+                  bitField0_ |= 0x00000400;
                   break;
                 } // case 98
                 case 106: {
                   didmd5_ = input.readBytes();
-                  bitField0_ |= 0x00001000;
+                  bitField0_ |= 0x00000800;
                   break;
                 } // case 106
                 case 114: {
                   mac_ = input.readBytes();
-                  bitField0_ |= 0x00002000;
+                  bitField0_ |= 0x00001000;
                   break;
                 } // case 114
                 case 122: {
                   macmd5_ = input.readBytes();
-                  bitField0_ |= 0x00004000;
+                  bitField0_ |= 0x00002000;
                   break;
                 } // case 122
                 case 130: {
                   adid_ = input.readBytes();
-                  bitField0_ |= 0x00008000;
+                  bitField0_ |= 0x00004000;
                   break;
                 } // case 130
                 case 136: {
                   h_ = input.readUInt32();
-                  bitField0_ |= 0x00010000;
+                  bitField0_ |= 0x00008000;
                   break;
                 } // case 136
                 case 144: {
                   w_ = input.readUInt32();
-                  bitField0_ |= 0x00020000;
+                  bitField0_ |= 0x00010000;
                   break;
                 } // case 144
                 default: {
@@ -16422,163 +16530,6 @@ public final class OaxRtbProto {
           return this;
         }
 
-        private top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo geo_;
-        private com.google.protobuf.SingleFieldBuilderV3<
-            top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.Builder, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.GeoOrBuilder> geoBuilder_;
-        /**
-         * <pre>
-         *地理位置对象
-         * </pre>
-         *
-         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
-         * @return Whether the geo field is set.
-         */
-        public boolean hasGeo() {
-          return ((bitField0_ & 0x00000002) != 0);
-        }
-        /**
-         * <pre>
-         *地理位置对象
-         * </pre>
-         *
-         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
-         * @return The geo.
-         */
-        public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo getGeo() {
-          if (geoBuilder_ == null) {
-            return geo_ == null ? top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.getDefaultInstance() : geo_;
-          } else {
-            return geoBuilder_.getMessage();
-          }
-        }
-        /**
-         * <pre>
-         *地理位置对象
-         * </pre>
-         *
-         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
-         */
-        public Builder setGeo(top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo value) {
-          if (geoBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            geo_ = value;
-          } else {
-            geoBuilder_.setMessage(value);
-          }
-          bitField0_ |= 0x00000002;
-          onChanged();
-          return this;
-        }
-        /**
-         * <pre>
-         *地理位置对象
-         * </pre>
-         *
-         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
-         */
-        public Builder setGeo(
-            top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.Builder builderForValue) {
-          if (geoBuilder_ == null) {
-            geo_ = builderForValue.build();
-          } else {
-            geoBuilder_.setMessage(builderForValue.build());
-          }
-          bitField0_ |= 0x00000002;
-          onChanged();
-          return this;
-        }
-        /**
-         * <pre>
-         *地理位置对象
-         * </pre>
-         *
-         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
-         */
-        public Builder mergeGeo(top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo value) {
-          if (geoBuilder_ == null) {
-            if (((bitField0_ & 0x00000002) != 0) &&
-              geo_ != null &&
-              geo_ != top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.getDefaultInstance()) {
-              getGeoBuilder().mergeFrom(value);
-            } else {
-              geo_ = value;
-            }
-          } else {
-            geoBuilder_.mergeFrom(value);
-          }
-          if (geo_ != null) {
-            bitField0_ |= 0x00000002;
-            onChanged();
-          }
-          return this;
-        }
-        /**
-         * <pre>
-         *地理位置对象
-         * </pre>
-         *
-         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
-         */
-        public Builder clearGeo() {
-          bitField0_ = (bitField0_ & ~0x00000002);
-          geo_ = null;
-          if (geoBuilder_ != null) {
-            geoBuilder_.dispose();
-            geoBuilder_ = null;
-          }
-          onChanged();
-          return this;
-        }
-        /**
-         * <pre>
-         *地理位置对象
-         * </pre>
-         *
-         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
-         */
-        public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.Builder getGeoBuilder() {
-          bitField0_ |= 0x00000002;
-          onChanged();
-          return getGeoFieldBuilder().getBuilder();
-        }
-        /**
-         * <pre>
-         *地理位置对象
-         * </pre>
-         *
-         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
-         */
-        public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.GeoOrBuilder getGeoOrBuilder() {
-          if (geoBuilder_ != null) {
-            return geoBuilder_.getMessageOrBuilder();
-          } else {
-            return geo_ == null ?
-                top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.getDefaultInstance() : geo_;
-          }
-        }
-        /**
-         * <pre>
-         *地理位置对象
-         * </pre>
-         *
-         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
-         */
-        private com.google.protobuf.SingleFieldBuilderV3<
-            top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.Builder, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.GeoOrBuilder> 
-            getGeoFieldBuilder() {
-          if (geoBuilder_ == null) {
-            geoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-                top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.Builder, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.GeoOrBuilder>(
-                    getGeo(),
-                    getParentForChildren(),
-                    isClean());
-            geo_ = null;
-          }
-          return geoBuilder_;
-        }
-
         private java.lang.Object ip_ = "";
         /**
          * <pre>
@@ -16589,7 +16540,7 @@ public final class OaxRtbProto {
          * @return Whether the ip field is set.
          */
         public boolean hasIp() {
-          return ((bitField0_ & 0x00000004) != 0);
+          return ((bitField0_ & 0x00000002) != 0);
         }
         /**
          * <pre>
@@ -16647,7 +16598,7 @@ public final class OaxRtbProto {
             java.lang.String value) {
           if (value == null) { throw new NullPointerException(); }
           ip_ = value;
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000002;
           onChanged();
           return this;
         }
@@ -16661,7 +16612,7 @@ public final class OaxRtbProto {
          */
         public Builder clearIp() {
           ip_ = getDefaultInstance().getIp();
-          bitField0_ = (bitField0_ & ~0x00000004);
+          bitField0_ = (bitField0_ & ~0x00000002);
           onChanged();
           return this;
         }
@@ -16678,7 +16629,7 @@ public final class OaxRtbProto {
             com.google.protobuf.ByteString value) {
           if (value == null) { throw new NullPointerException(); }
           ip_ = value;
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000002;
           onChanged();
           return this;
         }
@@ -16693,7 +16644,7 @@ public final class OaxRtbProto {
          * @return Whether the ipv6 field is set.
          */
         public boolean hasIpv6() {
-          return ((bitField0_ & 0x00000008) != 0);
+          return ((bitField0_ & 0x00000004) != 0);
         }
         /**
          * <pre>
@@ -16751,7 +16702,7 @@ public final class OaxRtbProto {
             java.lang.String value) {
           if (value == null) { throw new NullPointerException(); }
           ipv6_ = value;
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000004;
           onChanged();
           return this;
         }
@@ -16765,7 +16716,7 @@ public final class OaxRtbProto {
          */
         public Builder clearIpv6() {
           ipv6_ = getDefaultInstance().getIpv6();
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000004);
           onChanged();
           return this;
         }
@@ -16782,7 +16733,7 @@ public final class OaxRtbProto {
             com.google.protobuf.ByteString value) {
           if (value == null) { throw new NullPointerException(); }
           ipv6_ = value;
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000004;
           onChanged();
           return this;
         }
@@ -16798,7 +16749,7 @@ public final class OaxRtbProto {
          */
         @java.lang.Override
         public boolean hasDeviceType() {
-          return ((bitField0_ & 0x00000010) != 0);
+          return ((bitField0_ & 0x00000008) != 0);
         }
         /**
          * <pre>
@@ -16824,7 +16775,7 @@ public final class OaxRtbProto {
         public Builder setDeviceType(int value) {
 
           deviceType_ = value;
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000008;
           onChanged();
           return this;
         }
@@ -16837,7 +16788,7 @@ public final class OaxRtbProto {
          * @return This builder for chaining.
          */
         public Builder clearDeviceType() {
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000008);
           deviceType_ = 0;
           onChanged();
           return this;
@@ -16853,7 +16804,7 @@ public final class OaxRtbProto {
          * @return Whether the make field is set.
          */
         public boolean hasMake() {
-          return ((bitField0_ & 0x00000020) != 0);
+          return ((bitField0_ & 0x00000010) != 0);
         }
         /**
          * <pre>
@@ -16911,7 +16862,7 @@ public final class OaxRtbProto {
             java.lang.String value) {
           if (value == null) { throw new NullPointerException(); }
           make_ = value;
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000010;
           onChanged();
           return this;
         }
@@ -16925,7 +16876,7 @@ public final class OaxRtbProto {
          */
         public Builder clearMake() {
           make_ = getDefaultInstance().getMake();
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000010);
           onChanged();
           return this;
         }
@@ -16942,7 +16893,7 @@ public final class OaxRtbProto {
             com.google.protobuf.ByteString value) {
           if (value == null) { throw new NullPointerException(); }
           make_ = value;
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000010;
           onChanged();
           return this;
         }
@@ -16957,7 +16908,7 @@ public final class OaxRtbProto {
          * @return Whether the model field is set.
          */
         public boolean hasModel() {
-          return ((bitField0_ & 0x00000040) != 0);
+          return ((bitField0_ & 0x00000020) != 0);
         }
         /**
          * <pre>
@@ -17015,7 +16966,7 @@ public final class OaxRtbProto {
             java.lang.String value) {
           if (value == null) { throw new NullPointerException(); }
           model_ = value;
-          bitField0_ |= 0x00000040;
+          bitField0_ |= 0x00000020;
           onChanged();
           return this;
         }
@@ -17029,7 +16980,7 @@ public final class OaxRtbProto {
          */
         public Builder clearModel() {
           model_ = getDefaultInstance().getModel();
-          bitField0_ = (bitField0_ & ~0x00000040);
+          bitField0_ = (bitField0_ & ~0x00000020);
           onChanged();
           return this;
         }
@@ -17046,7 +16997,7 @@ public final class OaxRtbProto {
             com.google.protobuf.ByteString value) {
           if (value == null) { throw new NullPointerException(); }
           model_ = value;
-          bitField0_ |= 0x00000040;
+          bitField0_ |= 0x00000020;
           onChanged();
           return this;
         }
@@ -17061,7 +17012,7 @@ public final class OaxRtbProto {
          * @return Whether the os field is set.
          */
         public boolean hasOs() {
-          return ((bitField0_ & 0x00000080) != 0);
+          return ((bitField0_ & 0x00000040) != 0);
         }
         /**
          * <pre>
@@ -17119,7 +17070,7 @@ public final class OaxRtbProto {
             java.lang.String value) {
           if (value == null) { throw new NullPointerException(); }
           os_ = value;
-          bitField0_ |= 0x00000080;
+          bitField0_ |= 0x00000040;
           onChanged();
           return this;
         }
@@ -17133,7 +17084,7 @@ public final class OaxRtbProto {
          */
         public Builder clearOs() {
           os_ = getDefaultInstance().getOs();
-          bitField0_ = (bitField0_ & ~0x00000080);
+          bitField0_ = (bitField0_ & ~0x00000040);
           onChanged();
           return this;
         }
@@ -17150,7 +17101,7 @@ public final class OaxRtbProto {
             com.google.protobuf.ByteString value) {
           if (value == null) { throw new NullPointerException(); }
           os_ = value;
-          bitField0_ |= 0x00000080;
+          bitField0_ |= 0x00000040;
           onChanged();
           return this;
         }
@@ -17165,7 +17116,7 @@ public final class OaxRtbProto {
          * @return Whether the osv field is set.
          */
         public boolean hasOsv() {
-          return ((bitField0_ & 0x00000100) != 0);
+          return ((bitField0_ & 0x00000080) != 0);
         }
         /**
          * <pre>
@@ -17223,7 +17174,7 @@ public final class OaxRtbProto {
             java.lang.String value) {
           if (value == null) { throw new NullPointerException(); }
           osv_ = value;
-          bitField0_ |= 0x00000100;
+          bitField0_ |= 0x00000080;
           onChanged();
           return this;
         }
@@ -17237,7 +17188,7 @@ public final class OaxRtbProto {
          */
         public Builder clearOsv() {
           osv_ = getDefaultInstance().getOsv();
-          bitField0_ = (bitField0_ & ~0x00000100);
+          bitField0_ = (bitField0_ & ~0x00000080);
           onChanged();
           return this;
         }
@@ -17254,7 +17205,7 @@ public final class OaxRtbProto {
             com.google.protobuf.ByteString value) {
           if (value == null) { throw new NullPointerException(); }
           osv_ = value;
-          bitField0_ |= 0x00000100;
+          bitField0_ |= 0x00000080;
           onChanged();
           return this;
         }
@@ -17269,7 +17220,7 @@ public final class OaxRtbProto {
          * @return Whether the carrier field is set.
          */
         public boolean hasCarrier() {
-          return ((bitField0_ & 0x00000200) != 0);
+          return ((bitField0_ & 0x00000100) != 0);
         }
         /**
          * <pre>
@@ -17327,7 +17278,7 @@ public final class OaxRtbProto {
             java.lang.String value) {
           if (value == null) { throw new NullPointerException(); }
           carrier_ = value;
-          bitField0_ |= 0x00000200;
+          bitField0_ |= 0x00000100;
           onChanged();
           return this;
         }
@@ -17341,7 +17292,7 @@ public final class OaxRtbProto {
          */
         public Builder clearCarrier() {
           carrier_ = getDefaultInstance().getCarrier();
-          bitField0_ = (bitField0_ & ~0x00000200);
+          bitField0_ = (bitField0_ & ~0x00000100);
           onChanged();
           return this;
         }
@@ -17358,7 +17309,7 @@ public final class OaxRtbProto {
             com.google.protobuf.ByteString value) {
           if (value == null) { throw new NullPointerException(); }
           carrier_ = value;
-          bitField0_ |= 0x00000200;
+          bitField0_ |= 0x00000100;
           onChanged();
           return this;
         }
@@ -17374,7 +17325,7 @@ public final class OaxRtbProto {
          */
         @java.lang.Override
         public boolean hasConnectionType() {
-          return ((bitField0_ & 0x00000400) != 0);
+          return ((bitField0_ & 0x00000200) != 0);
         }
         /**
          * <pre>
@@ -17400,7 +17351,7 @@ public final class OaxRtbProto {
         public Builder setConnectionType(int value) {
 
           connectionType_ = value;
-          bitField0_ |= 0x00000400;
+          bitField0_ |= 0x00000200;
           onChanged();
           return this;
         }
@@ -17413,7 +17364,7 @@ public final class OaxRtbProto {
          * @return This builder for chaining.
          */
         public Builder clearConnectionType() {
-          bitField0_ = (bitField0_ & ~0x00000400);
+          bitField0_ = (bitField0_ & ~0x00000200);
           connectionType_ = 0;
           onChanged();
           return this;
@@ -17422,18 +17373,18 @@ public final class OaxRtbProto {
         private java.lang.Object ifa_ = "";
         /**
          * <pre>
-         *明文设备码，如安卓的imei或ios的idfa
+         *明文设备码，iOS → IDFA,Android → GAID
          * </pre>
          *
          * <code>optional string ifa = 12;</code>
          * @return Whether the ifa field is set.
          */
         public boolean hasIfa() {
-          return ((bitField0_ & 0x00000800) != 0);
+          return ((bitField0_ & 0x00000400) != 0);
         }
         /**
          * <pre>
-         *明文设备码，如安卓的imei或ios的idfa
+         *明文设备码，iOS → IDFA,Android → GAID
          * </pre>
          *
          * <code>optional string ifa = 12;</code>
@@ -17455,7 +17406,7 @@ public final class OaxRtbProto {
         }
         /**
          * <pre>
-         *明文设备码，如安卓的imei或ios的idfa
+         *明文设备码，iOS → IDFA,Android → GAID
          * </pre>
          *
          * <code>optional string ifa = 12;</code>
@@ -17476,7 +17427,7 @@ public final class OaxRtbProto {
         }
         /**
          * <pre>
-         *明文设备码，如安卓的imei或ios的idfa
+         *明文设备码，iOS → IDFA,Android → GAID
          * </pre>
          *
          * <code>optional string ifa = 12;</code>
@@ -17487,13 +17438,13 @@ public final class OaxRtbProto {
             java.lang.String value) {
           if (value == null) { throw new NullPointerException(); }
           ifa_ = value;
-          bitField0_ |= 0x00000800;
+          bitField0_ |= 0x00000400;
           onChanged();
           return this;
         }
         /**
          * <pre>
-         *明文设备码，如安卓的imei或ios的idfa
+         *明文设备码，iOS → IDFA,Android → GAID
          * </pre>
          *
          * <code>optional string ifa = 12;</code>
@@ -17501,13 +17452,13 @@ public final class OaxRtbProto {
          */
         public Builder clearIfa() {
           ifa_ = getDefaultInstance().getIfa();
-          bitField0_ = (bitField0_ & ~0x00000800);
+          bitField0_ = (bitField0_ & ~0x00000400);
           onChanged();
           return this;
         }
         /**
          * <pre>
-         *明文设备码，如安卓的imei或ios的idfa
+         *明文设备码，iOS → IDFA,Android → GAID
          * </pre>
          *
          * <code>optional string ifa = 12;</code>
@@ -17518,7 +17469,7 @@ public final class OaxRtbProto {
             com.google.protobuf.ByteString value) {
           if (value == null) { throw new NullPointerException(); }
           ifa_ = value;
-          bitField0_ |= 0x00000800;
+          bitField0_ |= 0x00000400;
           onChanged();
           return this;
         }
@@ -17529,21 +17480,25 @@ public final class OaxRtbProto {
          *md5设备码
          * </pre>
          *
-         * <code>optional string didmd5 = 13;</code>
+         * <code>optional string didmd5 = 13 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
+         *     See rtb.proto;l=151
          * @return Whether the didmd5 field is set.
          */
-        public boolean hasDidmd5() {
-          return ((bitField0_ & 0x00001000) != 0);
+        @java.lang.Deprecated public boolean hasDidmd5() {
+          return ((bitField0_ & 0x00000800) != 0);
         }
         /**
          * <pre>
          *md5设备码
          * </pre>
          *
-         * <code>optional string didmd5 = 13;</code>
+         * <code>optional string didmd5 = 13 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
+         *     See rtb.proto;l=151
          * @return The didmd5.
          */
-        public java.lang.String getDidmd5() {
+        @java.lang.Deprecated public java.lang.String getDidmd5() {
           java.lang.Object ref = didmd5_;
           if (!(ref instanceof java.lang.String)) {
             com.google.protobuf.ByteString bs =
@@ -17562,10 +17517,12 @@ public final class OaxRtbProto {
          *md5设备码
          * </pre>
          *
-         * <code>optional string didmd5 = 13;</code>
+         * <code>optional string didmd5 = 13 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
+         *     See rtb.proto;l=151
          * @return The bytes for didmd5.
          */
-        public com.google.protobuf.ByteString
+        @java.lang.Deprecated public com.google.protobuf.ByteString
             getDidmd5Bytes() {
           java.lang.Object ref = didmd5_;
           if (ref instanceof String) {
@@ -17583,15 +17540,17 @@ public final class OaxRtbProto {
          *md5设备码
          * </pre>
          *
-         * <code>optional string didmd5 = 13;</code>
+         * <code>optional string didmd5 = 13 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
+         *     See rtb.proto;l=151
          * @param value The didmd5 to set.
          * @return This builder for chaining.
          */
-        public Builder setDidmd5(
+        @java.lang.Deprecated public Builder setDidmd5(
             java.lang.String value) {
           if (value == null) { throw new NullPointerException(); }
           didmd5_ = value;
-          bitField0_ |= 0x00001000;
+          bitField0_ |= 0x00000800;
           onChanged();
           return this;
         }
@@ -17600,12 +17559,14 @@ public final class OaxRtbProto {
          *md5设备码
          * </pre>
          *
-         * <code>optional string didmd5 = 13;</code>
+         * <code>optional string didmd5 = 13 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
+         *     See rtb.proto;l=151
          * @return This builder for chaining.
          */
-        public Builder clearDidmd5() {
+        @java.lang.Deprecated public Builder clearDidmd5() {
           didmd5_ = getDefaultInstance().getDidmd5();
-          bitField0_ = (bitField0_ & ~0x00001000);
+          bitField0_ = (bitField0_ & ~0x00000800);
           onChanged();
           return this;
         }
@@ -17614,15 +17575,17 @@ public final class OaxRtbProto {
          *md5设备码
          * </pre>
          *
-         * <code>optional string didmd5 = 13;</code>
+         * <code>optional string didmd5 = 13 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
+         *     See rtb.proto;l=151
          * @param value The bytes for didmd5 to set.
          * @return This builder for chaining.
          */
-        public Builder setDidmd5Bytes(
+        @java.lang.Deprecated public Builder setDidmd5Bytes(
             com.google.protobuf.ByteString value) {
           if (value == null) { throw new NullPointerException(); }
           didmd5_ = value;
-          bitField0_ |= 0x00001000;
+          bitField0_ |= 0x00000800;
           onChanged();
           return this;
         }
@@ -17633,21 +17596,25 @@ public final class OaxRtbProto {
          *mac地址明文
          * </pre>
          *
-         * <code>optional string mac = 14;</code>
+         * <code>optional string mac = 14 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
+         *     See rtb.proto;l=152
          * @return Whether the mac field is set.
          */
-        public boolean hasMac() {
-          return ((bitField0_ & 0x00002000) != 0);
+        @java.lang.Deprecated public boolean hasMac() {
+          return ((bitField0_ & 0x00001000) != 0);
         }
         /**
          * <pre>
          *mac地址明文
          * </pre>
          *
-         * <code>optional string mac = 14;</code>
+         * <code>optional string mac = 14 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
+         *     See rtb.proto;l=152
          * @return The mac.
          */
-        public java.lang.String getMac() {
+        @java.lang.Deprecated public java.lang.String getMac() {
           java.lang.Object ref = mac_;
           if (!(ref instanceof java.lang.String)) {
             com.google.protobuf.ByteString bs =
@@ -17666,10 +17633,12 @@ public final class OaxRtbProto {
          *mac地址明文
          * </pre>
          *
-         * <code>optional string mac = 14;</code>
+         * <code>optional string mac = 14 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
+         *     See rtb.proto;l=152
          * @return The bytes for mac.
          */
-        public com.google.protobuf.ByteString
+        @java.lang.Deprecated public com.google.protobuf.ByteString
             getMacBytes() {
           java.lang.Object ref = mac_;
           if (ref instanceof String) {
@@ -17687,15 +17656,17 @@ public final class OaxRtbProto {
          *mac地址明文
          * </pre>
          *
-         * <code>optional string mac = 14;</code>
+         * <code>optional string mac = 14 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
+         *     See rtb.proto;l=152
          * @param value The mac to set.
          * @return This builder for chaining.
          */
-        public Builder setMac(
+        @java.lang.Deprecated public Builder setMac(
             java.lang.String value) {
           if (value == null) { throw new NullPointerException(); }
           mac_ = value;
-          bitField0_ |= 0x00002000;
+          bitField0_ |= 0x00001000;
           onChanged();
           return this;
         }
@@ -17704,12 +17675,14 @@ public final class OaxRtbProto {
          *mac地址明文
          * </pre>
          *
-         * <code>optional string mac = 14;</code>
+         * <code>optional string mac = 14 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
+         *     See rtb.proto;l=152
          * @return This builder for chaining.
          */
-        public Builder clearMac() {
+        @java.lang.Deprecated public Builder clearMac() {
           mac_ = getDefaultInstance().getMac();
-          bitField0_ = (bitField0_ & ~0x00002000);
+          bitField0_ = (bitField0_ & ~0x00001000);
           onChanged();
           return this;
         }
@@ -17718,15 +17691,17 @@ public final class OaxRtbProto {
          *mac地址明文
          * </pre>
          *
-         * <code>optional string mac = 14;</code>
+         * <code>optional string mac = 14 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
+         *     See rtb.proto;l=152
          * @param value The bytes for mac to set.
          * @return This builder for chaining.
          */
-        public Builder setMacBytes(
+        @java.lang.Deprecated public Builder setMacBytes(
             com.google.protobuf.ByteString value) {
           if (value == null) { throw new NullPointerException(); }
           mac_ = value;
-          bitField0_ |= 0x00002000;
+          bitField0_ |= 0x00001000;
           onChanged();
           return this;
         }
@@ -17737,21 +17712,25 @@ public final class OaxRtbProto {
          *md5 mac地址
          * </pre>
          *
-         * <code>optional string macmd5 = 15;</code>
+         * <code>optional string macmd5 = 15 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
+         *     See rtb.proto;l=153
          * @return Whether the macmd5 field is set.
          */
-        public boolean hasMacmd5() {
-          return ((bitField0_ & 0x00004000) != 0);
+        @java.lang.Deprecated public boolean hasMacmd5() {
+          return ((bitField0_ & 0x00002000) != 0);
         }
         /**
          * <pre>
          *md5 mac地址
          * </pre>
          *
-         * <code>optional string macmd5 = 15;</code>
+         * <code>optional string macmd5 = 15 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
+         *     See rtb.proto;l=153
          * @return The macmd5.
          */
-        public java.lang.String getMacmd5() {
+        @java.lang.Deprecated public java.lang.String getMacmd5() {
           java.lang.Object ref = macmd5_;
           if (!(ref instanceof java.lang.String)) {
             com.google.protobuf.ByteString bs =
@@ -17770,10 +17749,12 @@ public final class OaxRtbProto {
          *md5 mac地址
          * </pre>
          *
-         * <code>optional string macmd5 = 15;</code>
+         * <code>optional string macmd5 = 15 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
+         *     See rtb.proto;l=153
          * @return The bytes for macmd5.
          */
-        public com.google.protobuf.ByteString
+        @java.lang.Deprecated public com.google.protobuf.ByteString
             getMacmd5Bytes() {
           java.lang.Object ref = macmd5_;
           if (ref instanceof String) {
@@ -17791,15 +17772,17 @@ public final class OaxRtbProto {
          *md5 mac地址
          * </pre>
          *
-         * <code>optional string macmd5 = 15;</code>
+         * <code>optional string macmd5 = 15 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
+         *     See rtb.proto;l=153
          * @param value The macmd5 to set.
          * @return This builder for chaining.
          */
-        public Builder setMacmd5(
+        @java.lang.Deprecated public Builder setMacmd5(
             java.lang.String value) {
           if (value == null) { throw new NullPointerException(); }
           macmd5_ = value;
-          bitField0_ |= 0x00004000;
+          bitField0_ |= 0x00002000;
           onChanged();
           return this;
         }
@@ -17808,12 +17791,14 @@ public final class OaxRtbProto {
          *md5 mac地址
          * </pre>
          *
-         * <code>optional string macmd5 = 15;</code>
+         * <code>optional string macmd5 = 15 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
+         *     See rtb.proto;l=153
          * @return This builder for chaining.
          */
-        public Builder clearMacmd5() {
+        @java.lang.Deprecated public Builder clearMacmd5() {
           macmd5_ = getDefaultInstance().getMacmd5();
-          bitField0_ = (bitField0_ & ~0x00004000);
+          bitField0_ = (bitField0_ & ~0x00002000);
           onChanged();
           return this;
         }
@@ -17822,15 +17807,17 @@ public final class OaxRtbProto {
          *md5 mac地址
          * </pre>
          *
-         * <code>optional string macmd5 = 15;</code>
+         * <code>optional string macmd5 = 15 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
+         *     See rtb.proto;l=153
          * @param value The bytes for macmd5 to set.
          * @return This builder for chaining.
          */
-        public Builder setMacmd5Bytes(
+        @java.lang.Deprecated public Builder setMacmd5Bytes(
             com.google.protobuf.ByteString value) {
           if (value == null) { throw new NullPointerException(); }
           macmd5_ = value;
-          bitField0_ |= 0x00004000;
+          bitField0_ |= 0x00002000;
           onChanged();
           return this;
         }
@@ -17841,21 +17828,25 @@ public final class OaxRtbProto {
          *安卓id
          * </pre>
          *
-         * <code>optional string adid = 16;</code>
+         * <code>optional string adid = 16 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
+         *     See rtb.proto;l=154
          * @return Whether the adid field is set.
          */
-        public boolean hasAdid() {
-          return ((bitField0_ & 0x00008000) != 0);
+        @java.lang.Deprecated public boolean hasAdid() {
+          return ((bitField0_ & 0x00004000) != 0);
         }
         /**
          * <pre>
          *安卓id
          * </pre>
          *
-         * <code>optional string adid = 16;</code>
+         * <code>optional string adid = 16 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
+         *     See rtb.proto;l=154
          * @return The adid.
          */
-        public java.lang.String getAdid() {
+        @java.lang.Deprecated public java.lang.String getAdid() {
           java.lang.Object ref = adid_;
           if (!(ref instanceof java.lang.String)) {
             com.google.protobuf.ByteString bs =
@@ -17874,10 +17865,12 @@ public final class OaxRtbProto {
          *安卓id
          * </pre>
          *
-         * <code>optional string adid = 16;</code>
+         * <code>optional string adid = 16 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
+         *     See rtb.proto;l=154
          * @return The bytes for adid.
          */
-        public com.google.protobuf.ByteString
+        @java.lang.Deprecated public com.google.protobuf.ByteString
             getAdidBytes() {
           java.lang.Object ref = adid_;
           if (ref instanceof String) {
@@ -17895,15 +17888,17 @@ public final class OaxRtbProto {
          *安卓id
          * </pre>
          *
-         * <code>optional string adid = 16;</code>
+         * <code>optional string adid = 16 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
+         *     See rtb.proto;l=154
          * @param value The adid to set.
          * @return This builder for chaining.
          */
-        public Builder setAdid(
+        @java.lang.Deprecated public Builder setAdid(
             java.lang.String value) {
           if (value == null) { throw new NullPointerException(); }
           adid_ = value;
-          bitField0_ |= 0x00008000;
+          bitField0_ |= 0x00004000;
           onChanged();
           return this;
         }
@@ -17912,12 +17907,14 @@ public final class OaxRtbProto {
          *安卓id
          * </pre>
          *
-         * <code>optional string adid = 16;</code>
+         * <code>optional string adid = 16 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
+         *     See rtb.proto;l=154
          * @return This builder for chaining.
          */
-        public Builder clearAdid() {
+        @java.lang.Deprecated public Builder clearAdid() {
           adid_ = getDefaultInstance().getAdid();
-          bitField0_ = (bitField0_ & ~0x00008000);
+          bitField0_ = (bitField0_ & ~0x00004000);
           onChanged();
           return this;
         }
@@ -17926,15 +17923,17 @@ public final class OaxRtbProto {
          *安卓id
          * </pre>
          *
-         * <code>optional string adid = 16;</code>
+         * <code>optional string adid = 16 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
+         *     See rtb.proto;l=154
          * @param value The bytes for adid to set.
          * @return This builder for chaining.
          */
-        public Builder setAdidBytes(
+        @java.lang.Deprecated public Builder setAdidBytes(
             com.google.protobuf.ByteString value) {
           if (value == null) { throw new NullPointerException(); }
           adid_ = value;
-          bitField0_ |= 0x00008000;
+          bitField0_ |= 0x00004000;
           onChanged();
           return this;
         }
@@ -17950,7 +17949,7 @@ public final class OaxRtbProto {
          */
         @java.lang.Override
         public boolean hasH() {
-          return ((bitField0_ & 0x00010000) != 0);
+          return ((bitField0_ & 0x00008000) != 0);
         }
         /**
          * <pre>
@@ -17976,7 +17975,7 @@ public final class OaxRtbProto {
         public Builder setH(int value) {
 
           h_ = value;
-          bitField0_ |= 0x00010000;
+          bitField0_ |= 0x00008000;
           onChanged();
           return this;
         }
@@ -17989,7 +17988,7 @@ public final class OaxRtbProto {
          * @return This builder for chaining.
          */
         public Builder clearH() {
-          bitField0_ = (bitField0_ & ~0x00010000);
+          bitField0_ = (bitField0_ & ~0x00008000);
           h_ = 0;
           onChanged();
           return this;
@@ -18006,7 +18005,7 @@ public final class OaxRtbProto {
          */
         @java.lang.Override
         public boolean hasW() {
-          return ((bitField0_ & 0x00020000) != 0);
+          return ((bitField0_ & 0x00010000) != 0);
         }
         /**
          * <pre>
@@ -18032,7 +18031,7 @@ public final class OaxRtbProto {
         public Builder setW(int value) {
 
           w_ = value;
-          bitField0_ |= 0x00020000;
+          bitField0_ |= 0x00010000;
           onChanged();
           return this;
         }
@@ -18045,10 +18044,167 @@ public final class OaxRtbProto {
          * @return This builder for chaining.
          */
         public Builder clearW() {
-          bitField0_ = (bitField0_ & ~0x00020000);
+          bitField0_ = (bitField0_ & ~0x00010000);
           w_ = 0;
           onChanged();
           return this;
+        }
+
+        private top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo geo_;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.Builder, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.GeoOrBuilder> geoBuilder_;
+        /**
+         * <pre>
+         *地理位置对象
+         * </pre>
+         *
+         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
+         * @return Whether the geo field is set.
+         */
+        public boolean hasGeo() {
+          return ((bitField0_ & 0x00020000) != 0);
+        }
+        /**
+         * <pre>
+         *地理位置对象
+         * </pre>
+         *
+         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
+         * @return The geo.
+         */
+        public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo getGeo() {
+          if (geoBuilder_ == null) {
+            return geo_ == null ? top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.getDefaultInstance() : geo_;
+          } else {
+            return geoBuilder_.getMessage();
+          }
+        }
+        /**
+         * <pre>
+         *地理位置对象
+         * </pre>
+         *
+         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
+         */
+        public Builder setGeo(top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo value) {
+          if (geoBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            geo_ = value;
+          } else {
+            geoBuilder_.setMessage(value);
+          }
+          bitField0_ |= 0x00020000;
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         *地理位置对象
+         * </pre>
+         *
+         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
+         */
+        public Builder setGeo(
+            top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.Builder builderForValue) {
+          if (geoBuilder_ == null) {
+            geo_ = builderForValue.build();
+          } else {
+            geoBuilder_.setMessage(builderForValue.build());
+          }
+          bitField0_ |= 0x00020000;
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         *地理位置对象
+         * </pre>
+         *
+         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
+         */
+        public Builder mergeGeo(top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo value) {
+          if (geoBuilder_ == null) {
+            if (((bitField0_ & 0x00020000) != 0) &&
+              geo_ != null &&
+              geo_ != top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.getDefaultInstance()) {
+              getGeoBuilder().mergeFrom(value);
+            } else {
+              geo_ = value;
+            }
+          } else {
+            geoBuilder_.mergeFrom(value);
+          }
+          if (geo_ != null) {
+            bitField0_ |= 0x00020000;
+            onChanged();
+          }
+          return this;
+        }
+        /**
+         * <pre>
+         *地理位置对象
+         * </pre>
+         *
+         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
+         */
+        public Builder clearGeo() {
+          bitField0_ = (bitField0_ & ~0x00020000);
+          geo_ = null;
+          if (geoBuilder_ != null) {
+            geoBuilder_.dispose();
+            geoBuilder_ = null;
+          }
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         *地理位置对象
+         * </pre>
+         *
+         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
+         */
+        public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.Builder getGeoBuilder() {
+          bitField0_ |= 0x00020000;
+          onChanged();
+          return getGeoFieldBuilder().getBuilder();
+        }
+        /**
+         * <pre>
+         *地理位置对象
+         * </pre>
+         *
+         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
+         */
+        public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.GeoOrBuilder getGeoOrBuilder() {
+          if (geoBuilder_ != null) {
+            return geoBuilder_.getMessageOrBuilder();
+          } else {
+            return geo_ == null ?
+                top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.getDefaultInstance() : geo_;
+          }
+        }
+        /**
+         * <pre>
+         *地理位置对象
+         * </pre>
+         *
+         * <code>optional .top.openadexchange.rtb.proto.BidRequest.Geo geo = 2;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.Builder, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.GeoOrBuilder> 
+            getGeoFieldBuilder() {
+          if (geoBuilder_ == null) {
+            geoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Geo.Builder, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.GeoOrBuilder>(
+                    getGeo(),
+                    getParentForChildren(),
+                    isClean());
+            geo_ = null;
+          }
+          return geoBuilder_;
         }
         @java.lang.Override
         public final Builder setUnknownFields(
@@ -18191,28 +18347,34 @@ public final class OaxRtbProto {
        *地区编码
        * </pre>
        *
-       * <code>optional string region = 4;</code>
+       * <code>optional string region = 4 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
+       *     See rtb.proto;l=166
        * @return Whether the region field is set.
        */
-      boolean hasRegion();
+      @java.lang.Deprecated boolean hasRegion();
       /**
        * <pre>
        *地区编码
        * </pre>
        *
-       * <code>optional string region = 4;</code>
+       * <code>optional string region = 4 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
+       *     See rtb.proto;l=166
        * @return The region.
        */
-      java.lang.String getRegion();
+      @java.lang.Deprecated java.lang.String getRegion();
       /**
        * <pre>
        *地区编码
        * </pre>
        *
-       * <code>optional string region = 4;</code>
+       * <code>optional string region = 4 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
+       *     See rtb.proto;l=166
        * @return The bytes for region.
        */
-      com.google.protobuf.ByteString
+      @java.lang.Deprecated com.google.protobuf.ByteString
           getRegionBytes();
 
       /**
@@ -18220,48 +18382,58 @@ public final class OaxRtbProto {
        *城市编码
        * </pre>
        *
-       * <code>optional string city = 5;</code>
+       * <code>optional string city = 5 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
+       *     See rtb.proto;l=167
        * @return Whether the city field is set.
        */
-      boolean hasCity();
+      @java.lang.Deprecated boolean hasCity();
       /**
        * <pre>
        *城市编码
        * </pre>
        *
-       * <code>optional string city = 5;</code>
+       * <code>optional string city = 5 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
+       *     See rtb.proto;l=167
        * @return The city.
        */
-      java.lang.String getCity();
+      @java.lang.Deprecated java.lang.String getCity();
       /**
        * <pre>
        *城市编码
        * </pre>
        *
-       * <code>optional string city = 5;</code>
+       * <code>optional string city = 5 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
+       *     See rtb.proto;l=167
        * @return The bytes for city.
        */
-      com.google.protobuf.ByteString
+      @java.lang.Deprecated com.google.protobuf.ByteString
           getCityBytes();
 
       /**
        * <pre>
-       *6位地域码
+       *6位地域码, 后续废弃，dsp平台按照IP地址来自行获取地域编码
        * </pre>
        *
-       * <code>optional uint32 area_code = 6;</code>
+       * <code>optional uint32 area_code = 6 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
+       *     See rtb.proto;l=169
        * @return Whether the areaCode field is set.
        */
-      boolean hasAreaCode();
+      @java.lang.Deprecated boolean hasAreaCode();
       /**
        * <pre>
-       *6位地域码
+       *6位地域码, 后续废弃，dsp平台按照IP地址来自行获取地域编码
        * </pre>
        *
-       * <code>optional uint32 area_code = 6;</code>
+       * <code>optional uint32 area_code = 6 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
+       *     See rtb.proto;l=169
        * @return The areaCode.
        */
-      int getAreaCode();
+      @java.lang.Deprecated int getAreaCode();
     }
     /**
      * Protobuf type {@code top.openadexchange.rtb.proto.BidRequest.Geo}
@@ -18426,11 +18598,13 @@ public final class OaxRtbProto {
        *地区编码
        * </pre>
        *
-       * <code>optional string region = 4;</code>
+       * <code>optional string region = 4 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
+       *     See rtb.proto;l=166
        * @return Whether the region field is set.
        */
       @java.lang.Override
-      public boolean hasRegion() {
+      @java.lang.Deprecated public boolean hasRegion() {
         return ((bitField0_ & 0x00000008) != 0);
       }
       /**
@@ -18438,11 +18612,13 @@ public final class OaxRtbProto {
        *地区编码
        * </pre>
        *
-       * <code>optional string region = 4;</code>
+       * <code>optional string region = 4 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
+       *     See rtb.proto;l=166
        * @return The region.
        */
       @java.lang.Override
-      public java.lang.String getRegion() {
+      @java.lang.Deprecated public java.lang.String getRegion() {
         java.lang.Object ref = region_;
         if (ref instanceof java.lang.String) {
           return (java.lang.String) ref;
@@ -18461,11 +18637,13 @@ public final class OaxRtbProto {
        *地区编码
        * </pre>
        *
-       * <code>optional string region = 4;</code>
+       * <code>optional string region = 4 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
+       *     See rtb.proto;l=166
        * @return The bytes for region.
        */
       @java.lang.Override
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getRegionBytes() {
         java.lang.Object ref = region_;
         if (ref instanceof java.lang.String) {
@@ -18487,11 +18665,13 @@ public final class OaxRtbProto {
        *城市编码
        * </pre>
        *
-       * <code>optional string city = 5;</code>
+       * <code>optional string city = 5 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
+       *     See rtb.proto;l=167
        * @return Whether the city field is set.
        */
       @java.lang.Override
-      public boolean hasCity() {
+      @java.lang.Deprecated public boolean hasCity() {
         return ((bitField0_ & 0x00000010) != 0);
       }
       /**
@@ -18499,11 +18679,13 @@ public final class OaxRtbProto {
        *城市编码
        * </pre>
        *
-       * <code>optional string city = 5;</code>
+       * <code>optional string city = 5 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
+       *     See rtb.proto;l=167
        * @return The city.
        */
       @java.lang.Override
-      public java.lang.String getCity() {
+      @java.lang.Deprecated public java.lang.String getCity() {
         java.lang.Object ref = city_;
         if (ref instanceof java.lang.String) {
           return (java.lang.String) ref;
@@ -18522,11 +18704,13 @@ public final class OaxRtbProto {
        *城市编码
        * </pre>
        *
-       * <code>optional string city = 5;</code>
+       * <code>optional string city = 5 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
+       *     See rtb.proto;l=167
        * @return The bytes for city.
        */
       @java.lang.Override
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getCityBytes() {
         java.lang.Object ref = city_;
         if (ref instanceof java.lang.String) {
@@ -18544,26 +18728,30 @@ public final class OaxRtbProto {
       private int areaCode_ = 0;
       /**
        * <pre>
-       *6位地域码
+       *6位地域码, 后续废弃，dsp平台按照IP地址来自行获取地域编码
        * </pre>
        *
-       * <code>optional uint32 area_code = 6;</code>
+       * <code>optional uint32 area_code = 6 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
+       *     See rtb.proto;l=169
        * @return Whether the areaCode field is set.
        */
       @java.lang.Override
-      public boolean hasAreaCode() {
+      @java.lang.Deprecated public boolean hasAreaCode() {
         return ((bitField0_ & 0x00000020) != 0);
       }
       /**
        * <pre>
-       *6位地域码
+       *6位地域码, 后续废弃，dsp平台按照IP地址来自行获取地域编码
        * </pre>
        *
-       * <code>optional uint32 area_code = 6;</code>
+       * <code>optional uint32 area_code = 6 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
+       *     See rtb.proto;l=169
        * @return The areaCode.
        */
       @java.lang.Override
-      public int getAreaCode() {
+      @java.lang.Deprecated public int getAreaCode() {
         return areaCode_;
       }
 
@@ -19318,10 +19506,12 @@ public final class OaxRtbProto {
          *地区编码
          * </pre>
          *
-         * <code>optional string region = 4;</code>
+         * <code>optional string region = 4 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
+         *     See rtb.proto;l=166
          * @return Whether the region field is set.
          */
-        public boolean hasRegion() {
+        @java.lang.Deprecated public boolean hasRegion() {
           return ((bitField0_ & 0x00000008) != 0);
         }
         /**
@@ -19329,10 +19519,12 @@ public final class OaxRtbProto {
          *地区编码
          * </pre>
          *
-         * <code>optional string region = 4;</code>
+         * <code>optional string region = 4 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
+         *     See rtb.proto;l=166
          * @return The region.
          */
-        public java.lang.String getRegion() {
+        @java.lang.Deprecated public java.lang.String getRegion() {
           java.lang.Object ref = region_;
           if (!(ref instanceof java.lang.String)) {
             com.google.protobuf.ByteString bs =
@@ -19351,10 +19543,12 @@ public final class OaxRtbProto {
          *地区编码
          * </pre>
          *
-         * <code>optional string region = 4;</code>
+         * <code>optional string region = 4 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
+         *     See rtb.proto;l=166
          * @return The bytes for region.
          */
-        public com.google.protobuf.ByteString
+        @java.lang.Deprecated public com.google.protobuf.ByteString
             getRegionBytes() {
           java.lang.Object ref = region_;
           if (ref instanceof String) {
@@ -19372,11 +19566,13 @@ public final class OaxRtbProto {
          *地区编码
          * </pre>
          *
-         * <code>optional string region = 4;</code>
+         * <code>optional string region = 4 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
+         *     See rtb.proto;l=166
          * @param value The region to set.
          * @return This builder for chaining.
          */
-        public Builder setRegion(
+        @java.lang.Deprecated public Builder setRegion(
             java.lang.String value) {
           if (value == null) { throw new NullPointerException(); }
           region_ = value;
@@ -19389,10 +19585,12 @@ public final class OaxRtbProto {
          *地区编码
          * </pre>
          *
-         * <code>optional string region = 4;</code>
+         * <code>optional string region = 4 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
+         *     See rtb.proto;l=166
          * @return This builder for chaining.
          */
-        public Builder clearRegion() {
+        @java.lang.Deprecated public Builder clearRegion() {
           region_ = getDefaultInstance().getRegion();
           bitField0_ = (bitField0_ & ~0x00000008);
           onChanged();
@@ -19403,11 +19601,13 @@ public final class OaxRtbProto {
          *地区编码
          * </pre>
          *
-         * <code>optional string region = 4;</code>
+         * <code>optional string region = 4 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
+         *     See rtb.proto;l=166
          * @param value The bytes for region to set.
          * @return This builder for chaining.
          */
-        public Builder setRegionBytes(
+        @java.lang.Deprecated public Builder setRegionBytes(
             com.google.protobuf.ByteString value) {
           if (value == null) { throw new NullPointerException(); }
           region_ = value;
@@ -19422,10 +19622,12 @@ public final class OaxRtbProto {
          *城市编码
          * </pre>
          *
-         * <code>optional string city = 5;</code>
+         * <code>optional string city = 5 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
+         *     See rtb.proto;l=167
          * @return Whether the city field is set.
          */
-        public boolean hasCity() {
+        @java.lang.Deprecated public boolean hasCity() {
           return ((bitField0_ & 0x00000010) != 0);
         }
         /**
@@ -19433,10 +19635,12 @@ public final class OaxRtbProto {
          *城市编码
          * </pre>
          *
-         * <code>optional string city = 5;</code>
+         * <code>optional string city = 5 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
+         *     See rtb.proto;l=167
          * @return The city.
          */
-        public java.lang.String getCity() {
+        @java.lang.Deprecated public java.lang.String getCity() {
           java.lang.Object ref = city_;
           if (!(ref instanceof java.lang.String)) {
             com.google.protobuf.ByteString bs =
@@ -19455,10 +19659,12 @@ public final class OaxRtbProto {
          *城市编码
          * </pre>
          *
-         * <code>optional string city = 5;</code>
+         * <code>optional string city = 5 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
+         *     See rtb.proto;l=167
          * @return The bytes for city.
          */
-        public com.google.protobuf.ByteString
+        @java.lang.Deprecated public com.google.protobuf.ByteString
             getCityBytes() {
           java.lang.Object ref = city_;
           if (ref instanceof String) {
@@ -19476,11 +19682,13 @@ public final class OaxRtbProto {
          *城市编码
          * </pre>
          *
-         * <code>optional string city = 5;</code>
+         * <code>optional string city = 5 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
+         *     See rtb.proto;l=167
          * @param value The city to set.
          * @return This builder for chaining.
          */
-        public Builder setCity(
+        @java.lang.Deprecated public Builder setCity(
             java.lang.String value) {
           if (value == null) { throw new NullPointerException(); }
           city_ = value;
@@ -19493,10 +19701,12 @@ public final class OaxRtbProto {
          *城市编码
          * </pre>
          *
-         * <code>optional string city = 5;</code>
+         * <code>optional string city = 5 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
+         *     See rtb.proto;l=167
          * @return This builder for chaining.
          */
-        public Builder clearCity() {
+        @java.lang.Deprecated public Builder clearCity() {
           city_ = getDefaultInstance().getCity();
           bitField0_ = (bitField0_ & ~0x00000010);
           onChanged();
@@ -19507,11 +19717,13 @@ public final class OaxRtbProto {
          *城市编码
          * </pre>
          *
-         * <code>optional string city = 5;</code>
+         * <code>optional string city = 5 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
+         *     See rtb.proto;l=167
          * @param value The bytes for city to set.
          * @return This builder for chaining.
          */
-        public Builder setCityBytes(
+        @java.lang.Deprecated public Builder setCityBytes(
             com.google.protobuf.ByteString value) {
           if (value == null) { throw new NullPointerException(); }
           city_ = value;
@@ -19523,38 +19735,44 @@ public final class OaxRtbProto {
         private int areaCode_ ;
         /**
          * <pre>
-         *6位地域码
+         *6位地域码, 后续废弃，dsp平台按照IP地址来自行获取地域编码
          * </pre>
          *
-         * <code>optional uint32 area_code = 6;</code>
+         * <code>optional uint32 area_code = 6 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
+         *     See rtb.proto;l=169
          * @return Whether the areaCode field is set.
          */
         @java.lang.Override
-        public boolean hasAreaCode() {
+        @java.lang.Deprecated public boolean hasAreaCode() {
           return ((bitField0_ & 0x00000020) != 0);
         }
         /**
          * <pre>
-         *6位地域码
+         *6位地域码, 后续废弃，dsp平台按照IP地址来自行获取地域编码
          * </pre>
          *
-         * <code>optional uint32 area_code = 6;</code>
+         * <code>optional uint32 area_code = 6 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
+         *     See rtb.proto;l=169
          * @return The areaCode.
          */
         @java.lang.Override
-        public int getAreaCode() {
+        @java.lang.Deprecated public int getAreaCode() {
           return areaCode_;
         }
         /**
          * <pre>
-         *6位地域码
+         *6位地域码, 后续废弃，dsp平台按照IP地址来自行获取地域编码
          * </pre>
          *
-         * <code>optional uint32 area_code = 6;</code>
+         * <code>optional uint32 area_code = 6 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
+         *     See rtb.proto;l=169
          * @param value The areaCode to set.
          * @return This builder for chaining.
          */
-        public Builder setAreaCode(int value) {
+        @java.lang.Deprecated public Builder setAreaCode(int value) {
 
           areaCode_ = value;
           bitField0_ |= 0x00000020;
@@ -19563,13 +19781,15 @@ public final class OaxRtbProto {
         }
         /**
          * <pre>
-         *6位地域码
+         *6位地域码, 后续废弃，dsp平台按照IP地址来自行获取地域编码
          * </pre>
          *
-         * <code>optional uint32 area_code = 6;</code>
+         * <code>optional uint32 area_code = 6 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
+         *     See rtb.proto;l=169
          * @return This builder for chaining.
          */
-        public Builder clearAreaCode() {
+        @java.lang.Deprecated public Builder clearAreaCode() {
           bitField0_ = (bitField0_ & ~0x00000020);
           areaCode_ = 0;
           onChanged();
@@ -19646,31 +19866,37 @@ public final class OaxRtbProto {
 
       /**
        * <pre>
-       *Ad-Exchange用户标识
+       *Ad-Exchange用户标识,这个意义不大，后续可能废弃
        * </pre>
        *
-       * <code>optional string id = 1;</code>
+       * <code>optional string id = 1 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
+       *     See rtb.proto;l=176
        * @return Whether the id field is set.
        */
-      boolean hasId();
+      @java.lang.Deprecated boolean hasId();
       /**
        * <pre>
-       *Ad-Exchange用户标识
+       *Ad-Exchange用户标识,这个意义不大，后续可能废弃
        * </pre>
        *
-       * <code>optional string id = 1;</code>
+       * <code>optional string id = 1 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
+       *     See rtb.proto;l=176
        * @return The id.
        */
-      java.lang.String getId();
+      @java.lang.Deprecated java.lang.String getId();
       /**
        * <pre>
-       *Ad-Exchange用户标识
+       *Ad-Exchange用户标识,这个意义不大，后续可能废弃
        * </pre>
        *
-       * <code>optional string id = 1;</code>
+       * <code>optional string id = 1 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
+       *     See rtb.proto;l=176
        * @return The bytes for id.
        */
-      com.google.protobuf.ByteString
+      @java.lang.Deprecated com.google.protobuf.ByteString
           getIdBytes();
     }
     /**
@@ -19716,26 +19942,30 @@ public final class OaxRtbProto {
       private volatile java.lang.Object id_ = "";
       /**
        * <pre>
-       *Ad-Exchange用户标识
+       *Ad-Exchange用户标识,这个意义不大，后续可能废弃
        * </pre>
        *
-       * <code>optional string id = 1;</code>
+       * <code>optional string id = 1 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
+       *     See rtb.proto;l=176
        * @return Whether the id field is set.
        */
       @java.lang.Override
-      public boolean hasId() {
+      @java.lang.Deprecated public boolean hasId() {
         return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
-       *Ad-Exchange用户标识
+       *Ad-Exchange用户标识,这个意义不大，后续可能废弃
        * </pre>
        *
-       * <code>optional string id = 1;</code>
+       * <code>optional string id = 1 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
+       *     See rtb.proto;l=176
        * @return The id.
        */
       @java.lang.Override
-      public java.lang.String getId() {
+      @java.lang.Deprecated public java.lang.String getId() {
         java.lang.Object ref = id_;
         if (ref instanceof java.lang.String) {
           return (java.lang.String) ref;
@@ -19751,14 +19981,16 @@ public final class OaxRtbProto {
       }
       /**
        * <pre>
-       *Ad-Exchange用户标识
+       *Ad-Exchange用户标识,这个意义不大，后续可能废弃
        * </pre>
        *
-       * <code>optional string id = 1;</code>
+       * <code>optional string id = 1 [deprecated = true];</code>
+       * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
+       *     See rtb.proto;l=176
        * @return The bytes for id.
        */
       @java.lang.Override
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getIdBytes() {
         java.lang.Object ref = id_;
         if (ref instanceof java.lang.String) {
@@ -20153,24 +20385,28 @@ public final class OaxRtbProto {
         private java.lang.Object id_ = "";
         /**
          * <pre>
-         *Ad-Exchange用户标识
+         *Ad-Exchange用户标识,这个意义不大，后续可能废弃
          * </pre>
          *
-         * <code>optional string id = 1;</code>
+         * <code>optional string id = 1 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
+         *     See rtb.proto;l=176
          * @return Whether the id field is set.
          */
-        public boolean hasId() {
+        @java.lang.Deprecated public boolean hasId() {
           return ((bitField0_ & 0x00000001) != 0);
         }
         /**
          * <pre>
-         *Ad-Exchange用户标识
+         *Ad-Exchange用户标识,这个意义不大，后续可能废弃
          * </pre>
          *
-         * <code>optional string id = 1;</code>
+         * <code>optional string id = 1 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
+         *     See rtb.proto;l=176
          * @return The id.
          */
-        public java.lang.String getId() {
+        @java.lang.Deprecated public java.lang.String getId() {
           java.lang.Object ref = id_;
           if (!(ref instanceof java.lang.String)) {
             com.google.protobuf.ByteString bs =
@@ -20186,13 +20422,15 @@ public final class OaxRtbProto {
         }
         /**
          * <pre>
-         *Ad-Exchange用户标识
+         *Ad-Exchange用户标识,这个意义不大，后续可能废弃
          * </pre>
          *
-         * <code>optional string id = 1;</code>
+         * <code>optional string id = 1 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
+         *     See rtb.proto;l=176
          * @return The bytes for id.
          */
-        public com.google.protobuf.ByteString
+        @java.lang.Deprecated public com.google.protobuf.ByteString
             getIdBytes() {
           java.lang.Object ref = id_;
           if (ref instanceof String) {
@@ -20207,14 +20445,16 @@ public final class OaxRtbProto {
         }
         /**
          * <pre>
-         *Ad-Exchange用户标识
+         *Ad-Exchange用户标识,这个意义不大，后续可能废弃
          * </pre>
          *
-         * <code>optional string id = 1;</code>
+         * <code>optional string id = 1 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
+         *     See rtb.proto;l=176
          * @param value The id to set.
          * @return This builder for chaining.
          */
-        public Builder setId(
+        @java.lang.Deprecated public Builder setId(
             java.lang.String value) {
           if (value == null) { throw new NullPointerException(); }
           id_ = value;
@@ -20224,13 +20464,15 @@ public final class OaxRtbProto {
         }
         /**
          * <pre>
-         *Ad-Exchange用户标识
+         *Ad-Exchange用户标识,这个意义不大，后续可能废弃
          * </pre>
          *
-         * <code>optional string id = 1;</code>
+         * <code>optional string id = 1 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
+         *     See rtb.proto;l=176
          * @return This builder for chaining.
          */
-        public Builder clearId() {
+        @java.lang.Deprecated public Builder clearId() {
           id_ = getDefaultInstance().getId();
           bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
@@ -20238,14 +20480,16 @@ public final class OaxRtbProto {
         }
         /**
          * <pre>
-         *Ad-Exchange用户标识
+         *Ad-Exchange用户标识,这个意义不大，后续可能废弃
          * </pre>
          *
-         * <code>optional string id = 1;</code>
+         * <code>optional string id = 1 [deprecated = true];</code>
+         * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
+         *     See rtb.proto;l=176
          * @param value The bytes for id to set.
          * @return This builder for chaining.
          */
-        public Builder setIdBytes(
+        @java.lang.Deprecated public Builder setIdBytes(
             com.google.protobuf.ByteString value) {
           if (value == null) { throw new NullPointerException(); }
           id_ = value;
@@ -20618,6 +20862,33 @@ public final class OaxRtbProto {
       return at_;
     }
 
+    public static final int TMAX_FIELD_NUMBER = 9;
+    private int tmax_ = 0;
+    /**
+     * <pre>
+     *请求超时时间，单位毫秒
+     * </pre>
+     *
+     * <code>optional uint32 tmax = 9;</code>
+     * @return Whether the tmax field is set.
+     */
+    @java.lang.Override
+    public boolean hasTmax() {
+      return ((bitField0_ & 0x00000080) != 0);
+    }
+    /**
+     * <pre>
+     *请求超时时间，单位毫秒
+     * </pre>
+     *
+     * <code>optional uint32 tmax = 9;</code>
+     * @return The tmax.
+     */
+    @java.lang.Override
+    public int getTmax() {
+      return tmax_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -20697,6 +20968,9 @@ public final class OaxRtbProto {
       if (((bitField0_ & 0x00000040) != 0)) {
         output.writeUInt32(8, at_);
       }
+      if (((bitField0_ & 0x00000080) != 0)) {
+        output.writeUInt32(9, tmax_);
+      }
       extensionWriter.writeUntil(300, output);
       getUnknownFields().writeTo(output);
     }
@@ -20737,6 +21011,10 @@ public final class OaxRtbProto {
       if (((bitField0_ & 0x00000040) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(8, at_);
+      }
+      if (((bitField0_ & 0x00000080) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(9, tmax_);
       }
       size += extensionsSerializedSize();
       size += getUnknownFields().getSerializedSize();
@@ -20791,6 +21069,11 @@ public final class OaxRtbProto {
         if (getAt()
             != other.getAt()) return false;
       }
+      if (hasTmax() != other.hasTmax()) return false;
+      if (hasTmax()) {
+        if (getTmax()
+            != other.getTmax()) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       if (!getExtensionFields().equals(other.getExtensionFields()))
         return false;
@@ -20836,6 +21119,10 @@ public final class OaxRtbProto {
       if (hasAt()) {
         hash = (37 * hash) + AT_FIELD_NUMBER;
         hash = (53 * hash) + getAt();
+      }
+      if (hasTmax()) {
+        hash = (37 * hash) + TMAX_FIELD_NUMBER;
+        hash = (53 * hash) + getTmax();
       }
       hash = hashFields(hash, getExtensionFields());
       hash = (29 * hash) + getUnknownFields().hashCode();
@@ -21014,6 +21301,7 @@ public final class OaxRtbProto {
         }
         test_ = false;
         at_ = 0;
+        tmax_ = 0;
         return this;
       }
 
@@ -21096,6 +21384,10 @@ public final class OaxRtbProto {
         if (((from_bitField0_ & 0x00000080) != 0)) {
           result.at_ = at_;
           to_bitField0_ |= 0x00000040;
+        }
+        if (((from_bitField0_ & 0x00000100) != 0)) {
+          result.tmax_ = tmax_;
+          to_bitField0_ |= 0x00000080;
         }
         result.bitField0_ |= to_bitField0_;
       }
@@ -21220,6 +21512,9 @@ public final class OaxRtbProto {
         if (other.hasAt()) {
           setAt(other.getAt());
         }
+        if (other.hasTmax()) {
+          setTmax(other.getTmax());
+        }
         this.mergeExtensionFields(other);
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -21334,6 +21629,11 @@ public final class OaxRtbProto {
                 bitField0_ |= 0x00000080;
                 break;
               } // case 64
+              case 72: {
+                tmax_ = input.readUInt32();
+                bitField0_ |= 0x00000100;
+                break;
+              } // case 72
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -22418,6 +22718,62 @@ public final class OaxRtbProto {
         onChanged();
         return this;
       }
+
+      private int tmax_ ;
+      /**
+       * <pre>
+       *请求超时时间，单位毫秒
+       * </pre>
+       *
+       * <code>optional uint32 tmax = 9;</code>
+       * @return Whether the tmax field is set.
+       */
+      @java.lang.Override
+      public boolean hasTmax() {
+        return ((bitField0_ & 0x00000100) != 0);
+      }
+      /**
+       * <pre>
+       *请求超时时间，单位毫秒
+       * </pre>
+       *
+       * <code>optional uint32 tmax = 9;</code>
+       * @return The tmax.
+       */
+      @java.lang.Override
+      public int getTmax() {
+        return tmax_;
+      }
+      /**
+       * <pre>
+       *请求超时时间，单位毫秒
+       * </pre>
+       *
+       * <code>optional uint32 tmax = 9;</code>
+       * @param value The tmax to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTmax(int value) {
+
+        tmax_ = value;
+        bitField0_ |= 0x00000100;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *请求超时时间，单位毫秒
+       * </pre>
+       *
+       * <code>optional uint32 tmax = 9;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTmax() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        tmax_ = 0;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -22662,13 +23018,21 @@ public final class OaxRtbProto {
           getTemplateIdBytes();
 
       /**
-       * <code>map&lt;string, string&gt; assets = 2;</code>
+       * <pre>
+       *废弃字段
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; assets = 2 [deprecated = true];</code>
        */
-      int getAssetsCount();
+      @java.lang.Deprecated int getAssetsCount();
       /**
-       * <code>map&lt;string, string&gt; assets = 2;</code>
+       * <pre>
+       *废弃字段
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; assets = 2 [deprecated = true];</code>
        */
-      boolean containsAssets(
+      @java.lang.Deprecated boolean containsAssets(
           java.lang.String key);
       /**
        * Use {@link #getAssetsMap()} instead.
@@ -22677,23 +23041,298 @@ public final class OaxRtbProto {
       java.util.Map<java.lang.String, java.lang.String>
       getAssets();
       /**
-       * <code>map&lt;string, string&gt; assets = 2;</code>
+       * <pre>
+       *废弃字段
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; assets = 2 [deprecated = true];</code>
        */
-      java.util.Map<java.lang.String, java.lang.String>
+      @java.lang.Deprecated java.util.Map<java.lang.String, java.lang.String>
       getAssetsMap();
       /**
-       * <code>map&lt;string, string&gt; assets = 2;</code>
+       * <pre>
+       *废弃字段
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; assets = 2 [deprecated = true];</code>
        */
-      /* nullable */
+      @java.lang.Deprecated /* nullable */
 java.lang.String getAssetsOrDefault(
           java.lang.String key,
           /* nullable */
 java.lang.String defaultValue);
       /**
-       * <code>map&lt;string, string&gt; assets = 2;</code>
+       * <pre>
+       *废弃字段
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; assets = 2 [deprecated = true];</code>
        */
-      java.lang.String getAssetsOrThrow(
+      @java.lang.Deprecated java.lang.String getAssetsOrThrow(
           java.lang.String key);
+
+      /**
+       * <code>optional string title = 3;</code>
+       * @return Whether the title field is set.
+       */
+      boolean hasTitle();
+      /**
+       * <code>optional string title = 3;</code>
+       * @return The title.
+       */
+      java.lang.String getTitle();
+      /**
+       * <code>optional string title = 3;</code>
+       * @return The bytes for title.
+       */
+      com.google.protobuf.ByteString
+          getTitleBytes();
+
+      /**
+       * <code>optional string desc = 4;</code>
+       * @return Whether the desc field is set.
+       */
+      boolean hasDesc();
+      /**
+       * <code>optional string desc = 4;</code>
+       * @return The desc.
+       */
+      java.lang.String getDesc();
+      /**
+       * <code>optional string desc = 4;</code>
+       * @return The bytes for desc.
+       */
+      com.google.protobuf.ByteString
+          getDescBytes();
+
+      /**
+       * <code>optional string icon = 5;</code>
+       * @return Whether the icon field is set.
+       */
+      boolean hasIcon();
+      /**
+       * <code>optional string icon = 5;</code>
+       * @return The icon.
+       */
+      java.lang.String getIcon();
+      /**
+       * <code>optional string icon = 5;</code>
+       * @return The bytes for icon.
+       */
+      com.google.protobuf.ByteString
+          getIconBytes();
+
+      /**
+       * <code>optional string main_image = 6;</code>
+       * @return Whether the mainImage field is set.
+       */
+      boolean hasMainImage();
+      /**
+       * <code>optional string main_image = 6;</code>
+       * @return The mainImage.
+       */
+      java.lang.String getMainImage();
+      /**
+       * <code>optional string main_image = 6;</code>
+       * @return The bytes for mainImage.
+       */
+      com.google.protobuf.ByteString
+          getMainImageBytes();
+
+      /**
+       * <code>repeated string images = 7;</code>
+       * @return A list containing the images.
+       */
+      java.util.List<java.lang.String>
+          getImagesList();
+      /**
+       * <code>repeated string images = 7;</code>
+       * @return The count of images.
+       */
+      int getImagesCount();
+      /**
+       * <code>repeated string images = 7;</code>
+       * @param index The index of the element to return.
+       * @return The images at the given index.
+       */
+      java.lang.String getImages(int index);
+      /**
+       * <code>repeated string images = 7;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the images at the given index.
+       */
+      com.google.protobuf.ByteString
+          getImagesBytes(int index);
+
+      /**
+       * <code>optional string sponsored = 8;</code>
+       * @return Whether the sponsored field is set.
+       */
+      boolean hasSponsored();
+      /**
+       * <code>optional string sponsored = 8;</code>
+       * @return The sponsored.
+       */
+      java.lang.String getSponsored();
+      /**
+       * <code>optional string sponsored = 8;</code>
+       * @return The bytes for sponsored.
+       */
+      com.google.protobuf.ByteString
+          getSponsoredBytes();
+
+      /**
+       * <code>optional string rating = 9;</code>
+       * @return Whether the rating field is set.
+       */
+      boolean hasRating();
+      /**
+       * <code>optional string rating = 9;</code>
+       * @return The rating.
+       */
+      java.lang.String getRating();
+      /**
+       * <code>optional string rating = 9;</code>
+       * @return The bytes for rating.
+       */
+      com.google.protobuf.ByteString
+          getRatingBytes();
+
+      /**
+       * <code>optional string likes = 10;</code>
+       * @return Whether the likes field is set.
+       */
+      boolean hasLikes();
+      /**
+       * <code>optional string likes = 10;</code>
+       * @return The likes.
+       */
+      java.lang.String getLikes();
+      /**
+       * <code>optional string likes = 10;</code>
+       * @return The bytes for likes.
+       */
+      com.google.protobuf.ByteString
+          getLikesBytes();
+
+      /**
+       * <code>optional string downloads = 11;</code>
+       * @return Whether the downloads field is set.
+       */
+      boolean hasDownloads();
+      /**
+       * <code>optional string downloads = 11;</code>
+       * @return The downloads.
+       */
+      java.lang.String getDownloads();
+      /**
+       * <code>optional string downloads = 11;</code>
+       * @return The bytes for downloads.
+       */
+      com.google.protobuf.ByteString
+          getDownloadsBytes();
+
+      /**
+       * <code>optional string price = 12;</code>
+       * @return Whether the price field is set.
+       */
+      boolean hasPrice();
+      /**
+       * <code>optional string price = 12;</code>
+       * @return The price.
+       */
+      java.lang.String getPrice();
+      /**
+       * <code>optional string price = 12;</code>
+       * @return The bytes for price.
+       */
+      com.google.protobuf.ByteString
+          getPriceBytes();
+
+      /**
+       * <code>optional string sale_price = 13;</code>
+       * @return Whether the salePrice field is set.
+       */
+      boolean hasSalePrice();
+      /**
+       * <code>optional string sale_price = 13;</code>
+       * @return The salePrice.
+       */
+      java.lang.String getSalePrice();
+      /**
+       * <code>optional string sale_price = 13;</code>
+       * @return The bytes for salePrice.
+       */
+      com.google.protobuf.ByteString
+          getSalePriceBytes();
+
+      /**
+       * <code>optional string phone = 14;</code>
+       * @return Whether the phone field is set.
+       */
+      boolean hasPhone();
+      /**
+       * <code>optional string phone = 14;</code>
+       * @return The phone.
+       */
+      java.lang.String getPhone();
+      /**
+       * <code>optional string phone = 14;</code>
+       * @return The bytes for phone.
+       */
+      com.google.protobuf.ByteString
+          getPhoneBytes();
+
+      /**
+       * <code>optional string address = 15;</code>
+       * @return Whether the address field is set.
+       */
+      boolean hasAddress();
+      /**
+       * <code>optional string address = 15;</code>
+       * @return The address.
+       */
+      java.lang.String getAddress();
+      /**
+       * <code>optional string address = 15;</code>
+       * @return The bytes for address.
+       */
+      com.google.protobuf.ByteString
+          getAddressBytes();
+
+      /**
+       * <code>optional string display_url = 16;</code>
+       * @return Whether the displayUrl field is set.
+       */
+      boolean hasDisplayUrl();
+      /**
+       * <code>optional string display_url = 16;</code>
+       * @return The displayUrl.
+       */
+      java.lang.String getDisplayUrl();
+      /**
+       * <code>optional string display_url = 16;</code>
+       * @return The bytes for displayUrl.
+       */
+      com.google.protobuf.ByteString
+          getDisplayUrlBytes();
+
+      /**
+       * <code>optional string cta = 17;</code>
+       * @return Whether the cta field is set.
+       */
+      boolean hasCta();
+      /**
+       * <code>optional string cta = 17;</code>
+       * @return The cta.
+       */
+      java.lang.String getCta();
+      /**
+       * <code>optional string cta = 17;</code>
+       * @return The bytes for cta.
+       */
+      com.google.protobuf.ByteString
+          getCtaBytes();
     }
     /**
      * Protobuf type {@code top.openadexchange.rtb.proto.BidResponse.NativeAd}
@@ -22709,6 +23348,22 @@ java.lang.String defaultValue);
       }
       private NativeAd() {
         templateId_ = "";
+        title_ = "";
+        desc_ = "";
+        icon_ = "";
+        mainImage_ = "";
+        images_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
+        sponsored_ = "";
+        rating_ = "";
+        likes_ = "";
+        downloads_ = "";
+        price_ = "";
+        salePrice_ = "";
+        phone_ = "";
+        address_ = "";
+        displayUrl_ = "";
+        cta_ = "";
       }
 
       @java.lang.Override
@@ -22828,14 +23483,18 @@ java.lang.String defaultValue);
         }
         return assets_;
       }
-      public int getAssetsCount() {
+      @java.lang.Deprecated public int getAssetsCount() {
         return internalGetAssets().getMap().size();
       }
       /**
-       * <code>map&lt;string, string&gt; assets = 2;</code>
+       * <pre>
+       *废弃字段
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; assets = 2 [deprecated = true];</code>
        */
       @java.lang.Override
-      public boolean containsAssets(
+      @java.lang.Deprecated public boolean containsAssets(
           java.lang.String key) {
         if (key == null) { throw new NullPointerException("map key"); }
         return internalGetAssets().getMap().containsKey(key);
@@ -22849,17 +23508,25 @@ java.lang.String defaultValue);
         return getAssetsMap();
       }
       /**
-       * <code>map&lt;string, string&gt; assets = 2;</code>
+       * <pre>
+       *废弃字段
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; assets = 2 [deprecated = true];</code>
        */
       @java.lang.Override
-      public java.util.Map<java.lang.String, java.lang.String> getAssetsMap() {
+      @java.lang.Deprecated public java.util.Map<java.lang.String, java.lang.String> getAssetsMap() {
         return internalGetAssets().getMap();
       }
       /**
-       * <code>map&lt;string, string&gt; assets = 2;</code>
+       * <pre>
+       *废弃字段
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; assets = 2 [deprecated = true];</code>
        */
       @java.lang.Override
-      public /* nullable */
+      @java.lang.Deprecated public /* nullable */
 java.lang.String getAssetsOrDefault(
           java.lang.String key,
           /* nullable */
@@ -22870,10 +23537,14 @@ java.lang.String defaultValue) {
         return map.containsKey(key) ? map.get(key) : defaultValue;
       }
       /**
-       * <code>map&lt;string, string&gt; assets = 2;</code>
+       * <pre>
+       *废弃字段
+       * </pre>
+       *
+       * <code>map&lt;string, string&gt; assets = 2 [deprecated = true];</code>
        */
       @java.lang.Override
-      public java.lang.String getAssetsOrThrow(
+      @java.lang.Deprecated public java.lang.String getAssetsOrThrow(
           java.lang.String key) {
         if (key == null) { throw new NullPointerException("map key"); }
         java.util.Map<java.lang.String, java.lang.String> map =
@@ -22882,6 +23553,729 @@ java.lang.String defaultValue) {
           throw new java.lang.IllegalArgumentException();
         }
         return map.get(key);
+      }
+
+      public static final int TITLE_FIELD_NUMBER = 3;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object title_ = "";
+      /**
+       * <code>optional string title = 3;</code>
+       * @return Whether the title field is set.
+       */
+      @java.lang.Override
+      public boolean hasTitle() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>optional string title = 3;</code>
+       * @return The title.
+       */
+      @java.lang.Override
+      public java.lang.String getTitle() {
+        java.lang.Object ref = title_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            title_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string title = 3;</code>
+       * @return The bytes for title.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getTitleBytes() {
+        java.lang.Object ref = title_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          title_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int DESC_FIELD_NUMBER = 4;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object desc_ = "";
+      /**
+       * <code>optional string desc = 4;</code>
+       * @return Whether the desc field is set.
+       */
+      @java.lang.Override
+      public boolean hasDesc() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <code>optional string desc = 4;</code>
+       * @return The desc.
+       */
+      @java.lang.Override
+      public java.lang.String getDesc() {
+        java.lang.Object ref = desc_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            desc_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string desc = 4;</code>
+       * @return The bytes for desc.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getDescBytes() {
+        java.lang.Object ref = desc_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          desc_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int ICON_FIELD_NUMBER = 5;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object icon_ = "";
+      /**
+       * <code>optional string icon = 5;</code>
+       * @return Whether the icon field is set.
+       */
+      @java.lang.Override
+      public boolean hasIcon() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <code>optional string icon = 5;</code>
+       * @return The icon.
+       */
+      @java.lang.Override
+      public java.lang.String getIcon() {
+        java.lang.Object ref = icon_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            icon_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string icon = 5;</code>
+       * @return The bytes for icon.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getIconBytes() {
+        java.lang.Object ref = icon_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          icon_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int MAIN_IMAGE_FIELD_NUMBER = 6;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object mainImage_ = "";
+      /**
+       * <code>optional string main_image = 6;</code>
+       * @return Whether the mainImage field is set.
+       */
+      @java.lang.Override
+      public boolean hasMainImage() {
+        return ((bitField0_ & 0x00000010) != 0);
+      }
+      /**
+       * <code>optional string main_image = 6;</code>
+       * @return The mainImage.
+       */
+      @java.lang.Override
+      public java.lang.String getMainImage() {
+        java.lang.Object ref = mainImage_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            mainImage_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string main_image = 6;</code>
+       * @return The bytes for mainImage.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getMainImageBytes() {
+        java.lang.Object ref = mainImage_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          mainImage_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int IMAGES_FIELD_NUMBER = 7;
+      @SuppressWarnings("serial")
+      private com.google.protobuf.LazyStringArrayList images_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      /**
+       * <code>repeated string images = 7;</code>
+       * @return A list containing the images.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getImagesList() {
+        return images_;
+      }
+      /**
+       * <code>repeated string images = 7;</code>
+       * @return The count of images.
+       */
+      public int getImagesCount() {
+        return images_.size();
+      }
+      /**
+       * <code>repeated string images = 7;</code>
+       * @param index The index of the element to return.
+       * @return The images at the given index.
+       */
+      public java.lang.String getImages(int index) {
+        return images_.get(index);
+      }
+      /**
+       * <code>repeated string images = 7;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the images at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getImagesBytes(int index) {
+        return images_.getByteString(index);
+      }
+
+      public static final int SPONSORED_FIELD_NUMBER = 8;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object sponsored_ = "";
+      /**
+       * <code>optional string sponsored = 8;</code>
+       * @return Whether the sponsored field is set.
+       */
+      @java.lang.Override
+      public boolean hasSponsored() {
+        return ((bitField0_ & 0x00000020) != 0);
+      }
+      /**
+       * <code>optional string sponsored = 8;</code>
+       * @return The sponsored.
+       */
+      @java.lang.Override
+      public java.lang.String getSponsored() {
+        java.lang.Object ref = sponsored_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            sponsored_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string sponsored = 8;</code>
+       * @return The bytes for sponsored.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getSponsoredBytes() {
+        java.lang.Object ref = sponsored_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          sponsored_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int RATING_FIELD_NUMBER = 9;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object rating_ = "";
+      /**
+       * <code>optional string rating = 9;</code>
+       * @return Whether the rating field is set.
+       */
+      @java.lang.Override
+      public boolean hasRating() {
+        return ((bitField0_ & 0x00000040) != 0);
+      }
+      /**
+       * <code>optional string rating = 9;</code>
+       * @return The rating.
+       */
+      @java.lang.Override
+      public java.lang.String getRating() {
+        java.lang.Object ref = rating_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            rating_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string rating = 9;</code>
+       * @return The bytes for rating.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getRatingBytes() {
+        java.lang.Object ref = rating_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          rating_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int LIKES_FIELD_NUMBER = 10;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object likes_ = "";
+      /**
+       * <code>optional string likes = 10;</code>
+       * @return Whether the likes field is set.
+       */
+      @java.lang.Override
+      public boolean hasLikes() {
+        return ((bitField0_ & 0x00000080) != 0);
+      }
+      /**
+       * <code>optional string likes = 10;</code>
+       * @return The likes.
+       */
+      @java.lang.Override
+      public java.lang.String getLikes() {
+        java.lang.Object ref = likes_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            likes_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string likes = 10;</code>
+       * @return The bytes for likes.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getLikesBytes() {
+        java.lang.Object ref = likes_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          likes_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int DOWNLOADS_FIELD_NUMBER = 11;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object downloads_ = "";
+      /**
+       * <code>optional string downloads = 11;</code>
+       * @return Whether the downloads field is set.
+       */
+      @java.lang.Override
+      public boolean hasDownloads() {
+        return ((bitField0_ & 0x00000100) != 0);
+      }
+      /**
+       * <code>optional string downloads = 11;</code>
+       * @return The downloads.
+       */
+      @java.lang.Override
+      public java.lang.String getDownloads() {
+        java.lang.Object ref = downloads_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            downloads_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string downloads = 11;</code>
+       * @return The bytes for downloads.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getDownloadsBytes() {
+        java.lang.Object ref = downloads_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          downloads_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int PRICE_FIELD_NUMBER = 12;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object price_ = "";
+      /**
+       * <code>optional string price = 12;</code>
+       * @return Whether the price field is set.
+       */
+      @java.lang.Override
+      public boolean hasPrice() {
+        return ((bitField0_ & 0x00000200) != 0);
+      }
+      /**
+       * <code>optional string price = 12;</code>
+       * @return The price.
+       */
+      @java.lang.Override
+      public java.lang.String getPrice() {
+        java.lang.Object ref = price_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            price_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string price = 12;</code>
+       * @return The bytes for price.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getPriceBytes() {
+        java.lang.Object ref = price_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          price_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int SALE_PRICE_FIELD_NUMBER = 13;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object salePrice_ = "";
+      /**
+       * <code>optional string sale_price = 13;</code>
+       * @return Whether the salePrice field is set.
+       */
+      @java.lang.Override
+      public boolean hasSalePrice() {
+        return ((bitField0_ & 0x00000400) != 0);
+      }
+      /**
+       * <code>optional string sale_price = 13;</code>
+       * @return The salePrice.
+       */
+      @java.lang.Override
+      public java.lang.String getSalePrice() {
+        java.lang.Object ref = salePrice_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            salePrice_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string sale_price = 13;</code>
+       * @return The bytes for salePrice.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getSalePriceBytes() {
+        java.lang.Object ref = salePrice_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          salePrice_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int PHONE_FIELD_NUMBER = 14;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object phone_ = "";
+      /**
+       * <code>optional string phone = 14;</code>
+       * @return Whether the phone field is set.
+       */
+      @java.lang.Override
+      public boolean hasPhone() {
+        return ((bitField0_ & 0x00000800) != 0);
+      }
+      /**
+       * <code>optional string phone = 14;</code>
+       * @return The phone.
+       */
+      @java.lang.Override
+      public java.lang.String getPhone() {
+        java.lang.Object ref = phone_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            phone_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string phone = 14;</code>
+       * @return The bytes for phone.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getPhoneBytes() {
+        java.lang.Object ref = phone_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          phone_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int ADDRESS_FIELD_NUMBER = 15;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object address_ = "";
+      /**
+       * <code>optional string address = 15;</code>
+       * @return Whether the address field is set.
+       */
+      @java.lang.Override
+      public boolean hasAddress() {
+        return ((bitField0_ & 0x00001000) != 0);
+      }
+      /**
+       * <code>optional string address = 15;</code>
+       * @return The address.
+       */
+      @java.lang.Override
+      public java.lang.String getAddress() {
+        java.lang.Object ref = address_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            address_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string address = 15;</code>
+       * @return The bytes for address.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getAddressBytes() {
+        java.lang.Object ref = address_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          address_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int DISPLAY_URL_FIELD_NUMBER = 16;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object displayUrl_ = "";
+      /**
+       * <code>optional string display_url = 16;</code>
+       * @return Whether the displayUrl field is set.
+       */
+      @java.lang.Override
+      public boolean hasDisplayUrl() {
+        return ((bitField0_ & 0x00002000) != 0);
+      }
+      /**
+       * <code>optional string display_url = 16;</code>
+       * @return The displayUrl.
+       */
+      @java.lang.Override
+      public java.lang.String getDisplayUrl() {
+        java.lang.Object ref = displayUrl_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            displayUrl_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string display_url = 16;</code>
+       * @return The bytes for displayUrl.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getDisplayUrlBytes() {
+        java.lang.Object ref = displayUrl_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          displayUrl_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int CTA_FIELD_NUMBER = 17;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object cta_ = "";
+      /**
+       * <code>optional string cta = 17;</code>
+       * @return Whether the cta field is set.
+       */
+      @java.lang.Override
+      public boolean hasCta() {
+        return ((bitField0_ & 0x00004000) != 0);
+      }
+      /**
+       * <code>optional string cta = 17;</code>
+       * @return The cta.
+       */
+      @java.lang.Override
+      public java.lang.String getCta() {
+        java.lang.Object ref = cta_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            cta_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string cta = 17;</code>
+       * @return The bytes for cta.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getCtaBytes() {
+        java.lang.Object ref = cta_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          cta_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
 
       private byte memoizedIsInitialized = -1;
@@ -22907,6 +24301,51 @@ java.lang.String defaultValue) {
             internalGetAssets(),
             AssetsDefaultEntryHolder.defaultEntry,
             2);
+        if (((bitField0_ & 0x00000002) != 0)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 3, title_);
+        }
+        if (((bitField0_ & 0x00000004) != 0)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 4, desc_);
+        }
+        if (((bitField0_ & 0x00000008) != 0)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 5, icon_);
+        }
+        if (((bitField0_ & 0x00000010) != 0)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 6, mainImage_);
+        }
+        for (int i = 0; i < images_.size(); i++) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 7, images_.getRaw(i));
+        }
+        if (((bitField0_ & 0x00000020) != 0)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 8, sponsored_);
+        }
+        if (((bitField0_ & 0x00000040) != 0)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 9, rating_);
+        }
+        if (((bitField0_ & 0x00000080) != 0)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 10, likes_);
+        }
+        if (((bitField0_ & 0x00000100) != 0)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 11, downloads_);
+        }
+        if (((bitField0_ & 0x00000200) != 0)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 12, price_);
+        }
+        if (((bitField0_ & 0x00000400) != 0)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 13, salePrice_);
+        }
+        if (((bitField0_ & 0x00000800) != 0)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 14, phone_);
+        }
+        if (((bitField0_ & 0x00001000) != 0)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 15, address_);
+        }
+        if (((bitField0_ & 0x00002000) != 0)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 16, displayUrl_);
+        }
+        if (((bitField0_ & 0x00004000) != 0)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 17, cta_);
+        }
         getUnknownFields().writeTo(output);
       }
 
@@ -22928,6 +24367,56 @@ java.lang.String defaultValue) {
               .build();
           size += com.google.protobuf.CodedOutputStream
               .computeMessageSize(2, assets__);
+        }
+        if (((bitField0_ & 0x00000002) != 0)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, title_);
+        }
+        if (((bitField0_ & 0x00000004) != 0)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, desc_);
+        }
+        if (((bitField0_ & 0x00000008) != 0)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, icon_);
+        }
+        if (((bitField0_ & 0x00000010) != 0)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, mainImage_);
+        }
+        {
+          int dataSize = 0;
+          for (int i = 0; i < images_.size(); i++) {
+            dataSize += computeStringSizeNoTag(images_.getRaw(i));
+          }
+          size += dataSize;
+          size += 1 * getImagesList().size();
+        }
+        if (((bitField0_ & 0x00000020) != 0)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, sponsored_);
+        }
+        if (((bitField0_ & 0x00000040) != 0)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, rating_);
+        }
+        if (((bitField0_ & 0x00000080) != 0)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, likes_);
+        }
+        if (((bitField0_ & 0x00000100) != 0)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, downloads_);
+        }
+        if (((bitField0_ & 0x00000200) != 0)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, price_);
+        }
+        if (((bitField0_ & 0x00000400) != 0)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, salePrice_);
+        }
+        if (((bitField0_ & 0x00000800) != 0)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(14, phone_);
+        }
+        if (((bitField0_ & 0x00001000) != 0)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(15, address_);
+        }
+        if (((bitField0_ & 0x00002000) != 0)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(16, displayUrl_);
+        }
+        if (((bitField0_ & 0x00004000) != 0)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(17, cta_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSize = size;
@@ -22951,6 +24440,78 @@ java.lang.String defaultValue) {
         }
         if (!internalGetAssets().equals(
             other.internalGetAssets())) return false;
+        if (hasTitle() != other.hasTitle()) return false;
+        if (hasTitle()) {
+          if (!getTitle()
+              .equals(other.getTitle())) return false;
+        }
+        if (hasDesc() != other.hasDesc()) return false;
+        if (hasDesc()) {
+          if (!getDesc()
+              .equals(other.getDesc())) return false;
+        }
+        if (hasIcon() != other.hasIcon()) return false;
+        if (hasIcon()) {
+          if (!getIcon()
+              .equals(other.getIcon())) return false;
+        }
+        if (hasMainImage() != other.hasMainImage()) return false;
+        if (hasMainImage()) {
+          if (!getMainImage()
+              .equals(other.getMainImage())) return false;
+        }
+        if (!getImagesList()
+            .equals(other.getImagesList())) return false;
+        if (hasSponsored() != other.hasSponsored()) return false;
+        if (hasSponsored()) {
+          if (!getSponsored()
+              .equals(other.getSponsored())) return false;
+        }
+        if (hasRating() != other.hasRating()) return false;
+        if (hasRating()) {
+          if (!getRating()
+              .equals(other.getRating())) return false;
+        }
+        if (hasLikes() != other.hasLikes()) return false;
+        if (hasLikes()) {
+          if (!getLikes()
+              .equals(other.getLikes())) return false;
+        }
+        if (hasDownloads() != other.hasDownloads()) return false;
+        if (hasDownloads()) {
+          if (!getDownloads()
+              .equals(other.getDownloads())) return false;
+        }
+        if (hasPrice() != other.hasPrice()) return false;
+        if (hasPrice()) {
+          if (!getPrice()
+              .equals(other.getPrice())) return false;
+        }
+        if (hasSalePrice() != other.hasSalePrice()) return false;
+        if (hasSalePrice()) {
+          if (!getSalePrice()
+              .equals(other.getSalePrice())) return false;
+        }
+        if (hasPhone() != other.hasPhone()) return false;
+        if (hasPhone()) {
+          if (!getPhone()
+              .equals(other.getPhone())) return false;
+        }
+        if (hasAddress() != other.hasAddress()) return false;
+        if (hasAddress()) {
+          if (!getAddress()
+              .equals(other.getAddress())) return false;
+        }
+        if (hasDisplayUrl() != other.hasDisplayUrl()) return false;
+        if (hasDisplayUrl()) {
+          if (!getDisplayUrl()
+              .equals(other.getDisplayUrl())) return false;
+        }
+        if (hasCta() != other.hasCta()) return false;
+        if (hasCta()) {
+          if (!getCta()
+              .equals(other.getCta())) return false;
+        }
         if (!getUnknownFields().equals(other.getUnknownFields())) return false;
         return true;
       }
@@ -22969,6 +24530,66 @@ java.lang.String defaultValue) {
         if (!internalGetAssets().getMap().isEmpty()) {
           hash = (37 * hash) + ASSETS_FIELD_NUMBER;
           hash = (53 * hash) + internalGetAssets().hashCode();
+        }
+        if (hasTitle()) {
+          hash = (37 * hash) + TITLE_FIELD_NUMBER;
+          hash = (53 * hash) + getTitle().hashCode();
+        }
+        if (hasDesc()) {
+          hash = (37 * hash) + DESC_FIELD_NUMBER;
+          hash = (53 * hash) + getDesc().hashCode();
+        }
+        if (hasIcon()) {
+          hash = (37 * hash) + ICON_FIELD_NUMBER;
+          hash = (53 * hash) + getIcon().hashCode();
+        }
+        if (hasMainImage()) {
+          hash = (37 * hash) + MAIN_IMAGE_FIELD_NUMBER;
+          hash = (53 * hash) + getMainImage().hashCode();
+        }
+        if (getImagesCount() > 0) {
+          hash = (37 * hash) + IMAGES_FIELD_NUMBER;
+          hash = (53 * hash) + getImagesList().hashCode();
+        }
+        if (hasSponsored()) {
+          hash = (37 * hash) + SPONSORED_FIELD_NUMBER;
+          hash = (53 * hash) + getSponsored().hashCode();
+        }
+        if (hasRating()) {
+          hash = (37 * hash) + RATING_FIELD_NUMBER;
+          hash = (53 * hash) + getRating().hashCode();
+        }
+        if (hasLikes()) {
+          hash = (37 * hash) + LIKES_FIELD_NUMBER;
+          hash = (53 * hash) + getLikes().hashCode();
+        }
+        if (hasDownloads()) {
+          hash = (37 * hash) + DOWNLOADS_FIELD_NUMBER;
+          hash = (53 * hash) + getDownloads().hashCode();
+        }
+        if (hasPrice()) {
+          hash = (37 * hash) + PRICE_FIELD_NUMBER;
+          hash = (53 * hash) + getPrice().hashCode();
+        }
+        if (hasSalePrice()) {
+          hash = (37 * hash) + SALE_PRICE_FIELD_NUMBER;
+          hash = (53 * hash) + getSalePrice().hashCode();
+        }
+        if (hasPhone()) {
+          hash = (37 * hash) + PHONE_FIELD_NUMBER;
+          hash = (53 * hash) + getPhone().hashCode();
+        }
+        if (hasAddress()) {
+          hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
+          hash = (53 * hash) + getAddress().hashCode();
+        }
+        if (hasDisplayUrl()) {
+          hash = (37 * hash) + DISPLAY_URL_FIELD_NUMBER;
+          hash = (53 * hash) + getDisplayUrl().hashCode();
+        }
+        if (hasCta()) {
+          hash = (37 * hash) + CTA_FIELD_NUMBER;
+          hash = (53 * hash) + getCta().hashCode();
         }
         hash = (29 * hash) + getUnknownFields().hashCode();
         memoizedHashCode = hash;
@@ -23125,6 +24746,22 @@ java.lang.String defaultValue) {
           bitField0_ = 0;
           templateId_ = "";
           internalGetMutableAssets().clear();
+          title_ = "";
+          desc_ = "";
+          icon_ = "";
+          mainImage_ = "";
+          images_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+          sponsored_ = "";
+          rating_ = "";
+          likes_ = "";
+          downloads_ = "";
+          price_ = "";
+          salePrice_ = "";
+          phone_ = "";
+          address_ = "";
+          displayUrl_ = "";
+          cta_ = "";
           return this;
         }
 
@@ -23166,6 +24803,66 @@ java.lang.String defaultValue) {
           if (((from_bitField0_ & 0x00000002) != 0)) {
             result.assets_ = internalGetAssets();
             result.assets_.makeImmutable();
+          }
+          if (((from_bitField0_ & 0x00000004) != 0)) {
+            result.title_ = title_;
+            to_bitField0_ |= 0x00000002;
+          }
+          if (((from_bitField0_ & 0x00000008) != 0)) {
+            result.desc_ = desc_;
+            to_bitField0_ |= 0x00000004;
+          }
+          if (((from_bitField0_ & 0x00000010) != 0)) {
+            result.icon_ = icon_;
+            to_bitField0_ |= 0x00000008;
+          }
+          if (((from_bitField0_ & 0x00000020) != 0)) {
+            result.mainImage_ = mainImage_;
+            to_bitField0_ |= 0x00000010;
+          }
+          if (((from_bitField0_ & 0x00000040) != 0)) {
+            images_.makeImmutable();
+            result.images_ = images_;
+          }
+          if (((from_bitField0_ & 0x00000080) != 0)) {
+            result.sponsored_ = sponsored_;
+            to_bitField0_ |= 0x00000020;
+          }
+          if (((from_bitField0_ & 0x00000100) != 0)) {
+            result.rating_ = rating_;
+            to_bitField0_ |= 0x00000040;
+          }
+          if (((from_bitField0_ & 0x00000200) != 0)) {
+            result.likes_ = likes_;
+            to_bitField0_ |= 0x00000080;
+          }
+          if (((from_bitField0_ & 0x00000400) != 0)) {
+            result.downloads_ = downloads_;
+            to_bitField0_ |= 0x00000100;
+          }
+          if (((from_bitField0_ & 0x00000800) != 0)) {
+            result.price_ = price_;
+            to_bitField0_ |= 0x00000200;
+          }
+          if (((from_bitField0_ & 0x00001000) != 0)) {
+            result.salePrice_ = salePrice_;
+            to_bitField0_ |= 0x00000400;
+          }
+          if (((from_bitField0_ & 0x00002000) != 0)) {
+            result.phone_ = phone_;
+            to_bitField0_ |= 0x00000800;
+          }
+          if (((from_bitField0_ & 0x00004000) != 0)) {
+            result.address_ = address_;
+            to_bitField0_ |= 0x00001000;
+          }
+          if (((from_bitField0_ & 0x00008000) != 0)) {
+            result.displayUrl_ = displayUrl_;
+            to_bitField0_ |= 0x00002000;
+          }
+          if (((from_bitField0_ & 0x00010000) != 0)) {
+            result.cta_ = cta_;
+            to_bitField0_ |= 0x00004000;
           }
           result.bitField0_ |= to_bitField0_;
         }
@@ -23222,6 +24919,86 @@ java.lang.String defaultValue) {
           internalGetMutableAssets().mergeFrom(
               other.internalGetAssets());
           bitField0_ |= 0x00000002;
+          if (other.hasTitle()) {
+            title_ = other.title_;
+            bitField0_ |= 0x00000004;
+            onChanged();
+          }
+          if (other.hasDesc()) {
+            desc_ = other.desc_;
+            bitField0_ |= 0x00000008;
+            onChanged();
+          }
+          if (other.hasIcon()) {
+            icon_ = other.icon_;
+            bitField0_ |= 0x00000010;
+            onChanged();
+          }
+          if (other.hasMainImage()) {
+            mainImage_ = other.mainImage_;
+            bitField0_ |= 0x00000020;
+            onChanged();
+          }
+          if (!other.images_.isEmpty()) {
+            if (images_.isEmpty()) {
+              images_ = other.images_;
+              bitField0_ |= 0x00000040;
+            } else {
+              ensureImagesIsMutable();
+              images_.addAll(other.images_);
+            }
+            onChanged();
+          }
+          if (other.hasSponsored()) {
+            sponsored_ = other.sponsored_;
+            bitField0_ |= 0x00000080;
+            onChanged();
+          }
+          if (other.hasRating()) {
+            rating_ = other.rating_;
+            bitField0_ |= 0x00000100;
+            onChanged();
+          }
+          if (other.hasLikes()) {
+            likes_ = other.likes_;
+            bitField0_ |= 0x00000200;
+            onChanged();
+          }
+          if (other.hasDownloads()) {
+            downloads_ = other.downloads_;
+            bitField0_ |= 0x00000400;
+            onChanged();
+          }
+          if (other.hasPrice()) {
+            price_ = other.price_;
+            bitField0_ |= 0x00000800;
+            onChanged();
+          }
+          if (other.hasSalePrice()) {
+            salePrice_ = other.salePrice_;
+            bitField0_ |= 0x00001000;
+            onChanged();
+          }
+          if (other.hasPhone()) {
+            phone_ = other.phone_;
+            bitField0_ |= 0x00002000;
+            onChanged();
+          }
+          if (other.hasAddress()) {
+            address_ = other.address_;
+            bitField0_ |= 0x00004000;
+            onChanged();
+          }
+          if (other.hasDisplayUrl()) {
+            displayUrl_ = other.displayUrl_;
+            bitField0_ |= 0x00008000;
+            onChanged();
+          }
+          if (other.hasCta()) {
+            cta_ = other.cta_;
+            bitField0_ |= 0x00010000;
+            onChanged();
+          }
           this.mergeUnknownFields(other.getUnknownFields());
           onChanged();
           return this;
@@ -23262,6 +25039,82 @@ java.lang.String defaultValue) {
                   bitField0_ |= 0x00000002;
                   break;
                 } // case 18
+                case 26: {
+                  title_ = input.readBytes();
+                  bitField0_ |= 0x00000004;
+                  break;
+                } // case 26
+                case 34: {
+                  desc_ = input.readBytes();
+                  bitField0_ |= 0x00000008;
+                  break;
+                } // case 34
+                case 42: {
+                  icon_ = input.readBytes();
+                  bitField0_ |= 0x00000010;
+                  break;
+                } // case 42
+                case 50: {
+                  mainImage_ = input.readBytes();
+                  bitField0_ |= 0x00000020;
+                  break;
+                } // case 50
+                case 58: {
+                  com.google.protobuf.ByteString bs = input.readBytes();
+                  ensureImagesIsMutable();
+                  images_.add(bs);
+                  break;
+                } // case 58
+                case 66: {
+                  sponsored_ = input.readBytes();
+                  bitField0_ |= 0x00000080;
+                  break;
+                } // case 66
+                case 74: {
+                  rating_ = input.readBytes();
+                  bitField0_ |= 0x00000100;
+                  break;
+                } // case 74
+                case 82: {
+                  likes_ = input.readBytes();
+                  bitField0_ |= 0x00000200;
+                  break;
+                } // case 82
+                case 90: {
+                  downloads_ = input.readBytes();
+                  bitField0_ |= 0x00000400;
+                  break;
+                } // case 90
+                case 98: {
+                  price_ = input.readBytes();
+                  bitField0_ |= 0x00000800;
+                  break;
+                } // case 98
+                case 106: {
+                  salePrice_ = input.readBytes();
+                  bitField0_ |= 0x00001000;
+                  break;
+                } // case 106
+                case 114: {
+                  phone_ = input.readBytes();
+                  bitField0_ |= 0x00002000;
+                  break;
+                } // case 114
+                case 122: {
+                  address_ = input.readBytes();
+                  bitField0_ |= 0x00004000;
+                  break;
+                } // case 122
+                case 130: {
+                  displayUrl_ = input.readBytes();
+                  bitField0_ |= 0x00008000;
+                  break;
+                } // case 130
+                case 138: {
+                  cta_ = input.readBytes();
+                  bitField0_ |= 0x00010000;
+                  break;
+                } // case 138
                 default: {
                   if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                     done = true; // was an endgroup tag
@@ -23385,7 +25238,7 @@ java.lang.String defaultValue) {
 
         private com.google.protobuf.MapField<
             java.lang.String, java.lang.String> assets_;
-        private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+        @java.lang.Deprecated private com.google.protobuf.MapField<java.lang.String, java.lang.String>
             internalGetAssets() {
           if (assets_ == null) {
             return com.google.protobuf.MapField.emptyMapField(
@@ -23393,7 +25246,7 @@ java.lang.String defaultValue) {
           }
           return assets_;
         }
-        private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+        @java.lang.Deprecated private com.google.protobuf.MapField<java.lang.String, java.lang.String>
             internalGetMutableAssets() {
           if (assets_ == null) {
             assets_ = com.google.protobuf.MapField.newMapField(
@@ -23406,14 +25259,18 @@ java.lang.String defaultValue) {
           onChanged();
           return assets_;
         }
-        public int getAssetsCount() {
+        @java.lang.Deprecated public int getAssetsCount() {
           return internalGetAssets().getMap().size();
         }
         /**
-         * <code>map&lt;string, string&gt; assets = 2;</code>
+         * <pre>
+         *废弃字段
+         * </pre>
+         *
+         * <code>map&lt;string, string&gt; assets = 2 [deprecated = true];</code>
          */
         @java.lang.Override
-        public boolean containsAssets(
+        @java.lang.Deprecated public boolean containsAssets(
             java.lang.String key) {
           if (key == null) { throw new NullPointerException("map key"); }
           return internalGetAssets().getMap().containsKey(key);
@@ -23427,17 +25284,25 @@ java.lang.String defaultValue) {
           return getAssetsMap();
         }
         /**
-         * <code>map&lt;string, string&gt; assets = 2;</code>
+         * <pre>
+         *废弃字段
+         * </pre>
+         *
+         * <code>map&lt;string, string&gt; assets = 2 [deprecated = true];</code>
          */
         @java.lang.Override
-        public java.util.Map<java.lang.String, java.lang.String> getAssetsMap() {
+        @java.lang.Deprecated public java.util.Map<java.lang.String, java.lang.String> getAssetsMap() {
           return internalGetAssets().getMap();
         }
         /**
-         * <code>map&lt;string, string&gt; assets = 2;</code>
+         * <pre>
+         *废弃字段
+         * </pre>
+         *
+         * <code>map&lt;string, string&gt; assets = 2 [deprecated = true];</code>
          */
         @java.lang.Override
-        public /* nullable */
+        @java.lang.Deprecated public /* nullable */
 java.lang.String getAssetsOrDefault(
             java.lang.String key,
             /* nullable */
@@ -23448,10 +25313,14 @@ java.lang.String defaultValue) {
           return map.containsKey(key) ? map.get(key) : defaultValue;
         }
         /**
-         * <code>map&lt;string, string&gt; assets = 2;</code>
+         * <pre>
+         *废弃字段
+         * </pre>
+         *
+         * <code>map&lt;string, string&gt; assets = 2 [deprecated = true];</code>
          */
         @java.lang.Override
-        public java.lang.String getAssetsOrThrow(
+        @java.lang.Deprecated public java.lang.String getAssetsOrThrow(
             java.lang.String key) {
           if (key == null) { throw new NullPointerException("map key"); }
           java.util.Map<java.lang.String, java.lang.String> map =
@@ -23461,16 +25330,20 @@ java.lang.String defaultValue) {
           }
           return map.get(key);
         }
-        public Builder clearAssets() {
+        @java.lang.Deprecated public Builder clearAssets() {
           bitField0_ = (bitField0_ & ~0x00000002);
           internalGetMutableAssets().getMutableMap()
               .clear();
           return this;
         }
         /**
-         * <code>map&lt;string, string&gt; assets = 2;</code>
+         * <pre>
+         *废弃字段
+         * </pre>
+         *
+         * <code>map&lt;string, string&gt; assets = 2 [deprecated = true];</code>
          */
-        public Builder removeAssets(
+        @java.lang.Deprecated public Builder removeAssets(
             java.lang.String key) {
           if (key == null) { throw new NullPointerException("map key"); }
           internalGetMutableAssets().getMutableMap()
@@ -23487,9 +25360,13 @@ java.lang.String defaultValue) {
           return internalGetMutableAssets().getMutableMap();
         }
         /**
-         * <code>map&lt;string, string&gt; assets = 2;</code>
+         * <pre>
+         *废弃字段
+         * </pre>
+         *
+         * <code>map&lt;string, string&gt; assets = 2 [deprecated = true];</code>
          */
-        public Builder putAssets(
+        @java.lang.Deprecated public Builder putAssets(
             java.lang.String key,
             java.lang.String value) {
           if (key == null) { throw new NullPointerException("map key"); }
@@ -23500,13 +25377,1247 @@ java.lang.String defaultValue) {
           return this;
         }
         /**
-         * <code>map&lt;string, string&gt; assets = 2;</code>
+         * <pre>
+         *废弃字段
+         * </pre>
+         *
+         * <code>map&lt;string, string&gt; assets = 2 [deprecated = true];</code>
          */
-        public Builder putAllAssets(
+        @java.lang.Deprecated public Builder putAllAssets(
             java.util.Map<java.lang.String, java.lang.String> values) {
           internalGetMutableAssets().getMutableMap()
               .putAll(values);
           bitField0_ |= 0x00000002;
+          return this;
+        }
+
+        private java.lang.Object title_ = "";
+        /**
+         * <code>optional string title = 3;</code>
+         * @return Whether the title field is set.
+         */
+        public boolean hasTitle() {
+          return ((bitField0_ & 0x00000004) != 0);
+        }
+        /**
+         * <code>optional string title = 3;</code>
+         * @return The title.
+         */
+        public java.lang.String getTitle() {
+          java.lang.Object ref = title_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              title_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string title = 3;</code>
+         * @return The bytes for title.
+         */
+        public com.google.protobuf.ByteString
+            getTitleBytes() {
+          java.lang.Object ref = title_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            title_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string title = 3;</code>
+         * @param value The title to set.
+         * @return This builder for chaining.
+         */
+        public Builder setTitle(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          title_ = value;
+          bitField0_ |= 0x00000004;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string title = 3;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearTitle() {
+          title_ = getDefaultInstance().getTitle();
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string title = 3;</code>
+         * @param value The bytes for title to set.
+         * @return This builder for chaining.
+         */
+        public Builder setTitleBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          title_ = value;
+          bitField0_ |= 0x00000004;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object desc_ = "";
+        /**
+         * <code>optional string desc = 4;</code>
+         * @return Whether the desc field is set.
+         */
+        public boolean hasDesc() {
+          return ((bitField0_ & 0x00000008) != 0);
+        }
+        /**
+         * <code>optional string desc = 4;</code>
+         * @return The desc.
+         */
+        public java.lang.String getDesc() {
+          java.lang.Object ref = desc_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              desc_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string desc = 4;</code>
+         * @return The bytes for desc.
+         */
+        public com.google.protobuf.ByteString
+            getDescBytes() {
+          java.lang.Object ref = desc_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            desc_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string desc = 4;</code>
+         * @param value The desc to set.
+         * @return This builder for chaining.
+         */
+        public Builder setDesc(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          desc_ = value;
+          bitField0_ |= 0x00000008;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string desc = 4;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearDesc() {
+          desc_ = getDefaultInstance().getDesc();
+          bitField0_ = (bitField0_ & ~0x00000008);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string desc = 4;</code>
+         * @param value The bytes for desc to set.
+         * @return This builder for chaining.
+         */
+        public Builder setDescBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          desc_ = value;
+          bitField0_ |= 0x00000008;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object icon_ = "";
+        /**
+         * <code>optional string icon = 5;</code>
+         * @return Whether the icon field is set.
+         */
+        public boolean hasIcon() {
+          return ((bitField0_ & 0x00000010) != 0);
+        }
+        /**
+         * <code>optional string icon = 5;</code>
+         * @return The icon.
+         */
+        public java.lang.String getIcon() {
+          java.lang.Object ref = icon_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              icon_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string icon = 5;</code>
+         * @return The bytes for icon.
+         */
+        public com.google.protobuf.ByteString
+            getIconBytes() {
+          java.lang.Object ref = icon_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            icon_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string icon = 5;</code>
+         * @param value The icon to set.
+         * @return This builder for chaining.
+         */
+        public Builder setIcon(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          icon_ = value;
+          bitField0_ |= 0x00000010;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string icon = 5;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearIcon() {
+          icon_ = getDefaultInstance().getIcon();
+          bitField0_ = (bitField0_ & ~0x00000010);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string icon = 5;</code>
+         * @param value The bytes for icon to set.
+         * @return This builder for chaining.
+         */
+        public Builder setIconBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          icon_ = value;
+          bitField0_ |= 0x00000010;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object mainImage_ = "";
+        /**
+         * <code>optional string main_image = 6;</code>
+         * @return Whether the mainImage field is set.
+         */
+        public boolean hasMainImage() {
+          return ((bitField0_ & 0x00000020) != 0);
+        }
+        /**
+         * <code>optional string main_image = 6;</code>
+         * @return The mainImage.
+         */
+        public java.lang.String getMainImage() {
+          java.lang.Object ref = mainImage_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              mainImage_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string main_image = 6;</code>
+         * @return The bytes for mainImage.
+         */
+        public com.google.protobuf.ByteString
+            getMainImageBytes() {
+          java.lang.Object ref = mainImage_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            mainImage_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string main_image = 6;</code>
+         * @param value The mainImage to set.
+         * @return This builder for chaining.
+         */
+        public Builder setMainImage(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          mainImage_ = value;
+          bitField0_ |= 0x00000020;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string main_image = 6;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearMainImage() {
+          mainImage_ = getDefaultInstance().getMainImage();
+          bitField0_ = (bitField0_ & ~0x00000020);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string main_image = 6;</code>
+         * @param value The bytes for mainImage to set.
+         * @return This builder for chaining.
+         */
+        public Builder setMainImageBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          mainImage_ = value;
+          bitField0_ |= 0x00000020;
+          onChanged();
+          return this;
+        }
+
+        private com.google.protobuf.LazyStringArrayList images_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
+        private void ensureImagesIsMutable() {
+          if (!images_.isModifiable()) {
+            images_ = new com.google.protobuf.LazyStringArrayList(images_);
+          }
+          bitField0_ |= 0x00000040;
+        }
+        /**
+         * <code>repeated string images = 7;</code>
+         * @return A list containing the images.
+         */
+        public com.google.protobuf.ProtocolStringList
+            getImagesList() {
+          images_.makeImmutable();
+          return images_;
+        }
+        /**
+         * <code>repeated string images = 7;</code>
+         * @return The count of images.
+         */
+        public int getImagesCount() {
+          return images_.size();
+        }
+        /**
+         * <code>repeated string images = 7;</code>
+         * @param index The index of the element to return.
+         * @return The images at the given index.
+         */
+        public java.lang.String getImages(int index) {
+          return images_.get(index);
+        }
+        /**
+         * <code>repeated string images = 7;</code>
+         * @param index The index of the value to return.
+         * @return The bytes of the images at the given index.
+         */
+        public com.google.protobuf.ByteString
+            getImagesBytes(int index) {
+          return images_.getByteString(index);
+        }
+        /**
+         * <code>repeated string images = 7;</code>
+         * @param index The index to set the value at.
+         * @param value The images to set.
+         * @return This builder for chaining.
+         */
+        public Builder setImages(
+            int index, java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          ensureImagesIsMutable();
+          images_.set(index, value);
+          bitField0_ |= 0x00000040;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>repeated string images = 7;</code>
+         * @param value The images to add.
+         * @return This builder for chaining.
+         */
+        public Builder addImages(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          ensureImagesIsMutable();
+          images_.add(value);
+          bitField0_ |= 0x00000040;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>repeated string images = 7;</code>
+         * @param values The images to add.
+         * @return This builder for chaining.
+         */
+        public Builder addAllImages(
+            java.lang.Iterable<java.lang.String> values) {
+          ensureImagesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, images_);
+          bitField0_ |= 0x00000040;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>repeated string images = 7;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearImages() {
+          images_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000040);;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>repeated string images = 7;</code>
+         * @param value The bytes of the images to add.
+         * @return This builder for chaining.
+         */
+        public Builder addImagesBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          ensureImagesIsMutable();
+          images_.add(value);
+          bitField0_ |= 0x00000040;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object sponsored_ = "";
+        /**
+         * <code>optional string sponsored = 8;</code>
+         * @return Whether the sponsored field is set.
+         */
+        public boolean hasSponsored() {
+          return ((bitField0_ & 0x00000080) != 0);
+        }
+        /**
+         * <code>optional string sponsored = 8;</code>
+         * @return The sponsored.
+         */
+        public java.lang.String getSponsored() {
+          java.lang.Object ref = sponsored_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              sponsored_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string sponsored = 8;</code>
+         * @return The bytes for sponsored.
+         */
+        public com.google.protobuf.ByteString
+            getSponsoredBytes() {
+          java.lang.Object ref = sponsored_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            sponsored_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string sponsored = 8;</code>
+         * @param value The sponsored to set.
+         * @return This builder for chaining.
+         */
+        public Builder setSponsored(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          sponsored_ = value;
+          bitField0_ |= 0x00000080;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string sponsored = 8;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearSponsored() {
+          sponsored_ = getDefaultInstance().getSponsored();
+          bitField0_ = (bitField0_ & ~0x00000080);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string sponsored = 8;</code>
+         * @param value The bytes for sponsored to set.
+         * @return This builder for chaining.
+         */
+        public Builder setSponsoredBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          sponsored_ = value;
+          bitField0_ |= 0x00000080;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object rating_ = "";
+        /**
+         * <code>optional string rating = 9;</code>
+         * @return Whether the rating field is set.
+         */
+        public boolean hasRating() {
+          return ((bitField0_ & 0x00000100) != 0);
+        }
+        /**
+         * <code>optional string rating = 9;</code>
+         * @return The rating.
+         */
+        public java.lang.String getRating() {
+          java.lang.Object ref = rating_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              rating_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string rating = 9;</code>
+         * @return The bytes for rating.
+         */
+        public com.google.protobuf.ByteString
+            getRatingBytes() {
+          java.lang.Object ref = rating_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            rating_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string rating = 9;</code>
+         * @param value The rating to set.
+         * @return This builder for chaining.
+         */
+        public Builder setRating(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          rating_ = value;
+          bitField0_ |= 0x00000100;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string rating = 9;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearRating() {
+          rating_ = getDefaultInstance().getRating();
+          bitField0_ = (bitField0_ & ~0x00000100);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string rating = 9;</code>
+         * @param value The bytes for rating to set.
+         * @return This builder for chaining.
+         */
+        public Builder setRatingBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          rating_ = value;
+          bitField0_ |= 0x00000100;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object likes_ = "";
+        /**
+         * <code>optional string likes = 10;</code>
+         * @return Whether the likes field is set.
+         */
+        public boolean hasLikes() {
+          return ((bitField0_ & 0x00000200) != 0);
+        }
+        /**
+         * <code>optional string likes = 10;</code>
+         * @return The likes.
+         */
+        public java.lang.String getLikes() {
+          java.lang.Object ref = likes_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              likes_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string likes = 10;</code>
+         * @return The bytes for likes.
+         */
+        public com.google.protobuf.ByteString
+            getLikesBytes() {
+          java.lang.Object ref = likes_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            likes_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string likes = 10;</code>
+         * @param value The likes to set.
+         * @return This builder for chaining.
+         */
+        public Builder setLikes(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          likes_ = value;
+          bitField0_ |= 0x00000200;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string likes = 10;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearLikes() {
+          likes_ = getDefaultInstance().getLikes();
+          bitField0_ = (bitField0_ & ~0x00000200);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string likes = 10;</code>
+         * @param value The bytes for likes to set.
+         * @return This builder for chaining.
+         */
+        public Builder setLikesBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          likes_ = value;
+          bitField0_ |= 0x00000200;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object downloads_ = "";
+        /**
+         * <code>optional string downloads = 11;</code>
+         * @return Whether the downloads field is set.
+         */
+        public boolean hasDownloads() {
+          return ((bitField0_ & 0x00000400) != 0);
+        }
+        /**
+         * <code>optional string downloads = 11;</code>
+         * @return The downloads.
+         */
+        public java.lang.String getDownloads() {
+          java.lang.Object ref = downloads_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              downloads_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string downloads = 11;</code>
+         * @return The bytes for downloads.
+         */
+        public com.google.protobuf.ByteString
+            getDownloadsBytes() {
+          java.lang.Object ref = downloads_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            downloads_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string downloads = 11;</code>
+         * @param value The downloads to set.
+         * @return This builder for chaining.
+         */
+        public Builder setDownloads(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          downloads_ = value;
+          bitField0_ |= 0x00000400;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string downloads = 11;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearDownloads() {
+          downloads_ = getDefaultInstance().getDownloads();
+          bitField0_ = (bitField0_ & ~0x00000400);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string downloads = 11;</code>
+         * @param value The bytes for downloads to set.
+         * @return This builder for chaining.
+         */
+        public Builder setDownloadsBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          downloads_ = value;
+          bitField0_ |= 0x00000400;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object price_ = "";
+        /**
+         * <code>optional string price = 12;</code>
+         * @return Whether the price field is set.
+         */
+        public boolean hasPrice() {
+          return ((bitField0_ & 0x00000800) != 0);
+        }
+        /**
+         * <code>optional string price = 12;</code>
+         * @return The price.
+         */
+        public java.lang.String getPrice() {
+          java.lang.Object ref = price_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              price_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string price = 12;</code>
+         * @return The bytes for price.
+         */
+        public com.google.protobuf.ByteString
+            getPriceBytes() {
+          java.lang.Object ref = price_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            price_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string price = 12;</code>
+         * @param value The price to set.
+         * @return This builder for chaining.
+         */
+        public Builder setPrice(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          price_ = value;
+          bitField0_ |= 0x00000800;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string price = 12;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearPrice() {
+          price_ = getDefaultInstance().getPrice();
+          bitField0_ = (bitField0_ & ~0x00000800);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string price = 12;</code>
+         * @param value The bytes for price to set.
+         * @return This builder for chaining.
+         */
+        public Builder setPriceBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          price_ = value;
+          bitField0_ |= 0x00000800;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object salePrice_ = "";
+        /**
+         * <code>optional string sale_price = 13;</code>
+         * @return Whether the salePrice field is set.
+         */
+        public boolean hasSalePrice() {
+          return ((bitField0_ & 0x00001000) != 0);
+        }
+        /**
+         * <code>optional string sale_price = 13;</code>
+         * @return The salePrice.
+         */
+        public java.lang.String getSalePrice() {
+          java.lang.Object ref = salePrice_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              salePrice_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string sale_price = 13;</code>
+         * @return The bytes for salePrice.
+         */
+        public com.google.protobuf.ByteString
+            getSalePriceBytes() {
+          java.lang.Object ref = salePrice_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            salePrice_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string sale_price = 13;</code>
+         * @param value The salePrice to set.
+         * @return This builder for chaining.
+         */
+        public Builder setSalePrice(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          salePrice_ = value;
+          bitField0_ |= 0x00001000;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string sale_price = 13;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearSalePrice() {
+          salePrice_ = getDefaultInstance().getSalePrice();
+          bitField0_ = (bitField0_ & ~0x00001000);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string sale_price = 13;</code>
+         * @param value The bytes for salePrice to set.
+         * @return This builder for chaining.
+         */
+        public Builder setSalePriceBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          salePrice_ = value;
+          bitField0_ |= 0x00001000;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object phone_ = "";
+        /**
+         * <code>optional string phone = 14;</code>
+         * @return Whether the phone field is set.
+         */
+        public boolean hasPhone() {
+          return ((bitField0_ & 0x00002000) != 0);
+        }
+        /**
+         * <code>optional string phone = 14;</code>
+         * @return The phone.
+         */
+        public java.lang.String getPhone() {
+          java.lang.Object ref = phone_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              phone_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string phone = 14;</code>
+         * @return The bytes for phone.
+         */
+        public com.google.protobuf.ByteString
+            getPhoneBytes() {
+          java.lang.Object ref = phone_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            phone_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string phone = 14;</code>
+         * @param value The phone to set.
+         * @return This builder for chaining.
+         */
+        public Builder setPhone(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          phone_ = value;
+          bitField0_ |= 0x00002000;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string phone = 14;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearPhone() {
+          phone_ = getDefaultInstance().getPhone();
+          bitField0_ = (bitField0_ & ~0x00002000);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string phone = 14;</code>
+         * @param value The bytes for phone to set.
+         * @return This builder for chaining.
+         */
+        public Builder setPhoneBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          phone_ = value;
+          bitField0_ |= 0x00002000;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object address_ = "";
+        /**
+         * <code>optional string address = 15;</code>
+         * @return Whether the address field is set.
+         */
+        public boolean hasAddress() {
+          return ((bitField0_ & 0x00004000) != 0);
+        }
+        /**
+         * <code>optional string address = 15;</code>
+         * @return The address.
+         */
+        public java.lang.String getAddress() {
+          java.lang.Object ref = address_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              address_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string address = 15;</code>
+         * @return The bytes for address.
+         */
+        public com.google.protobuf.ByteString
+            getAddressBytes() {
+          java.lang.Object ref = address_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            address_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string address = 15;</code>
+         * @param value The address to set.
+         * @return This builder for chaining.
+         */
+        public Builder setAddress(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          address_ = value;
+          bitField0_ |= 0x00004000;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string address = 15;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearAddress() {
+          address_ = getDefaultInstance().getAddress();
+          bitField0_ = (bitField0_ & ~0x00004000);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string address = 15;</code>
+         * @param value The bytes for address to set.
+         * @return This builder for chaining.
+         */
+        public Builder setAddressBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          address_ = value;
+          bitField0_ |= 0x00004000;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object displayUrl_ = "";
+        /**
+         * <code>optional string display_url = 16;</code>
+         * @return Whether the displayUrl field is set.
+         */
+        public boolean hasDisplayUrl() {
+          return ((bitField0_ & 0x00008000) != 0);
+        }
+        /**
+         * <code>optional string display_url = 16;</code>
+         * @return The displayUrl.
+         */
+        public java.lang.String getDisplayUrl() {
+          java.lang.Object ref = displayUrl_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              displayUrl_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string display_url = 16;</code>
+         * @return The bytes for displayUrl.
+         */
+        public com.google.protobuf.ByteString
+            getDisplayUrlBytes() {
+          java.lang.Object ref = displayUrl_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            displayUrl_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string display_url = 16;</code>
+         * @param value The displayUrl to set.
+         * @return This builder for chaining.
+         */
+        public Builder setDisplayUrl(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          displayUrl_ = value;
+          bitField0_ |= 0x00008000;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string display_url = 16;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearDisplayUrl() {
+          displayUrl_ = getDefaultInstance().getDisplayUrl();
+          bitField0_ = (bitField0_ & ~0x00008000);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string display_url = 16;</code>
+         * @param value The bytes for displayUrl to set.
+         * @return This builder for chaining.
+         */
+        public Builder setDisplayUrlBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          displayUrl_ = value;
+          bitField0_ |= 0x00008000;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object cta_ = "";
+        /**
+         * <code>optional string cta = 17;</code>
+         * @return Whether the cta field is set.
+         */
+        public boolean hasCta() {
+          return ((bitField0_ & 0x00010000) != 0);
+        }
+        /**
+         * <code>optional string cta = 17;</code>
+         * @return The cta.
+         */
+        public java.lang.String getCta() {
+          java.lang.Object ref = cta_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              cta_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string cta = 17;</code>
+         * @return The bytes for cta.
+         */
+        public com.google.protobuf.ByteString
+            getCtaBytes() {
+          java.lang.Object ref = cta_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            cta_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string cta = 17;</code>
+         * @param value The cta to set.
+         * @return This builder for chaining.
+         */
+        public Builder setCta(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          cta_ = value;
+          bitField0_ |= 0x00010000;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string cta = 17;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearCta() {
+          cta_ = getDefaultInstance().getCta();
+          bitField0_ = (bitField0_ & ~0x00010000);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string cta = 17;</code>
+         * @param value The bytes for cta to set.
+         * @return This builder for chaining.
+         */
+        public Builder setCtaBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          cta_ = value;
+          bitField0_ |= 0x00010000;
+          onChanged();
           return this;
         }
         @java.lang.Override
@@ -23752,7 +26863,7 @@ java.lang.String defaultValue) {
 
         /**
          * <pre>
-         *广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
+         *广告出价, 单位分
          * </pre>
          *
          * <code>required uint64 price = 3;</code>
@@ -23761,7 +26872,7 @@ java.lang.String defaultValue) {
         boolean hasPrice();
         /**
          * <pre>
-         *广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
+         *广告出价, 单位分
          * </pre>
          *
          * <code>required uint64 price = 3;</code>
@@ -23800,7 +26911,7 @@ java.lang.String defaultValue) {
 
         /**
          * <pre>
-         *请求pmp dealid
+         *pmp dealid
          * </pre>
          *
          * <code>optional string dealid = 5;</code>
@@ -23809,7 +26920,7 @@ java.lang.String defaultValue) {
         boolean hasDealid();
         /**
          * <pre>
-         *请求pmp dealid
+         *pmp dealid
          * </pre>
          *
          * <code>optional string dealid = 5;</code>
@@ -23818,7 +26929,7 @@ java.lang.String defaultValue) {
         java.lang.String getDealid();
         /**
          * <pre>
-         *请求pmp dealid
+         *pmp dealid
          * </pre>
          *
          * <code>optional string dealid = 5;</code>
@@ -24046,6 +27157,35 @@ java.lang.String defaultValue) {
 
         /**
          * <pre>
+         *应用市场id
+         * </pre>
+         *
+         * <code>optional string appstore_id = 23;</code>
+         * @return Whether the appstoreId field is set.
+         */
+        boolean hasAppstoreId();
+        /**
+         * <pre>
+         *应用市场id
+         * </pre>
+         *
+         * <code>optional string appstore_id = 23;</code>
+         * @return The appstoreId.
+         */
+        java.lang.String getAppstoreId();
+        /**
+         * <pre>
+         *应用市场id
+         * </pre>
+         *
+         * <code>optional string appstore_id = 23;</code>
+         * @return The bytes for appstoreId.
+         */
+        com.google.protobuf.ByteString
+            getAppstoreIdBytes();
+
+        /**
+         * <pre>
          *基于 vast格式的视频广告以及原生广告响应
          * </pre>
          *
@@ -24075,7 +27215,7 @@ java.lang.String defaultValue) {
 
         /**
          * <pre>
-         *原生广告响应
+         *原生广告响应，如果dsp平台本身创意已经上传到广告交易平台的话，则无需回传
          * </pre>
          *
          * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -24084,7 +27224,7 @@ java.lang.String defaultValue) {
         boolean hasNativeAd();
         /**
          * <pre>
-         *原生广告响应
+         *原生广告响应，如果dsp平台本身创意已经上传到广告交易平台的话，则无需回传
          * </pre>
          *
          * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -24093,7 +27233,7 @@ java.lang.String defaultValue) {
         top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAd getNativeAd();
         /**
          * <pre>
-         *原生广告响应
+         *原生广告响应，如果dsp平台本身创意已经上传到广告交易平台的话，则无需回传
          * </pre>
          *
          * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -24159,6 +27299,23 @@ java.lang.String defaultValue) {
             getAppNameBytes();
 
         /**
+         * <code>optional string app_icon_url = 25;</code>
+         * @return Whether the appIconUrl field is set.
+         */
+        boolean hasAppIconUrl();
+        /**
+         * <code>optional string app_icon_url = 25;</code>
+         * @return The appIconUrl.
+         */
+        java.lang.String getAppIconUrl();
+        /**
+         * <code>optional string app_icon_url = 25;</code>
+         * @return The bytes for appIconUrl.
+         */
+        com.google.protobuf.ByteString
+            getAppIconUrlBytes();
+
+        /**
          * <pre>
          *deeplink链接
          * </pre>
@@ -24189,32 +27346,186 @@ java.lang.String defaultValue) {
 
         /**
          * <pre>
-         *dsp平台编码
+         *音视频广告时长
          * </pre>
          *
-         * <code>optional string dsp_id = 17;</code>
-         * @return Whether the dspId field is set.
+         * <code>optional uint32 duration = 18;</code>
+         * @return Whether the duration field is set.
          */
-        boolean hasDspId();
+        boolean hasDuration();
         /**
          * <pre>
-         *dsp平台编码
+         *音视频广告时长
          * </pre>
          *
-         * <code>optional string dsp_id = 17;</code>
-         * @return The dspId.
+         * <code>optional uint32 duration = 18;</code>
+         * @return The duration.
          */
-        java.lang.String getDspId();
+        int getDuration();
+
         /**
          * <pre>
-         *dsp平台编码
+         *音视频播放开始监测
          * </pre>
          *
-         * <code>optional string dsp_id = 17;</code>
-         * @return The bytes for dspId.
+         * <code>repeated string play_trackers = 19;</code>
+         * @return A list containing the playTrackers.
+         */
+        java.util.List<java.lang.String>
+            getPlayTrackersList();
+        /**
+         * <pre>
+         *音视频播放开始监测
+         * </pre>
+         *
+         * <code>repeated string play_trackers = 19;</code>
+         * @return The count of playTrackers.
+         */
+        int getPlayTrackersCount();
+        /**
+         * <pre>
+         *音视频播放开始监测
+         * </pre>
+         *
+         * <code>repeated string play_trackers = 19;</code>
+         * @param index The index of the element to return.
+         * @return The playTrackers at the given index.
+         */
+        java.lang.String getPlayTrackers(int index);
+        /**
+         * <pre>
+         *音视频播放开始监测
+         * </pre>
+         *
+         * <code>repeated string play_trackers = 19;</code>
+         * @param index The index of the value to return.
+         * @return The bytes of the playTrackers at the given index.
          */
         com.google.protobuf.ByteString
-            getDspIdBytes();
+            getPlayTrackersBytes(int index);
+
+        /**
+         * <pre>
+         *音视频播放完成监测
+         * </pre>
+         *
+         * <code>repeated string completed_trackers = 22;</code>
+         * @return A list containing the completedTrackers.
+         */
+        java.util.List<java.lang.String>
+            getCompletedTrackersList();
+        /**
+         * <pre>
+         *音视频播放完成监测
+         * </pre>
+         *
+         * <code>repeated string completed_trackers = 22;</code>
+         * @return The count of completedTrackers.
+         */
+        int getCompletedTrackersCount();
+        /**
+         * <pre>
+         *音视频播放完成监测
+         * </pre>
+         *
+         * <code>repeated string completed_trackers = 22;</code>
+         * @param index The index of the element to return.
+         * @return The completedTrackers at the given index.
+         */
+        java.lang.String getCompletedTrackers(int index);
+        /**
+         * <pre>
+         *音视频播放完成监测
+         * </pre>
+         *
+         * <code>repeated string completed_trackers = 22;</code>
+         * @param index The index of the value to return.
+         * @return The bytes of the completedTrackers at the given index.
+         */
+        com.google.protobuf.ByteString
+            getCompletedTrackersBytes(int index);
+
+        /**
+         * <pre>
+         *音视频播放错误监测
+         * </pre>
+         *
+         * <code>repeated string error_trackers = 21;</code>
+         * @return A list containing the errorTrackers.
+         */
+        java.util.List<java.lang.String>
+            getErrorTrackersList();
+        /**
+         * <pre>
+         *音视频播放错误监测
+         * </pre>
+         *
+         * <code>repeated string error_trackers = 21;</code>
+         * @return The count of errorTrackers.
+         */
+        int getErrorTrackersCount();
+        /**
+         * <pre>
+         *音视频播放错误监测
+         * </pre>
+         *
+         * <code>repeated string error_trackers = 21;</code>
+         * @param index The index of the element to return.
+         * @return The errorTrackers at the given index.
+         */
+        java.lang.String getErrorTrackers(int index);
+        /**
+         * <pre>
+         *音视频播放错误监测
+         * </pre>
+         *
+         * <code>repeated string error_trackers = 21;</code>
+         * @param index The index of the value to return.
+         * @return The bytes of the errorTrackers at the given index.
+         */
+        com.google.protobuf.ByteString
+            getErrorTrackersBytes(int index);
+
+        /**
+         * <pre>
+         *音视频广告关闭监测
+         * </pre>
+         *
+         * <code>repeated string close_trackers = 24;</code>
+         * @return A list containing the closeTrackers.
+         */
+        java.util.List<java.lang.String>
+            getCloseTrackersList();
+        /**
+         * <pre>
+         *音视频广告关闭监测
+         * </pre>
+         *
+         * <code>repeated string close_trackers = 24;</code>
+         * @return The count of closeTrackers.
+         */
+        int getCloseTrackersCount();
+        /**
+         * <pre>
+         *音视频广告关闭监测
+         * </pre>
+         *
+         * <code>repeated string close_trackers = 24;</code>
+         * @param index The index of the element to return.
+         * @return The closeTrackers at the given index.
+         */
+        java.lang.String getCloseTrackers(int index);
+        /**
+         * <pre>
+         *音视频广告关闭监测
+         * </pre>
+         *
+         * <code>repeated string close_trackers = 24;</code>
+         * @param index The index of the value to return.
+         * @return The bytes of the closeTrackers at the given index.
+         */
+        com.google.protobuf.ByteString
+            getCloseTrackersBytes(int index);
       }
       /**
        * Protobuf type {@code top.openadexchange.rtb.proto.BidResponse.SeatBid.Bid}
@@ -24242,11 +27553,20 @@ java.lang.String defaultValue) {
           ldp_ = "";
           creativeUrl_ = "";
           bundle_ = "";
+          appstoreId_ = "";
           adm_ = "";
           appDownloadUrl_ = "";
           appName_ = "";
+          appIconUrl_ = "";
           deeplink_ = "";
-          dspId_ = "";
+          playTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+          completedTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+          errorTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+          closeTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
         }
 
         @java.lang.Override
@@ -24396,7 +27716,7 @@ java.lang.String defaultValue) {
         private long price_ = 0L;
         /**
          * <pre>
-         *广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
+         *广告出价, 单位分
          * </pre>
          *
          * <code>required uint64 price = 3;</code>
@@ -24408,7 +27728,7 @@ java.lang.String defaultValue) {
         }
         /**
          * <pre>
-         *广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
+         *广告出价, 单位分
          * </pre>
          *
          * <code>required uint64 price = 3;</code>
@@ -24485,7 +27805,7 @@ java.lang.String defaultValue) {
         private volatile java.lang.Object dealid_ = "";
         /**
          * <pre>
-         *请求pmp dealid
+         *pmp dealid
          * </pre>
          *
          * <code>optional string dealid = 5;</code>
@@ -24497,7 +27817,7 @@ java.lang.String defaultValue) {
         }
         /**
          * <pre>
-         *请求pmp dealid
+         *pmp dealid
          * </pre>
          *
          * <code>optional string dealid = 5;</code>
@@ -24520,7 +27840,7 @@ java.lang.String defaultValue) {
         }
         /**
          * <pre>
-         *请求pmp dealid
+         *pmp dealid
          * </pre>
          *
          * <code>optional string dealid = 5;</code>
@@ -24918,6 +28238,67 @@ java.lang.String defaultValue) {
           }
         }
 
+        public static final int APPSTORE_ID_FIELD_NUMBER = 23;
+        @SuppressWarnings("serial")
+        private volatile java.lang.Object appstoreId_ = "";
+        /**
+         * <pre>
+         *应用市场id
+         * </pre>
+         *
+         * <code>optional string appstore_id = 23;</code>
+         * @return Whether the appstoreId field is set.
+         */
+        @java.lang.Override
+        public boolean hasAppstoreId() {
+          return ((bitField0_ & 0x00000400) != 0);
+        }
+        /**
+         * <pre>
+         *应用市场id
+         * </pre>
+         *
+         * <code>optional string appstore_id = 23;</code>
+         * @return The appstoreId.
+         */
+        @java.lang.Override
+        public java.lang.String getAppstoreId() {
+          java.lang.Object ref = appstoreId_;
+          if (ref instanceof java.lang.String) {
+            return (java.lang.String) ref;
+          } else {
+            com.google.protobuf.ByteString bs = 
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              appstoreId_ = s;
+            }
+            return s;
+          }
+        }
+        /**
+         * <pre>
+         *应用市场id
+         * </pre>
+         *
+         * <code>optional string appstore_id = 23;</code>
+         * @return The bytes for appstoreId.
+         */
+        @java.lang.Override
+        public com.google.protobuf.ByteString
+            getAppstoreIdBytes() {
+          java.lang.Object ref = appstoreId_;
+          if (ref instanceof java.lang.String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            appstoreId_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+
         public static final int ADM_FIELD_NUMBER = 12;
         @SuppressWarnings("serial")
         private volatile java.lang.Object adm_ = "";
@@ -24931,7 +28312,7 @@ java.lang.String defaultValue) {
          */
         @java.lang.Override
         public boolean hasAdm() {
-          return ((bitField0_ & 0x00000400) != 0);
+          return ((bitField0_ & 0x00000800) != 0);
         }
         /**
          * <pre>
@@ -24983,7 +28364,7 @@ java.lang.String defaultValue) {
         private top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAd nativeAd_;
         /**
          * <pre>
-         *原生广告响应
+         *原生广告响应，如果dsp平台本身创意已经上传到广告交易平台的话，则无需回传
          * </pre>
          *
          * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -24991,11 +28372,11 @@ java.lang.String defaultValue) {
          */
         @java.lang.Override
         public boolean hasNativeAd() {
-          return ((bitField0_ & 0x00000800) != 0);
+          return ((bitField0_ & 0x00001000) != 0);
         }
         /**
          * <pre>
-         *原生广告响应
+         *原生广告响应，如果dsp平台本身创意已经上传到广告交易平台的话，则无需回传
          * </pre>
          *
          * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -25007,7 +28388,7 @@ java.lang.String defaultValue) {
         }
         /**
          * <pre>
-         *原生广告响应
+         *原生广告响应，如果dsp平台本身创意已经上传到广告交易平台的话，则无需回传
          * </pre>
          *
          * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -25030,7 +28411,7 @@ java.lang.String defaultValue) {
          */
         @java.lang.Override
         public boolean hasAppDownloadUrl() {
-          return ((bitField0_ & 0x00001000) != 0);
+          return ((bitField0_ & 0x00002000) != 0);
         }
         /**
          * <pre>
@@ -25091,7 +28472,7 @@ java.lang.String defaultValue) {
          */
         @java.lang.Override
         public boolean hasAppName() {
-          return ((bitField0_ & 0x00002000) != 0);
+          return ((bitField0_ & 0x00004000) != 0);
         }
         /**
          * <pre>
@@ -25139,6 +28520,55 @@ java.lang.String defaultValue) {
           }
         }
 
+        public static final int APP_ICON_URL_FIELD_NUMBER = 25;
+        @SuppressWarnings("serial")
+        private volatile java.lang.Object appIconUrl_ = "";
+        /**
+         * <code>optional string app_icon_url = 25;</code>
+         * @return Whether the appIconUrl field is set.
+         */
+        @java.lang.Override
+        public boolean hasAppIconUrl() {
+          return ((bitField0_ & 0x00008000) != 0);
+        }
+        /**
+         * <code>optional string app_icon_url = 25;</code>
+         * @return The appIconUrl.
+         */
+        @java.lang.Override
+        public java.lang.String getAppIconUrl() {
+          java.lang.Object ref = appIconUrl_;
+          if (ref instanceof java.lang.String) {
+            return (java.lang.String) ref;
+          } else {
+            com.google.protobuf.ByteString bs = 
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              appIconUrl_ = s;
+            }
+            return s;
+          }
+        }
+        /**
+         * <code>optional string app_icon_url = 25;</code>
+         * @return The bytes for appIconUrl.
+         */
+        @java.lang.Override
+        public com.google.protobuf.ByteString
+            getAppIconUrlBytes() {
+          java.lang.Object ref = appIconUrl_;
+          if (ref instanceof java.lang.String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            appIconUrl_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+
         public static final int DEEPLINK_FIELD_NUMBER = 16;
         @SuppressWarnings("serial")
         private volatile java.lang.Object deeplink_ = "";
@@ -25152,7 +28582,7 @@ java.lang.String defaultValue) {
          */
         @java.lang.Override
         public boolean hasDeeplink() {
-          return ((bitField0_ & 0x00004000) != 0);
+          return ((bitField0_ & 0x00010000) != 0);
         }
         /**
          * <pre>
@@ -25200,65 +28630,243 @@ java.lang.String defaultValue) {
           }
         }
 
-        public static final int DSP_ID_FIELD_NUMBER = 17;
+        public static final int DURATION_FIELD_NUMBER = 18;
+        private int duration_ = 0;
+        /**
+         * <pre>
+         *音视频广告时长
+         * </pre>
+         *
+         * <code>optional uint32 duration = 18;</code>
+         * @return Whether the duration field is set.
+         */
+        @java.lang.Override
+        public boolean hasDuration() {
+          return ((bitField0_ & 0x00020000) != 0);
+        }
+        /**
+         * <pre>
+         *音视频广告时长
+         * </pre>
+         *
+         * <code>optional uint32 duration = 18;</code>
+         * @return The duration.
+         */
+        @java.lang.Override
+        public int getDuration() {
+          return duration_;
+        }
+
+        public static final int PLAY_TRACKERS_FIELD_NUMBER = 19;
         @SuppressWarnings("serial")
-        private volatile java.lang.Object dspId_ = "";
+        private com.google.protobuf.LazyStringArrayList playTrackers_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
         /**
          * <pre>
-         *dsp平台编码
+         *音视频播放开始监测
          * </pre>
          *
-         * <code>optional string dsp_id = 17;</code>
-         * @return Whether the dspId field is set.
+         * <code>repeated string play_trackers = 19;</code>
+         * @return A list containing the playTrackers.
          */
-        @java.lang.Override
-        public boolean hasDspId() {
-          return ((bitField0_ & 0x00008000) != 0);
+        public com.google.protobuf.ProtocolStringList
+            getPlayTrackersList() {
+          return playTrackers_;
         }
         /**
          * <pre>
-         *dsp平台编码
+         *音视频播放开始监测
          * </pre>
          *
-         * <code>optional string dsp_id = 17;</code>
-         * @return The dspId.
+         * <code>repeated string play_trackers = 19;</code>
+         * @return The count of playTrackers.
          */
-        @java.lang.Override
-        public java.lang.String getDspId() {
-          java.lang.Object ref = dspId_;
-          if (ref instanceof java.lang.String) {
-            return (java.lang.String) ref;
-          } else {
-            com.google.protobuf.ByteString bs = 
-                (com.google.protobuf.ByteString) ref;
-            java.lang.String s = bs.toStringUtf8();
-            if (bs.isValidUtf8()) {
-              dspId_ = s;
-            }
-            return s;
-          }
+        public int getPlayTrackersCount() {
+          return playTrackers_.size();
         }
         /**
          * <pre>
-         *dsp平台编码
+         *音视频播放开始监测
          * </pre>
          *
-         * <code>optional string dsp_id = 17;</code>
-         * @return The bytes for dspId.
+         * <code>repeated string play_trackers = 19;</code>
+         * @param index The index of the element to return.
+         * @return The playTrackers at the given index.
          */
-        @java.lang.Override
+        public java.lang.String getPlayTrackers(int index) {
+          return playTrackers_.get(index);
+        }
+        /**
+         * <pre>
+         *音视频播放开始监测
+         * </pre>
+         *
+         * <code>repeated string play_trackers = 19;</code>
+         * @param index The index of the value to return.
+         * @return The bytes of the playTrackers at the given index.
+         */
         public com.google.protobuf.ByteString
-            getDspIdBytes() {
-          java.lang.Object ref = dspId_;
-          if (ref instanceof java.lang.String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8(
-                    (java.lang.String) ref);
-            dspId_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
+            getPlayTrackersBytes(int index) {
+          return playTrackers_.getByteString(index);
+        }
+
+        public static final int COMPLETED_TRACKERS_FIELD_NUMBER = 22;
+        @SuppressWarnings("serial")
+        private com.google.protobuf.LazyStringArrayList completedTrackers_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
+        /**
+         * <pre>
+         *音视频播放完成监测
+         * </pre>
+         *
+         * <code>repeated string completed_trackers = 22;</code>
+         * @return A list containing the completedTrackers.
+         */
+        public com.google.protobuf.ProtocolStringList
+            getCompletedTrackersList() {
+          return completedTrackers_;
+        }
+        /**
+         * <pre>
+         *音视频播放完成监测
+         * </pre>
+         *
+         * <code>repeated string completed_trackers = 22;</code>
+         * @return The count of completedTrackers.
+         */
+        public int getCompletedTrackersCount() {
+          return completedTrackers_.size();
+        }
+        /**
+         * <pre>
+         *音视频播放完成监测
+         * </pre>
+         *
+         * <code>repeated string completed_trackers = 22;</code>
+         * @param index The index of the element to return.
+         * @return The completedTrackers at the given index.
+         */
+        public java.lang.String getCompletedTrackers(int index) {
+          return completedTrackers_.get(index);
+        }
+        /**
+         * <pre>
+         *音视频播放完成监测
+         * </pre>
+         *
+         * <code>repeated string completed_trackers = 22;</code>
+         * @param index The index of the value to return.
+         * @return The bytes of the completedTrackers at the given index.
+         */
+        public com.google.protobuf.ByteString
+            getCompletedTrackersBytes(int index) {
+          return completedTrackers_.getByteString(index);
+        }
+
+        public static final int ERROR_TRACKERS_FIELD_NUMBER = 21;
+        @SuppressWarnings("serial")
+        private com.google.protobuf.LazyStringArrayList errorTrackers_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
+        /**
+         * <pre>
+         *音视频播放错误监测
+         * </pre>
+         *
+         * <code>repeated string error_trackers = 21;</code>
+         * @return A list containing the errorTrackers.
+         */
+        public com.google.protobuf.ProtocolStringList
+            getErrorTrackersList() {
+          return errorTrackers_;
+        }
+        /**
+         * <pre>
+         *音视频播放错误监测
+         * </pre>
+         *
+         * <code>repeated string error_trackers = 21;</code>
+         * @return The count of errorTrackers.
+         */
+        public int getErrorTrackersCount() {
+          return errorTrackers_.size();
+        }
+        /**
+         * <pre>
+         *音视频播放错误监测
+         * </pre>
+         *
+         * <code>repeated string error_trackers = 21;</code>
+         * @param index The index of the element to return.
+         * @return The errorTrackers at the given index.
+         */
+        public java.lang.String getErrorTrackers(int index) {
+          return errorTrackers_.get(index);
+        }
+        /**
+         * <pre>
+         *音视频播放错误监测
+         * </pre>
+         *
+         * <code>repeated string error_trackers = 21;</code>
+         * @param index The index of the value to return.
+         * @return The bytes of the errorTrackers at the given index.
+         */
+        public com.google.protobuf.ByteString
+            getErrorTrackersBytes(int index) {
+          return errorTrackers_.getByteString(index);
+        }
+
+        public static final int CLOSE_TRACKERS_FIELD_NUMBER = 24;
+        @SuppressWarnings("serial")
+        private com.google.protobuf.LazyStringArrayList closeTrackers_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
+        /**
+         * <pre>
+         *音视频广告关闭监测
+         * </pre>
+         *
+         * <code>repeated string close_trackers = 24;</code>
+         * @return A list containing the closeTrackers.
+         */
+        public com.google.protobuf.ProtocolStringList
+            getCloseTrackersList() {
+          return closeTrackers_;
+        }
+        /**
+         * <pre>
+         *音视频广告关闭监测
+         * </pre>
+         *
+         * <code>repeated string close_trackers = 24;</code>
+         * @return The count of closeTrackers.
+         */
+        public int getCloseTrackersCount() {
+          return closeTrackers_.size();
+        }
+        /**
+         * <pre>
+         *音视频广告关闭监测
+         * </pre>
+         *
+         * <code>repeated string close_trackers = 24;</code>
+         * @param index The index of the element to return.
+         * @return The closeTrackers at the given index.
+         */
+        public java.lang.String getCloseTrackers(int index) {
+          return closeTrackers_.get(index);
+        }
+        /**
+         * <pre>
+         *音视频广告关闭监测
+         * </pre>
+         *
+         * <code>repeated string close_trackers = 24;</code>
+         * @param index The index of the value to return.
+         * @return The bytes of the closeTrackers at the given index.
+         */
+        public com.google.protobuf.ByteString
+            getCloseTrackersBytes(int index) {
+          return closeTrackers_.getByteString(index);
         }
 
         private byte memoizedIsInitialized = -1;
@@ -25331,26 +28939,44 @@ java.lang.String defaultValue) {
           if (((bitField0_ & 0x00000200) != 0)) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 11, bundle_);
           }
-          if (((bitField0_ & 0x00000400) != 0)) {
+          if (((bitField0_ & 0x00000800) != 0)) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 12, adm_);
           }
-          if (((bitField0_ & 0x00000800) != 0)) {
+          if (((bitField0_ & 0x00001000) != 0)) {
             output.writeMessage(13, getNativeAd());
           }
-          if (((bitField0_ & 0x00001000) != 0)) {
+          if (((bitField0_ & 0x00002000) != 0)) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 14, appDownloadUrl_);
           }
-          if (((bitField0_ & 0x00002000) != 0)) {
+          if (((bitField0_ & 0x00004000) != 0)) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 15, appName_);
           }
-          if (((bitField0_ & 0x00004000) != 0)) {
+          if (((bitField0_ & 0x00010000) != 0)) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 16, deeplink_);
           }
-          if (((bitField0_ & 0x00008000) != 0)) {
-            com.google.protobuf.GeneratedMessageV3.writeString(output, 17, dspId_);
+          if (((bitField0_ & 0x00020000) != 0)) {
+            output.writeUInt32(18, duration_);
+          }
+          for (int i = 0; i < playTrackers_.size(); i++) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 19, playTrackers_.getRaw(i));
           }
           if (((bitField0_ & 0x00000020) != 0)) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 20, nurl_);
+          }
+          for (int i = 0; i < errorTrackers_.size(); i++) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 21, errorTrackers_.getRaw(i));
+          }
+          for (int i = 0; i < completedTrackers_.size(); i++) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 22, completedTrackers_.getRaw(i));
+          }
+          if (((bitField0_ & 0x00000400) != 0)) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 23, appstoreId_);
+          }
+          for (int i = 0; i < closeTrackers_.size(); i++) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 24, closeTrackers_.getRaw(i));
+          }
+          if (((bitField0_ & 0x00008000) != 0)) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 25, appIconUrl_);
           }
           extensionWriter.writeUntil(300, output);
           getUnknownFields().writeTo(output);
@@ -25407,27 +29033,66 @@ java.lang.String defaultValue) {
           if (((bitField0_ & 0x00000200) != 0)) {
             size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, bundle_);
           }
-          if (((bitField0_ & 0x00000400) != 0)) {
+          if (((bitField0_ & 0x00000800) != 0)) {
             size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, adm_);
           }
-          if (((bitField0_ & 0x00000800) != 0)) {
+          if (((bitField0_ & 0x00001000) != 0)) {
             size += com.google.protobuf.CodedOutputStream
               .computeMessageSize(13, getNativeAd());
           }
-          if (((bitField0_ & 0x00001000) != 0)) {
+          if (((bitField0_ & 0x00002000) != 0)) {
             size += com.google.protobuf.GeneratedMessageV3.computeStringSize(14, appDownloadUrl_);
           }
-          if (((bitField0_ & 0x00002000) != 0)) {
+          if (((bitField0_ & 0x00004000) != 0)) {
             size += com.google.protobuf.GeneratedMessageV3.computeStringSize(15, appName_);
           }
-          if (((bitField0_ & 0x00004000) != 0)) {
+          if (((bitField0_ & 0x00010000) != 0)) {
             size += com.google.protobuf.GeneratedMessageV3.computeStringSize(16, deeplink_);
           }
-          if (((bitField0_ & 0x00008000) != 0)) {
-            size += com.google.protobuf.GeneratedMessageV3.computeStringSize(17, dspId_);
+          if (((bitField0_ & 0x00020000) != 0)) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeUInt32Size(18, duration_);
+          }
+          {
+            int dataSize = 0;
+            for (int i = 0; i < playTrackers_.size(); i++) {
+              dataSize += computeStringSizeNoTag(playTrackers_.getRaw(i));
+            }
+            size += dataSize;
+            size += 2 * getPlayTrackersList().size();
           }
           if (((bitField0_ & 0x00000020) != 0)) {
             size += com.google.protobuf.GeneratedMessageV3.computeStringSize(20, nurl_);
+          }
+          {
+            int dataSize = 0;
+            for (int i = 0; i < errorTrackers_.size(); i++) {
+              dataSize += computeStringSizeNoTag(errorTrackers_.getRaw(i));
+            }
+            size += dataSize;
+            size += 2 * getErrorTrackersList().size();
+          }
+          {
+            int dataSize = 0;
+            for (int i = 0; i < completedTrackers_.size(); i++) {
+              dataSize += computeStringSizeNoTag(completedTrackers_.getRaw(i));
+            }
+            size += dataSize;
+            size += 2 * getCompletedTrackersList().size();
+          }
+          if (((bitField0_ & 0x00000400) != 0)) {
+            size += com.google.protobuf.GeneratedMessageV3.computeStringSize(23, appstoreId_);
+          }
+          {
+            int dataSize = 0;
+            for (int i = 0; i < closeTrackers_.size(); i++) {
+              dataSize += computeStringSizeNoTag(closeTrackers_.getRaw(i));
+            }
+            size += dataSize;
+            size += 2 * getCloseTrackersList().size();
+          }
+          if (((bitField0_ & 0x00008000) != 0)) {
+            size += com.google.protobuf.GeneratedMessageV3.computeStringSize(25, appIconUrl_);
           }
           size += extensionsSerializedSize();
           size += getUnknownFields().getSerializedSize();
@@ -25499,6 +29164,11 @@ java.lang.String defaultValue) {
             if (!getBundle()
                 .equals(other.getBundle())) return false;
           }
+          if (hasAppstoreId() != other.hasAppstoreId()) return false;
+          if (hasAppstoreId()) {
+            if (!getAppstoreId()
+                .equals(other.getAppstoreId())) return false;
+          }
           if (hasAdm() != other.hasAdm()) return false;
           if (hasAdm()) {
             if (!getAdm()
@@ -25519,16 +29189,29 @@ java.lang.String defaultValue) {
             if (!getAppName()
                 .equals(other.getAppName())) return false;
           }
+          if (hasAppIconUrl() != other.hasAppIconUrl()) return false;
+          if (hasAppIconUrl()) {
+            if (!getAppIconUrl()
+                .equals(other.getAppIconUrl())) return false;
+          }
           if (hasDeeplink() != other.hasDeeplink()) return false;
           if (hasDeeplink()) {
             if (!getDeeplink()
                 .equals(other.getDeeplink())) return false;
           }
-          if (hasDspId() != other.hasDspId()) return false;
-          if (hasDspId()) {
-            if (!getDspId()
-                .equals(other.getDspId())) return false;
+          if (hasDuration() != other.hasDuration()) return false;
+          if (hasDuration()) {
+            if (getDuration()
+                != other.getDuration()) return false;
           }
+          if (!getPlayTrackersList()
+              .equals(other.getPlayTrackersList())) return false;
+          if (!getCompletedTrackersList()
+              .equals(other.getCompletedTrackersList())) return false;
+          if (!getErrorTrackersList()
+              .equals(other.getErrorTrackersList())) return false;
+          if (!getCloseTrackersList()
+              .equals(other.getCloseTrackersList())) return false;
           if (!getUnknownFields().equals(other.getUnknownFields())) return false;
           if (!getExtensionFields().equals(other.getExtensionFields()))
             return false;
@@ -25591,6 +29274,10 @@ java.lang.String defaultValue) {
             hash = (37 * hash) + BUNDLE_FIELD_NUMBER;
             hash = (53 * hash) + getBundle().hashCode();
           }
+          if (hasAppstoreId()) {
+            hash = (37 * hash) + APPSTORE_ID_FIELD_NUMBER;
+            hash = (53 * hash) + getAppstoreId().hashCode();
+          }
           if (hasAdm()) {
             hash = (37 * hash) + ADM_FIELD_NUMBER;
             hash = (53 * hash) + getAdm().hashCode();
@@ -25607,13 +29294,33 @@ java.lang.String defaultValue) {
             hash = (37 * hash) + APP_NAME_FIELD_NUMBER;
             hash = (53 * hash) + getAppName().hashCode();
           }
+          if (hasAppIconUrl()) {
+            hash = (37 * hash) + APP_ICON_URL_FIELD_NUMBER;
+            hash = (53 * hash) + getAppIconUrl().hashCode();
+          }
           if (hasDeeplink()) {
             hash = (37 * hash) + DEEPLINK_FIELD_NUMBER;
             hash = (53 * hash) + getDeeplink().hashCode();
           }
-          if (hasDspId()) {
-            hash = (37 * hash) + DSP_ID_FIELD_NUMBER;
-            hash = (53 * hash) + getDspId().hashCode();
+          if (hasDuration()) {
+            hash = (37 * hash) + DURATION_FIELD_NUMBER;
+            hash = (53 * hash) + getDuration();
+          }
+          if (getPlayTrackersCount() > 0) {
+            hash = (37 * hash) + PLAY_TRACKERS_FIELD_NUMBER;
+            hash = (53 * hash) + getPlayTrackersList().hashCode();
+          }
+          if (getCompletedTrackersCount() > 0) {
+            hash = (37 * hash) + COMPLETED_TRACKERS_FIELD_NUMBER;
+            hash = (53 * hash) + getCompletedTrackersList().hashCode();
+          }
+          if (getErrorTrackersCount() > 0) {
+            hash = (37 * hash) + ERROR_TRACKERS_FIELD_NUMBER;
+            hash = (53 * hash) + getErrorTrackersList().hashCode();
+          }
+          if (getCloseTrackersCount() > 0) {
+            hash = (37 * hash) + CLOSE_TRACKERS_FIELD_NUMBER;
+            hash = (53 * hash) + getCloseTrackersList().hashCode();
           }
           hash = hashFields(hash, getExtensionFields());
           hash = (29 * hash) + getUnknownFields().hashCode();
@@ -25768,6 +29475,7 @@ java.lang.String defaultValue) {
             creativeUrl_ = "";
             clickType_ = 0;
             bundle_ = "";
+            appstoreId_ = "";
             adm_ = "";
             nativeAd_ = null;
             if (nativeAdBuilder_ != null) {
@@ -25776,8 +29484,17 @@ java.lang.String defaultValue) {
             }
             appDownloadUrl_ = "";
             appName_ = "";
+            appIconUrl_ = "";
             deeplink_ = "";
-            dspId_ = "";
+            duration_ = 0;
+            playTrackers_ =
+                com.google.protobuf.LazyStringArrayList.emptyList();
+            completedTrackers_ =
+                com.google.protobuf.LazyStringArrayList.emptyList();
+            errorTrackers_ =
+                com.google.protobuf.LazyStringArrayList.emptyList();
+            closeTrackers_ =
+                com.google.protobuf.LazyStringArrayList.emptyList();
             return this;
           }
 
@@ -25861,30 +29578,54 @@ java.lang.String defaultValue) {
               to_bitField0_ |= 0x00000200;
             }
             if (((from_bitField0_ & 0x00001000) != 0)) {
-              result.adm_ = adm_;
+              result.appstoreId_ = appstoreId_;
               to_bitField0_ |= 0x00000400;
             }
             if (((from_bitField0_ & 0x00002000) != 0)) {
-              result.nativeAd_ = nativeAdBuilder_ == null
-                  ? nativeAd_
-                  : nativeAdBuilder_.build();
+              result.adm_ = adm_;
               to_bitField0_ |= 0x00000800;
             }
             if (((from_bitField0_ & 0x00004000) != 0)) {
-              result.appDownloadUrl_ = appDownloadUrl_;
+              result.nativeAd_ = nativeAdBuilder_ == null
+                  ? nativeAd_
+                  : nativeAdBuilder_.build();
               to_bitField0_ |= 0x00001000;
             }
             if (((from_bitField0_ & 0x00008000) != 0)) {
-              result.appName_ = appName_;
+              result.appDownloadUrl_ = appDownloadUrl_;
               to_bitField0_ |= 0x00002000;
             }
             if (((from_bitField0_ & 0x00010000) != 0)) {
-              result.deeplink_ = deeplink_;
+              result.appName_ = appName_;
               to_bitField0_ |= 0x00004000;
             }
             if (((from_bitField0_ & 0x00020000) != 0)) {
-              result.dspId_ = dspId_;
+              result.appIconUrl_ = appIconUrl_;
               to_bitField0_ |= 0x00008000;
+            }
+            if (((from_bitField0_ & 0x00040000) != 0)) {
+              result.deeplink_ = deeplink_;
+              to_bitField0_ |= 0x00010000;
+            }
+            if (((from_bitField0_ & 0x00080000) != 0)) {
+              result.duration_ = duration_;
+              to_bitField0_ |= 0x00020000;
+            }
+            if (((from_bitField0_ & 0x00100000) != 0)) {
+              playTrackers_.makeImmutable();
+              result.playTrackers_ = playTrackers_;
+            }
+            if (((from_bitField0_ & 0x00200000) != 0)) {
+              completedTrackers_.makeImmutable();
+              result.completedTrackers_ = completedTrackers_;
+            }
+            if (((from_bitField0_ & 0x00400000) != 0)) {
+              errorTrackers_.makeImmutable();
+              result.errorTrackers_ = errorTrackers_;
+            }
+            if (((from_bitField0_ & 0x00800000) != 0)) {
+              closeTrackers_.makeImmutable();
+              result.closeTrackers_ = closeTrackers_;
             }
             result.bitField0_ |= to_bitField0_;
           }
@@ -26026,9 +29767,14 @@ java.lang.String defaultValue) {
               bitField0_ |= 0x00000800;
               onChanged();
             }
+            if (other.hasAppstoreId()) {
+              appstoreId_ = other.appstoreId_;
+              bitField0_ |= 0x00001000;
+              onChanged();
+            }
             if (other.hasAdm()) {
               adm_ = other.adm_;
-              bitField0_ |= 0x00001000;
+              bitField0_ |= 0x00002000;
               onChanged();
             }
             if (other.hasNativeAd()) {
@@ -26036,22 +29782,65 @@ java.lang.String defaultValue) {
             }
             if (other.hasAppDownloadUrl()) {
               appDownloadUrl_ = other.appDownloadUrl_;
-              bitField0_ |= 0x00004000;
+              bitField0_ |= 0x00008000;
               onChanged();
             }
             if (other.hasAppName()) {
               appName_ = other.appName_;
-              bitField0_ |= 0x00008000;
+              bitField0_ |= 0x00010000;
+              onChanged();
+            }
+            if (other.hasAppIconUrl()) {
+              appIconUrl_ = other.appIconUrl_;
+              bitField0_ |= 0x00020000;
               onChanged();
             }
             if (other.hasDeeplink()) {
               deeplink_ = other.deeplink_;
-              bitField0_ |= 0x00010000;
+              bitField0_ |= 0x00040000;
               onChanged();
             }
-            if (other.hasDspId()) {
-              dspId_ = other.dspId_;
-              bitField0_ |= 0x00020000;
+            if (other.hasDuration()) {
+              setDuration(other.getDuration());
+            }
+            if (!other.playTrackers_.isEmpty()) {
+              if (playTrackers_.isEmpty()) {
+                playTrackers_ = other.playTrackers_;
+                bitField0_ |= 0x00100000;
+              } else {
+                ensurePlayTrackersIsMutable();
+                playTrackers_.addAll(other.playTrackers_);
+              }
+              onChanged();
+            }
+            if (!other.completedTrackers_.isEmpty()) {
+              if (completedTrackers_.isEmpty()) {
+                completedTrackers_ = other.completedTrackers_;
+                bitField0_ |= 0x00200000;
+              } else {
+                ensureCompletedTrackersIsMutable();
+                completedTrackers_.addAll(other.completedTrackers_);
+              }
+              onChanged();
+            }
+            if (!other.errorTrackers_.isEmpty()) {
+              if (errorTrackers_.isEmpty()) {
+                errorTrackers_ = other.errorTrackers_;
+                bitField0_ |= 0x00400000;
+              } else {
+                ensureErrorTrackersIsMutable();
+                errorTrackers_.addAll(other.errorTrackers_);
+              }
+              onChanged();
+            }
+            if (!other.closeTrackers_.isEmpty()) {
+              if (closeTrackers_.isEmpty()) {
+                closeTrackers_ = other.closeTrackers_;
+                bitField0_ |= 0x00800000;
+              } else {
+                ensureCloseTrackersIsMutable();
+                closeTrackers_.addAll(other.closeTrackers_);
+              }
               onChanged();
             }
             this.mergeExtensionFields(other);
@@ -26155,41 +29944,75 @@ java.lang.String defaultValue) {
                   } // case 90
                   case 98: {
                     adm_ = input.readBytes();
-                    bitField0_ |= 0x00001000;
+                    bitField0_ |= 0x00002000;
                     break;
                   } // case 98
                   case 106: {
                     input.readMessage(
                         getNativeAdFieldBuilder().getBuilder(),
                         extensionRegistry);
-                    bitField0_ |= 0x00002000;
+                    bitField0_ |= 0x00004000;
                     break;
                   } // case 106
                   case 114: {
                     appDownloadUrl_ = input.readBytes();
-                    bitField0_ |= 0x00004000;
+                    bitField0_ |= 0x00008000;
                     break;
                   } // case 114
                   case 122: {
                     appName_ = input.readBytes();
-                    bitField0_ |= 0x00008000;
+                    bitField0_ |= 0x00010000;
                     break;
                   } // case 122
                   case 130: {
                     deeplink_ = input.readBytes();
-                    bitField0_ |= 0x00010000;
+                    bitField0_ |= 0x00040000;
                     break;
                   } // case 130
-                  case 138: {
-                    dspId_ = input.readBytes();
-                    bitField0_ |= 0x00020000;
+                  case 144: {
+                    duration_ = input.readUInt32();
+                    bitField0_ |= 0x00080000;
                     break;
-                  } // case 138
+                  } // case 144
+                  case 154: {
+                    com.google.protobuf.ByteString bs = input.readBytes();
+                    ensurePlayTrackersIsMutable();
+                    playTrackers_.add(bs);
+                    break;
+                  } // case 154
                   case 162: {
                     nurl_ = input.readBytes();
                     bitField0_ |= 0x00000020;
                     break;
                   } // case 162
+                  case 170: {
+                    com.google.protobuf.ByteString bs = input.readBytes();
+                    ensureErrorTrackersIsMutable();
+                    errorTrackers_.add(bs);
+                    break;
+                  } // case 170
+                  case 178: {
+                    com.google.protobuf.ByteString bs = input.readBytes();
+                    ensureCompletedTrackersIsMutable();
+                    completedTrackers_.add(bs);
+                    break;
+                  } // case 178
+                  case 186: {
+                    appstoreId_ = input.readBytes();
+                    bitField0_ |= 0x00001000;
+                    break;
+                  } // case 186
+                  case 194: {
+                    com.google.protobuf.ByteString bs = input.readBytes();
+                    ensureCloseTrackersIsMutable();
+                    closeTrackers_.add(bs);
+                    break;
+                  } // case 194
+                  case 202: {
+                    appIconUrl_ = input.readBytes();
+                    bitField0_ |= 0x00020000;
+                    break;
+                  } // case 202
                   default: {
                     if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                       done = true; // was an endgroup tag
@@ -26418,7 +30241,7 @@ java.lang.String defaultValue) {
           private long price_ ;
           /**
            * <pre>
-           *广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
+           *广告出价, 单位分
            * </pre>
            *
            * <code>required uint64 price = 3;</code>
@@ -26430,7 +30253,7 @@ java.lang.String defaultValue) {
           }
           /**
            * <pre>
-           *广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
+           *广告出价, 单位分
            * </pre>
            *
            * <code>required uint64 price = 3;</code>
@@ -26442,7 +30265,7 @@ java.lang.String defaultValue) {
           }
           /**
            * <pre>
-           *广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
+           *广告出价, 单位分
            * </pre>
            *
            * <code>required uint64 price = 3;</code>
@@ -26458,7 +30281,7 @@ java.lang.String defaultValue) {
           }
           /**
            * <pre>
-           *广告出价, 使用微单位计费：“微单位”通常指 Micros，即百万分之一货币单位
+           *广告出价, 单位分
            * </pre>
            *
            * <code>required uint64 price = 3;</code>
@@ -26578,7 +30401,7 @@ java.lang.String defaultValue) {
           private java.lang.Object dealid_ = "";
           /**
            * <pre>
-           *请求pmp dealid
+           *pmp dealid
            * </pre>
            *
            * <code>optional string dealid = 5;</code>
@@ -26589,7 +30412,7 @@ java.lang.String defaultValue) {
           }
           /**
            * <pre>
-           *请求pmp dealid
+           *pmp dealid
            * </pre>
            *
            * <code>optional string dealid = 5;</code>
@@ -26611,7 +30434,7 @@ java.lang.String defaultValue) {
           }
           /**
            * <pre>
-           *请求pmp dealid
+           *pmp dealid
            * </pre>
            *
            * <code>optional string dealid = 5;</code>
@@ -26632,7 +30455,7 @@ java.lang.String defaultValue) {
           }
           /**
            * <pre>
-           *请求pmp dealid
+           *pmp dealid
            * </pre>
            *
            * <code>optional string dealid = 5;</code>
@@ -26649,7 +30472,7 @@ java.lang.String defaultValue) {
           }
           /**
            * <pre>
-           *请求pmp dealid
+           *pmp dealid
            * </pre>
            *
            * <code>optional string dealid = 5;</code>
@@ -26663,7 +30486,7 @@ java.lang.String defaultValue) {
           }
           /**
            * <pre>
-           *请求pmp dealid
+           *pmp dealid
            * </pre>
            *
            * <code>optional string dealid = 5;</code>
@@ -27443,6 +31266,110 @@ java.lang.String defaultValue) {
             return this;
           }
 
+          private java.lang.Object appstoreId_ = "";
+          /**
+           * <pre>
+           *应用市场id
+           * </pre>
+           *
+           * <code>optional string appstore_id = 23;</code>
+           * @return Whether the appstoreId field is set.
+           */
+          public boolean hasAppstoreId() {
+            return ((bitField0_ & 0x00001000) != 0);
+          }
+          /**
+           * <pre>
+           *应用市场id
+           * </pre>
+           *
+           * <code>optional string appstore_id = 23;</code>
+           * @return The appstoreId.
+           */
+          public java.lang.String getAppstoreId() {
+            java.lang.Object ref = appstoreId_;
+            if (!(ref instanceof java.lang.String)) {
+              com.google.protobuf.ByteString bs =
+                  (com.google.protobuf.ByteString) ref;
+              java.lang.String s = bs.toStringUtf8();
+              if (bs.isValidUtf8()) {
+                appstoreId_ = s;
+              }
+              return s;
+            } else {
+              return (java.lang.String) ref;
+            }
+          }
+          /**
+           * <pre>
+           *应用市场id
+           * </pre>
+           *
+           * <code>optional string appstore_id = 23;</code>
+           * @return The bytes for appstoreId.
+           */
+          public com.google.protobuf.ByteString
+              getAppstoreIdBytes() {
+            java.lang.Object ref = appstoreId_;
+            if (ref instanceof String) {
+              com.google.protobuf.ByteString b = 
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                      (java.lang.String) ref);
+              appstoreId_ = b;
+              return b;
+            } else {
+              return (com.google.protobuf.ByteString) ref;
+            }
+          }
+          /**
+           * <pre>
+           *应用市场id
+           * </pre>
+           *
+           * <code>optional string appstore_id = 23;</code>
+           * @param value The appstoreId to set.
+           * @return This builder for chaining.
+           */
+          public Builder setAppstoreId(
+              java.lang.String value) {
+            if (value == null) { throw new NullPointerException(); }
+            appstoreId_ = value;
+            bitField0_ |= 0x00001000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *应用市场id
+           * </pre>
+           *
+           * <code>optional string appstore_id = 23;</code>
+           * @return This builder for chaining.
+           */
+          public Builder clearAppstoreId() {
+            appstoreId_ = getDefaultInstance().getAppstoreId();
+            bitField0_ = (bitField0_ & ~0x00001000);
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *应用市场id
+           * </pre>
+           *
+           * <code>optional string appstore_id = 23;</code>
+           * @param value The bytes for appstoreId to set.
+           * @return This builder for chaining.
+           */
+          public Builder setAppstoreIdBytes(
+              com.google.protobuf.ByteString value) {
+            if (value == null) { throw new NullPointerException(); }
+            appstoreId_ = value;
+            bitField0_ |= 0x00001000;
+            onChanged();
+            return this;
+          }
+
           private java.lang.Object adm_ = "";
           /**
            * <pre>
@@ -27453,7 +31380,7 @@ java.lang.String defaultValue) {
            * @return Whether the adm field is set.
            */
           public boolean hasAdm() {
-            return ((bitField0_ & 0x00001000) != 0);
+            return ((bitField0_ & 0x00002000) != 0);
           }
           /**
            * <pre>
@@ -27511,7 +31438,7 @@ java.lang.String defaultValue) {
               java.lang.String value) {
             if (value == null) { throw new NullPointerException(); }
             adm_ = value;
-            bitField0_ |= 0x00001000;
+            bitField0_ |= 0x00002000;
             onChanged();
             return this;
           }
@@ -27525,7 +31452,7 @@ java.lang.String defaultValue) {
            */
           public Builder clearAdm() {
             adm_ = getDefaultInstance().getAdm();
-            bitField0_ = (bitField0_ & ~0x00001000);
+            bitField0_ = (bitField0_ & ~0x00002000);
             onChanged();
             return this;
           }
@@ -27542,7 +31469,7 @@ java.lang.String defaultValue) {
               com.google.protobuf.ByteString value) {
             if (value == null) { throw new NullPointerException(); }
             adm_ = value;
-            bitField0_ |= 0x00001000;
+            bitField0_ |= 0x00002000;
             onChanged();
             return this;
           }
@@ -27552,18 +31479,18 @@ java.lang.String defaultValue) {
               top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAd, top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAd.Builder, top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAdOrBuilder> nativeAdBuilder_;
           /**
            * <pre>
-           *原生广告响应
+           *原生广告响应，如果dsp平台本身创意已经上传到广告交易平台的话，则无需回传
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
            * @return Whether the nativeAd field is set.
            */
           public boolean hasNativeAd() {
-            return ((bitField0_ & 0x00002000) != 0);
+            return ((bitField0_ & 0x00004000) != 0);
           }
           /**
            * <pre>
-           *原生广告响应
+           *原生广告响应，如果dsp平台本身创意已经上传到广告交易平台的话，则无需回传
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -27578,7 +31505,7 @@ java.lang.String defaultValue) {
           }
           /**
            * <pre>
-           *原生广告响应
+           *原生广告响应，如果dsp平台本身创意已经上传到广告交易平台的话，则无需回传
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -27592,13 +31519,13 @@ java.lang.String defaultValue) {
             } else {
               nativeAdBuilder_.setMessage(value);
             }
-            bitField0_ |= 0x00002000;
+            bitField0_ |= 0x00004000;
             onChanged();
             return this;
           }
           /**
            * <pre>
-           *原生广告响应
+           *原生广告响应，如果dsp平台本身创意已经上传到广告交易平台的话，则无需回传
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -27610,20 +31537,20 @@ java.lang.String defaultValue) {
             } else {
               nativeAdBuilder_.setMessage(builderForValue.build());
             }
-            bitField0_ |= 0x00002000;
+            bitField0_ |= 0x00004000;
             onChanged();
             return this;
           }
           /**
            * <pre>
-           *原生广告响应
+           *原生广告响应，如果dsp平台本身创意已经上传到广告交易平台的话，则无需回传
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
            */
           public Builder mergeNativeAd(top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAd value) {
             if (nativeAdBuilder_ == null) {
-              if (((bitField0_ & 0x00002000) != 0) &&
+              if (((bitField0_ & 0x00004000) != 0) &&
                 nativeAd_ != null &&
                 nativeAd_ != top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAd.getDefaultInstance()) {
                 getNativeAdBuilder().mergeFrom(value);
@@ -27634,20 +31561,20 @@ java.lang.String defaultValue) {
               nativeAdBuilder_.mergeFrom(value);
             }
             if (nativeAd_ != null) {
-              bitField0_ |= 0x00002000;
+              bitField0_ |= 0x00004000;
               onChanged();
             }
             return this;
           }
           /**
            * <pre>
-           *原生广告响应
+           *原生广告响应，如果dsp平台本身创意已经上传到广告交易平台的话，则无需回传
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
            */
           public Builder clearNativeAd() {
-            bitField0_ = (bitField0_ & ~0x00002000);
+            bitField0_ = (bitField0_ & ~0x00004000);
             nativeAd_ = null;
             if (nativeAdBuilder_ != null) {
               nativeAdBuilder_.dispose();
@@ -27658,19 +31585,19 @@ java.lang.String defaultValue) {
           }
           /**
            * <pre>
-           *原生广告响应
+           *原生广告响应，如果dsp平台本身创意已经上传到广告交易平台的话，则无需回传
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
            */
           public top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.NativeAd.Builder getNativeAdBuilder() {
-            bitField0_ |= 0x00002000;
+            bitField0_ |= 0x00004000;
             onChanged();
             return getNativeAdFieldBuilder().getBuilder();
           }
           /**
            * <pre>
-           *原生广告响应
+           *原生广告响应，如果dsp平台本身创意已经上传到广告交易平台的话，则无需回传
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -27685,7 +31612,7 @@ java.lang.String defaultValue) {
           }
           /**
            * <pre>
-           *原生广告响应
+           *原生广告响应，如果dsp平台本身创意已经上传到广告交易平台的话，则无需回传
            * </pre>
            *
            * <code>optional .top.openadexchange.rtb.proto.BidResponse.NativeAd nativeAd = 13;</code>
@@ -27714,7 +31641,7 @@ java.lang.String defaultValue) {
            * @return Whether the appDownloadUrl field is set.
            */
           public boolean hasAppDownloadUrl() {
-            return ((bitField0_ & 0x00004000) != 0);
+            return ((bitField0_ & 0x00008000) != 0);
           }
           /**
            * <pre>
@@ -27772,7 +31699,7 @@ java.lang.String defaultValue) {
               java.lang.String value) {
             if (value == null) { throw new NullPointerException(); }
             appDownloadUrl_ = value;
-            bitField0_ |= 0x00004000;
+            bitField0_ |= 0x00008000;
             onChanged();
             return this;
           }
@@ -27786,7 +31713,7 @@ java.lang.String defaultValue) {
            */
           public Builder clearAppDownloadUrl() {
             appDownloadUrl_ = getDefaultInstance().getAppDownloadUrl();
-            bitField0_ = (bitField0_ & ~0x00004000);
+            bitField0_ = (bitField0_ & ~0x00008000);
             onChanged();
             return this;
           }
@@ -27803,7 +31730,7 @@ java.lang.String defaultValue) {
               com.google.protobuf.ByteString value) {
             if (value == null) { throw new NullPointerException(); }
             appDownloadUrl_ = value;
-            bitField0_ |= 0x00004000;
+            bitField0_ |= 0x00008000;
             onChanged();
             return this;
           }
@@ -27818,7 +31745,7 @@ java.lang.String defaultValue) {
            * @return Whether the appName field is set.
            */
           public boolean hasAppName() {
-            return ((bitField0_ & 0x00008000) != 0);
+            return ((bitField0_ & 0x00010000) != 0);
           }
           /**
            * <pre>
@@ -27876,7 +31803,7 @@ java.lang.String defaultValue) {
               java.lang.String value) {
             if (value == null) { throw new NullPointerException(); }
             appName_ = value;
-            bitField0_ |= 0x00008000;
+            bitField0_ |= 0x00010000;
             onChanged();
             return this;
           }
@@ -27890,7 +31817,7 @@ java.lang.String defaultValue) {
            */
           public Builder clearAppName() {
             appName_ = getDefaultInstance().getAppName();
-            bitField0_ = (bitField0_ & ~0x00008000);
+            bitField0_ = (bitField0_ & ~0x00010000);
             onChanged();
             return this;
           }
@@ -27907,7 +31834,87 @@ java.lang.String defaultValue) {
               com.google.protobuf.ByteString value) {
             if (value == null) { throw new NullPointerException(); }
             appName_ = value;
-            bitField0_ |= 0x00008000;
+            bitField0_ |= 0x00010000;
+            onChanged();
+            return this;
+          }
+
+          private java.lang.Object appIconUrl_ = "";
+          /**
+           * <code>optional string app_icon_url = 25;</code>
+           * @return Whether the appIconUrl field is set.
+           */
+          public boolean hasAppIconUrl() {
+            return ((bitField0_ & 0x00020000) != 0);
+          }
+          /**
+           * <code>optional string app_icon_url = 25;</code>
+           * @return The appIconUrl.
+           */
+          public java.lang.String getAppIconUrl() {
+            java.lang.Object ref = appIconUrl_;
+            if (!(ref instanceof java.lang.String)) {
+              com.google.protobuf.ByteString bs =
+                  (com.google.protobuf.ByteString) ref;
+              java.lang.String s = bs.toStringUtf8();
+              if (bs.isValidUtf8()) {
+                appIconUrl_ = s;
+              }
+              return s;
+            } else {
+              return (java.lang.String) ref;
+            }
+          }
+          /**
+           * <code>optional string app_icon_url = 25;</code>
+           * @return The bytes for appIconUrl.
+           */
+          public com.google.protobuf.ByteString
+              getAppIconUrlBytes() {
+            java.lang.Object ref = appIconUrl_;
+            if (ref instanceof String) {
+              com.google.protobuf.ByteString b = 
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                      (java.lang.String) ref);
+              appIconUrl_ = b;
+              return b;
+            } else {
+              return (com.google.protobuf.ByteString) ref;
+            }
+          }
+          /**
+           * <code>optional string app_icon_url = 25;</code>
+           * @param value The appIconUrl to set.
+           * @return This builder for chaining.
+           */
+          public Builder setAppIconUrl(
+              java.lang.String value) {
+            if (value == null) { throw new NullPointerException(); }
+            appIconUrl_ = value;
+            bitField0_ |= 0x00020000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>optional string app_icon_url = 25;</code>
+           * @return This builder for chaining.
+           */
+          public Builder clearAppIconUrl() {
+            appIconUrl_ = getDefaultInstance().getAppIconUrl();
+            bitField0_ = (bitField0_ & ~0x00020000);
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>optional string app_icon_url = 25;</code>
+           * @param value The bytes for appIconUrl to set.
+           * @return This builder for chaining.
+           */
+          public Builder setAppIconUrlBytes(
+              com.google.protobuf.ByteString value) {
+            if (value == null) { throw new NullPointerException(); }
+            appIconUrl_ = value;
+            bitField0_ |= 0x00020000;
             onChanged();
             return this;
           }
@@ -27922,7 +31929,7 @@ java.lang.String defaultValue) {
            * @return Whether the deeplink field is set.
            */
           public boolean hasDeeplink() {
-            return ((bitField0_ & 0x00010000) != 0);
+            return ((bitField0_ & 0x00040000) != 0);
           }
           /**
            * <pre>
@@ -27980,7 +31987,7 @@ java.lang.String defaultValue) {
               java.lang.String value) {
             if (value == null) { throw new NullPointerException(); }
             deeplink_ = value;
-            bitField0_ |= 0x00010000;
+            bitField0_ |= 0x00040000;
             onChanged();
             return this;
           }
@@ -27994,7 +32001,7 @@ java.lang.String defaultValue) {
            */
           public Builder clearDeeplink() {
             deeplink_ = getDefaultInstance().getDeeplink();
-            bitField0_ = (bitField0_ & ~0x00010000);
+            bitField0_ = (bitField0_ & ~0x00040000);
             onChanged();
             return this;
           }
@@ -28011,111 +32018,647 @@ java.lang.String defaultValue) {
               com.google.protobuf.ByteString value) {
             if (value == null) { throw new NullPointerException(); }
             deeplink_ = value;
-            bitField0_ |= 0x00010000;
+            bitField0_ |= 0x00040000;
             onChanged();
             return this;
           }
 
-          private java.lang.Object dspId_ = "";
+          private int duration_ ;
           /**
            * <pre>
-           *dsp平台编码
+           *音视频广告时长
            * </pre>
            *
-           * <code>optional string dsp_id = 17;</code>
-           * @return Whether the dspId field is set.
+           * <code>optional uint32 duration = 18;</code>
+           * @return Whether the duration field is set.
            */
-          public boolean hasDspId() {
-            return ((bitField0_ & 0x00020000) != 0);
+          @java.lang.Override
+          public boolean hasDuration() {
+            return ((bitField0_ & 0x00080000) != 0);
           }
           /**
            * <pre>
-           *dsp平台编码
+           *音视频广告时长
            * </pre>
            *
-           * <code>optional string dsp_id = 17;</code>
-           * @return The dspId.
+           * <code>optional uint32 duration = 18;</code>
+           * @return The duration.
            */
-          public java.lang.String getDspId() {
-            java.lang.Object ref = dspId_;
-            if (!(ref instanceof java.lang.String)) {
-              com.google.protobuf.ByteString bs =
-                  (com.google.protobuf.ByteString) ref;
-              java.lang.String s = bs.toStringUtf8();
-              if (bs.isValidUtf8()) {
-                dspId_ = s;
-              }
-              return s;
-            } else {
-              return (java.lang.String) ref;
+          @java.lang.Override
+          public int getDuration() {
+            return duration_;
+          }
+          /**
+           * <pre>
+           *音视频广告时长
+           * </pre>
+           *
+           * <code>optional uint32 duration = 18;</code>
+           * @param value The duration to set.
+           * @return This builder for chaining.
+           */
+          public Builder setDuration(int value) {
+
+            duration_ = value;
+            bitField0_ |= 0x00080000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *音视频广告时长
+           * </pre>
+           *
+           * <code>optional uint32 duration = 18;</code>
+           * @return This builder for chaining.
+           */
+          public Builder clearDuration() {
+            bitField0_ = (bitField0_ & ~0x00080000);
+            duration_ = 0;
+            onChanged();
+            return this;
+          }
+
+          private com.google.protobuf.LazyStringArrayList playTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+          private void ensurePlayTrackersIsMutable() {
+            if (!playTrackers_.isModifiable()) {
+              playTrackers_ = new com.google.protobuf.LazyStringArrayList(playTrackers_);
             }
+            bitField0_ |= 0x00100000;
           }
           /**
            * <pre>
-           *dsp平台编码
+           *音视频播放开始监测
            * </pre>
            *
-           * <code>optional string dsp_id = 17;</code>
-           * @return The bytes for dspId.
+           * <code>repeated string play_trackers = 19;</code>
+           * @return A list containing the playTrackers.
+           */
+          public com.google.protobuf.ProtocolStringList
+              getPlayTrackersList() {
+            playTrackers_.makeImmutable();
+            return playTrackers_;
+          }
+          /**
+           * <pre>
+           *音视频播放开始监测
+           * </pre>
+           *
+           * <code>repeated string play_trackers = 19;</code>
+           * @return The count of playTrackers.
+           */
+          public int getPlayTrackersCount() {
+            return playTrackers_.size();
+          }
+          /**
+           * <pre>
+           *音视频播放开始监测
+           * </pre>
+           *
+           * <code>repeated string play_trackers = 19;</code>
+           * @param index The index of the element to return.
+           * @return The playTrackers at the given index.
+           */
+          public java.lang.String getPlayTrackers(int index) {
+            return playTrackers_.get(index);
+          }
+          /**
+           * <pre>
+           *音视频播放开始监测
+           * </pre>
+           *
+           * <code>repeated string play_trackers = 19;</code>
+           * @param index The index of the value to return.
+           * @return The bytes of the playTrackers at the given index.
            */
           public com.google.protobuf.ByteString
-              getDspIdBytes() {
-            java.lang.Object ref = dspId_;
-            if (ref instanceof String) {
-              com.google.protobuf.ByteString b = 
-                  com.google.protobuf.ByteString.copyFromUtf8(
-                      (java.lang.String) ref);
-              dspId_ = b;
-              return b;
-            } else {
-              return (com.google.protobuf.ByteString) ref;
-            }
+              getPlayTrackersBytes(int index) {
+            return playTrackers_.getByteString(index);
           }
           /**
            * <pre>
-           *dsp平台编码
+           *音视频播放开始监测
            * </pre>
            *
-           * <code>optional string dsp_id = 17;</code>
-           * @param value The dspId to set.
+           * <code>repeated string play_trackers = 19;</code>
+           * @param index The index to set the value at.
+           * @param value The playTrackers to set.
            * @return This builder for chaining.
            */
-          public Builder setDspId(
+          public Builder setPlayTrackers(
+              int index, java.lang.String value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensurePlayTrackersIsMutable();
+            playTrackers_.set(index, value);
+            bitField0_ |= 0x00100000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *音视频播放开始监测
+           * </pre>
+           *
+           * <code>repeated string play_trackers = 19;</code>
+           * @param value The playTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addPlayTrackers(
               java.lang.String value) {
             if (value == null) { throw new NullPointerException(); }
-            dspId_ = value;
-            bitField0_ |= 0x00020000;
+            ensurePlayTrackersIsMutable();
+            playTrackers_.add(value);
+            bitField0_ |= 0x00100000;
             onChanged();
             return this;
           }
           /**
            * <pre>
-           *dsp平台编码
+           *音视频播放开始监测
            * </pre>
            *
-           * <code>optional string dsp_id = 17;</code>
+           * <code>repeated string play_trackers = 19;</code>
+           * @param values The playTrackers to add.
            * @return This builder for chaining.
            */
-          public Builder clearDspId() {
-            dspId_ = getDefaultInstance().getDspId();
-            bitField0_ = (bitField0_ & ~0x00020000);
+          public Builder addAllPlayTrackers(
+              java.lang.Iterable<java.lang.String> values) {
+            ensurePlayTrackersIsMutable();
+            com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                values, playTrackers_);
+            bitField0_ |= 0x00100000;
             onChanged();
             return this;
           }
           /**
            * <pre>
-           *dsp平台编码
+           *音视频播放开始监测
            * </pre>
            *
-           * <code>optional string dsp_id = 17;</code>
-           * @param value The bytes for dspId to set.
+           * <code>repeated string play_trackers = 19;</code>
            * @return This builder for chaining.
            */
-          public Builder setDspIdBytes(
+          public Builder clearPlayTrackers() {
+            playTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+            bitField0_ = (bitField0_ & ~0x00100000);;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *音视频播放开始监测
+           * </pre>
+           *
+           * <code>repeated string play_trackers = 19;</code>
+           * @param value The bytes of the playTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addPlayTrackersBytes(
               com.google.protobuf.ByteString value) {
             if (value == null) { throw new NullPointerException(); }
-            dspId_ = value;
-            bitField0_ |= 0x00020000;
+            ensurePlayTrackersIsMutable();
+            playTrackers_.add(value);
+            bitField0_ |= 0x00100000;
+            onChanged();
+            return this;
+          }
+
+          private com.google.protobuf.LazyStringArrayList completedTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+          private void ensureCompletedTrackersIsMutable() {
+            if (!completedTrackers_.isModifiable()) {
+              completedTrackers_ = new com.google.protobuf.LazyStringArrayList(completedTrackers_);
+            }
+            bitField0_ |= 0x00200000;
+          }
+          /**
+           * <pre>
+           *音视频播放完成监测
+           * </pre>
+           *
+           * <code>repeated string completed_trackers = 22;</code>
+           * @return A list containing the completedTrackers.
+           */
+          public com.google.protobuf.ProtocolStringList
+              getCompletedTrackersList() {
+            completedTrackers_.makeImmutable();
+            return completedTrackers_;
+          }
+          /**
+           * <pre>
+           *音视频播放完成监测
+           * </pre>
+           *
+           * <code>repeated string completed_trackers = 22;</code>
+           * @return The count of completedTrackers.
+           */
+          public int getCompletedTrackersCount() {
+            return completedTrackers_.size();
+          }
+          /**
+           * <pre>
+           *音视频播放完成监测
+           * </pre>
+           *
+           * <code>repeated string completed_trackers = 22;</code>
+           * @param index The index of the element to return.
+           * @return The completedTrackers at the given index.
+           */
+          public java.lang.String getCompletedTrackers(int index) {
+            return completedTrackers_.get(index);
+          }
+          /**
+           * <pre>
+           *音视频播放完成监测
+           * </pre>
+           *
+           * <code>repeated string completed_trackers = 22;</code>
+           * @param index The index of the value to return.
+           * @return The bytes of the completedTrackers at the given index.
+           */
+          public com.google.protobuf.ByteString
+              getCompletedTrackersBytes(int index) {
+            return completedTrackers_.getByteString(index);
+          }
+          /**
+           * <pre>
+           *音视频播放完成监测
+           * </pre>
+           *
+           * <code>repeated string completed_trackers = 22;</code>
+           * @param index The index to set the value at.
+           * @param value The completedTrackers to set.
+           * @return This builder for chaining.
+           */
+          public Builder setCompletedTrackers(
+              int index, java.lang.String value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureCompletedTrackersIsMutable();
+            completedTrackers_.set(index, value);
+            bitField0_ |= 0x00200000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *音视频播放完成监测
+           * </pre>
+           *
+           * <code>repeated string completed_trackers = 22;</code>
+           * @param value The completedTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addCompletedTrackers(
+              java.lang.String value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureCompletedTrackersIsMutable();
+            completedTrackers_.add(value);
+            bitField0_ |= 0x00200000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *音视频播放完成监测
+           * </pre>
+           *
+           * <code>repeated string completed_trackers = 22;</code>
+           * @param values The completedTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addAllCompletedTrackers(
+              java.lang.Iterable<java.lang.String> values) {
+            ensureCompletedTrackersIsMutable();
+            com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                values, completedTrackers_);
+            bitField0_ |= 0x00200000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *音视频播放完成监测
+           * </pre>
+           *
+           * <code>repeated string completed_trackers = 22;</code>
+           * @return This builder for chaining.
+           */
+          public Builder clearCompletedTrackers() {
+            completedTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+            bitField0_ = (bitField0_ & ~0x00200000);;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *音视频播放完成监测
+           * </pre>
+           *
+           * <code>repeated string completed_trackers = 22;</code>
+           * @param value The bytes of the completedTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addCompletedTrackersBytes(
+              com.google.protobuf.ByteString value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureCompletedTrackersIsMutable();
+            completedTrackers_.add(value);
+            bitField0_ |= 0x00200000;
+            onChanged();
+            return this;
+          }
+
+          private com.google.protobuf.LazyStringArrayList errorTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+          private void ensureErrorTrackersIsMutable() {
+            if (!errorTrackers_.isModifiable()) {
+              errorTrackers_ = new com.google.protobuf.LazyStringArrayList(errorTrackers_);
+            }
+            bitField0_ |= 0x00400000;
+          }
+          /**
+           * <pre>
+           *音视频播放错误监测
+           * </pre>
+           *
+           * <code>repeated string error_trackers = 21;</code>
+           * @return A list containing the errorTrackers.
+           */
+          public com.google.protobuf.ProtocolStringList
+              getErrorTrackersList() {
+            errorTrackers_.makeImmutable();
+            return errorTrackers_;
+          }
+          /**
+           * <pre>
+           *音视频播放错误监测
+           * </pre>
+           *
+           * <code>repeated string error_trackers = 21;</code>
+           * @return The count of errorTrackers.
+           */
+          public int getErrorTrackersCount() {
+            return errorTrackers_.size();
+          }
+          /**
+           * <pre>
+           *音视频播放错误监测
+           * </pre>
+           *
+           * <code>repeated string error_trackers = 21;</code>
+           * @param index The index of the element to return.
+           * @return The errorTrackers at the given index.
+           */
+          public java.lang.String getErrorTrackers(int index) {
+            return errorTrackers_.get(index);
+          }
+          /**
+           * <pre>
+           *音视频播放错误监测
+           * </pre>
+           *
+           * <code>repeated string error_trackers = 21;</code>
+           * @param index The index of the value to return.
+           * @return The bytes of the errorTrackers at the given index.
+           */
+          public com.google.protobuf.ByteString
+              getErrorTrackersBytes(int index) {
+            return errorTrackers_.getByteString(index);
+          }
+          /**
+           * <pre>
+           *音视频播放错误监测
+           * </pre>
+           *
+           * <code>repeated string error_trackers = 21;</code>
+           * @param index The index to set the value at.
+           * @param value The errorTrackers to set.
+           * @return This builder for chaining.
+           */
+          public Builder setErrorTrackers(
+              int index, java.lang.String value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureErrorTrackersIsMutable();
+            errorTrackers_.set(index, value);
+            bitField0_ |= 0x00400000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *音视频播放错误监测
+           * </pre>
+           *
+           * <code>repeated string error_trackers = 21;</code>
+           * @param value The errorTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addErrorTrackers(
+              java.lang.String value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureErrorTrackersIsMutable();
+            errorTrackers_.add(value);
+            bitField0_ |= 0x00400000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *音视频播放错误监测
+           * </pre>
+           *
+           * <code>repeated string error_trackers = 21;</code>
+           * @param values The errorTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addAllErrorTrackers(
+              java.lang.Iterable<java.lang.String> values) {
+            ensureErrorTrackersIsMutable();
+            com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                values, errorTrackers_);
+            bitField0_ |= 0x00400000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *音视频播放错误监测
+           * </pre>
+           *
+           * <code>repeated string error_trackers = 21;</code>
+           * @return This builder for chaining.
+           */
+          public Builder clearErrorTrackers() {
+            errorTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+            bitField0_ = (bitField0_ & ~0x00400000);;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *音视频播放错误监测
+           * </pre>
+           *
+           * <code>repeated string error_trackers = 21;</code>
+           * @param value The bytes of the errorTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addErrorTrackersBytes(
+              com.google.protobuf.ByteString value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureErrorTrackersIsMutable();
+            errorTrackers_.add(value);
+            bitField0_ |= 0x00400000;
+            onChanged();
+            return this;
+          }
+
+          private com.google.protobuf.LazyStringArrayList closeTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+          private void ensureCloseTrackersIsMutable() {
+            if (!closeTrackers_.isModifiable()) {
+              closeTrackers_ = new com.google.protobuf.LazyStringArrayList(closeTrackers_);
+            }
+            bitField0_ |= 0x00800000;
+          }
+          /**
+           * <pre>
+           *音视频广告关闭监测
+           * </pre>
+           *
+           * <code>repeated string close_trackers = 24;</code>
+           * @return A list containing the closeTrackers.
+           */
+          public com.google.protobuf.ProtocolStringList
+              getCloseTrackersList() {
+            closeTrackers_.makeImmutable();
+            return closeTrackers_;
+          }
+          /**
+           * <pre>
+           *音视频广告关闭监测
+           * </pre>
+           *
+           * <code>repeated string close_trackers = 24;</code>
+           * @return The count of closeTrackers.
+           */
+          public int getCloseTrackersCount() {
+            return closeTrackers_.size();
+          }
+          /**
+           * <pre>
+           *音视频广告关闭监测
+           * </pre>
+           *
+           * <code>repeated string close_trackers = 24;</code>
+           * @param index The index of the element to return.
+           * @return The closeTrackers at the given index.
+           */
+          public java.lang.String getCloseTrackers(int index) {
+            return closeTrackers_.get(index);
+          }
+          /**
+           * <pre>
+           *音视频广告关闭监测
+           * </pre>
+           *
+           * <code>repeated string close_trackers = 24;</code>
+           * @param index The index of the value to return.
+           * @return The bytes of the closeTrackers at the given index.
+           */
+          public com.google.protobuf.ByteString
+              getCloseTrackersBytes(int index) {
+            return closeTrackers_.getByteString(index);
+          }
+          /**
+           * <pre>
+           *音视频广告关闭监测
+           * </pre>
+           *
+           * <code>repeated string close_trackers = 24;</code>
+           * @param index The index to set the value at.
+           * @param value The closeTrackers to set.
+           * @return This builder for chaining.
+           */
+          public Builder setCloseTrackers(
+              int index, java.lang.String value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureCloseTrackersIsMutable();
+            closeTrackers_.set(index, value);
+            bitField0_ |= 0x00800000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *音视频广告关闭监测
+           * </pre>
+           *
+           * <code>repeated string close_trackers = 24;</code>
+           * @param value The closeTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addCloseTrackers(
+              java.lang.String value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureCloseTrackersIsMutable();
+            closeTrackers_.add(value);
+            bitField0_ |= 0x00800000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *音视频广告关闭监测
+           * </pre>
+           *
+           * <code>repeated string close_trackers = 24;</code>
+           * @param values The closeTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addAllCloseTrackers(
+              java.lang.Iterable<java.lang.String> values) {
+            ensureCloseTrackersIsMutable();
+            com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                values, closeTrackers_);
+            bitField0_ |= 0x00800000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *音视频广告关闭监测
+           * </pre>
+           *
+           * <code>repeated string close_trackers = 24;</code>
+           * @return This builder for chaining.
+           */
+          public Builder clearCloseTrackers() {
+            closeTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+            bitField0_ = (bitField0_ & ~0x00800000);;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *音视频广告关闭监测
+           * </pre>
+           *
+           * <code>repeated string close_trackers = 24;</code>
+           * @param value The bytes of the closeTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addCloseTrackersBytes(
+              com.google.protobuf.ByteString value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureCloseTrackersIsMutable();
+            closeTrackers_.add(value);
+            bitField0_ |= 0x00800000;
             onChanged();
             return this;
           }
@@ -30579,7 +35122,7 @@ java.lang.String defaultValue) {
   static {
     java.lang.String[] descriptorData = {
       "\n\trtb.proto\022\034top.openadexchange.rtb.prot" +
-      "o\"\272\020\n\nBidRequest\022\n\n\002id\030\001 \002(\t\0229\n\003imp\030\002 \003(" +
+      "o\"\354\020\n\nBidRequest\022\n\n\002id\030\001 \002(\t\0229\n\003imp\030\002 \003(" +
       "\0132,.top.openadexchange.rtb.proto.BidRequ" +
       "est.Imp\022;\n\004site\030\003 \001(\0132-.top.openadexchan" +
       "ge.rtb.proto.BidRequest.Site\0229\n\003app\030\004 \001(" +
@@ -30587,71 +35130,82 @@ java.lang.String defaultValue) {
       "est.App\022?\n\006device\030\005 \001(\0132/.top.openadexch" +
       "ange.rtb.proto.BidRequest.Device\022;\n\004user" +
       "\030\006 \001(\0132-.top.openadexchange.rtb.proto.Bi" +
-      "dRequest.User\022\014\n\004test\030\007 \001(\010\022\n\n\002at\030\010 \001(\r\032" +
-      "\200\007\n\003Imp\022\n\n\002id\030\001 \002(\t\022C\n\006banner\030\002 \001(\01323.to" +
-      "p.openadexchange.rtb.proto.BidRequest.Im" +
-      "p.Banner\022A\n\005video\030\003 \001(\01322.top.openadexch" +
-      "ange.rtb.proto.BidRequest.Imp.Video\022L\n\013n" +
-      "ative_spec\030\r \001(\01327.top.openadexchange.rt" +
-      "b.proto.BidRequest.Imp.NativeSpec\022A\n\005aud" +
-      "io\030\016 \001(\01322.top.openadexchange.rtb.proto." +
-      "BidRequest.Imp.Audio\022=\n\003pmp\030\006 \001(\01320.top." +
-      "openadexchange.rtb.proto.BidRequest.Imp." +
-      "Pmp\022\r\n\005tagid\030\007 \001(\t\022\021\n\tbid_floor\030\010 \001(\004\022\025\n" +
-      "\rbid_floor_cur\030\t \001(\t\022\016\n\006secure\030\n \001(\r\022\024\n\014" +
-      "is_native_ad\030\014 \001(\010\032B\n\006Banner\022\t\n\001w\030\001 \001(\r\022" +
-      "\t\n\001h\030\002 \001(\r\022\013\n\003pos\030\003 \001(\r\022\r\n\005mimes\030\004 \003(\t*\006" +
-      "\010\310\001\020\254\002\032\231\001\n\005Video\022\r\n\005mimes\030\001 \003(\t\022\024\n\014min_d" +
-      "uration\030\002 \001(\r\022\024\n\014max_duration\030\003 \001(\r\022\021\n\ts" +
-      "kippable\030\006 \001(\010\022\020\n\010skip_min\030\007 \001(\r\022\022\n\nskip" +
-      "_after\030\010 \001(\r\022\t\n\001w\030\004 \001(\r\022\t\n\001h\030\005 \001(\r*\006\010\310\001\020" +
-      "\254\002\032B\n\005Audio\022\r\n\005mimes\030\001 \003(\t\022\024\n\014min_durati" +
-      "on\030\002 \001(\r\022\024\n\014max_duration\030\003 \001(\r\032!\n\nNative" +
-      "Spec\022\023\n\013template_id\030\001 \003(\t\032g\n\003Pmp\022D\n\005deal" +
-      "s\030\001 \003(\01325.top.openadexchange.rtb.proto.B" +
-      "idRequest.Imp.Pmp.Deal\032\022\n\004Deal\022\n\n\002id\030\001 \002" +
-      "(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002\032\246\001\n\003App\022\n\n\002id\030\001 \001(\t\022\014" +
-      "\n\004name\030\010 \001(\t\022\016\n\006bundle\030\002 \001(\t\022\013\n\003cat\030\003 \003(" +
-      "\t\022\013\n\003ver\030\004 \001(\t\022A\n\007content\030\006 \001(\01320.top.op" +
-      "enadexchange.rtb.proto.BidRequest.Conten" +
-      "t\022\020\n\010keywords\030\007 \001(\t*\006\010\310\001\020\254\002\032\232\001\n\004Site\022\n\n\002" +
-      "id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\016\n\006domain\030\003 \001(\t\022\013" +
-      "\n\003cat\030\004 \003(\t\022A\n\007content\030\010 \001(\01320.top.opena" +
-      "dexchange.rtb.proto.BidRequest.Content\022\020" +
-      "\n\010keywords\030\t \001(\t*\006\010\310\001\020\254\002\0326\n\007Content\022\n\n\002i" +
-      "d\030\001 \001(\t\022\r\n\005title\030\002 \001(\t\022\020\n\010keywords\030\003 \001(\t" +
-      "\032\304\002\n\006Device\022\n\n\002ua\030\001 \001(\t\0229\n\003geo\030\002 \001(\0132,.t" +
-      "op.openadexchange.rtb.proto.BidRequest.G" +
-      "eo\022\n\n\002ip\030\003 \001(\t\022\014\n\004ipv6\030\004 \001(\t\022\023\n\013device_t" +
-      "ype\030\005 \001(\r\022\014\n\004make\030\006 \001(\t\022\r\n\005model\030\007 \001(\t\022\n" +
-      "\n\002os\030\010 \001(\t\022\013\n\003osv\030\t \001(\t\022\017\n\007carrier\030\n \001(\t" +
-      "\022\027\n\017connection_type\030\013 \001(\r\022\013\n\003ifa\030\014 \001(\t\022\016" +
-      "\n\006didmd5\030\r \001(\t\022\013\n\003mac\030\016 \001(\t\022\016\n\006macmd5\030\017 " +
-      "\001(\t\022\014\n\004adid\030\020 \001(\t\022\t\n\001h\030\021 \001(\r\022\t\n\001w\030\022 \001(\r*" +
-      "\006\010\310\001\020\254\002\032i\n\003Geo\022\013\n\003lat\030\001 \001(\002\022\013\n\003lon\030\002 \001(\002" +
-      "\022\017\n\007country\030\003 \001(\t\022\016\n\006region\030\004 \001(\t\022\014\n\004cit" +
-      "y\030\005 \001(\t\022\021\n\tarea_code\030\006 \001(\r*\006\010\310\001\020\254\002\032\032\n\004Us" +
-      "er\022\n\n\002id\030\001 \001(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002\"\355\005\n\013BidRe" +
-      "sponse\022\n\n\002id\030\001 \002(\t\022B\n\007seatbid\030\002 \003(\01321.to" +
-      "p.openadexchange.rtb.proto.BidResponse.S" +
-      "eatBid\022\r\n\005bidid\030\003 \002(\t\032\236\001\n\010NativeAd\022\023\n\013te" +
-      "mplate_id\030\001 \001(\t\022N\n\006assets\030\002 \003(\0132>.top.op" +
-      "enadexchange.rtb.proto.BidResponse.Nativ" +
-      "eAd.AssetsEntry\032-\n\013AssetsEntry\022\013\n\003key\030\001 " +
-      "\001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032\325\003\n\007SeatBid\022B\n\003bi" +
-      "d\030\001 \003(\01325.top.openadexchange.rtb.proto.B" +
-      "idResponse.SeatBid.Bid\022\014\n\004seat\030\002 \001(\t\032\367\002\n" +
-      "\003Bid\022\n\n\002id\030\001 \002(\t\022\r\n\005impid\030\002 \002(\t\022\r\n\005price" +
-      "\030\003 \002(\004\022\014\n\004crid\030\004 \002(\t\022\016\n\006dealid\030\005 \001(\t\022\014\n\004" +
-      "nurl\030\024 \001(\t\022\024\n\014imp_trackers\030\006 \003(\t\022\024\n\014clk_" +
-      "trackers\030\007 \003(\t\022\013\n\003ldp\030\010 \001(\t\022\024\n\014creative_" +
-      "url\030\t \001(\t\022\022\n\nclick_type\030\n \001(\r\022\016\n\006bundle\030" +
-      "\013 \001(\t\022\013\n\003adm\030\014 \001(\t\022D\n\010nativeAd\030\r \001(\01322.t" +
-      "op.openadexchange.rtb.proto.BidResponse." +
-      "NativeAd\022\030\n\020app_download_url\030\016 \001(\t\022\020\n\010ap" +
-      "p_name\030\017 \001(\t\022\020\n\010deeplink\030\020 \001(\t\022\016\n\006dsp_id" +
-      "\030\021 \001(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002B+\n\034top.openadexch" +
-      "ange.rtb.protoB\013OaxRtbProto"
+      "dRequest.User\022\014\n\004test\030\007 \001(\010\022\n\n\002at\030\010 \001(\r\022" +
+      "\014\n\004tmax\030\t \001(\r\032\200\007\n\003Imp\022\n\n\002id\030\001 \002(\t\022C\n\006ban" +
+      "ner\030\002 \001(\01323.top.openadexchange.rtb.proto" +
+      ".BidRequest.Imp.Banner\022A\n\005video\030\003 \001(\01322." +
+      "top.openadexchange.rtb.proto.BidRequest." +
+      "Imp.Video\022L\n\013native_spec\030\r \001(\01327.top.ope" +
+      "nadexchange.rtb.proto.BidRequest.Imp.Nat" +
+      "iveSpec\022A\n\005audio\030\016 \001(\01322.top.openadexcha" +
+      "nge.rtb.proto.BidRequest.Imp.Audio\022=\n\003pm" +
+      "p\030\006 \001(\01320.top.openadexchange.rtb.proto.B" +
+      "idRequest.Imp.Pmp\022\r\n\005tagid\030\007 \001(\t\022\021\n\tbid_" +
+      "floor\030\010 \001(\004\022\025\n\rbid_floor_cur\030\t \001(\t\022\016\n\006se" +
+      "cure\030\n \001(\r\022\024\n\014is_native_ad\030\014 \001(\010\032B\n\006Bann" +
+      "er\022\t\n\001w\030\001 \001(\r\022\t\n\001h\030\002 \001(\r\022\013\n\003pos\030\003 \001(\r\022\r\n" +
+      "\005mimes\030\004 \003(\t*\006\010\310\001\020\254\002\032\231\001\n\005Video\022\r\n\005mimes\030" +
+      "\001 \003(\t\022\024\n\014min_duration\030\002 \001(\r\022\024\n\014max_durat" +
+      "ion\030\003 \001(\r\022\021\n\tskippable\030\006 \001(\010\022\020\n\010skip_min" +
+      "\030\007 \001(\r\022\022\n\nskip_after\030\010 \001(\r\022\t\n\001w\030\004 \001(\r\022\t\n" +
+      "\001h\030\005 \001(\r*\006\010\310\001\020\254\002\032B\n\005Audio\022\r\n\005mimes\030\001 \003(\t" +
+      "\022\024\n\014min_duration\030\002 \001(\r\022\024\n\014max_duration\030\003" +
+      " \001(\r\032!\n\nNativeSpec\022\023\n\013template_id\030\001 \003(\t\032" +
+      "g\n\003Pmp\022D\n\005deals\030\001 \003(\01325.top.openadexchan" +
+      "ge.rtb.proto.BidRequest.Imp.Pmp.Deal\032\022\n\004" +
+      "Deal\022\n\n\002id\030\001 \002(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002\032\246\001\n\003App" +
+      "\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\010 \001(\t\022\016\n\006bundle\030\002 \001" +
+      "(\t\022\013\n\003cat\030\003 \003(\t\022\013\n\003ver\030\004 \001(\t\022A\n\007content\030" +
+      "\006 \001(\01320.top.openadexchange.rtb.proto.Bid" +
+      "Request.Content\022\020\n\010keywords\030\007 \001(\t*\006\010\310\001\020\254" +
+      "\002\032\232\001\n\004Site\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\016\n\006" +
+      "domain\030\003 \001(\t\022\013\n\003cat\030\004 \003(\t\022A\n\007content\030\010 \001" +
+      "(\01320.top.openadexchange.rtb.proto.BidReq" +
+      "uest.Content\022\020\n\010keywords\030\t \001(\t*\006\010\310\001\020\254\002\032:" +
+      "\n\007Content\022\016\n\002id\030\001 \001(\tB\002\030\001\022\r\n\005title\030\002 \001(\t" +
+      "\022\020\n\010keywords\030\003 \001(\t\032\324\002\n\006Device\022\n\n\002ua\030\001 \001(" +
+      "\t\022\n\n\002ip\030\003 \001(\t\022\014\n\004ipv6\030\004 \001(\t\022\023\n\013device_ty" +
+      "pe\030\005 \001(\r\022\014\n\004make\030\006 \001(\t\022\r\n\005model\030\007 \001(\t\022\n\n" +
+      "\002os\030\010 \001(\t\022\013\n\003osv\030\t \001(\t\022\017\n\007carrier\030\n \001(\t\022" +
+      "\027\n\017connection_type\030\013 \001(\r\022\013\n\003ifa\030\014 \001(\t\022\022\n" +
+      "\006didmd5\030\r \001(\tB\002\030\001\022\017\n\003mac\030\016 \001(\tB\002\030\001\022\022\n\006ma" +
+      "cmd5\030\017 \001(\tB\002\030\001\022\020\n\004adid\030\020 \001(\tB\002\030\001\022\t\n\001h\030\021 " +
+      "\001(\r\022\t\n\001w\030\022 \001(\r\0229\n\003geo\030\002 \001(\0132,.top.openad" +
+      "exchange.rtb.proto.BidRequest.Geo*\006\010\310\001\020\254" +
+      "\002\032u\n\003Geo\022\013\n\003lat\030\001 \001(\002\022\013\n\003lon\030\002 \001(\002\022\017\n\007co" +
+      "untry\030\003 \001(\t\022\022\n\006region\030\004 \001(\tB\002\030\001\022\020\n\004city\030" +
+      "\005 \001(\tB\002\030\001\022\025\n\tarea_code\030\006 \001(\rB\002\030\001*\006\010\310\001\020\254\002" +
+      "\032\036\n\004User\022\016\n\002id\030\001 \001(\tB\002\030\001*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002" +
+      "\"\372\010\n\013BidResponse\022\n\n\002id\030\001 \002(\t\022B\n\007seatbid\030" +
+      "\002 \003(\01321.top.openadexchange.rtb.proto.Bid" +
+      "Response.SeatBid\022\r\n\005bidid\030\003 \002(\t\032\233\003\n\010Nati" +
+      "veAd\022\023\n\013template_id\030\001 \001(\t\022R\n\006assets\030\002 \003(" +
+      "\0132>.top.openadexchange.rtb.proto.BidResp" +
+      "onse.NativeAd.AssetsEntryB\002\030\001\022\r\n\005title\030\003" +
+      " \001(\t\022\014\n\004desc\030\004 \001(\t\022\014\n\004icon\030\005 \001(\t\022\022\n\nmain" +
+      "_image\030\006 \001(\t\022\016\n\006images\030\007 \003(\t\022\021\n\tsponsore" +
+      "d\030\010 \001(\t\022\016\n\006rating\030\t \001(\t\022\r\n\005likes\030\n \001(\t\022\021" +
+      "\n\tdownloads\030\013 \001(\t\022\r\n\005price\030\014 \001(\t\022\022\n\nsale" +
+      "_price\030\r \001(\t\022\r\n\005phone\030\016 \001(\t\022\017\n\007address\030\017" +
+      " \001(\t\022\023\n\013display_url\030\020 \001(\t\022\013\n\003cta\030\021 \001(\t\032-" +
+      "\n\013AssetsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(" +
+      "\t:\0028\001\032\345\004\n\007SeatBid\022B\n\003bid\030\001 \003(\01325.top.ope" +
+      "nadexchange.rtb.proto.BidResponse.SeatBi" +
+      "d.Bid\022\014\n\004seat\030\002 \001(\t\032\207\004\n\003Bid\022\n\n\002id\030\001 \002(\t\022" +
+      "\r\n\005impid\030\002 \002(\t\022\r\n\005price\030\003 \002(\004\022\014\n\004crid\030\004 " +
+      "\002(\t\022\016\n\006dealid\030\005 \001(\t\022\014\n\004nurl\030\024 \001(\t\022\024\n\014imp" +
+      "_trackers\030\006 \003(\t\022\024\n\014clk_trackers\030\007 \003(\t\022\013\n" +
+      "\003ldp\030\010 \001(\t\022\024\n\014creative_url\030\t \001(\t\022\022\n\nclic" +
+      "k_type\030\n \001(\r\022\016\n\006bundle\030\013 \001(\t\022\023\n\013appstore" +
+      "_id\030\027 \001(\t\022\013\n\003adm\030\014 \001(\t\022D\n\010nativeAd\030\r \001(\013" +
+      "22.top.openadexchange.rtb.proto.BidRespo" +
+      "nse.NativeAd\022\030\n\020app_download_url\030\016 \001(\t\022\020" +
+      "\n\010app_name\030\017 \001(\t\022\024\n\014app_icon_url\030\031 \001(\t\022\020" +
+      "\n\010deeplink\030\020 \001(\t\022\020\n\010duration\030\022 \001(\r\022\025\n\rpl" +
+      "ay_trackers\030\023 \003(\t\022\032\n\022completed_trackers\030" +
+      "\026 \003(\t\022\026\n\016error_trackers\030\025 \003(\t\022\026\n\016close_t" +
+      "rackers\030\030 \003(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002B+\n\034top.ope" +
+      "nadexchange.rtb.protoB\013OaxRtbProto"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -30662,7 +35216,7 @@ java.lang.String defaultValue) {
     internal_static_top_openadexchange_rtb_proto_BidRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor,
-        new java.lang.String[] { "Id", "Imp", "Site", "App", "Device", "User", "Test", "At", });
+        new java.lang.String[] { "Id", "Imp", "Site", "App", "Device", "User", "Test", "At", "Tmax", });
     internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_descriptor =
       internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(0);
     internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_fieldAccessorTable = new
@@ -30728,7 +35282,7 @@ java.lang.String defaultValue) {
     internal_static_top_openadexchange_rtb_proto_BidRequest_Device_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidRequest_Device_descriptor,
-        new java.lang.String[] { "Ua", "Geo", "Ip", "Ipv6", "DeviceType", "Make", "Model", "Os", "Osv", "Carrier", "ConnectionType", "Ifa", "Didmd5", "Mac", "Macmd5", "Adid", "H", "W", });
+        new java.lang.String[] { "Ua", "Ip", "Ipv6", "DeviceType", "Make", "Model", "Os", "Osv", "Carrier", "ConnectionType", "Ifa", "Didmd5", "Mac", "Macmd5", "Adid", "H", "W", "Geo", });
     internal_static_top_openadexchange_rtb_proto_BidRequest_Geo_descriptor =
       internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(5);
     internal_static_top_openadexchange_rtb_proto_BidRequest_Geo_fieldAccessorTable = new
@@ -30752,7 +35306,7 @@ java.lang.String defaultValue) {
     internal_static_top_openadexchange_rtb_proto_BidResponse_NativeAd_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidResponse_NativeAd_descriptor,
-        new java.lang.String[] { "TemplateId", "Assets", });
+        new java.lang.String[] { "TemplateId", "Assets", "Title", "Desc", "Icon", "MainImage", "Images", "Sponsored", "Rating", "Likes", "Downloads", "Price", "SalePrice", "Phone", "Address", "DisplayUrl", "Cta", });
     internal_static_top_openadexchange_rtb_proto_BidResponse_NativeAd_AssetsEntry_descriptor =
       internal_static_top_openadexchange_rtb_proto_BidResponse_NativeAd_descriptor.getNestedTypes().get(0);
     internal_static_top_openadexchange_rtb_proto_BidResponse_NativeAd_AssetsEntry_fieldAccessorTable = new
@@ -30770,7 +35324,7 @@ java.lang.String defaultValue) {
     internal_static_top_openadexchange_rtb_proto_BidResponse_SeatBid_Bid_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidResponse_SeatBid_Bid_descriptor,
-        new java.lang.String[] { "Id", "Impid", "Price", "Crid", "Dealid", "Nurl", "ImpTrackers", "ClkTrackers", "Ldp", "CreativeUrl", "ClickType", "Bundle", "Adm", "NativeAd", "AppDownloadUrl", "AppName", "Deeplink", "DspId", });
+        new java.lang.String[] { "Id", "Impid", "Price", "Crid", "Dealid", "Nurl", "ImpTrackers", "ClkTrackers", "Ldp", "CreativeUrl", "ClickType", "Bundle", "AppstoreId", "Adm", "NativeAd", "AppDownloadUrl", "AppName", "AppIconUrl", "Deeplink", "Duration", "PlayTrackers", "CompletedTrackers", "ErrorTrackers", "CloseTrackers", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -38,6 +38,7 @@
         <module>open-adexchange-dto</module>
         <module>open-adexchange-constants</module>
         <module>open-adexchange-rtb-proto</module>
+        <module>open-adexchange-job</module>
     </modules>
 
     <properties>
@@ -75,6 +76,7 @@
         <fastjson2.version>2.0.60</fastjson2.version>
         <ip2region.version>3.3.4</ip2region.version>
         <guava.version>33.5.0-jre</guava.version>
+        <xxl-job.version>3.2.0</xxl-job.version>
         <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
 
@@ -220,6 +222,11 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -371,19 +378,19 @@
                 </executions>
             </plugin>
             <!-- GPG 签名 -->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-gpg-plugin</artifactId>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>sign-artifacts</id>-->
-<!--                        <phase>verify</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>sign</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-gpg-plugin</artifactId>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>sign-artifacts</id>-->
+            <!--                        <phase>verify</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>sign</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

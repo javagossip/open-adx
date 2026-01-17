@@ -2,6 +2,7 @@ package top.openadexchange.commons.infra.cache;
 
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import com.chaincoretech.epc.annotation.Extension;
@@ -10,6 +11,7 @@ import jakarta.annotation.Resource;
 import top.openadexchange.commons.cache.CacheService;
 
 @Extension(key = "redis")
+@ConditionalOnClass(RedisTemplate.class)
 public class RedisCacheService implements CacheService {
 
     @Resource

@@ -1,10 +1,12 @@
 package top.openadexchange.commons.service;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
 
 @Service
+@ConditionalOnBean(EntityCodeGenerator.class)
 public class EntityCodeService {
 
     public static final String SITE_AD_PLACEMENT_CODE_PREFIX = "SAP";

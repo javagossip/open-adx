@@ -35,6 +35,9 @@
     <file url="file://$PROJECT_DIR$/open-adexchange-dto/src/main/profiles/dev" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-dto/src/main/profiles/docker" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-dto/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/open-adexchange-job/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/open-adexchange-job/src/main/profiles/dev" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/open-adexchange-job/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-model/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-model/src/main/profiles/dev" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-model/src/main/profiles/docker" charset="UTF-8" />
