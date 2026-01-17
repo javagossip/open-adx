@@ -15,6 +15,9 @@ import java.util.Objects;
 @MapperScan(basePackages = {"top.openadexchange.mapper"})
 public class SspOpenApiApplication {
 
+    private static final String ENCRYPTOR_ALGORITHM = "PBEWithMD5AndTripleDES";
+    private static final String ENCRYPTOR_ENV_KEY = "jasypt.encryptor.password";
+
     public static void main(String[] args) {
         SpringApplication.run(SspOpenApiApplication.class, args);
     }
@@ -23,8 +26,8 @@ public class SspOpenApiApplication {
     @Primary
     public StringEncryptor stringEncryptor(Environment environment) {
         StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
-        encryptor.setPassword(Objects.requireNonNull(environment.getProperty("jasypt.encryptor.password")));
-        encryptor.setAlgorithm("PBEWithMD5AndTripleDES");
+        encryptor.setPassword(Objects.requireNonNull(environment.getProperty(ENCRYPTOR_ENV_KEY)));
+        encryptor.setAlgorithm(ENCRYPTOR_ALGORITHM);
         return encryptor;
     }
 }
