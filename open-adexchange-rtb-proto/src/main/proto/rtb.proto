@@ -22,8 +22,8 @@ message BidRequest {
   optional bool test = 7;
   //竞价方式：1-一价；2-二价
   optional uint32 at = 8;
-  //扩展字段
-  //map<string, string> ext = 9;
+  //请求超时时间，单位毫秒
+  optional uint32 tmax = 9;
 
   //保留扩展，扩展协议字段编号
   extensions 200 to 299;
@@ -46,9 +46,8 @@ message BidRequest {
     //是否使用https, 0-不启用安全链接, 1-启用安全链接
     optional uint32 secure = 10;
     optional bool is_native_ad = 12; //是否原生广告，原生广告dsp平台可以根据tagid来进行匹配
-    //map<string, string> ext = 11;    //扩展字段
 
-    //protobuf扩展
+    //协议扩展保留字段
     extensions 200 to 299;
 
     //图片广告位请求定义
@@ -138,7 +137,6 @@ message BidRequest {
   //设备对象
   message Device {
     optional string ua = 1;          //设备user-agent
-    optional Geo geo = 2;            //地理位置对象
     optional string ip = 3;          //设备ip
     optional string ipv6 = 4;        //ipv6地址
     optional uint32 device_type = 5;  //设备类型, 1-phone,2-pad,3-pc,4-tv
@@ -149,14 +147,15 @@ message BidRequest {
     optional string carrier = 10;    //运营商, 0-未知,1-移动,2-联通,3-电信
 
     optional uint32 connection_type = 11; //网络连接类型, 1-wifi; 2-2G;3-3G;4-4G;5-5G; 0-未知
-    optional string ifa = 12;      //明文设备码，如安卓的imei或ios的idfa
+    optional string ifa = 12;      //明文设备码，iOS → IDFA,Android → GAID
     optional string didmd5 = 13;   //md5设备码
     optional string mac = 14;      //mac地址明文
     optional string macmd5 = 15;   //md5 mac地址
-    optional string adid = 16; //安卓id
-    optional uint32 h = 17; //设备屏幕高
-    optional uint32 w = 18; //设备屏幕宽
-
+    optional string adid = 16;     //安卓id
+    optional uint32 h = 17;        //设备屏幕高
+    optional uint32 w = 18;        //设备屏幕宽
+    optional uint32 lmt = 19;      //限制跟踪,1-不限制跟踪,2-限制跟踪
+    optional Geo geo = 2;          //地理位置对象
     //协议保留扩展
     extensions 200 to 299;
   }
@@ -174,7 +173,7 @@ message BidRequest {
   }
 
   message User {
-    optional string id = 1;    //Ad-Exchange用户标识
+    optional string id = 1;    //Ad-Exchange用户标识,这个意义不大，后续可能废弃
 
     extensions 200 to 299;
   }
@@ -221,7 +220,8 @@ message BidResponse {
       optional string app_download_url = 14; //应用下载地址
       optional string app_name = 15; //应用名称
       optional string deeplink = 16; //deeplink链接
-      optional string dsp_id = 17; //dsp平台编码
+      optional string dsp_id = 17; //dsp平台编码, 由ad-exchange分配定义
+
       //协议保留扩展
       extensions 200 to 299;
     }

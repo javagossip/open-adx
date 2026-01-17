@@ -3,41 +3,53 @@
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/open-adexchange-api/open-adexchange-dsp-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-api/open-adexchange-dsp-api/src/main/profiles/dev" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/open-adexchange-api/open-adexchange-dsp-api/src/main/profiles/docker" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-api/open-adexchange-dsp-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-api/open-adexchange-ssp-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-api/open-adexchange-ssp-api/src/main/profiles/dev" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/open-adexchange-api/open-adexchange-ssp-api/src/main/profiles/docker" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-api/open-adexchange-ssp-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-api/open-adexchange-tracking-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-api/open-adexchange-tracking-api/src/main/profiles/dev" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/open-adexchange-api/open-adexchange-tracking-api/src/main/profiles/docker" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-api/open-adexchange-tracking-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-api/src/main/profiles/dev" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/open-adexchange-api/src/main/profiles/docker" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-codegen/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-codegen/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-commons/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-commons/src/main/profiles/dev" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/open-adexchange-commons/src/main/profiles/docker" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-commons/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-constants/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-constants/src/main/profiles/dev" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/open-adexchange-constants/src/main/profiles/docker" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-constants/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-dao/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-dao/src/main/profiles/dev" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/open-adexchange-dao/src/main/profiles/docker" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-dao/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-dto/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-dto/src/main/profiles/dev" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/open-adexchange-dto/src/main/profiles/docker" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-dto/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-model/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-model/src/main/profiles/dev" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/open-adexchange-model/src/main/profiles/docker" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-model/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-mos/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-mos/src/main/profiles/dev" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/open-adexchange-mos/src/main/profiles/docker" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-mos/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-rtb-proto/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-rtb-proto/src/main/profiles/dev" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/open-adexchange-rtb-proto/src/main/profiles/docker" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/open-adexchange-rtb-proto/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/profiles/dev" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/profiles/docker" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>
 </project>
