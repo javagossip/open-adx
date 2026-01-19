@@ -243,12 +243,13 @@ message BidResponse {
       optional string app_icon_url = 25;
       optional string deeplink = 16; //deeplink链接
 
-      optional uint32 duration = 18; //音视频广告时长
+      optional uint64 duration = 18; //音视频广告时长
       repeated string play_trackers = 19; //音视频播放开始监测
-      repeated string completed_trackers = 22; //音视频播放完成监测
+      repeated string play_completed_trackers = 22; //音视频播放完成监测
       repeated string error_trackers = 21; //音视频播放错误监测
       repeated string close_trackers = 24; //音视频广告关闭监测
-
+      repeated string download_trackers = 26; //应用下载监测
+      repeated string download_completed_trackers = 27; //应用下载完成监测
       //协议保留扩展
       extensions 200 to 299;
     }

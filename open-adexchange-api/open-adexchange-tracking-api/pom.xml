@@ -12,7 +12,9 @@
     <artifactId>open-adexchange-tracking-api</artifactId>
     <name>open-adexchange-tracking-api</name>
     <description>open-adexchange-tracking-api</description>
-
+    <properties>
+        <main.class>top.openadexchange.tracking.OaxTrackingApplication</main.class>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -28,10 +30,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
@@ -43,16 +41,8 @@
             <artifactId>open-adexchange-model</artifactId>
         </dependency>
         <dependency>
-            <groupId>top.openadexchange</groupId>
-            <artifactId>open-adexchange-dao</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.ulisesbocchio</groupId>
-            <artifactId>jasypt-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -64,28 +54,12 @@
             <artifactId>epc</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.github.RoaringBitmap.RoaringBitmap</groupId>
-            <artifactId>roaringbitmap</artifactId>
-        </dependency>
-        <dependency>
             <groupId>top.openadexchange</groupId>
             <artifactId>open-adexchange-rtb-proto</artifactId>
         </dependency>
         <dependency>
             <groupId>com.alibaba.fastjson2</groupId>
             <artifactId>fastjson2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.ben-manes.caffeine</groupId>
-            <artifactId>caffeine</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.lionsoul</groupId>
-            <artifactId>ip2region</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -96,13 +70,40 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>top.openadexchange.openapi.ssp.SspOpenApiApplication</mainClass>
+                    <mainClass>${main.class}</mainClass>
                 </configuration>
                 <executions>
                     <execution>
                         <id>repackage</id>
                         <goals>
                             <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <configuration>
+                    <to>
+                        <image>registry.cn-beijing.aliyuncs.com/oax/oax-tracking-api</image>
+                        <tags>
+                            <tag>${project.version}</tag>
+                            <tag>latest</tag>
+                        </tags>
+                    </to>
+                    <container>
+                        <mainClass>${main.class}</mainClass>
+                        <ports>
+                            <port>8080</port>
+                        </ports>
+                    </container>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
                         </goals>
                     </execution>
                 </executions>

@@ -174,6 +174,9 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
         builder.setCreativeUrl(xinheBid.getAurlList().isEmpty() ? "" : xinheBid.getAurlList().get(0));
         if (xinheBid.hasVideo()) {
             builder.setCreativeUrl(xinheBid.getVideo().getVideourl());
+            builder.addAllPlayTrackers(xinheBid.getPlayvideomurlList());
+            builder.addAllCompletedTrackers(xinheBid.getFinishvideomurlList());
+            builder.setDuration(xinheBid.getVideo().getVideoduration());
         }
         builder.addAllImpTrackers(xinheBid.getMurlList());
         builder.addAllClkTrackers(xinheBid.getCmurlList());
@@ -185,6 +188,7 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
         nativeAd.setTitle(xinheBid.getTitle());
         nativeAd.setDesc(xinheBid.getSummary());
         nativeAd.setMainImage(xinheBid.getAurlList().isEmpty() ? "" : xinheBid.getAurlList().get(0));
+        nativeAd.addAllImages(xinheBid.getAurlList());
         nativeAd.setSponsored(xinheBid.getSource());
         builder.setNativeAd(nativeAd.build());
         return builder.build();

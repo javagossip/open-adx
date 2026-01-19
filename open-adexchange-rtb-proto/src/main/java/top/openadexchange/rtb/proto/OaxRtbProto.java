@@ -27703,7 +27703,7 @@ java.lang.String defaultValue) {
          *音视频广告时长
          * </pre>
          *
-         * <code>optional uint32 duration = 18;</code>
+         * <code>optional uint64 duration = 18;</code>
          * @return Whether the duration field is set.
          */
         boolean hasDuration();
@@ -27712,10 +27712,10 @@ java.lang.String defaultValue) {
          *音视频广告时长
          * </pre>
          *
-         * <code>optional uint32 duration = 18;</code>
+         * <code>optional uint64 duration = 18;</code>
          * @return The duration.
          */
-        int getDuration();
+        long getDuration();
 
         /**
          * <pre>
@@ -28985,13 +28985,13 @@ java.lang.String defaultValue) {
         }
 
         public static final int DURATION_FIELD_NUMBER = 18;
-        private int duration_ = 0;
+        private long duration_ = 0L;
         /**
          * <pre>
          *音视频广告时长
          * </pre>
          *
-         * <code>optional uint32 duration = 18;</code>
+         * <code>optional uint64 duration = 18;</code>
          * @return Whether the duration field is set.
          */
         @java.lang.Override
@@ -29003,11 +29003,11 @@ java.lang.String defaultValue) {
          *音视频广告时长
          * </pre>
          *
-         * <code>optional uint32 duration = 18;</code>
+         * <code>optional uint64 duration = 18;</code>
          * @return The duration.
          */
         @java.lang.Override
-        public int getDuration() {
+        public long getDuration() {
           return duration_;
         }
 
@@ -29309,7 +29309,7 @@ java.lang.String defaultValue) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 16, deeplink_);
           }
           if (((bitField0_ & 0x00020000) != 0)) {
-            output.writeUInt32(18, duration_);
+            output.writeUInt64(18, duration_);
           }
           for (int i = 0; i < playTrackers_.size(); i++) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 19, playTrackers_.getRaw(i));
@@ -29405,7 +29405,7 @@ java.lang.String defaultValue) {
           }
           if (((bitField0_ & 0x00020000) != 0)) {
             size += com.google.protobuf.CodedOutputStream
-              .computeUInt32Size(18, duration_);
+              .computeUInt64Size(18, duration_);
           }
           {
             int dataSize = 0;
@@ -29658,7 +29658,8 @@ java.lang.String defaultValue) {
           }
           if (hasDuration()) {
             hash = (37 * hash) + DURATION_FIELD_NUMBER;
-            hash = (53 * hash) + getDuration();
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+                getDuration());
           }
           if (getPlayTrackersCount() > 0) {
             hash = (37 * hash) + PLAY_TRACKERS_FIELD_NUMBER;
@@ -29840,7 +29841,7 @@ java.lang.String defaultValue) {
             appName_ = "";
             appIconUrl_ = "";
             deeplink_ = "";
-            duration_ = 0;
+            duration_ = 0L;
             playTrackers_ =
                 com.google.protobuf.LazyStringArrayList.emptyList();
             completedTrackers_ =
@@ -30324,7 +30325,7 @@ java.lang.String defaultValue) {
                     break;
                   } // case 130
                   case 144: {
-                    duration_ = input.readUInt32();
+                    duration_ = input.readUInt64();
                     bitField0_ |= 0x00080000;
                     break;
                   } // case 144
@@ -32377,13 +32378,13 @@ java.lang.String defaultValue) {
             return this;
           }
 
-          private int duration_ ;
+          private long duration_ ;
           /**
            * <pre>
            *音视频广告时长
            * </pre>
            *
-           * <code>optional uint32 duration = 18;</code>
+           * <code>optional uint64 duration = 18;</code>
            * @return Whether the duration field is set.
            */
           @java.lang.Override
@@ -32395,11 +32396,11 @@ java.lang.String defaultValue) {
            *音视频广告时长
            * </pre>
            *
-           * <code>optional uint32 duration = 18;</code>
+           * <code>optional uint64 duration = 18;</code>
            * @return The duration.
            */
           @java.lang.Override
-          public int getDuration() {
+          public long getDuration() {
             return duration_;
           }
           /**
@@ -32407,11 +32408,11 @@ java.lang.String defaultValue) {
            *音视频广告时长
            * </pre>
            *
-           * <code>optional uint32 duration = 18;</code>
+           * <code>optional uint64 duration = 18;</code>
            * @param value The duration to set.
            * @return This builder for chaining.
            */
-          public Builder setDuration(int value) {
+          public Builder setDuration(long value) {
 
             duration_ = value;
             bitField0_ |= 0x00080000;
@@ -32423,12 +32424,12 @@ java.lang.String defaultValue) {
            *音视频广告时长
            * </pre>
            *
-           * <code>optional uint32 duration = 18;</code>
+           * <code>optional uint64 duration = 18;</code>
            * @return This builder for chaining.
            */
           public Builder clearDuration() {
             bitField0_ = (bitField0_ & ~0x00080000);
-            duration_ = 0;
+            duration_ = 0L;
             onChanged();
             return this;
           }
@@ -35556,7 +35557,7 @@ java.lang.String defaultValue) {
       "nadexchange.rtb.proto.BidResponse.Native" +
       "Ad\022\030\n\020app_download_url\030\016 \001(\t\022\020\n\010app_name" +
       "\030\017 \001(\t\022\024\n\014app_icon_url\030\031 \001(\t\022\020\n\010deeplink" +
-      "\030\020 \001(\t\022\020\n\010duration\030\022 \001(\r\022\025\n\rplay_tracker" +
+      "\030\020 \001(\t\022\020\n\010duration\030\022 \001(\004\022\025\n\rplay_tracker" +
       "s\030\023 \003(\t\022\032\n\022completed_trackers\030\026 \003(\t\022\026\n\016e" +
       "rror_trackers\030\025 \003(\t\022\026\n\016close_trackers\030\030 " +
       "\003(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002B+\n\034top.openadexchang" +

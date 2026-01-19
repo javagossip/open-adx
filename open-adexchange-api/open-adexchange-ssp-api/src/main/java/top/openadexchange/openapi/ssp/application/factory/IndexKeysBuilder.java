@@ -17,6 +17,7 @@ import jakarta.annotation.Resource;
 import org.springframework.util.StringUtils;
 
 import top.openadexchange.constants.Constants;
+import top.openadexchange.constants.enums.DeviceType;
 import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.DspTargeting;
@@ -41,7 +42,10 @@ public class IndexKeysBuilder {
 
         List<String> deviceTypeKeys = new ArrayList<>();
         deviceTypeKeys.add(Constants.DEFAULT_ALL_TARGETING);
-
+        DeviceType deviceType = DeviceType.fromValue(request.getDevice().getDeviceType());
+        if (deviceType != null) {
+            deviceTypeKeys.add(deviceType.name());
+        }
         IpLocation ipLocation = oaxEngineServices.getIp2RegionService().getRegion(request.getDevice().getIp());
         List<String> regionKeys = new ArrayList<>();
         regionKeys.add(Constants.DEFAULT_ALL_TARGETING);
