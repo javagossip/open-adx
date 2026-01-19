@@ -143,7 +143,7 @@ public class DspService {
         if (dspTargetingDto.getRegions() != null) {
             dspTargeting.setRegion(JSON.toJSONString(dspTargetingDto.getRegions()));
         }
-        dspTargetingDao.save(dspTargeting);
+        dspTargetingDao.updateDspTargeting(dspTargeting);
         domainEventDao.save(DomainEventFactory.create(DomainEventType.DSP_UPDATED.name(), id));
         return true;
     }
@@ -220,12 +220,22 @@ public class DspService {
                 DspPlacementMappingDto.class);
     }
 
+    @Transactional
     public Integer addDspPlacementMapping(DspPlacementMapping dspPlacementMapping) {
         dspPlacementMappingDao.save(dspPlacementMapping);
+        domainEventDao.save(DomainEventFactory.create(DomainEventType.DSP_UPDATED.name(),
+                dspPlacementMapping.getDspId()));
         return dspPlacementMapping.getId();
     }
 
+    @Transactional
     public Boolean deleteDspPlacementMapping(Integer id) {
-        return dspPlacementMappingDao.removeById(id);
+        DspPlacementMapping origDspPlacementMapping = dspPlacementMappingDao.getById(id);
+        boolean updated = dspPlacementMappingDao.removeById(id);
+        if (updated) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.DSP_UPDATED.name(),
+                    origDspPlacementMapping.getDspId()));
+        }
+        return updated;
     }
 }

@@ -9,11 +9,13 @@ import com.mybatisflex.core.query.QueryWrapper;
 
 import jakarta.annotation.Resource;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import top.openadexchange.constants.enums.DomainEventType;
 import top.openadexchange.dao.DomainEventDao;
 import top.openadexchange.dao.SiteAdPlacementDao;
+import top.openadexchange.dao.SiteAdpAdtMappingDao;
 import top.openadexchange.dto.SiteAdPlacementDto;
 import top.openadexchange.dto.query.SiteAdPlacementQueryDto;
 import top.openadexchange.model.SiteAdPlacement;
@@ -26,28 +28,35 @@ public class SiteAdPlacementService {
     @Resource
     private SiteAdPlacementDao siteAdPlacementDao;
     @Resource
+    private SiteAdpAdtMappingDao siteAdpAdtMappingDao;
+    @Resource
     private SiteAdPlacementConverter siteAdPlacementConverter;
     @Resource
     private DomainEventDao domainEventDao;
 
+    @Transactional
     public Integer addSiteAdPlacement(SiteAdPlacementDto siteAdPlacementDto) {
         SiteAdPlacement siteAdPlacement = siteAdPlacementConverter.from(siteAdPlacementDto);
         siteAdPlacementDao.save(siteAdPlacement);
+        siteAdpAdtMappingDao.saveAdpAdtMappings(siteAdPlacement.getId(), siteAdPlacementDto.getAdPlacementIds());
         domainEventDao.save(DomainEventFactory.create(DomainEventType.SITE_AD_PLACEMENT_CREATED.name(),
                 siteAdPlacement.getId()));
         return siteAdPlacement.getId();
     }
 
+    @Transactional
     public Boolean updateSiteAdPlacement(SiteAdPlacementDto siteAdPlacementDto) {
         SiteAdPlacement siteAdPlacement = siteAdPlacementConverter.from(siteAdPlacementDto);
         boolean updated = siteAdPlacementDao.updateById(siteAdPlacement);
         if (updated) {
+            siteAdpAdtMappingDao.saveAdpAdtMappings(siteAdPlacement.getId(), siteAdPlacementDto.getAdPlacementIds());
             domainEventDao.save(DomainEventFactory.create(DomainEventType.SITE_AD_PLACEMENT_UPDATED.name(),
                     siteAdPlacement.getId()));
         }
         return updated;
     }
 
+    @Transactional
     public Boolean deleteSiteAdPlacement(Long id) {
         boolean deleted = siteAdPlacementDao.removeById(id);
         if (deleted) {
@@ -57,9 +66,14 @@ public class SiteAdPlacementService {
     }
 
     public SiteAdPlacementDto getSiteAdPlacement(Long id) {
-        return siteAdPlacementConverter.toSiteAdPlacementDto(siteAdPlacementDao.getById(id));
+        SiteAdPlacement siteAdPlacement = siteAdPlacementDao.getById(id);
+        SiteAdPlacementDto siteAdPlacementDto = siteAdPlacementConverter.toSiteAdPlacementDto(siteAdPlacement);
+        siteAdPlacementDto.setAdPlacementIds(siteAdpAdtMappingDao.getAdpAdtMappingIds(id));
+
+        return siteAdPlacementDto;
     }
 
+    @Transactional
     public Boolean enableSiteAdPlacement(Long id) {
         boolean updated = siteAdPlacementDao.enableSiteAdPlacement(id);
         if (updated) {
@@ -68,6 +82,7 @@ public class SiteAdPlacementService {
         return updated;
     }
 
+    @Transactional
     public Boolean disableSiteAdPlacement(Long id) {
         boolean updated = siteAdPlacementDao.disableSiteAdPlacement(id);
         if (updated) {

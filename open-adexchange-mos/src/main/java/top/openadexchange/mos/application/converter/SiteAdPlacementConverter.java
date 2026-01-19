@@ -24,7 +24,7 @@ public class SiteAdPlacementConverter {
         SiteAdPlacement siteAdPlacement = new SiteAdPlacement();
         siteAdPlacement.setId(siteAdPlacementDto.getId());
         siteAdPlacement.setSiteId(siteAdPlacementDto.getSiteId());
-        siteAdPlacement.setAdPlacementId(siteAdPlacementDto.getAdPlacementId());
+        //siteAdPlacement.setAdPlacementId(siteAdPlacementDto.getAdPlacementId());
         siteAdPlacement.setPlatform(siteAdPlacementDto.getPlatform());
         siteAdPlacement.setName(siteAdPlacementDto.getName());
         siteAdPlacement.setDemoUrl(siteAdPlacementDto.getDemoUrl());
@@ -48,7 +48,7 @@ public class SiteAdPlacementConverter {
         SiteAdPlacementDto siteAdPlacementDto = new SiteAdPlacementDto();
         siteAdPlacementDto.setId(siteAdPlacement.getId());
         siteAdPlacementDto.setSiteId(siteAdPlacement.getSiteId());
-        siteAdPlacementDto.setAdPlacementId(siteAdPlacement.getAdPlacementId());
+        //siteAdPlacementDto.setAdPlacementId(siteAdPlacement.getAdPlacementId());
         siteAdPlacementDto.setPlatform(siteAdPlacement.getPlatform());
         siteAdPlacementDto.setName(siteAdPlacement.getName());
         siteAdPlacementDto.setCode(siteAdPlacement.getCode());

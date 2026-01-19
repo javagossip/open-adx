@@ -14,4 +14,6 @@ public interface DspTargetingDao extends IService<DspTargeting> {
 
     //根据dspId获取dsp定向信息
     DspTargeting getDspTargeting(Integer dspId);
+
+    void updateDspTargeting(DspTargeting dspTargeting);
 }

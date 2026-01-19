@@ -1,6 +1,6 @@
 package top.openadexchange.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -22,9 +22,10 @@ public class SiteAdPlacementDto {
     @Schema(description = "站点/app id")
     private Long siteId;
 
-    @Schema(description = "广告位id")
-    private Integer adPlacementId;
-    @Schema(description = "平台，ios,android,web")
+    @Schema(description = "关联广告位模板，支持同一个广告位关联多个广告位模板")
+    private List<Integer> adPlacementIds;
+    @Deprecated
+    @Schema(description = "平台，ios,android,web,废弃字段，站点本身就包含了平台信息")
     private String platform;
 
     @Schema(description = "site广告位名称")

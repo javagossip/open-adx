@@ -22,4 +22,11 @@ public class DspTargetingDaoImpl extends ServiceImpl<DspTargetingMapper, DspTarg
     public DspTargeting getDspTargeting(Integer dspId) {
         return getOne(QueryWrapper.create().eq(DspTargeting::getDspId, dspId));
     }
+
+    @Override
+    public void updateDspTargeting(DspTargeting dspTargeting) {
+        Integer dspId = dspTargeting.getDspId();
+        remove(QueryWrapper.create().eq(DspTargeting::getDspId, dspId));
+        save(dspTargeting);
+    }
 }
