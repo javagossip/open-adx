@@ -208,6 +208,8 @@ message BidResponse {
     optional string address = 15;
     optional string display_url = 16;
     optional string cta = 17;
+    optional string video = 18;
+    optional string desc2 = 19;
   }
 
   message SeatBid {

@@ -15,4 +15,8 @@ public interface IndexService {
     void indexAdGroup(DspAggregate dspAggregate);
 
     List<Integer> searchDsps(IndexKeys indexKeys);
+
+    void removeDspById(int dspId);
+
+    void removeDsp(DspAggregate dspAggregate);
 }

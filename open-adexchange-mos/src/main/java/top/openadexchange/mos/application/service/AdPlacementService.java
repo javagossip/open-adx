@@ -8,8 +8,13 @@ import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
 
 import jakarta.annotation.Resource;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import top.openadexchange.constants.enums.AdFormat;
+import top.openadexchange.constants.enums.DomainEventType;
 import top.openadexchange.dao.AdPlacementDao;
+import top.openadexchange.dao.DomainEventDao;
 import top.openadexchange.dao.NativeAssetDao;
 import top.openadexchange.dto.AdPlacementDto;
 import top.openadexchange.dto.query.AdPlacementQueryDto;
@@ -17,6 +22,7 @@ import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.NativeAsset;
 import top.openadexchange.mos.application.converter.AdPlacementConverter;
 import top.openadexchange.mos.application.converter.NativeAssetConverter;
+import top.openadexchange.mos.application.factory.DomainEventFactory;
 
 import static top.openadexchange.model.table.AdPlacementTableDef.*;
 
@@ -31,7 +37,10 @@ public class AdPlacementService {
     private NativeAssetConverter nativeAssetConverter;
     @Resource
     private NativeAssetDao nativeAssetDao;
+    @Resource
+    private DomainEventDao domainEventDao;
 
+    @Transactional
     public Integer addAdPlacement(AdPlacementDto adPlacementDto) {
         AdPlacement adPlacement = adPlacementConverter.from(adPlacementDto);
         adPlacementDao.save(adPlacement);
@@ -39,7 +48,8 @@ public class AdPlacementService {
         if (nativeAssets != null && !nativeAssets.isEmpty()) {
             nativeAssetDao.saveBatch(nativeAssets);
         }
-        //        nativeAssetDao.saveBatch(nativeAssets);
+        domainEventDao.save(DomainEventFactory.create(DomainEventType.AD_PLACEMENT_CREATED.name(),
+                adPlacement.getId()));
         return adPlacement.getId();
     }
 
@@ -49,11 +59,20 @@ public class AdPlacementService {
         if (nativeAssets != null && !nativeAssets.isEmpty()) {
             nativeAssetDao.updateNativeAssetsByAdPlacementId(adPlacement.getId(), nativeAssets);
         }
-        return adPlacementDao.updateById(adPlacement);
+        boolean updated = adPlacementDao.updateById(adPlacement);
+        if (updated) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.AD_PLACEMENT_UPDATED.name(),
+                    adPlacement.getId()));
+        }
+        return updated;
     }
 
     public Boolean deleteAdPlacement(Integer id) {
-        return adPlacementDao.removeById(id);
+        boolean deleted = adPlacementDao.removeById(id);
+        if (deleted) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.AD_PLACEMENT_DELETED.name(), id));
+        }
+        return deleted;
     }
 
     public AdPlacementDto getAdPlacement(Integer id) {
@@ -66,11 +85,19 @@ public class AdPlacementService {
     }
 
     public Boolean enableAdPlacement(Integer id) {
-        return adPlacementDao.enableAdPlacement(id);
+        boolean updated = adPlacementDao.enableAdPlacement(id);
+        if (updated) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.AD_PLACEMENT_UPDATED.name(), id));
+        }
+        return updated;
     }
 
     public Boolean disableAdPlacement(Integer id) {
-        return adPlacementDao.disableAdPlacement(id);
+        boolean updated = adPlacementDao.disableAdPlacement(id);
+        if (updated) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.AD_PLACEMENT_UPDATED.name(), id));
+        }
+        return updated;
     }
 
     public Page<AdPlacement> pageListAdPlacements(AdPlacementQueryDto queryDto) {

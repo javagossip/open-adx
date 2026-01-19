@@ -45,6 +45,11 @@ public class CaffeineCacheConfig {
     }
 
     @Bean
+    public Cache<Integer, SiteAdPlacement> siteAdPlacementCacheById() {
+        return Caffeine.newBuilder().initialCapacity(100).maximumSize(500).build();
+    }
+    
+    @Bean
     public Cache<Integer, AdPlacement> adPlacmentCache() {
         return Caffeine.newBuilder().initialCapacity(50).maximumSize(500).build();
     }

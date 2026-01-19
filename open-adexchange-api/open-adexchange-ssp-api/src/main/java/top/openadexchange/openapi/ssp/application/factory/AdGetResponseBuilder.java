@@ -55,7 +55,23 @@ public class AdGetResponseBuilder {
             return null;
         }
         AdGetResponse.NativeAd _nativeAd = new AdGetResponse.NativeAd();
-        _nativeAd.setAssets(nativeAd.getAssetsMap());
+        _nativeAd.setTitle(nativeAd.getTitle());
+        _nativeAd.setIcon(nativeAd.getIcon());
+        _nativeAd.setDesc(nativeAd.getDesc());
+        _nativeAd.setMainImage(nativeAd.getMainImage());
+        _nativeAd.setImages(nativeAd.getImagesList());
+        _nativeAd.setVideo(nativeAd.getVideo());
+        _nativeAd.setAddress(nativeAd.getAddress());
+        _nativeAd.setCtaText(nativeAd.getCta());
+        _nativeAd.setRating(nativeAd.getRating());
+        _nativeAd.setLikes(nativeAd.getLikes());
+        _nativeAd.setDownloads(nativeAd.getDownloads());
+        _nativeAd.setSponsored(nativeAd.getSponsored());
+        _nativeAd.setPrice(nativeAd.getPrice());
+        _nativeAd.setSalePrice(nativeAd.getSalePrice());
+        _nativeAd.setPhone(nativeAd.getPhone());
+        _nativeAd.setDesc2(nativeAd.getDesc2());
+        _nativeAd.setDisplayUrl(nativeAd.getDisplayUrl());
         return _nativeAd;
     }
 }

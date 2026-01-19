@@ -19,7 +19,7 @@ public interface MetadataCacheService {
 
     DspAggregate getDsp(Integer dspId);
 
-    Map<Integer,DspAggregate> getDsps(List<Integer> dspIds);
+    Map<Integer, DspAggregate> getDsps(List<Integer> dspIds);
 
     Site getSite(Long siteId);
 
@@ -36,4 +36,18 @@ public interface MetadataCacheService {
     Dsp getDspByDspId(String dspId);
 
     AdPlacementAggregate getAdPlacementAggregate(Integer adPlacementId);
+
+    void addAdPlacementAggregate(AdPlacementAggregate adPlacementAggregate);
+
+    void removeDspById(int dspId);
+
+    void removeDsp(DspAggregate dspAggregate);
+
+    void removeSite(Long siteId);
+
+    void removeAdPlacement(int adPlacementId);
+
+    SiteAdPlacement getSiteAdPlacementById(int siteAdPlacementId);
+
+    void removeSiteAdPlacement(int siteAdPlacementId);
 }

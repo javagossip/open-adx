@@ -9,4 +9,6 @@ public interface DspAggregateRepository {
     List<DspAggregate> listDspsByPageNo(int pageNo);
 
     List<DspAggregate> getDspByIds(List<Integer> dspIds);
+
+    DspAggregate getDspById(int dspId);
 }

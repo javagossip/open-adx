@@ -73,9 +73,10 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
 
         builder.setApp(buildApp(dsp, bidRequest));
         builder.setDevice(buildDevice(dsp, bidRequest));
-        bidRequest.getImpList().forEach(imp -> builder.addImp(buildImp(dsp, imp)));
-        //builder.setUser(User.newBuilder().setGender(Gender.UNRECOGNIZED).build());
 
+        for (OaxRtbProto.BidRequest.Imp imp : bidRequest.getImpList()) {
+            builder.addImp(buildImp(dsp, imp));
+        }
         return builder.build();
     }
 
@@ -180,18 +181,12 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
 
         NativeAd.Builder nativeAd = NativeAd.newBuilder();
         nativeAd.setTemplateId(String.valueOf(xinheBid.getTemplateid()));
-        nativeAd.putAllAssets(buildNativeAssets(xinheBid));
+        nativeAd.setIcon(xinheBid.getIcon());
+        nativeAd.setTitle(xinheBid.getTitle());
+        nativeAd.setDesc(xinheBid.getSummary());
+        nativeAd.setMainImage(xinheBid.getAurlList().isEmpty() ? "" : xinheBid.getAurlList().get(0));
+        nativeAd.setSponsored(xinheBid.getSource());
         builder.setNativeAd(nativeAd.build());
         return builder.build();
-    }
-
-    private Map<String, String> buildNativeAssets(Bid xinheBid) {
-        Map<String, String> assets = new HashMap<>();
-        xinheBid.getAurlList().forEach(url -> assets.put("img", url));
-        assets.put("title", xinheBid.getTitle());
-        assets.put("desc", xinheBid.getSummary());
-        assets.put("images", JSON.toJSONString(xinheBid.getAurlList()));
-        assets.put("icon", xinheBid.getIcon());
-        return assets;
     }
 }

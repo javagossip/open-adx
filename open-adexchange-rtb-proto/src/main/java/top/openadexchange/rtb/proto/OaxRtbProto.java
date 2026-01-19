@@ -23333,6 +23333,40 @@ java.lang.String defaultValue);
        */
       com.google.protobuf.ByteString
           getCtaBytes();
+
+      /**
+       * <code>optional string video = 18;</code>
+       * @return Whether the video field is set.
+       */
+      boolean hasVideo();
+      /**
+       * <code>optional string video = 18;</code>
+       * @return The video.
+       */
+      java.lang.String getVideo();
+      /**
+       * <code>optional string video = 18;</code>
+       * @return The bytes for video.
+       */
+      com.google.protobuf.ByteString
+          getVideoBytes();
+
+      /**
+       * <code>optional string desc2 = 19;</code>
+       * @return Whether the desc2 field is set.
+       */
+      boolean hasDesc2();
+      /**
+       * <code>optional string desc2 = 19;</code>
+       * @return The desc2.
+       */
+      java.lang.String getDesc2();
+      /**
+       * <code>optional string desc2 = 19;</code>
+       * @return The bytes for desc2.
+       */
+      com.google.protobuf.ByteString
+          getDesc2Bytes();
     }
     /**
      * Protobuf type {@code top.openadexchange.rtb.proto.BidResponse.NativeAd}
@@ -23364,6 +23398,8 @@ java.lang.String defaultValue);
         address_ = "";
         displayUrl_ = "";
         cta_ = "";
+        video_ = "";
+        desc2_ = "";
       }
 
       @java.lang.Override
@@ -24278,6 +24314,104 @@ java.lang.String defaultValue) {
         }
       }
 
+      public static final int VIDEO_FIELD_NUMBER = 18;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object video_ = "";
+      /**
+       * <code>optional string video = 18;</code>
+       * @return Whether the video field is set.
+       */
+      @java.lang.Override
+      public boolean hasVideo() {
+        return ((bitField0_ & 0x00008000) != 0);
+      }
+      /**
+       * <code>optional string video = 18;</code>
+       * @return The video.
+       */
+      @java.lang.Override
+      public java.lang.String getVideo() {
+        java.lang.Object ref = video_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            video_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string video = 18;</code>
+       * @return The bytes for video.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getVideoBytes() {
+        java.lang.Object ref = video_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          video_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int DESC2_FIELD_NUMBER = 19;
+      @SuppressWarnings("serial")
+      private volatile java.lang.Object desc2_ = "";
+      /**
+       * <code>optional string desc2 = 19;</code>
+       * @return Whether the desc2 field is set.
+       */
+      @java.lang.Override
+      public boolean hasDesc2() {
+        return ((bitField0_ & 0x00010000) != 0);
+      }
+      /**
+       * <code>optional string desc2 = 19;</code>
+       * @return The desc2.
+       */
+      @java.lang.Override
+      public java.lang.String getDesc2() {
+        java.lang.Object ref = desc2_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            desc2_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string desc2 = 19;</code>
+       * @return The bytes for desc2.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getDesc2Bytes() {
+        java.lang.Object ref = desc2_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          desc2_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
       private byte memoizedIsInitialized = -1;
       @java.lang.Override
       public final boolean isInitialized() {
@@ -24345,6 +24479,12 @@ java.lang.String defaultValue) {
         }
         if (((bitField0_ & 0x00004000) != 0)) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 17, cta_);
+        }
+        if (((bitField0_ & 0x00008000) != 0)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 18, video_);
+        }
+        if (((bitField0_ & 0x00010000) != 0)) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 19, desc2_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -24417,6 +24557,12 @@ java.lang.String defaultValue) {
         }
         if (((bitField0_ & 0x00004000) != 0)) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(17, cta_);
+        }
+        if (((bitField0_ & 0x00008000) != 0)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(18, video_);
+        }
+        if (((bitField0_ & 0x00010000) != 0)) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(19, desc2_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSize = size;
@@ -24512,6 +24658,16 @@ java.lang.String defaultValue) {
           if (!getCta()
               .equals(other.getCta())) return false;
         }
+        if (hasVideo() != other.hasVideo()) return false;
+        if (hasVideo()) {
+          if (!getVideo()
+              .equals(other.getVideo())) return false;
+        }
+        if (hasDesc2() != other.hasDesc2()) return false;
+        if (hasDesc2()) {
+          if (!getDesc2()
+              .equals(other.getDesc2())) return false;
+        }
         if (!getUnknownFields().equals(other.getUnknownFields())) return false;
         return true;
       }
@@ -24590,6 +24746,14 @@ java.lang.String defaultValue) {
         if (hasCta()) {
           hash = (37 * hash) + CTA_FIELD_NUMBER;
           hash = (53 * hash) + getCta().hashCode();
+        }
+        if (hasVideo()) {
+          hash = (37 * hash) + VIDEO_FIELD_NUMBER;
+          hash = (53 * hash) + getVideo().hashCode();
+        }
+        if (hasDesc2()) {
+          hash = (37 * hash) + DESC2_FIELD_NUMBER;
+          hash = (53 * hash) + getDesc2().hashCode();
         }
         hash = (29 * hash) + getUnknownFields().hashCode();
         memoizedHashCode = hash;
@@ -24762,6 +24926,8 @@ java.lang.String defaultValue) {
           address_ = "";
           displayUrl_ = "";
           cta_ = "";
+          video_ = "";
+          desc2_ = "";
           return this;
         }
 
@@ -24863,6 +25029,14 @@ java.lang.String defaultValue) {
           if (((from_bitField0_ & 0x00010000) != 0)) {
             result.cta_ = cta_;
             to_bitField0_ |= 0x00004000;
+          }
+          if (((from_bitField0_ & 0x00020000) != 0)) {
+            result.video_ = video_;
+            to_bitField0_ |= 0x00008000;
+          }
+          if (((from_bitField0_ & 0x00040000) != 0)) {
+            result.desc2_ = desc2_;
+            to_bitField0_ |= 0x00010000;
           }
           result.bitField0_ |= to_bitField0_;
         }
@@ -24999,6 +25173,16 @@ java.lang.String defaultValue) {
             bitField0_ |= 0x00010000;
             onChanged();
           }
+          if (other.hasVideo()) {
+            video_ = other.video_;
+            bitField0_ |= 0x00020000;
+            onChanged();
+          }
+          if (other.hasDesc2()) {
+            desc2_ = other.desc2_;
+            bitField0_ |= 0x00040000;
+            onChanged();
+          }
           this.mergeUnknownFields(other.getUnknownFields());
           onChanged();
           return this;
@@ -25115,6 +25299,16 @@ java.lang.String defaultValue) {
                   bitField0_ |= 0x00010000;
                   break;
                 } // case 138
+                case 146: {
+                  video_ = input.readBytes();
+                  bitField0_ |= 0x00020000;
+                  break;
+                } // case 146
+                case 154: {
+                  desc2_ = input.readBytes();
+                  bitField0_ |= 0x00040000;
+                  break;
+                } // case 154
                 default: {
                   if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                     done = true; // was an endgroup tag
@@ -26617,6 +26811,166 @@ java.lang.String defaultValue) {
           if (value == null) { throw new NullPointerException(); }
           cta_ = value;
           bitField0_ |= 0x00010000;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object video_ = "";
+        /**
+         * <code>optional string video = 18;</code>
+         * @return Whether the video field is set.
+         */
+        public boolean hasVideo() {
+          return ((bitField0_ & 0x00020000) != 0);
+        }
+        /**
+         * <code>optional string video = 18;</code>
+         * @return The video.
+         */
+        public java.lang.String getVideo() {
+          java.lang.Object ref = video_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              video_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string video = 18;</code>
+         * @return The bytes for video.
+         */
+        public com.google.protobuf.ByteString
+            getVideoBytes() {
+          java.lang.Object ref = video_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            video_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string video = 18;</code>
+         * @param value The video to set.
+         * @return This builder for chaining.
+         */
+        public Builder setVideo(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          video_ = value;
+          bitField0_ |= 0x00020000;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string video = 18;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearVideo() {
+          video_ = getDefaultInstance().getVideo();
+          bitField0_ = (bitField0_ & ~0x00020000);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string video = 18;</code>
+         * @param value The bytes for video to set.
+         * @return This builder for chaining.
+         */
+        public Builder setVideoBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          video_ = value;
+          bitField0_ |= 0x00020000;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object desc2_ = "";
+        /**
+         * <code>optional string desc2 = 19;</code>
+         * @return Whether the desc2 field is set.
+         */
+        public boolean hasDesc2() {
+          return ((bitField0_ & 0x00040000) != 0);
+        }
+        /**
+         * <code>optional string desc2 = 19;</code>
+         * @return The desc2.
+         */
+        public java.lang.String getDesc2() {
+          java.lang.Object ref = desc2_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              desc2_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string desc2 = 19;</code>
+         * @return The bytes for desc2.
+         */
+        public com.google.protobuf.ByteString
+            getDesc2Bytes() {
+          java.lang.Object ref = desc2_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            desc2_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string desc2 = 19;</code>
+         * @param value The desc2 to set.
+         * @return This builder for chaining.
+         */
+        public Builder setDesc2(
+            java.lang.String value) {
+          if (value == null) { throw new NullPointerException(); }
+          desc2_ = value;
+          bitField0_ |= 0x00040000;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string desc2 = 19;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearDesc2() {
+          desc2_ = getDefaultInstance().getDesc2();
+          bitField0_ = (bitField0_ & ~0x00040000);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string desc2 = 19;</code>
+         * @param value The bytes for desc2 to set.
+         * @return This builder for chaining.
+         */
+        public Builder setDesc2Bytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) { throw new NullPointerException(); }
+          desc2_ = value;
+          bitField0_ |= 0x00040000;
           onChanged();
           return this;
         }
@@ -35176,9 +35530,9 @@ java.lang.String defaultValue) {
       "untry\030\003 \001(\t\022\022\n\006region\030\004 \001(\tB\002\030\001\022\020\n\004city\030" +
       "\005 \001(\tB\002\030\001\022\025\n\tarea_code\030\006 \001(\rB\002\030\001*\006\010\310\001\020\254\002" +
       "\032\036\n\004User\022\016\n\002id\030\001 \001(\tB\002\030\001*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002" +
-      "\"\372\010\n\013BidResponse\022\n\n\002id\030\001 \002(\t\022B\n\007seatbid\030" +
+      "\"\230\t\n\013BidResponse\022\n\n\002id\030\001 \002(\t\022B\n\007seatbid\030" +
       "\002 \003(\01321.top.openadexchange.rtb.proto.Bid" +
-      "Response.SeatBid\022\r\n\005bidid\030\003 \002(\t\032\233\003\n\010Nati" +
+      "Response.SeatBid\022\r\n\005bidid\030\003 \002(\t\032\271\003\n\010Nati" +
       "veAd\022\023\n\013template_id\030\001 \001(\t\022R\n\006assets\030\002 \003(" +
       "\0132>.top.openadexchange.rtb.proto.BidResp" +
       "onse.NativeAd.AssetsEntryB\002\030\001\022\r\n\005title\030\003" +
@@ -35187,25 +35541,26 @@ java.lang.String defaultValue) {
       "d\030\010 \001(\t\022\016\n\006rating\030\t \001(\t\022\r\n\005likes\030\n \001(\t\022\021" +
       "\n\tdownloads\030\013 \001(\t\022\r\n\005price\030\014 \001(\t\022\022\n\nsale" +
       "_price\030\r \001(\t\022\r\n\005phone\030\016 \001(\t\022\017\n\007address\030\017" +
-      " \001(\t\022\023\n\013display_url\030\020 \001(\t\022\013\n\003cta\030\021 \001(\t\032-" +
-      "\n\013AssetsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(" +
-      "\t:\0028\001\032\345\004\n\007SeatBid\022B\n\003bid\030\001 \003(\01325.top.ope" +
-      "nadexchange.rtb.proto.BidResponse.SeatBi" +
-      "d.Bid\022\014\n\004seat\030\002 \001(\t\032\207\004\n\003Bid\022\n\n\002id\030\001 \002(\t\022" +
-      "\r\n\005impid\030\002 \002(\t\022\r\n\005price\030\003 \002(\004\022\014\n\004crid\030\004 " +
-      "\002(\t\022\016\n\006dealid\030\005 \001(\t\022\014\n\004nurl\030\024 \001(\t\022\024\n\014imp" +
-      "_trackers\030\006 \003(\t\022\024\n\014clk_trackers\030\007 \003(\t\022\013\n" +
-      "\003ldp\030\010 \001(\t\022\024\n\014creative_url\030\t \001(\t\022\022\n\nclic" +
-      "k_type\030\n \001(\r\022\016\n\006bundle\030\013 \001(\t\022\023\n\013appstore" +
-      "_id\030\027 \001(\t\022\013\n\003adm\030\014 \001(\t\022D\n\010nativeAd\030\r \001(\013" +
-      "22.top.openadexchange.rtb.proto.BidRespo" +
-      "nse.NativeAd\022\030\n\020app_download_url\030\016 \001(\t\022\020" +
-      "\n\010app_name\030\017 \001(\t\022\024\n\014app_icon_url\030\031 \001(\t\022\020" +
-      "\n\010deeplink\030\020 \001(\t\022\020\n\010duration\030\022 \001(\r\022\025\n\rpl" +
-      "ay_trackers\030\023 \003(\t\022\032\n\022completed_trackers\030" +
-      "\026 \003(\t\022\026\n\016error_trackers\030\025 \003(\t\022\026\n\016close_t" +
-      "rackers\030\030 \003(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002B+\n\034top.ope" +
-      "nadexchange.rtb.protoB\013OaxRtbProto"
+      " \001(\t\022\023\n\013display_url\030\020 \001(\t\022\013\n\003cta\030\021 \001(\t\022\r" +
+      "\n\005video\030\022 \001(\t\022\r\n\005desc2\030\023 \001(\t\032-\n\013AssetsEn" +
+      "try\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032\345\004\n\007" +
+      "SeatBid\022B\n\003bid\030\001 \003(\01325.top.openadexchang" +
+      "e.rtb.proto.BidResponse.SeatBid.Bid\022\014\n\004s" +
+      "eat\030\002 \001(\t\032\207\004\n\003Bid\022\n\n\002id\030\001 \002(\t\022\r\n\005impid\030\002" +
+      " \002(\t\022\r\n\005price\030\003 \002(\004\022\014\n\004crid\030\004 \002(\t\022\016\n\006dea" +
+      "lid\030\005 \001(\t\022\014\n\004nurl\030\024 \001(\t\022\024\n\014imp_trackers\030" +
+      "\006 \003(\t\022\024\n\014clk_trackers\030\007 \003(\t\022\013\n\003ldp\030\010 \001(\t" +
+      "\022\024\n\014creative_url\030\t \001(\t\022\022\n\nclick_type\030\n \001" +
+      "(\r\022\016\n\006bundle\030\013 \001(\t\022\023\n\013appstore_id\030\027 \001(\t\022" +
+      "\013\n\003adm\030\014 \001(\t\022D\n\010nativeAd\030\r \001(\01322.top.ope" +
+      "nadexchange.rtb.proto.BidResponse.Native" +
+      "Ad\022\030\n\020app_download_url\030\016 \001(\t\022\020\n\010app_name" +
+      "\030\017 \001(\t\022\024\n\014app_icon_url\030\031 \001(\t\022\020\n\010deeplink" +
+      "\030\020 \001(\t\022\020\n\010duration\030\022 \001(\r\022\025\n\rplay_tracker" +
+      "s\030\023 \003(\t\022\032\n\022completed_trackers\030\026 \003(\t\022\026\n\016e" +
+      "rror_trackers\030\025 \003(\t\022\026\n\016close_trackers\030\030 " +
+      "\003(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002B+\n\034top.openadexchang" +
+      "e.rtb.protoB\013OaxRtbProto"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -35306,7 +35661,7 @@ java.lang.String defaultValue) {
     internal_static_top_openadexchange_rtb_proto_BidResponse_NativeAd_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidResponse_NativeAd_descriptor,
-        new java.lang.String[] { "TemplateId", "Assets", "Title", "Desc", "Icon", "MainImage", "Images", "Sponsored", "Rating", "Likes", "Downloads", "Price", "SalePrice", "Phone", "Address", "DisplayUrl", "Cta", });
+        new java.lang.String[] { "TemplateId", "Assets", "Title", "Desc", "Icon", "MainImage", "Images", "Sponsored", "Rating", "Likes", "Downloads", "Price", "SalePrice", "Phone", "Address", "DisplayUrl", "Cta", "Video", "Desc2", });
     internal_static_top_openadexchange_rtb_proto_BidResponse_NativeAd_AssetsEntry_descriptor =
       internal_static_top_openadexchange_rtb_proto_BidResponse_NativeAd_descriptor.getNestedTypes().get(0);
     internal_static_top_openadexchange_rtb_proto_BidResponse_NativeAd_AssetsEntry_fieldAccessorTable = new

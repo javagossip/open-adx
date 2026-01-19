@@ -29,6 +29,8 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
     @Resource
     private Cache<String, SiteAdPlacement> siteAdPlacementCache;
     @Resource
+    private Cache<Integer, SiteAdPlacement> siteAdPlacementCacheById;
+    @Resource
     private Cache<Integer, AdPlacement> adPlacementCache;
     @Resource
     private Cache<Long, Site> siteCache;
@@ -76,6 +78,7 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
     @Override
     public void addSiteAdPlacement(SiteAdPlacement siteAdPlacement) {
         siteAdPlacementCache.put(siteAdPlacement.getCode(), siteAdPlacement);
+        siteAdPlacementCacheById.put(siteAdPlacement.getId(), siteAdPlacement);
     }
 
     @Override
@@ -91,5 +94,55 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
     @Override
     public AdPlacementAggregate getAdPlacementAggregate(Integer adPlacementId) {
         return adPlacementAggregateCache.getIfPresent(adPlacementId);
+    }
+
+    @Override
+    public void addAdPlacementAggregate(AdPlacementAggregate adPlacementAggregate) {
+        adPlacementAggregateCache.put(adPlacementAggregate.getAdPlacement().getId(), adPlacementAggregate);
+    }
+
+    @Override
+    public void removeDspById(int dspId) {
+        DspAggregate dspAggregate = dspCache.getIfPresent(dspId);
+        if (dspAggregate == null) {
+            return;
+        }
+        String dspCode = dspAggregate.getDsp().getDspId();
+        dspCache.invalidate(dspId);
+        dspCacheByDspId.invalidate(dspCode);
+    }
+
+    @Override
+    public void removeDsp(DspAggregate dspAggregate) {
+        if (dspAggregate == null) {
+            return;
+        }
+        dspCache.invalidate(dspAggregate.getDsp().getId());
+        dspCacheByDspId.invalidate(dspAggregate.getDsp().getDspId());
+    }
+
+    @Override
+    public void removeSite(Long siteId) {
+        siteCache.invalidate(siteId);
+    }
+
+    @Override
+    public void removeAdPlacement(int adPlacementId) {
+        adPlacementCache.invalidate(adPlacementId);
+        adPlacementAggregateCache.invalidate(adPlacementId);
+    }
+
+    @Override
+    public SiteAdPlacement getSiteAdPlacementById(int siteAdPlacementId) {
+        return siteAdPlacementCacheById.getIfPresent(siteAdPlacementId);
+    }
+
+    @Override
+    public void removeSiteAdPlacement(int siteAdPlacementId) {
+        SiteAdPlacement siteAdPlacement = siteAdPlacementCacheById.getIfPresent(siteAdPlacementId);
+        if (siteAdPlacement != null) {
+            siteAdPlacementCache.invalidate(siteAdPlacement.getCode());
+            siteAdPlacementCacheById.invalidate(siteAdPlacementId);
+        }
     }
 }

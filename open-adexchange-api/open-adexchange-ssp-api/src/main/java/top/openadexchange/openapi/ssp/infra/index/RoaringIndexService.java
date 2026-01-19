@@ -15,6 +15,7 @@ import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.DspTargeting;
 import top.openadexchange.model.SiteAdPlacement;
+import top.openadexchange.openapi.ssp.application.factory.IndexKeysBuilder;
 import top.openadexchange.openapi.ssp.domain.gateway.IndexService;
 import top.openadexchange.openapi.ssp.domain.model.IndexKeys;
 
@@ -24,6 +25,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Extension(keys = {"roaringBitmap", "default"})
@@ -39,6 +41,11 @@ public class RoaringIndexService implements IndexService {
     private final Map<String, RoaringBitmap> deviceTypeIndex = new ConcurrentHashMap<>();
     //区域定向->DSP ID索引列表
     private final Map<String, RoaringBitmap> regionIndex = new ConcurrentHashMap<>();
+    private final IndexKeysBuilder indexKeysBuilder;
+
+    public RoaringIndexService(IndexKeysBuilder indexKeysBuilder) {
+        this.indexKeysBuilder = indexKeysBuilder;
+    }
 
     @Override
     public void indexDsp(DspAggregate dspAggregate) {
@@ -157,5 +164,60 @@ public class RoaringIndexService implements IndexService {
     private RoaringBitmap mergeBitmaps(List<String> keys, Map<String, RoaringBitmap> index) {
         List<RoaringBitmap> bitmaps = keys.stream().map(index::get).filter(Objects::nonNull).toList();
         return RoaringBitmap.or(bitmaps.iterator());
+    }
+
+    @Override
+    public void removeDspById(int dspId) {
+        // 使用更细粒度的锁，分别锁定每个map，而不是锁定整个对象
+        adPlacementToDspIndex.forEach((key, bitmap) -> {
+            bitmap.clone().remove(dspId);
+            synchronized (bitmap) {
+                bitmap.remove(dspId);
+            }
+        });
+    }
+
+    @Override
+    public void removeDsp(DspAggregate dspAggregate) {
+        IndexKeys indexKeys = indexKeysBuilder.buildIndexKeys(dspAggregate);
+        Integer dspId = dspAggregate.getDsp().getId();
+
+        removeDspFromIndex(adPlacementToDspIndex, indexKeys.getTagIdKeys(), dspId);
+        removeDspFromIndex(osIndex, indexKeys.getOsKeys(), dspId);
+        removeDspFromIndex(deviceTypeIndex, indexKeys.getDeviceTypeKeys(), dspId);
+        removeDspFromIndex(regionIndex, indexKeys.getRegionKeys(), dspId);
+    }
+
+    private void removeDspFromIndex(Map<String, RoaringBitmap> index, List<String> keys, Integer dspId) {
+        if (keys == null || keys.isEmpty()) {
+            //如果要删除的key为空，则从索引中删除包含此dspId
+            index.forEach((k, bitmap) -> {
+                removeValueFromIndexWithCow(index, dspId, k, bitmap);
+            });
+            return;
+        }
+        keys.forEach(key -> {
+            removeValueFromIndexWithCow(index, dspId, key, index.get(key));
+        });
+    }
+
+    private static void removeValueFromIndexWithCow(Map<String, RoaringBitmap> index,
+            Integer dspId,
+            String k,
+            RoaringBitmap bitmap) {
+        index.computeIfPresent(k, (ignoreKey, existBitmap) -> {
+            if (!bitmap.contains(dspId)) {
+                return bitmap;
+            }
+            if (bitmap.getCardinality() == 1) {
+                return null;
+            }
+            //使用 COW 模式，避免锁，因为索引更新的频率要远低于读频率
+            RoaringBitmap newBitmap = bitmap.clone();
+            newBitmap.remove(dspId);
+            // 只有在删除后才进行优化，减少 CPU 开销
+            newBitmap.runOptimize();
+            return newBitmap;
+        });
     }
 }

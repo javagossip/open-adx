@@ -18,6 +18,8 @@ import org.springframework.util.Assert;
 
 import org.springframework.util.StringUtils;
 
+import top.openadexchange.constants.enums.DomainEventType;
+import top.openadexchange.dao.DomainEventDao;
 import top.openadexchange.dao.DspDao;
 import top.openadexchange.dao.DspPlacementMappingDao;
 import top.openadexchange.dao.DspSiteAdPlacementDao;
@@ -34,10 +36,9 @@ import top.openadexchange.model.DspPlacementMapping;
 import top.openadexchange.model.DspTargeting;
 import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.model.enums.RtbProtocolType;
-import top.openadexchange.model.table.DspPlacementMappingTableDef;
 import top.openadexchange.mos.application.converter.DspConverter;
+import top.openadexchange.mos.application.factory.DomainEventFactory;
 import top.openadexchange.mos.application.factory.UserFactory;
-import top.openadexchange.mos.domain.gateway.factory.EventPublishServices;
 
 import static top.openadexchange.model.table.DspPlacementMappingTableDef.*;
 import static top.openadexchange.model.table.DspTableDef.*;
@@ -62,7 +63,7 @@ public class DspService {
     @Resource
     private UserFactory userFactory;
     @Resource
-    private EventPublishServices eventPublishServices;
+    private DomainEventDao domainEventDao;
 
     @Transactional
     public Integer addDsp(DspDto dspDto) {
@@ -72,20 +73,30 @@ public class DspService {
         Dsp dsp = dspConverter.from(dspDto);
         dsp.setUserId(sysUser.getUserId());
         dspDao.save(dsp);
-        //eventPublishServices.getEventPublishService().publishEvent(new DspCreatedEvent(dsp.getId()));
+
+        domainEventDao.save(DomainEventFactory.create(DomainEventType.DSP_CREATED.name(), dsp.getId()));
         return dsp.getId();
     }
 
     public Boolean updateDsp(DspDto dspDto) {
         Dsp dsp = dspConverter.from(dspDto);
-        return dspDao.updateById(dsp);
+        boolean updated = dspDao.updateById(dsp);
+
+        if (updated) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.DSP_UPDATED.name(), dsp.getId()));
+        }
+        return updated;
     }
 
     public Boolean deleteDsp(Integer id) {
         log.info("deleteDsp: {}", id);
         Dsp dsp = dspDao.getById(id);
         sysUserService.deleteUserById(dsp.getUserId());
-        dspDao.removeById(id);
+        boolean deleted = dspDao.removeById(id);
+
+        if (deleted) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.DSP_DELETED.name(), dsp.getId()));
+        }
         return true;
     }
 
@@ -94,11 +105,19 @@ public class DspService {
     }
 
     public Boolean enableDsp(Integer id) {
-        return dspDao.enableDsp(id);
+        boolean enabled = dspDao.enableDsp(id);
+        if (enabled) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.DSP_UPDATED.name(), id));
+        }
+        return enabled;
     }
 
     public Boolean disableDsp(Integer id) {
-        return dspDao.disableDsp(id);
+        boolean disabled = dspDao.disableDsp(id);
+        if (disabled) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.DSP_UPDATED.name(), id));
+        }
+        return disabled;
     }
 
     public Page<Dsp> pageListDsp(DspQueryDto queryDto) {
@@ -125,6 +144,7 @@ public class DspService {
             dspTargeting.setRegion(JSON.toJSONString(dspTargetingDto.getRegions()));
         }
         dspTargetingDao.save(dspTargeting);
+        domainEventDao.save(DomainEventFactory.create(DomainEventType.DSP_UPDATED.name(), id));
         return true;
     }
 
@@ -142,7 +162,6 @@ public class DspService {
             if (dspTargeting.getOs() != null) {
                 targetingDto.setOsList(JSON.parseArray(dspTargeting.getOs(), String.class));
             }
-            //            targetingDto.setCountry(dspTargeting.getCountry());
             if (dspTargeting.getDeviceType() != null) {
                 targetingDto.setDeviceTypes(JSON.parseArray(dspTargeting.getDeviceType(), String.class));
             }

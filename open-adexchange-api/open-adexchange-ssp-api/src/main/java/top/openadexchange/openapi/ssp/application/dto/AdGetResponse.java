@@ -23,7 +23,7 @@ public class AdGetResponse {
         private String title;
         private String icon;
         private String desc;
-        private String main_image;
+        private String mainImage;
         private List<String> images;
         private String video;
         private String ctaText;

@@ -1,10 +1,13 @@
 package top.openadexchange.repository.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -30,6 +33,7 @@ import static top.openadexchange.model.table.DspTableDef.*;
 import static top.openadexchange.model.table.DspTargetingTableDef.*;
 
 @Repository
+@Slf4j
 public class DspAggregateRepositoryImpl implements DspAggregateRepository {
 
     private static final int PAGE_SIZE = 100;
@@ -76,7 +80,7 @@ public class DspAggregateRepositoryImpl implements DspAggregateRepository {
         }
 
         // 查询DSP信息
-        List<Dsp> dsps = dspDao.list(QueryWrapper.create().where(DSP.ID.in(dspIds)));
+        List<Dsp> dsps = dspDao.list(QueryWrapper.create().where(DSP.ID.in(dspIds).and(DSP.STATUS.eq(1))));
         if (dsps.isEmpty()) {
             return new ArrayList<>();
         }
@@ -90,6 +94,15 @@ public class DspAggregateRepositoryImpl implements DspAggregateRepository {
         Map<Integer, List<DspPlacementMapping>> dspPlacementMappingMap = getDspPlacementMappingMap(validDspIds);
         // 组装聚合DTO
         return buildDspAggregates(dsps, dspTargetingMap, dspSiteAdPlacementMap, dspPlacementMappingMap);
+    }
+
+    @Override
+    public DspAggregate getDspById(int dspId) {
+        List<DspAggregate> dspAggregates = getDspByIds(Collections.singletonList(dspId));
+        if (dspAggregates.isEmpty()) {
+            return null;
+        }
+        return dspAggregates.get(0);
     }
 
     private Map<Integer, List<DspPlacementMapping>> getDspPlacementMappingMap(List<Integer> validDspIds) {

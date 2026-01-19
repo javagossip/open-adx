@@ -11,11 +11,14 @@ import jakarta.annotation.Resource;
 
 import org.springframework.util.StringUtils;
 
+import top.openadexchange.constants.enums.DomainEventType;
+import top.openadexchange.dao.DomainEventDao;
 import top.openadexchange.dao.SiteAdPlacementDao;
 import top.openadexchange.dto.SiteAdPlacementDto;
 import top.openadexchange.dto.query.SiteAdPlacementQueryDto;
 import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.mos.application.converter.SiteAdPlacementConverter;
+import top.openadexchange.mos.application.factory.DomainEventFactory;
 
 @Service
 public class SiteAdPlacementService {
@@ -24,20 +27,33 @@ public class SiteAdPlacementService {
     private SiteAdPlacementDao siteAdPlacementDao;
     @Resource
     private SiteAdPlacementConverter siteAdPlacementConverter;
+    @Resource
+    private DomainEventDao domainEventDao;
 
     public Integer addSiteAdPlacement(SiteAdPlacementDto siteAdPlacementDto) {
         SiteAdPlacement siteAdPlacement = siteAdPlacementConverter.from(siteAdPlacementDto);
         siteAdPlacementDao.save(siteAdPlacement);
+        domainEventDao.save(DomainEventFactory.create(DomainEventType.SITE_AD_PLACEMENT_CREATED.name(),
+                siteAdPlacement.getId()));
         return siteAdPlacement.getId();
     }
 
     public Boolean updateSiteAdPlacement(SiteAdPlacementDto siteAdPlacementDto) {
         SiteAdPlacement siteAdPlacement = siteAdPlacementConverter.from(siteAdPlacementDto);
-        return siteAdPlacementDao.updateById(siteAdPlacement);
+        boolean updated = siteAdPlacementDao.updateById(siteAdPlacement);
+        if (updated) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.SITE_AD_PLACEMENT_UPDATED.name(),
+                    siteAdPlacement.getId()));
+        }
+        return updated;
     }
 
     public Boolean deleteSiteAdPlacement(Long id) {
-        return siteAdPlacementDao.removeById(id);
+        boolean deleted = siteAdPlacementDao.removeById(id);
+        if (deleted) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.SITE_AD_PLACEMENT_DELETED.name(), id));
+        }
+        return deleted;
     }
 
     public SiteAdPlacementDto getSiteAdPlacement(Long id) {
@@ -45,11 +61,19 @@ public class SiteAdPlacementService {
     }
 
     public Boolean enableSiteAdPlacement(Long id) {
-        return siteAdPlacementDao.enableSiteAdPlacement(id);
+        boolean updated = siteAdPlacementDao.enableSiteAdPlacement(id);
+        if (updated) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.SITE_AD_PLACEMENT_UPDATED.name(), id));
+        }
+        return updated;
     }
 
     public Boolean disableSiteAdPlacement(Long id) {
-        return siteAdPlacementDao.disableSiteAdPlacement(id);
+        boolean updated = siteAdPlacementDao.disableSiteAdPlacement(id);
+        if (updated) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.SITE_AD_PLACEMENT_UPDATED.name(), id));
+        }
+        return updated;
     }
 
     public Page<SiteAdPlacement> pageListSiteAdPlacements(SiteAdPlacementQueryDto queryDto) {
