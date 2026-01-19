@@ -100,6 +100,8 @@ public class IndexKeysBuilder {
                 } else {
                     indexKeys.setOsKeys(osList.stream().map(String::toUpperCase).toList());
                 }
+            } else {
+                indexKeys.setOsKeys(Collections.singletonList(Constants.DEFAULT_ALL_TARGETING));
             }
             if (StringUtils.hasText(deviceTypeTargeting)) {
                 List<String> deviceTypeList = JSON.parseArray(deviceTypeTargeting, String.class);
@@ -108,6 +110,8 @@ public class IndexKeysBuilder {
                 } else {
                     indexKeys.setDeviceTypeKeys(deviceTypeList.stream().map(String::toUpperCase).toList());
                 }
+            } else {
+                indexKeys.setDeviceTypeKeys(Collections.singletonList(Constants.DEFAULT_ALL_TARGETING));
             }
             if (StringUtils.hasText(regionTargeting)) {
                 List<String> regionList = JSON.parseArray(regionTargeting, String.class);
@@ -116,6 +120,8 @@ public class IndexKeysBuilder {
                 } else {
                     indexKeys.setRegionKeys(regionList.stream().map(String::toUpperCase).toList());
                 }
+            } else {
+                indexKeys.setRegionKeys(Collections.singletonList(Constants.DEFAULT_ALL_TARGETING));
             }
         }
         return indexKeys;

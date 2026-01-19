@@ -7,10 +7,12 @@ import com.chaincoretech.epc.annotation.Extension;
 import com.github.benmanes.caffeine.cache.Cache;
 
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import top.openadexchange.domain.entity.AdGroupAggregate;
 import top.openadexchange.domain.entity.AdPlacementAggregate;
 import top.openadexchange.domain.entity.CreativeAggregate;
 import top.openadexchange.domain.entity.DspAggregate;
+import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.Site;
@@ -18,6 +20,7 @@ import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataCacheService;
 
 @Extension(keys = {"caffeine", "default"})
+@Slf4j
 public class CaffeineMetadataCacheService implements MetadataCacheService {
 
     @Resource
@@ -27,9 +30,9 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
     @Resource
     private Cache<Integer, AdGroupAggregate> adGroupCache;
     @Resource
-    private Cache<String, SiteAdPlacement> siteAdPlacementCache;
+    private Cache<String, SiteAdPlacementAggregate> siteAdPlacementCache;
     @Resource
-    private Cache<Integer, SiteAdPlacement> siteAdPlacementCacheById;
+    private Cache<Integer, SiteAdPlacementAggregate> siteAdPlacementCacheById;
     @Resource
     private Cache<Integer, AdPlacement> adPlacementCache;
     @Resource
@@ -61,7 +64,7 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
     }
 
     @Override
-    public SiteAdPlacement getSiteAdPlacementByTagId(String tagId) {
+    public SiteAdPlacementAggregate getSiteAdPlacementByTagId(String tagId) {
         return siteAdPlacementCache.getIfPresent(tagId);
     }
 
@@ -76,9 +79,10 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
     }
 
     @Override
-    public void addSiteAdPlacement(SiteAdPlacement siteAdPlacement) {
-        siteAdPlacementCache.put(siteAdPlacement.getCode(), siteAdPlacement);
-        siteAdPlacementCacheById.put(siteAdPlacement.getId(), siteAdPlacement);
+    public void addSiteAdPlacement(SiteAdPlacementAggregate siteAdPlacement) {
+        log.info("Add siteAdPlacement cache: {}", siteAdPlacement);
+        siteAdPlacementCache.put(siteAdPlacement.getSiteAdPlacement().getCode(), siteAdPlacement);
+        siteAdPlacementCacheById.put(siteAdPlacement.getSiteAdPlacement().getId(), siteAdPlacement);
     }
 
     @Override
@@ -133,15 +137,15 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
     }
 
     @Override
-    public SiteAdPlacement getSiteAdPlacementById(int siteAdPlacementId) {
+    public SiteAdPlacementAggregate getSiteAdPlacementById(int siteAdPlacementId) {
         return siteAdPlacementCacheById.getIfPresent(siteAdPlacementId);
     }
 
     @Override
     public void removeSiteAdPlacement(int siteAdPlacementId) {
-        SiteAdPlacement siteAdPlacement = siteAdPlacementCacheById.getIfPresent(siteAdPlacementId);
+        SiteAdPlacementAggregate siteAdPlacement = siteAdPlacementCacheById.getIfPresent(siteAdPlacementId);
         if (siteAdPlacement != null) {
-            siteAdPlacementCache.invalidate(siteAdPlacement.getCode());
+            siteAdPlacementCache.invalidate(siteAdPlacement.getSiteAdPlacement().getCode());
             siteAdPlacementCacheById.invalidate(siteAdPlacementId);
         }
     }

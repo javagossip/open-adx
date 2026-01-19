@@ -4,12 +4,14 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import top.openadexchange.constants.enums.AdFormat;
 import top.openadexchange.constants.enums.SiteType;
+import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.openapi.ssp.application.dto.AdGetRequest;
@@ -54,8 +56,12 @@ public class BidRequestBuilder {
         builder.setTagid(imp.getTagid());
 
         MetadataRepository metadataRepository = oaxEngineServices.getCachedMetadataRepository();
-        SiteAdPlacement siteAdPlacement = metadataRepository.getSiteAdPlacementByTagId(imp.getTagid());
-        AdPlacement adPlacementSpec = metadataRepository.getAdPlacement(siteAdPlacement.getAdPlacementId());
+        SiteAdPlacementAggregate siteAdPlacementAggregate =
+                metadataRepository.getSiteAdPlacementByTagId(imp.getTagid());
+        Assert.notNull(siteAdPlacementAggregate, "未找到对应的媒体广告位");
+        SiteAdPlacement siteAdPlacement = siteAdPlacementAggregate.getSiteAdPlacement();
+        AdPlacement adPlacementSpec = metadataRepository.getAdPlacement(siteAdPlacementAggregate.getAdPlacementId());
+        Assert.notNull(adPlacementSpec, "未找到对应的广告位规格描述");
         AdFormat adFormat = AdFormat.valueOf(adPlacementSpec.getAdFormat().toUpperCase());
         if (adFormat == AdFormat.BANNER) {
             builder.setBanner(Banner.newBuilder()
@@ -191,8 +197,8 @@ public class BidRequestBuilder {
     private top.openadexchange.model.Site getSite(AdGetRequest request) {
         MetadataRepository metadataRepository = oaxEngineServices.getCachedMetadataRepository();
         String tagId = request.getImp().getFirst().getTagid();
-        SiteAdPlacement siteAdPlacement = metadataRepository.getSiteAdPlacementByTagId(tagId);
-        Long siteId = siteAdPlacement.getSiteId();
+        SiteAdPlacementAggregate siteAdPlacement = metadataRepository.getSiteAdPlacementByTagId(tagId);
+        Long siteId = siteAdPlacement.getSiteAdPlacement().getSiteId();
         top.openadexchange.model.Site site = metadataRepository.getSite(siteId);
         return site;
     }

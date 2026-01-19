@@ -15,5 +15,7 @@ public interface SiteAdpAdtMappingDao extends IService<SiteAdpAdtMapping> {
 
     void saveAdpAdtMappings(Integer id, List<Integer> adPlacementIds);
 
-    List<Integer> getAdpAdtMappingIds(Long siteAdPlacementId);
+    List<Integer> getAdpAdtMappingIds(Integer siteAdPlacementId);
+
+    List<SiteAdpAdtMapping> listBySiteAdPlacementIds(List<Integer> siteAdPlacementIds);
 }

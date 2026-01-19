@@ -4,6 +4,7 @@ import com.chaincoretech.epc.annotation.ExtensionPoint;
 
 import top.openadexchange.domain.entity.AdPlacementAggregate;
 import top.openadexchange.domain.entity.DspAggregate;
+import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.Site;
@@ -23,13 +24,13 @@ public interface MetadataCacheService {
 
     Site getSite(Long siteId);
 
-    SiteAdPlacement getSiteAdPlacementByTagId(String tagId);
+    SiteAdPlacementAggregate getSiteAdPlacementByTagId(String tagId);
 
     AdPlacement getAdPlacement(Integer id);
 
     void addSite(Site site);
 
-    void addSiteAdPlacement(SiteAdPlacement siteAdPlacement);
+    void addSiteAdPlacement(SiteAdPlacementAggregate siteAdPlacement);
 
     void addAdPlacement(AdPlacement adPlacement);
 
@@ -47,7 +48,7 @@ public interface MetadataCacheService {
 
     void removeAdPlacement(int adPlacementId);
 
-    SiteAdPlacement getSiteAdPlacementById(int siteAdPlacementId);
+    SiteAdPlacementAggregate getSiteAdPlacementById(int siteAdPlacementId);
 
     void removeSiteAdPlacement(int siteAdPlacementId);
 }

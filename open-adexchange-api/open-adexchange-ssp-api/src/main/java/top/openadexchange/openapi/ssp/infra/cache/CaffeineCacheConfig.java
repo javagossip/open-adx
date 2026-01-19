@@ -10,6 +10,7 @@ import top.openadexchange.domain.entity.AdGroupAggregate;
 import top.openadexchange.domain.entity.AdPlacementAggregate;
 import top.openadexchange.domain.entity.CreativeAggregate;
 import top.openadexchange.domain.entity.DspAggregate;
+import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.Site;
@@ -40,12 +41,12 @@ public class CaffeineCacheConfig {
     }
 
     @Bean
-    public Cache<Integer, SiteAdPlacement> siteAdPlacementCache() {
+    public Cache<Integer, SiteAdPlacementAggregate> siteAdPlacementCache() {
         return Caffeine.newBuilder().initialCapacity(100).maximumSize(500).build();
     }
 
     @Bean
-    public Cache<Integer, SiteAdPlacement> siteAdPlacementCacheById() {
+    public Cache<Integer, SiteAdPlacementAggregate> siteAdPlacementCacheById() {
         return Caffeine.newBuilder().initialCapacity(100).maximumSize(500).build();
     }
     

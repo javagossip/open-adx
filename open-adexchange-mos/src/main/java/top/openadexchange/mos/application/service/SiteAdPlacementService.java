@@ -65,7 +65,7 @@ public class SiteAdPlacementService {
         return deleted;
     }
 
-    public SiteAdPlacementDto getSiteAdPlacement(Long id) {
+    public SiteAdPlacementDto getSiteAdPlacement(Integer id) {
         SiteAdPlacement siteAdPlacement = siteAdPlacementDao.getById(id);
         SiteAdPlacementDto siteAdPlacementDto = siteAdPlacementConverter.toSiteAdPlacementDto(siteAdPlacement);
         siteAdPlacementDto.setAdPlacementIds(siteAdpAdtMappingDao.getAdpAdtMappingIds(id));

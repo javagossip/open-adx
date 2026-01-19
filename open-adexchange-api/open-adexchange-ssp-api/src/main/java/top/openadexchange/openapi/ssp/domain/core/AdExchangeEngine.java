@@ -132,9 +132,14 @@ public class AdExchangeEngine {
         MetadataRepository metadataRepository = oaxEngineServices.getCachedMetadataRepository();
 
         IndexKeys indexKeys = indexKeysBuilder.buildIndexKeys(request);
+        if (request.getTest()) {
+            log.info("test request: {}, indexKeys: {}", request, indexKeys);
+        }
         //从索引库中查询匹配当前广告流量的dsp列表
         List<Integer> matchDspIds = indexService.searchDsps(indexKeys);
-
+        if (request.getTest()) {
+            log.info("test request, matchDspIds: {}", matchDspIds);
+        }
         if (matchDspIds.isEmpty()) {
             return null;
         }

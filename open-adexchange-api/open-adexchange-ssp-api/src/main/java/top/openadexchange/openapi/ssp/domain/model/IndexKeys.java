@@ -7,8 +7,8 @@ import java.util.List;
 @Data
 public class IndexKeys {
 
-    private List<String> osKeys; //操作系统
-    private List<String> deviceTypeKeys; //设备类型
-    private List<String> tagIdKeys; //广告位ID
-    private List<String> regionKeys; //地域
+    private List<String> osKeys; //操作系统索引key
+    private List<String> deviceTypeKeys; //设备类型索引Key
+    private List<String> tagIdKeys; //广告位ID索引key
+    private List<String> regionKeys; //地域索引key
 }

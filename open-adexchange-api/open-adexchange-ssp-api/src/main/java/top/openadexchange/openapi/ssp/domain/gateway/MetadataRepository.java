@@ -4,6 +4,7 @@ import com.chaincoretech.epc.annotation.ExtensionPoint;
 
 import top.openadexchange.domain.entity.AdPlacementAggregate;
 import top.openadexchange.domain.entity.DspAggregate;
+import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.DspPlacementMapping;
@@ -24,7 +25,7 @@ public interface MetadataRepository {
      * @param tagId 广告位编码
      * @return 广告位信息
      */
-    SiteAdPlacement getSiteAdPlacementByTagId(String tagId);
+    SiteAdPlacementAggregate getSiteAdPlacementByTagId(String tagId);
 
     /**
      * 获取站点/app信息

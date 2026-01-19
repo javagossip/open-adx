@@ -3,6 +3,8 @@ package top.openadexchange.dao.impl;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
 
+import org.springframework.util.Assert;
+
 import top.openadexchange.model.SiteAdpAdtMapping;
 import top.openadexchange.mapper.SiteAdpAdtMappingMapper;
 import top.openadexchange.dao.SiteAdpAdtMappingDao;
@@ -37,9 +39,15 @@ public class SiteAdpAdtMappingDaoImpl extends ServiceImpl<SiteAdpAdtMappingMappe
     }
 
     @Override
-    public List<Integer> getAdpAdtMappingIds(Long siteAdPlacementId) {
+    public List<Integer> getAdpAdtMappingIds(Integer siteAdPlacementId) {
         return list(QueryWrapper.create().eq(SiteAdpAdtMapping::getSiteAdPlacementId, siteAdPlacementId)).stream()
                 .map(SiteAdpAdtMapping::getAdPlacementId)
                 .toList();
+    }
+
+    @Override
+    public List<SiteAdpAdtMapping> listBySiteAdPlacementIds(List<Integer> siteAdPlacementIds) {
+        Assert.notEmpty(siteAdPlacementIds, "siteAdPlacementIds cannot be empty");
+        return list(QueryWrapper.create().in(SiteAdpAdtMapping::getSiteAdPlacementId, siteAdPlacementIds));
     }
 }

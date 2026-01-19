@@ -5,15 +5,25 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import top.openadexchange.constants.Constants;
 import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.DspTargeting;
 import top.openadexchange.model.SiteAdPlacement;
+import top.openadexchange.openapi.ssp.application.factory.IndexKeysBuilder;
+import top.openadexchange.openapi.ssp.config.OaxEngineProperties;
+import top.openadexchange.openapi.ssp.domain.gateway.OaxEngineServices;
 import top.openadexchange.openapi.ssp.domain.model.IndexKeys;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,15 +32,24 @@ import static org.junit.jupiter.api.Assertions.*;
  * RoaringBitmapIndexService 单元测试 测试索引服务的基本功能、边界条件和异常场景
  */
 @DisplayName("RoaringBitmapIndexService 单元测试")
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {
+        RoaringIndexService.class, IndexKeysBuilder.class, OaxEngineServices.class, OaxEngineProperties.class
+})
 class RoaringIndexServiceTest {
 
+    @Autowired
     private RoaringIndexService indexService;
 
     @BeforeEach
     void setUp() {
-        indexService = new RoaringIndexService();
+        //indexService = new RoaringIndexService();
     }
 
+    @AfterEach
+    void tearDown() {
+       indexService.clearIndex();
+    }
     // ==================== Helper Methods ====================
 
     private DspAggregate createDspAggregate(Integer dspId,

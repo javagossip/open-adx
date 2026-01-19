@@ -8,6 +8,7 @@ import com.chaincoretech.epc.annotation.Extension;
 import jakarta.annotation.Resource;
 import top.openadexchange.domain.entity.AdPlacementAggregate;
 import top.openadexchange.domain.entity.DspAggregate;
+import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.DspPlacementMapping;
@@ -23,7 +24,7 @@ public class CacheMetadataRepository implements MetadataRepository {
     private MetadataCacheService metadataCacheService;
 
     @Override
-    public SiteAdPlacement getSiteAdPlacementByTagId(String tagId) {
+    public SiteAdPlacementAggregate getSiteAdPlacementByTagId(String tagId) {
         return metadataCacheService.getSiteAdPlacementByTagId(tagId);
     }
 

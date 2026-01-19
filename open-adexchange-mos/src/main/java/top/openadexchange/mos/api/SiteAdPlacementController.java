@@ -52,7 +52,7 @@ public class SiteAdPlacementController {
 
     @GetMapping("/{id}")
     @Operation(summary = "获取媒体广告位")
-    public ApiResponse<SiteAdPlacementDto> getSiteAdPlacement(@PathVariable("id") Long id) {
+    public ApiResponse<SiteAdPlacementDto> getSiteAdPlacement(@PathVariable("id") Integer id) {
         return ApiResponse.success(siteAdPlacementService.getSiteAdPlacement(id));
     }
 

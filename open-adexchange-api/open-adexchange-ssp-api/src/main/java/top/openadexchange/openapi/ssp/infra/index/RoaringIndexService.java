@@ -3,6 +3,7 @@ package top.openadexchange.openapi.ssp.infra.index;
 import com.alibaba.fastjson2.JSON;
 import com.chaincoretech.epc.annotation.Extension;
 
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 
 import org.roaringbitmap.IntIterator;
@@ -41,76 +42,36 @@ public class RoaringIndexService implements IndexService {
     private final Map<String, RoaringBitmap> deviceTypeIndex = new ConcurrentHashMap<>();
     //区域定向->DSP ID索引列表
     private final Map<String, RoaringBitmap> regionIndex = new ConcurrentHashMap<>();
-    private final IndexKeysBuilder indexKeysBuilder;
+    @Resource
+    private IndexKeysBuilder indexKeysBuilder;
 
-    public RoaringIndexService(IndexKeysBuilder indexKeysBuilder) {
-        this.indexKeysBuilder = indexKeysBuilder;
+    public RoaringIndexService() {
     }
 
     @Override
     public void indexDsp(DspAggregate dspAggregate) {
-        DspTargeting targeting = dspAggregate.getDspTargeting();
-        Dsp dsp = dspAggregate.getDsp();
-        List<SiteAdPlacement> siteAdPlacements = dspAggregate.getDspSiteAdPlacments();
-        if (!CollectionUtils.isEmpty(siteAdPlacements)) {
-            siteAdPlacements.forEach(siteAdPlacement -> adPlacementToDspIndex.computeIfAbsent(siteAdPlacement.getCode(),
-                    key -> new RoaringBitmap()).add(dsp.getId()));
-        } else {
-            //不限广告位，则所有流量都发给这个DSP
-            adPlacementToDspIndex.computeIfAbsent(Constants.DEFAULT_ALL_TARGETING, key -> new RoaringBitmap())
-                    .add(dsp.getId());
-        }
-        if (targeting == null) {
-            log.info("DSP:{}没有定向信息", dsp.getName());
-            osIndex.computeIfAbsent(Constants.DEFAULT_ALL_TARGETING, key -> new RoaringBitmap()).add(dsp.getId());
-            deviceTypeIndex.computeIfAbsent(Constants.DEFAULT_ALL_TARGETING, key -> new RoaringBitmap())
-                    .add(dsp.getId());
-            regionIndex.computeIfAbsent(Constants.DEFAULT_ALL_TARGETING, key -> new RoaringBitmap()).add(dsp.getId());
+        IndexKeys indexKeys = indexKeysBuilder.buildIndexKeys(dspAggregate);
+        if (indexKeys == null) {
+            log.error("DSP:{}索引信息为空", dspAggregate.getDsp().getName());
             return;
         }
-        //如果dsp有os定向，则只有特定os的流量会发给这个dsp
-        if (StringUtils.hasText(targeting.getOs())) {
-            List<String> osList = JSON.parseArray(targeting.getOs(), String.class);
-            if (osList == null || osList.isEmpty()) {
-                osIndex.computeIfAbsent(Constants.DEFAULT_ALL_TARGETING, key -> new RoaringBitmap()).add(dsp.getId());
-            } else {
-                osList.forEach(os -> osIndex.computeIfAbsent(os.toUpperCase(), key -> new RoaringBitmap())
-                        .add(dsp.getId()));
-            }
-        } else {
-            //不限os
-            osIndex.computeIfAbsent(Constants.DEFAULT_ALL_TARGETING, key -> new RoaringBitmap()).add(dsp.getId());
-        }
-        //设备类型定向
-        if (StringUtils.hasText(targeting.getDeviceType())) {
-            List<String> deviceTypes = JSON.parseArray(targeting.getDeviceType(), String.class);
-            if (deviceTypes == null || deviceTypes.isEmpty()) {
-                deviceTypeIndex.computeIfAbsent(Constants.DEFAULT_ALL_TARGETING, key -> new RoaringBitmap())
-                        .add(dsp.getId());
-            } else {
-                deviceTypes.forEach(deviceType -> deviceTypeIndex.computeIfAbsent(deviceType.toUpperCase(),
-                        key -> new RoaringBitmap()).add(dsp.getId()));
-            }
-        } else {
-            //不限设备类型
-            deviceTypeIndex.computeIfAbsent(Constants.DEFAULT_ALL_TARGETING, key -> new RoaringBitmap())
-                    .add(dsp.getId());
-        }
-        //区域定向
-        if (StringUtils.hasText(targeting.getRegion())) {
-            List<String> regions = JSON.parseArray(targeting.getRegion(), String.class);
-            if (regions == null || regions.isEmpty()) {
-                regionIndex.computeIfAbsent(Constants.DEFAULT_ALL_TARGETING, key -> new RoaringBitmap())
-                        .add(dsp.getId());
-            } else {
-                regions.forEach(region -> {
-                    //regionCode是 6位数字，如 100000，支持省、市、县三级定向，如果dsp定向区域是 100000, 用户访问流量区域是 101100，则该DSP会收到该流量
-                    regionIndex.computeIfAbsent(region, key -> new RoaringBitmap()).add(dsp.getId()); //县
-                });
-            }
-        } else {
-            //不限区域
-            regionIndex.computeIfAbsent(Constants.DEFAULT_ALL_TARGETING, key -> new RoaringBitmap()).add(dsp.getId());
+        log.info("DSP:{}索引信息:{}", dspAggregate.getDsp().getName(), indexKeys);
+
+        List<String> tagIdKeys = indexKeys.getTagIdKeys();
+        List<String> osKeys = indexKeys.getOsKeys();
+        List<String> deviceTypeKeys = indexKeys.getDeviceTypeKeys();
+        List<String> regionKeys = indexKeys.getRegionKeys();
+
+        Dsp dsp = dspAggregate.getDsp();
+        addDspToIndex(tagIdKeys, adPlacementToDspIndex, dsp);
+        addDspToIndex(osKeys, osIndex, dsp);
+        addDspToIndex(deviceTypeKeys, deviceTypeIndex, dsp);
+        addDspToIndex(regionKeys, regionIndex, dsp);
+    }
+
+    private void addDspToIndex(List<String> keys, Map<String, RoaringBitmap> index, Dsp dsp) {
+        if (keys != null) {
+            keys.forEach(key -> index.computeIfAbsent(key, k -> new RoaringBitmap()).add(dsp.getId()));
         }
     }
 
@@ -169,12 +130,11 @@ public class RoaringIndexService implements IndexService {
     @Override
     public void removeDspById(int dspId) {
         // 使用更细粒度的锁，分别锁定每个map，而不是锁定整个对象
-        adPlacementToDspIndex.forEach((key, bitmap) -> {
-            bitmap.clone().remove(dspId);
-            synchronized (bitmap) {
-                bitmap.remove(dspId);
-            }
-        });
+        log.info("Remove dsp from index, dspId: {}", dspId);
+        removeDspFromIndex(adPlacementToDspIndex, null, dspId);
+        removeDspFromIndex(osIndex, null, dspId);
+        removeDspFromIndex(deviceTypeIndex, null, dspId);
+        removeDspFromIndex(regionIndex, null, dspId);
     }
 
     @Override
@@ -186,6 +146,14 @@ public class RoaringIndexService implements IndexService {
         removeDspFromIndex(osIndex, indexKeys.getOsKeys(), dspId);
         removeDspFromIndex(deviceTypeIndex, indexKeys.getDeviceTypeKeys(), dspId);
         removeDspFromIndex(regionIndex, indexKeys.getRegionKeys(), dspId);
+    }
+
+    @Override
+    public void clearIndex() {
+        adPlacementToDspIndex.clear();
+        osIndex.clear();
+        deviceTypeIndex.clear();
+        regionIndex.clear();
     }
 
     private void removeDspFromIndex(Map<String, RoaringBitmap> index, List<String> keys, Integer dspId) {

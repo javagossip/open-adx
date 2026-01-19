@@ -5,6 +5,8 @@ import jakarta.annotation.Resource;
 
 import jakarta.servlet.http.HttpServletResponse;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.web.bind.annotation.*;
 
 import top.openadexchange.openapi.ssp.application.dto.AdGetRequest;
@@ -16,6 +18,7 @@ import top.openadexchange.openapi.ssp.application.service.AdFetchService;
  */
 @RestController
 @RequestMapping("/v1/ads")
+@Slf4j
 public class ADController {
 
     @Resource
@@ -30,10 +33,16 @@ public class ADController {
     @PostMapping
     @Operation(summary = "拉取广告")
     public AdGetResponse fetchAd(@RequestBody AdGetRequest request, HttpServletResponse response) {
-        AdGetResponse adGetResponse = adFetchService.fetchAd(request);
-        if (adGetResponse == null) {
+        try {
+            AdGetResponse adGetResponse = adFetchService.fetchAd(request);
+            if (adGetResponse == null) {
+                response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            }
+            return adGetResponse;
+        } catch (Exception ex) {
+            log.error("拉取广告失败", ex);
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         }
-        return adGetResponse;
+        return null;
     }
 }

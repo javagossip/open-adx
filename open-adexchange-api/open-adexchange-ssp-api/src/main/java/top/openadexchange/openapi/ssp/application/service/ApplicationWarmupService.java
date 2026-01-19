@@ -14,6 +14,7 @@ import top.openadexchange.dao.SiteAdPlacementDao;
 import top.openadexchange.dao.SiteDao;
 import top.openadexchange.domain.entity.AdPlacementAggregate;
 import top.openadexchange.domain.entity.DspAggregate;
+import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Site;
 import top.openadexchange.model.SiteAdPlacement;
@@ -22,6 +23,7 @@ import top.openadexchange.openapi.ssp.domain.gateway.MetadataCacheService;
 import top.openadexchange.openapi.ssp.domain.gateway.OaxEngineServices;
 import top.openadexchange.repository.AdPlacementAggregateRepository;
 import top.openadexchange.repository.DspAggregateRepository;
+import top.openadexchange.repository.SiteAdPlacementAggregateRepository;
 
 //应用预热服务
 @Service
@@ -33,6 +35,8 @@ public class ApplicationWarmupService {
     @Resource
     private AdPlacementAggregateRepository adPlacementAggregateRepository;
     @Resource
+    private SiteAdPlacementAggregateRepository siteAdPlacementAggregateRepository;
+    @Resource
     private MetadataCacheService metadataCacheService;
     @Resource
     private OaxEngineServices oaxEngineServices;
@@ -40,13 +44,13 @@ public class ApplicationWarmupService {
     private SiteDao siteDao;
     @Resource
     private AdPlacementDao adPlacementDao;
-    @Resource
-    private SiteAdPlacementDao siteAdPlacementDao;
 
     public void warmup() {
         //初始化索引库以及缓存库
-        initDspIndexAndCache();
-        initMetadataCache();
+        Thread.ofVirtual().name("warmup-thread").start(() -> {
+            initDspIndexAndCache();
+            initMetadataCache();
+        });
     }
 
     private void initMetadataCache() {
@@ -60,9 +64,8 @@ public class ApplicationWarmupService {
         int pageSize = 100;
         while (true) {
             int offset = (pageNo - 1) * pageSize;
-            List<SiteAdPlacement> siteAdPlacements = siteAdPlacementDao.list(QueryWrapper.create()
-                    .eq(SiteAdPlacement::getStatus, 1)
-                    .limit(offset, pageSize));
+            List<SiteAdPlacementAggregate> siteAdPlacements =
+                    siteAdPlacementAggregateRepository.listByPageNo(pageNo, pageSize);
             if (siteAdPlacements.isEmpty()) {
                 break;
             }
@@ -172,9 +175,8 @@ public class ApplicationWarmupService {
     }
 
     public void updateSiteAdPlacementById(Long entityId) {
-        SiteAdPlacement siteAdPlacement = siteAdPlacementDao.getOne(QueryWrapper.create()
-                .eq(SiteAdPlacement::getId, entityId.intValue())
-                .eq(SiteAdPlacement::getStatus, 1));
+        SiteAdPlacementAggregate siteAdPlacement =
+                siteAdPlacementAggregateRepository.getSiteAdPlacementAggregate(entityId.intValue());
         if (siteAdPlacement == null) {
             log.info("SiteAdPlacement not found or not active, entityId: {}", entityId);
             metadataCacheService.removeSiteAdPlacement(entityId.intValue());

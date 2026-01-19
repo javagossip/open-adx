@@ -19,4 +19,6 @@ public interface IndexService {
     void removeDspById(int dspId);
 
     void removeDsp(DspAggregate dspAggregate);
+
+    void clearIndex();
 }
