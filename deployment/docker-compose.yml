@@ -324,6 +324,53 @@ services:
                     memory: 512M
                     cpus: '0.25'
 
+    # open-adexchange-tracking-api 服务
+    openadx-tracking-api:
+        image: registry.cn-beijing.aliyuncs.com/oax/oax-tracking-api:latest
+        container_name: openadx-tracking-api-app
+        depends_on:
+            mysql:
+                condition: service_healthy
+            redis:
+                condition: service_healthy
+            kafka:
+                condition: service_started
+        ports:
+            - "8083:8083"
+        environment:
+            SPRING_PROFILES_ACTIVE: docker
+            MYSQL_HOST: mysql
+            MYSQL_PORT: 3306
+            MYSQL_DATABASE: ${MYSQL_DATABASE:-open-adexchange}
+            MYSQL_USER: ${MYSQL_USER:-openadx_user}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD:-openadx_password}
+            REDIS_HOST: redis
+            REDIS_PORT: 6379
+            REDIS_PASSWORD: ${REDIS_PASSWORD:-openadx_redis_password}
+            KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+            JASYPT_ENCRYPTOR_PASSWORD: ${JASYPT_ENCRYPTOR_PASSWORD:-top.openadexchange}
+            OAX_TRACKING_SECRET: ${OAX_TRACKING_SECRET:-1234567890123456}
+            JAVA_OPTS: "-Xmx1G -Xms512M -XX:+UseZGC -XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
+        volumes:
+            - ./logs:/app/logs
+        restart: unless-stopped
+        healthcheck:
+            test: [ "CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8083/actuator/health" ]
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 60s
+        networks:
+            - openadx-network
+        deploy:
+            resources:
+                limits:
+                    memory: 1G
+                    cpus: '0.5'
+                reservations:
+                    memory: 512M
+                    cpus: '0.25'
+
     # Kafdrop Kafka Web UI 服务
     kafdrop:
         image: obsidiandynamics/kafdrop:latest

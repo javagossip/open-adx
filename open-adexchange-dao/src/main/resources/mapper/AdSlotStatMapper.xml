@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.openadexchange.mapper.AdSlotStatMapper">
+
+    <!-- 媒体报表列表查询 -->
+    <select id="selectPublisherReport" resultType="top.openadexchange.domain.entity.PublisherReportAggregate">
+        SELECT
+            p.id AS publisherId,
+            p.name AS publisherName,
+            p.code AS publisherCode,
+            COALESCE(SUM(s.imp_count), 0) AS impCount,
+            COALESCE(SUM(s.click_count), 0) AS clickCount,
+            CASE
+                WHEN COALESCE(SUM(s.imp_count), 0) = 0 THEN 0
+                ELSE ROUND(COALESCE(SUM(s.click_count), 0) * 100.0 / SUM(s.imp_count), 2)
+            END AS clickRate,
+            0 AS revenue
+        FROM publisher p
+        LEFT JOIN ad_slot_stat s ON p.id = s.publisher_id
+            <if test="startDate != null">
+                AND s.stat_date >= #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND s.stat_date &lt;= #{endDate}
+            </if>
+        <where>
+            <if test="publisherId != null">
+                AND p.id = #{publisherId}
+            </if>
+            <if test="publisherName != null and publisherName != ''">
+                AND p.name LIKE CONCAT('%', #{publisherName}, '%')
+            </if>
+        </where>
+        GROUP BY p.id, p.name, p.code
+        ORDER BY impCount DESC
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <!-- 媒体报表总数查询 -->
+    <select id="countPublisherReport" resultType="java.lang.Long">
+        SELECT COUNT(DISTINCT p.id)
+        FROM publisher p
+        LEFT JOIN ad_slot_stat s ON p.id = s.publisher_id
+            <if test="startDate != null">
+                AND s.stat_date >= #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND s.stat_date &lt;= #{endDate}
+            </if>
+        <where>
+            <if test="publisherId != null">
+                AND p.id = #{publisherId}
+            </if>
+            <if test="publisherName != null and publisherName != ''">
+                AND p.name LIKE CONCAT('%', #{publisherName}, '%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 广告位报表列表查询 -->
+    <select id="selectAdSlotReport" resultType="top.openadexchange.domain.entity.AdSlotReportAggregate">
+        SELECT
+            sap.code AS adSlotId,
+            sap.name AS adSlotName,
+            st.id AS siteId,
+            st.name AS siteName,
+            p.id AS publisherId,
+            p.name AS publisherName,
+            COALESCE(SUM(s.imp_count), 0) AS impCount,
+            COALESCE(SUM(s.click_count), 0) AS clickCount,
+            CASE
+                WHEN COALESCE(SUM(s.imp_count), 0) = 0 THEN 0
+                ELSE ROUND(COALESCE(SUM(s.click_count), 0) * 100.0 / SUM(s.imp_count), 2)
+            END AS clickRate,
+            0 AS revenue
+        FROM site_ad_placement sap
+        LEFT JOIN site st ON sap.site_id = st.id
+        LEFT JOIN publisher p ON st.publisher_id = p.id
+        LEFT JOIN ad_slot_stat s ON sap.code = s.ad_slot_id
+            <if test="startDate != null">
+                AND s.stat_date >= #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND s.stat_date &lt;= #{endDate}
+            </if>
+        <where>
+            <if test="publisherId != null">
+                AND p.id = #{publisherId}
+            </if>
+            <if test="siteId != null">
+                AND st.id = #{siteId}
+            </if>
+        </where>
+        GROUP BY sap.code, sap.name, st.id, st.name, p.id, p.name
+        ORDER BY impCount DESC
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <!-- 广告位报表总数查询 -->
+    <select id="countAdSlotReport" resultType="java.lang.Long">
+        SELECT COUNT(DISTINCT sap.code)
+        FROM site_ad_placement sap
+        LEFT JOIN site st ON sap.site_id = st.id
+        LEFT JOIN publisher p ON st.publisher_id = p.id
+        LEFT JOIN ad_slot_stat s ON sap.code = s.ad_slot_id
+            <if test="startDate != null">
+                AND s.stat_date >= #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND s.stat_date &lt;= #{endDate}
+            </if>
+        <where>
+            <if test="publisherId != null">
+                AND p.id = #{publisherId}
+            </if>
+            <if test="siteId != null">
+                AND st.id = #{siteId}
+            </if>
+        </where>
+    </select>
+
+</mapper>

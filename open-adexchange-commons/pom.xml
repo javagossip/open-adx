@@ -48,5 +48,9 @@
             <groupId>top.openadexchange</groupId>
             <artifactId>open-adexchange-constants</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
     </dependencies>
 </project>

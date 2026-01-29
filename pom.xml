@@ -39,6 +39,7 @@
         <module>open-adexchange-constants</module>
         <module>open-adexchange-rtb-proto</module>
         <module>open-adexchange-job</module>
+        <module>open-adexchange-billing</module>
     </modules>
 
     <properties>
@@ -77,6 +78,7 @@
         <ip2region.version>3.3.4</ip2region.version>
         <guava.version>33.5.0-jre</guava.version>
         <xxl-job.version>3.2.0</xxl-job.version>
+        <redisson.version>3.52.0</redisson.version>
         <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
 
@@ -227,6 +229,12 @@
                 <groupId>com.xuxueli</groupId>
                 <artifactId>xxl-job-core</artifactId>
                 <version>${xxl-job.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
                 <scope>compile</scope>
             </dependency>
         </dependencies>

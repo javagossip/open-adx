@@ -1,0 +1,82 @@
+package top.openadexchange.mapper;
+
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+
+import com.mybatisflex.core.BaseMapper;
+
+import org.apache.ibatis.annotations.Param;
+
+import top.openadexchange.domain.entity.AdSlotReportAggregate;
+import top.openadexchange.domain.entity.PublisherReportAggregate;
+import top.openadexchange.model.AdSlotStat;
+
+import java.util.List;
+
+/**
+ * 媒体广告位数据统计 映射层。
+ *
+ * @author top.openadexchange
+ * @since 2026-01-27
+ */
+@Mapper
+public interface AdSlotStatMapper extends BaseMapper<AdSlotStat> {
+
+    @Insert("""
+            <script>
+            INSERT INTO ad_slot_stat (
+                ad_slot_id, 
+                publisher_id, 
+                site_id, 
+                stat_date, 
+                imp_count, 
+                click_count
+            ) VALUES 
+            <foreach collection='list' item='item' separator=','>
+                (#{item.adSlotId}, #{item.publisherId}, #{item.siteId}, #{item.statDate}, #{item.impCount}, #{item.clickCount})
+            </foreach>
+            ON DUPLICATE KEY UPDATE 
+                imp_count = VALUES(imp_count), 
+                click_count = VALUES(click_count), 
+                publisher_id = VALUES(publisher_id), 
+                site_id = VALUES(site_id)
+            </script>
+            """)
+    void saveBatchOnDuplicateKeyUpdate(@Param("list") List<AdSlotStat> adSlotStats);
+
+    /**
+     * 查询媒体报表列表（按媒体聚合）
+     */
+    List<PublisherReportAggregate> selectPublisherReport(@Param("publisherId") Long publisherId,
+                                                          @Param("publisherName") String publisherName,
+                                                          @Param("startDate") Integer startDate,
+                                                          @Param("endDate") Integer endDate,
+                                                          @Param("offset") Integer offset,
+                                                          @Param("limit") Integer limit);
+
+    /**
+     * 查询媒体报表总数
+     */
+    Long countPublisherReport(@Param("publisherId") Long publisherId,
+                              @Param("publisherName") String publisherName,
+                              @Param("startDate") Integer startDate,
+                              @Param("endDate") Integer endDate);
+
+    /**
+     * 查询广告位报表列表（按广告位聚合）
+     */
+    List<AdSlotReportAggregate> selectAdSlotReport(@Param("publisherId") Long publisherId,
+                                                    @Param("siteId") Long siteId,
+                                                    @Param("startDate") Integer startDate,
+                                                    @Param("endDate") Integer endDate,
+                                                    @Param("offset") Integer offset,
+                                                    @Param("limit") Integer limit);
+
+    /**
+     * 查询广告位报表总数
+     */
+    Long countAdSlotReport(@Param("publisherId") Long publisherId,
+                           @Param("siteId") Long siteId,
+                           @Param("startDate") Integer startDate,
+                           @Param("endDate") Integer endDate);
+}

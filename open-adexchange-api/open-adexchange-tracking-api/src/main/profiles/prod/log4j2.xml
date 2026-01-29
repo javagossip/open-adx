@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <!-- 定义日志文件路径 -->
+        <Property name="LOG_DIR">/data/logs/oax-tracking</Property>
+        <Property name="INFO_LOG_FILE">${LOG_DIR}/info.log</Property>
+        <Property name="ERROR_LOG_FILE">${LOG_DIR}/error.log</Property>
+        <Property name="IMP_TRACKING_LOG_FILE">${LOG_DIR}/imp.log</Property>
+        <Property name="CLICK_TRACKING_LOG_FILE">${LOG_DIR}/clk.log</Property>
+        <Property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Property>
+        <Property name="TRACKING_PATTERN">%msg%n</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Info 日志文件 Appender，按天滚动且限制单个文件大小 -->
+        <RollingFile name="InfoFile" fileName="${INFO_LOG_FILE}" filePattern="${LOG_DIR}/info-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${PATTERN}"/>
+            <Policies>
+                <!-- 按时间和大小双重条件滚动 -->
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="500MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="30" fileIndex="max">
+                <!-- 最多保留30天的日志文件 -->
+                <Delete basePath="${LOG_DIR}" maxDepth="1">
+                    <IfFileName glob="info-*.log.gz" />
+                    <IfLastModified age="30d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+            <!-- 只记录INFO及以上的日志，排除ERROR级别的日志（避免重复） -->
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+        </RollingFile>
+
+        <!-- Error 日志文件 Appender -->
+        <RollingFile name="ErrorFile" fileName="${ERROR_LOG_FILE}"
+                filePattern="${LOG_DIR}/error-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${PATTERN}"/>
+            <Policies>
+                <!-- 按时间和大小双重条件滚动 -->
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="500MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="90" fileIndex="max">
+                <!-- 错误日志保留更长时间 -->
+                <Delete basePath="${LOG_DIR}" maxDepth="1">
+                    <IfFileName glob="error-*.log.gz" />
+                    <IfLastModified age="90d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+            <!-- 只记录ERROR级别的日志 -->
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+        </RollingFile>
+
+        <!-- Imp Tracking 日志文件 Appender，按天滚动，保持原始格式输出 -->
+        <RollingFile name="ImpTrackingFile" fileName="${IMP_TRACKING_LOG_FILE}" filePattern="${LOG_DIR}/imp-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="${TRACKING_PATTERN}"/>
+            <Policies>
+                <!-- 按天滚动 -->
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="30" fileIndex="min">
+                <!-- 最多保留30天的跟踪日志 -->
+                <Delete basePath="${LOG_DIR}" maxDepth="1">
+                    <IfFileName glob="imp-*.log" />
+                    <IfLastModified age="30d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <!-- Click Tracking 日志文件 Appender，按天滚动，保持原始格式输出 -->
+        <RollingFile name="ClickTrackingFile" fileName="${CLICK_TRACKING_LOG_FILE}" filePattern="${LOG_DIR}/clk-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="${TRACKING_PATTERN}"/>
+            <Policies>
+                <!-- 按天滚动 -->
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="30" fileIndex="min">
+                <!-- 最多保留30天的跟踪日志 -->
+                <Delete basePath="${LOG_DIR}" maxDepth="1">
+                    <IfFileName glob="clk-*.log" />
+                    <IfLastModified age="30d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <!-- 异步 Appender，提高日志写入性能 -->
+        <Async name="AsyncInfo" bufferSize="4096" blocking="false" includeLocation="false">
+            <AppenderRef ref="InfoFile"/>
+        </Async>
+        <Async name="AsyncError" bufferSize="4096" blocking="false" includeLocation="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Async>
+        <Async name="AsyncImpTracking" bufferSize="8192" blocking="false" includeLocation="false">
+            <AppenderRef ref="ImpTrackingFile"/>
+        </Async>
+        <Async name="AsyncClickTracking" bufferSize="8192" blocking="false" includeLocation="false">
+            <AppenderRef ref="ClickTrackingFile"/>
+        </Async>
+    </Appenders>
+
+    <Loggers>
+        <!-- Imp Tracking Logger -->
+        <Logger name="imp" level="info" additivity="false">
+            <AppenderRef ref="AsyncImpTracking"/>
+        </Logger>
+        
+        <!-- Click Tracking Logger -->
+        <Logger name="clk" level="info" additivity="false">
+            <AppenderRef ref="AsyncClickTracking"/>
+        </Logger>
+        
+        <!-- 排除Spring框架的调试日志以减少日志量 -->
+        <Logger name="org.springframework" level="WARN" additivity="false">
+            <AppenderRef ref="AsyncError"/>
+        </Logger>
+        <Logger name="org.apache.http" level="WARN" additivity="false">
+            <AppenderRef ref="AsyncError"/>
+        </Logger>
+        
+        <Root level="info">
+            <AppenderRef ref="AsyncInfo"/>
+            <AppenderRef ref="AsyncError"/>
+        </Root>
+    </Loggers>
+</Configuration>

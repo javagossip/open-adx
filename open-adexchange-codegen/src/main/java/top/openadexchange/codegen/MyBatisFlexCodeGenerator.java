@@ -33,7 +33,7 @@ public class MyBatisFlexCodeGenerator {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
         String[] tables = new String[]{
-                "site_adp_adt_mapping"
+                "ad_slot_stat"
         };
         genEntities(projectPath, dataSource, tables);
         generateOthers(projectPath, dataSource, tables);

@@ -42,6 +42,7 @@ public class RedisConfig {
         return template;
     }
 
+    @Bean
     public RedisTemplate<String, byte[]> oaxBytesRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, byte[]> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory);
@@ -55,4 +56,19 @@ public class RedisConfig {
         template.afterPropertiesSet();
         return template;
     }
+
+    //    @Bean
+    //    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+    //        RedisTemplate<String, Object> template = new RedisTemplate<>();
+    //        template.setConnectionFactory(redisConnectionFactory);
+    //
+    //        template.setKeySerializer(RedisSerializer.string());
+    //        template.setValueSerializer(RedisSerializer.string());
+    //
+    //        template.setHashKeySerializer(RedisSerializer.string());
+    //        template.setHashValueSerializer(RedisSerializer.string());
+    //
+    //        template.afterPropertiesSet();
+    //        return template;
+    //    }
 }
