@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import top.openadexchange.commons.FloorPriceUtils;
+import top.openadexchange.dto.util.FloorPriceUtils;
 
 @Data
 @Schema(description = "媒体广告位底价信息")

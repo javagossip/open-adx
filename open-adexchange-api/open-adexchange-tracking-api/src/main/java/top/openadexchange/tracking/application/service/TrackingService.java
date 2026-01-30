@@ -3,6 +3,8 @@ package top.openadexchange.tracking.application.service;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
@@ -20,7 +22,7 @@ import com.alibaba.fastjson2.JSON;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import top.openadexchange.constants.PriceMode;
+import top.openadexchange.constants.enums.PriceMode;
 import top.openadexchange.dto.TrackToken;
 import top.openadexchange.tracking.application.factory.ClickEventFactory;
 import top.openadexchange.tracking.application.factory.ImpressionEventFactory;
@@ -28,6 +30,7 @@ import top.openadexchange.tracking.domain.event.ClickEvent;
 import top.openadexchange.tracking.domain.event.ImpressionEvent;
 import top.openadexchange.tracking.domain.gateway.AdDedupService;
 import top.openadexchange.tracking.domain.gateway.OaxTrackingServices;
+import top.openadexchange.tracking.domain.model.IncrHashKey;
 import top.openadexchange.tracking.domain.model.TrackTokenParseResult;
 import top.openadexchange.tracking.infrastructure.constants.KafkaConstants;
 import top.openadexchange.tracking.infrastructure.constants.RedisKeys;
@@ -43,41 +46,15 @@ public class TrackingService {
 
     @Resource
     private KafkaTemplate<String, String> kafkaTemplate;
-    @Resource
-    private RedisTemplate<String, String> oaxStringRedisTemplate;
+    @Resource(name = "oaxStringRedisTemplate")
+    private RedisTemplate<String, String> redisTemplate;
     @Resource
     private OaxTrackingServices oaxTrackingServices;
     @Resource
     private AntiFraudService antiFraudService;
 
     /**
-     * <pre>
-     * HTTP Request
-     *    │
-     *    ▼
-     * ① 参数解析（tk）
-     *    │
-     *    ▼
-     * ② 合法性校验（签名 / 过期）
-     *    │
-     *    ▼
-     * ③ 生成业务唯一 ID（impId / clickId）
-     *    │
-     *    ▼
-     * ④ 构造事实事件（Fact Event）
-     *    │
-     *    ▼
-     * ⑤ 同步写 Kafka（Source of Truth）
-     *    │
-     *    ▼
-     * ⑥ 实时计数（Redis，弱一致）
-     *    │
-     *    ▼
-     * ⑦ 生成 BillingEvent（异步）
-     *    │
-     *    ▼
-     * HTTP Response（pixel / redirect）
-     * </pre>
+     * 曝光跟踪
      *
      * @param tk
      * @param request
@@ -106,27 +83,16 @@ public class TrackingService {
             return;
         }
         // ⑥ 实时计数（Redis，弱一致）
-        String currentDate = LocalDate.now().format(DATE_FORMATTER);
-        String adSlotImpKey = String.format(RedisKeys.HASH_KEY_IMP_ADSLOT, currentDate);
-        String cridImpKey = String.format(RedisKeys.HASH_KEY_IMP_CRID, currentDate);
+        String today = LocalDate.now().format(DATE_FORMATTER);
+        String adSlotImpKey = String.format(RedisKeys.HASH_KEY_IMP_ADSLOT, today);
+        String cridImpKey = String.format(RedisKeys.HASH_KEY_IMP_CRID, today);
+        String dspImpKey = String.format(RedisKeys.HASH_KEY_IMP_DSP, today);
 
-        oaxStringRedisTemplate.executePipelined(new SessionCallback<>() {
-            @Override
-            public @Nullable <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
-                ops.opsForHash().increment((K) adSlotImpKey, trackToken.getAdSotId(), 1L);
-                ops.opsForHash().increment((K) cridImpKey, trackToken.getCrid(), 1L);
+        List<IncrHashKey> incrHashKeys = Arrays.asList(new IncrHashKey(adSlotImpKey, trackToken.getAdSotId()),
+                new IncrHashKey(cridImpKey, trackToken.getCrid()),
+                new IncrHashKey(dspImpKey, trackToken.getDspId()));
+        batchIncrementHashKeys(incrHashKeys);
 
-                Long expire = ops.getExpire((K) adSlotImpKey);
-                if (expire == null || expire < 0) {
-                    ops.expire((K) adSlotImpKey, Duration.ofDays(2));
-                }
-                Long expireForCridKey = ops.getExpire((K) cridImpKey);
-                if (expireForCridKey == null || expireForCridKey < 0) {
-                    ops.expire((K) cridImpKey, Duration.ofDays(2));
-                }
-                return null;
-            }
-        });
         // ⑦ 异步生成 BillingEvent（CPM 模式下曝光产生计费）
         if (PriceMode.CPM.name().equalsIgnoreCase(trackToken.getPriceMode())) {
             sendBillingEventAsync(impEvent);
@@ -159,31 +125,36 @@ public class TrackingService {
         }
 
         // ⑥ 实时计数（Redis，弱一致）
-        String currentDate = LocalDate.now().format(DATE_FORMATTER);
-        String adSlotClickKey = String.format(RedisKeys.HASH_KEY_CLK_ADSLOT, currentDate);
-        String cridClickKey = String.format(RedisKeys.HASH_KEY_CLK_CRID, currentDate);
+        String now = LocalDate.now().format(DATE_FORMATTER);
+        String adSlotClickKey = String.format(RedisKeys.HASH_KEY_CLK_ADSLOT, now);
+        String cridClickKey = String.format(RedisKeys.HASH_KEY_CLK_CRID, now);
+        String dspClickKey = String.format(RedisKeys.HASH_KEY_CLK_DSP, now);
 
-        oaxStringRedisTemplate.executePipelined(new SessionCallback<>() {
-            @Override
-            public @Nullable <K, V> Object execute(RedisOperations<K, V> operations) throws DataAccessException {
-                operations.opsForHash().increment((K) adSlotClickKey, payload.getAdSotId(), 1L);
-                operations.opsForHash().increment((K) cridClickKey, payload.getCrid(), 1L);
+        List<IncrHashKey> incrHashKeys = Arrays.asList(new IncrHashKey(adSlotClickKey, payload.getAdSotId()),
+                new IncrHashKey(cridClickKey, payload.getCrid()),
+                new IncrHashKey(dspClickKey, payload.getDspId()));
 
-                Long expireForAdSlotKey = operations.getExpire((K) adSlotClickKey);
-                if (expireForAdSlotKey == null || expireForAdSlotKey < 0) {
-                    operations.expire((K) adSlotClickKey, Duration.ofDays(2));
-                }
-                Long expireForCridKey = operations.getExpire((K) cridClickKey);
-                if (expireForCridKey == null || expireForCridKey < 0) {
-                    operations.expire((K) cridClickKey, Duration.ofDays(2));
-                }
-                return null;
-            }
-        });
+        batchIncrementHashKeys(incrHashKeys);
         // ⑦ 异步生成 BillingEvent（CPC 模式下点击产生计费）
         if (PriceMode.CPC.name().equalsIgnoreCase(payload.getPriceMode())) {
             sendBillingEventAsync(clickEvent);
         }
+    }
+
+    public void batchIncrementHashKeys(List<IncrHashKey> incrHashKeys) {
+        redisTemplate.executePipelined(new SessionCallback<>() {
+            @Override
+            public @Nullable <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
+                for (IncrHashKey incrHashKey : incrHashKeys) {
+                    K key = (K) incrHashKey.getKey();
+                    ops.opsForHash().increment(key, incrHashKey.getField(), 1L);
+                    if (ops.getExpire(key) == null || ops.getExpire(key) < 0) {
+                        ops.expire(key, Duration.ofDays(2));
+                    }
+                }
+                return null;
+            }
+        });
     }
 
     /**

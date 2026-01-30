@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ import com.mybatisflex.core.query.QueryWrapper;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
@@ -25,10 +27,14 @@ import jakarta.annotation.Resource;
 import org.springframework.util.StringUtils;
 
 import top.openadexchange.dao.AdSlotStatDao;
+import top.openadexchange.dao.DspDao;
+import top.openadexchange.dao.DspStatDao;
 import top.openadexchange.dao.SiteAdPlacementDao;
 import top.openadexchange.dao.SiteDao;
 import top.openadexchange.job.handler.StatDataSynchronizer.StatDataSynchronizerParam;
 import top.openadexchange.model.AdSlotStat;
+import top.openadexchange.model.Dsp;
+import top.openadexchange.model.DspStat;
 import top.openadexchange.model.Site;
 import top.openadexchange.model.SiteAdPlacement;
 
@@ -46,6 +52,10 @@ public class StatDataSynchronizerService {
     private SiteAdPlacementDao siteAdPlacementDao;
     @Resource
     private SiteDao siteDao;
+    @Resource
+    private DspDao dspDao;
+    @Autowired
+    private DspStatDao dspStatDao;
 
     public void syncAdSlotStatData(StatDataSynchronizerParam param) {
         String syncDate = (param == null || !StringUtils.hasText(param.getSyncDate())) ? LocalDate.now()
@@ -134,5 +144,77 @@ public class StatDataSynchronizerService {
             adSlotStats.add(adSlotStat);
         }
         adSlotStatDao.saveBatchOnDuplicateKeyUpdate(adSlotStats);
+    }
+
+    public void syncDspStatData(StatDataSynchronizerParam param) {
+        String syncDate = (param == null || !StringUtils.hasText(param.getSyncDate())) ? LocalDate.now()
+                .format(DateTimeFormatter.ofPattern("yyyyMMdd")) : param.getSyncDate();
+        String hashKey = String.format("imp:dsp:%s", syncDate);
+        ScanOptions options = ScanOptions.scanOptions().match("*").count(BATCH_SIZE).build();
+
+        int count = 0;
+        //<dspId, statData> - 广告位ID, 统计数据
+        Map<String, String> dspStatMap = new HashMap<>();
+        try (Cursor<Map.Entry<Object, Object>> cursor = redisTemplate.opsForHash().scan(hashKey, options)) {
+            while (cursor.hasNext()) {
+                count++;
+                Map.Entry<Object, Object> entry = cursor.next();
+                String hashField = (String) entry.getKey();
+                String impCountStr = (String) entry.getValue();
+
+                // 确保值不是null或空字符串
+                if (hashField != null && impCountStr != null && !impCountStr.trim().isEmpty()) {
+                    dspStatMap.put(hashField, impCountStr);
+                }
+
+                if (count % BATCH_SIZE == 0) {
+                    internalSyncDspStatData(dspStatMap, syncDate);
+                    dspStatMap.clear();
+                }
+            }
+            if (!dspStatMap.isEmpty()) {
+                internalSyncAdSlotStatData(dspStatMap, syncDate);
+                dspStatMap.clear();
+            }
+        } catch (Exception ex) {
+            log.error("syncAdSlotStatData error", ex);
+        }
+    }
+
+    private void internalSyncDspStatData(Map<String, String> dspStatMap, String syncDate) {
+        if (dspStatMap == null || dspStatMap.isEmpty()) {
+            return;
+        }
+        String clickHashKey = String.format("clk:dsp:%s", syncDate);
+        List<Object> dspCodes = new ArrayList<>(dspStatMap.keySet());
+
+        List<Dsp> dspList = dspDao.list(QueryWrapper.create().in(Dsp::getDspId, dspCodes));
+        Map<String, Dsp> dspMap = dspList.stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toMap(Dsp::getDspId, Function.identity(), (a, b) -> a));
+
+        List<Object> clickCounts = redisTemplate.opsForHash().multiGet(clickHashKey, new ArrayList<>(dspCodes));
+
+        List<DspStat> dspStats = new ArrayList<>(dspCodes.size());
+        for (int i = 0, size = dspCodes.size(); i < size; i++) {
+            DspStat dspStat = new DspStat();
+            String dspCode = (String) dspCodes.get(i);
+            Dsp dsp = dspMap.get(dspCode);
+            if (dsp == null) {
+                continue;
+            }
+            String impCountStr = dspStatMap.getOrDefault(dspCode, "0");
+            String clickCountStr = (String) clickCounts.get(i);
+            if (clickCountStr == null || clickCountStr.trim().isEmpty()) {
+                clickCountStr = "0";
+            }
+            dspStat.setDspId(dsp.getId());
+            dspStat.setDspCode(dsp.getDspId());
+            dspStat.setImpCount(Long.parseLong(impCountStr));
+            dspStat.setClkCount(Long.parseLong(clickCountStr));
+            dspStat.setStatDate(Integer.parseInt(syncDate));
+            dspStats.add(dspStat);
+        }
+        dspStatDao.saveBatchOnDuplicateKeyUpdate(dspStats);
     }
 }

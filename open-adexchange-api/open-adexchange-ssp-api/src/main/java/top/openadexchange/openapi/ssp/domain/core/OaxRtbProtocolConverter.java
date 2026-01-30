@@ -8,15 +8,15 @@ import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse;
 
 @Extension(keys = {"default"})
-public class OaxRtbProtocolConverter implements RtbProtocolConverter<BidRequest, BidResponse> {
+public class OaxRtbProtocolConverter implements RtbProtocolConverter<BidRequest.Builder, BidResponse.Builder> {
 
     @Override
-    public BidRequest to(Dsp dsp, BidRequest bidRequest) {
+    public BidRequest.Builder to(Dsp dsp, BidRequest.Builder bidRequest) {
         return bidRequest;
     }
 
     @Override
-    public BidResponse from(Dsp dsp, BidRequest bidRequest, BidResponse bidResponse) {
+    public BidResponse.Builder from(Dsp dsp, BidRequest bidRequest, BidResponse.Builder bidResponse) {
         return bidResponse;
     }
 }

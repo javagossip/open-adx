@@ -181,9 +181,12 @@ message BidRequest {
 
 message BidResponse {
   //竞价请求id, 和BidRequest的id保持一致
-  required string id = 1;
+  optional string id = 1;
   repeated SeatBid seatbid = 2;    //针对单个广告位的竞价响应
-  required string bidid = 3;       //dsp生成的竞价响应id
+  optional string bidid = 3;       //dsp生成的竞价响应id
+  optional uint32 nbr = 4;         //No Bid Reason
+  //是否无出价,如果http接口直接返回 204的话，dsp平台可以忽略此字段
+  optional bool no_bid = 5;
 
   //协议保留扩展
   extensions 200 to 299;

@@ -46,6 +46,7 @@ public class AdGetResponseBuilder {
         ad.setTagid(tagId);
         ad.setBundle(bid.getBundle());
         ad.setNativeAd(buildNativeAd(bid));
+        ad.setPrice(bid.getPrice());
         return ad;
     }
 

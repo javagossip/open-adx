@@ -4,12 +4,16 @@ public final class RedisKeys {
 
     //媒体广告位，格式：imp:adslot:{yyyyMMdd}
     public static final String HASH_KEY_IMP_ADSLOT = "imp:adslot:%s";
-    //媒体创意，格式：imp:crid:{yyyyMMdd}
+    //创意曝光，格式：imp:crid:{yyyyMMdd}
     public static final String HASH_KEY_IMP_CRID = "imp:crid:%s";
     //媒体广告位点击，格式：clk:adslot:{yyyyMMdd}
     public static final String HASH_KEY_CLK_ADSLOT = "clk:adslot:%s";
-    //媒体创意点击，格式：clk:crid:{yyyyMMdd}
+    //创意点击，格式：clk:crid:{yyyyMMdd}
     public static final String HASH_KEY_CLK_CRID = "clk:crid:%s";
+    //DSP曝光，格式：imp:dsp:{yyyyMMdd}
+    public static final String HASH_KEY_IMP_DSP = "imp:dsp:%s";
+    //DSP点击，格式：clk:dsp:{yyyyMMdd}
+    public static final String HASH_KEY_CLK_DSP = "clk:dsp:%s";
 
     //媒体广告位曝光次数，格式：imp:adslot:{adslotId}:{yyyyMMdd}
     public static final String IMP_ADSLOT = "imp:adslot:%s:%s";

@@ -38,6 +38,7 @@ public class DspConverter {
         dsp.setTimeoutMs(dspDto.getTimeoutMs());
         dsp.setBrandLogo(dspDto.getBrandLogo());
         dsp.setRtbProtocolType(dspDto.getRtbProtocolType());
+        dsp.setAt(dspDto.getAt() == null ? 1 : dspDto.getAt());
         dsp.setDspId(dspDto.getCode());
 
         // 设置代码和安全密钥
@@ -98,6 +99,7 @@ public class DspConverter {
         dspDto.setCode(dsp.getDspId());
         dspDto.setRtbProtocolType(dsp.getRtbProtocolType());
         dspDto.setCode(dsp.getDspId());
+        dspDto.setAt(dsp.getAt());
         if (dsp.getRtbProtocolType() == 2) {
             dspDto.setEncryptionKey(dsp.getEncryptionKey());
             dspDto.setIntegrityKey(dsp.getIntegrityKey());

@@ -38,9 +38,9 @@ public class AdFetchService {
     public AdGetResponse fetchAd(AdGetRequest request) {
         // 验证请求参数
         validateRequest(request);
-        BidRequest bidRequest = bidRequestBuilder.buildBidRequest(request);
+        BidRequest.Builder bidRequest = bidRequestBuilder.buildBidRequest(request);
         Map<String, Bid> bids = adExchangeEngine.bidding(bidRequest);
-        return adGetResponseBuilder.buildAdGetResponse(request,bids);
+        return adGetResponseBuilder.buildAdGetResponse(request, bids);
     }
 
     /**

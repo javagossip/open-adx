@@ -58,6 +58,8 @@ public class Dsp implements Serializable {
     private String brandLogo;
     //dsp rtb协议类型：1-标准 2- dsp平台自定义
     private int rtbProtocolType;
+    //dsp auction type: 1-first price 2-second price
+    private int at;
 
     private LocalDateTime createdAt;
 

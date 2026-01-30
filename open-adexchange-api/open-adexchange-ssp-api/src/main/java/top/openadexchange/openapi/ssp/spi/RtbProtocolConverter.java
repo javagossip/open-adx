@@ -10,7 +10,7 @@ import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse;
 @ExtensionPoint
 public interface RtbProtocolConverter<REQ, RSP> {
 
-    REQ to(Dsp dsp,BidRequest bidRequest);
+    REQ to(Dsp dsp, BidRequest.Builder bidRequest);
 
-    BidResponse from(Dsp dsp,BidRequest req,RSP rsp);
+    BidResponse.Builder from(Dsp dsp, BidRequest req, RSP rsp);
 }

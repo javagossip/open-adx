@@ -27,7 +27,7 @@ public class XinheRtbProtocolInvoker implements RtbProtocolInvoker<BidRequest, B
     @Override
     public BidResponse invoke(Dsp dsp, BidRequest request) {
         if (request.getTest()) {
-            log.info("xinhe's BidRequest: {}", request.toString());
+            log.info("xinhe's BidRequest: {}", request);
         }
         OaxHttpClient httpClient = oaxHttpClientFactory.getOaxHttpClient();
         try {

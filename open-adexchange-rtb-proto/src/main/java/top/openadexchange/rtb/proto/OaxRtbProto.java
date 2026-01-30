@@ -22944,6 +22944,44 @@ public final class OaxRtbProto {
      */
     com.google.protobuf.ByteString
         getBididBytes();
+
+    /**
+     * <pre>
+     *No Bid Reason
+     * </pre>
+     *
+     * <code>optional uint32 nbr = 4;</code>
+     * @return Whether the nbr field is set.
+     */
+    boolean hasNbr();
+    /**
+     * <pre>
+     *No Bid Reason
+     * </pre>
+     *
+     * <code>optional uint32 nbr = 4;</code>
+     * @return The nbr.
+     */
+    int getNbr();
+
+    /**
+     * <pre>
+     *是否无出价,如果http接口直接返回 204的话，dsp平台可以忽略此字段
+     * </pre>
+     *
+     * <code>optional bool no_bid = 5;</code>
+     * @return Whether the noBid field is set.
+     */
+    boolean hasNoBid();
+    /**
+     * <pre>
+     *是否无出价,如果http接口直接返回 204的话，dsp平台可以忽略此字段
+     * </pre>
+     *
+     * <code>optional bool no_bid = 5;</code>
+     * @return The noBid.
+     */
+    boolean getNoBid();
   }
   /**
    * Protobuf type {@code top.openadexchange.rtb.proto.BidResponse}
@@ -27763,41 +27801,41 @@ java.lang.String defaultValue) {
          *音视频播放完成监测
          * </pre>
          *
-         * <code>repeated string completed_trackers = 22;</code>
-         * @return A list containing the completedTrackers.
+         * <code>repeated string play_completed_trackers = 22;</code>
+         * @return A list containing the playCompletedTrackers.
          */
         java.util.List<java.lang.String>
-            getCompletedTrackersList();
+            getPlayCompletedTrackersList();
         /**
          * <pre>
          *音视频播放完成监测
          * </pre>
          *
-         * <code>repeated string completed_trackers = 22;</code>
-         * @return The count of completedTrackers.
+         * <code>repeated string play_completed_trackers = 22;</code>
+         * @return The count of playCompletedTrackers.
          */
-        int getCompletedTrackersCount();
+        int getPlayCompletedTrackersCount();
         /**
          * <pre>
          *音视频播放完成监测
          * </pre>
          *
-         * <code>repeated string completed_trackers = 22;</code>
+         * <code>repeated string play_completed_trackers = 22;</code>
          * @param index The index of the element to return.
-         * @return The completedTrackers at the given index.
+         * @return The playCompletedTrackers at the given index.
          */
-        java.lang.String getCompletedTrackers(int index);
+        java.lang.String getPlayCompletedTrackers(int index);
         /**
          * <pre>
          *音视频播放完成监测
          * </pre>
          *
-         * <code>repeated string completed_trackers = 22;</code>
+         * <code>repeated string play_completed_trackers = 22;</code>
          * @param index The index of the value to return.
-         * @return The bytes of the completedTrackers at the given index.
+         * @return The bytes of the playCompletedTrackers at the given index.
          */
         com.google.protobuf.ByteString
-            getCompletedTrackersBytes(int index);
+            getPlayCompletedTrackersBytes(int index);
 
         /**
          * <pre>
@@ -27880,6 +27918,88 @@ java.lang.String defaultValue) {
          */
         com.google.protobuf.ByteString
             getCloseTrackersBytes(int index);
+
+        /**
+         * <pre>
+         *应用下载监测
+         * </pre>
+         *
+         * <code>repeated string download_trackers = 26;</code>
+         * @return A list containing the downloadTrackers.
+         */
+        java.util.List<java.lang.String>
+            getDownloadTrackersList();
+        /**
+         * <pre>
+         *应用下载监测
+         * </pre>
+         *
+         * <code>repeated string download_trackers = 26;</code>
+         * @return The count of downloadTrackers.
+         */
+        int getDownloadTrackersCount();
+        /**
+         * <pre>
+         *应用下载监测
+         * </pre>
+         *
+         * <code>repeated string download_trackers = 26;</code>
+         * @param index The index of the element to return.
+         * @return The downloadTrackers at the given index.
+         */
+        java.lang.String getDownloadTrackers(int index);
+        /**
+         * <pre>
+         *应用下载监测
+         * </pre>
+         *
+         * <code>repeated string download_trackers = 26;</code>
+         * @param index The index of the value to return.
+         * @return The bytes of the downloadTrackers at the given index.
+         */
+        com.google.protobuf.ByteString
+            getDownloadTrackersBytes(int index);
+
+        /**
+         * <pre>
+         *应用下载完成监测
+         * </pre>
+         *
+         * <code>repeated string download_completed_trackers = 27;</code>
+         * @return A list containing the downloadCompletedTrackers.
+         */
+        java.util.List<java.lang.String>
+            getDownloadCompletedTrackersList();
+        /**
+         * <pre>
+         *应用下载完成监测
+         * </pre>
+         *
+         * <code>repeated string download_completed_trackers = 27;</code>
+         * @return The count of downloadCompletedTrackers.
+         */
+        int getDownloadCompletedTrackersCount();
+        /**
+         * <pre>
+         *应用下载完成监测
+         * </pre>
+         *
+         * <code>repeated string download_completed_trackers = 27;</code>
+         * @param index The index of the element to return.
+         * @return The downloadCompletedTrackers at the given index.
+         */
+        java.lang.String getDownloadCompletedTrackers(int index);
+        /**
+         * <pre>
+         *应用下载完成监测
+         * </pre>
+         *
+         * <code>repeated string download_completed_trackers = 27;</code>
+         * @param index The index of the value to return.
+         * @return The bytes of the downloadCompletedTrackers at the given index.
+         */
+        com.google.protobuf.ByteString
+            getDownloadCompletedTrackersBytes(int index);
       }
       /**
        * Protobuf type {@code top.openadexchange.rtb.proto.BidResponse.SeatBid.Bid}
@@ -27915,11 +28035,15 @@ java.lang.String defaultValue) {
           deeplink_ = "";
           playTrackers_ =
               com.google.protobuf.LazyStringArrayList.emptyList();
-          completedTrackers_ =
+          playCompletedTrackers_ =
               com.google.protobuf.LazyStringArrayList.emptyList();
           errorTrackers_ =
               com.google.protobuf.LazyStringArrayList.emptyList();
           closeTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+          downloadTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+          downloadCompletedTrackers_ =
               com.google.protobuf.LazyStringArrayList.emptyList();
         }
 
@@ -29064,57 +29188,57 @@ java.lang.String defaultValue) {
           return playTrackers_.getByteString(index);
         }
 
-        public static final int COMPLETED_TRACKERS_FIELD_NUMBER = 22;
+        public static final int PLAY_COMPLETED_TRACKERS_FIELD_NUMBER = 22;
         @SuppressWarnings("serial")
-        private com.google.protobuf.LazyStringArrayList completedTrackers_ =
+        private com.google.protobuf.LazyStringArrayList playCompletedTrackers_ =
             com.google.protobuf.LazyStringArrayList.emptyList();
         /**
          * <pre>
          *音视频播放完成监测
          * </pre>
          *
-         * <code>repeated string completed_trackers = 22;</code>
-         * @return A list containing the completedTrackers.
+         * <code>repeated string play_completed_trackers = 22;</code>
+         * @return A list containing the playCompletedTrackers.
          */
         public com.google.protobuf.ProtocolStringList
-            getCompletedTrackersList() {
-          return completedTrackers_;
+            getPlayCompletedTrackersList() {
+          return playCompletedTrackers_;
         }
         /**
          * <pre>
          *音视频播放完成监测
          * </pre>
          *
-         * <code>repeated string completed_trackers = 22;</code>
-         * @return The count of completedTrackers.
+         * <code>repeated string play_completed_trackers = 22;</code>
+         * @return The count of playCompletedTrackers.
          */
-        public int getCompletedTrackersCount() {
-          return completedTrackers_.size();
+        public int getPlayCompletedTrackersCount() {
+          return playCompletedTrackers_.size();
         }
         /**
          * <pre>
          *音视频播放完成监测
          * </pre>
          *
-         * <code>repeated string completed_trackers = 22;</code>
+         * <code>repeated string play_completed_trackers = 22;</code>
          * @param index The index of the element to return.
-         * @return The completedTrackers at the given index.
+         * @return The playCompletedTrackers at the given index.
          */
-        public java.lang.String getCompletedTrackers(int index) {
-          return completedTrackers_.get(index);
+        public java.lang.String getPlayCompletedTrackers(int index) {
+          return playCompletedTrackers_.get(index);
         }
         /**
          * <pre>
          *音视频播放完成监测
          * </pre>
          *
-         * <code>repeated string completed_trackers = 22;</code>
+         * <code>repeated string play_completed_trackers = 22;</code>
          * @param index The index of the value to return.
-         * @return The bytes of the completedTrackers at the given index.
+         * @return The bytes of the playCompletedTrackers at the given index.
          */
         public com.google.protobuf.ByteString
-            getCompletedTrackersBytes(int index) {
-          return completedTrackers_.getByteString(index);
+            getPlayCompletedTrackersBytes(int index) {
+          return playCompletedTrackers_.getByteString(index);
         }
 
         public static final int ERROR_TRACKERS_FIELD_NUMBER = 21;
@@ -29223,6 +29347,112 @@ java.lang.String defaultValue) {
           return closeTrackers_.getByteString(index);
         }
 
+        public static final int DOWNLOAD_TRACKERS_FIELD_NUMBER = 26;
+        @SuppressWarnings("serial")
+        private com.google.protobuf.LazyStringArrayList downloadTrackers_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
+        /**
+         * <pre>
+         *应用下载监测
+         * </pre>
+         *
+         * <code>repeated string download_trackers = 26;</code>
+         * @return A list containing the downloadTrackers.
+         */
+        public com.google.protobuf.ProtocolStringList
+            getDownloadTrackersList() {
+          return downloadTrackers_;
+        }
+        /**
+         * <pre>
+         *应用下载监测
+         * </pre>
+         *
+         * <code>repeated string download_trackers = 26;</code>
+         * @return The count of downloadTrackers.
+         */
+        public int getDownloadTrackersCount() {
+          return downloadTrackers_.size();
+        }
+        /**
+         * <pre>
+         *应用下载监测
+         * </pre>
+         *
+         * <code>repeated string download_trackers = 26;</code>
+         * @param index The index of the element to return.
+         * @return The downloadTrackers at the given index.
+         */
+        public java.lang.String getDownloadTrackers(int index) {
+          return downloadTrackers_.get(index);
+        }
+        /**
+         * <pre>
+         *应用下载监测
+         * </pre>
+         *
+         * <code>repeated string download_trackers = 26;</code>
+         * @param index The index of the value to return.
+         * @return The bytes of the downloadTrackers at the given index.
+         */
+        public com.google.protobuf.ByteString
+            getDownloadTrackersBytes(int index) {
+          return downloadTrackers_.getByteString(index);
+        }
+
+        public static final int DOWNLOAD_COMPLETED_TRACKERS_FIELD_NUMBER = 27;
+        @SuppressWarnings("serial")
+        private com.google.protobuf.LazyStringArrayList downloadCompletedTrackers_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
+        /**
+         * <pre>
+         *应用下载完成监测
+         * </pre>
+         *
+         * <code>repeated string download_completed_trackers = 27;</code>
+         * @return A list containing the downloadCompletedTrackers.
+         */
+        public com.google.protobuf.ProtocolStringList
+            getDownloadCompletedTrackersList() {
+          return downloadCompletedTrackers_;
+        }
+        /**
+         * <pre>
+         *应用下载完成监测
+         * </pre>
+         *
+         * <code>repeated string download_completed_trackers = 27;</code>
+         * @return The count of downloadCompletedTrackers.
+         */
+        public int getDownloadCompletedTrackersCount() {
+          return downloadCompletedTrackers_.size();
+        }
+        /**
+         * <pre>
+         *应用下载完成监测
+         * </pre>
+         *
+         * <code>repeated string download_completed_trackers = 27;</code>
+         * @param index The index of the element to return.
+         * @return The downloadCompletedTrackers at the given index.
+         */
+        public java.lang.String getDownloadCompletedTrackers(int index) {
+          return downloadCompletedTrackers_.get(index);
+        }
+        /**
+         * <pre>
+         *应用下载完成监测
+         * </pre>
+         *
+         * <code>repeated string download_completed_trackers = 27;</code>
+         * @param index The index of the value to return.
+         * @return The bytes of the downloadCompletedTrackers at the given index.
+         */
+        public com.google.protobuf.ByteString
+            getDownloadCompletedTrackersBytes(int index) {
+          return downloadCompletedTrackers_.getByteString(index);
+        }
+
         private byte memoizedIsInitialized = -1;
         @java.lang.Override
         public final boolean isInitialized() {
@@ -29320,8 +29550,8 @@ java.lang.String defaultValue) {
           for (int i = 0; i < errorTrackers_.size(); i++) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 21, errorTrackers_.getRaw(i));
           }
-          for (int i = 0; i < completedTrackers_.size(); i++) {
-            com.google.protobuf.GeneratedMessageV3.writeString(output, 22, completedTrackers_.getRaw(i));
+          for (int i = 0; i < playCompletedTrackers_.size(); i++) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 22, playCompletedTrackers_.getRaw(i));
           }
           if (((bitField0_ & 0x00000400) != 0)) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 23, appstoreId_);
@@ -29331,6 +29561,12 @@ java.lang.String defaultValue) {
           }
           if (((bitField0_ & 0x00008000) != 0)) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 25, appIconUrl_);
+          }
+          for (int i = 0; i < downloadTrackers_.size(); i++) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 26, downloadTrackers_.getRaw(i));
+          }
+          for (int i = 0; i < downloadCompletedTrackers_.size(); i++) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 27, downloadCompletedTrackers_.getRaw(i));
           }
           extensionWriter.writeUntil(300, output);
           getUnknownFields().writeTo(output);
@@ -29428,11 +29664,11 @@ java.lang.String defaultValue) {
           }
           {
             int dataSize = 0;
-            for (int i = 0; i < completedTrackers_.size(); i++) {
-              dataSize += computeStringSizeNoTag(completedTrackers_.getRaw(i));
+            for (int i = 0; i < playCompletedTrackers_.size(); i++) {
+              dataSize += computeStringSizeNoTag(playCompletedTrackers_.getRaw(i));
             }
             size += dataSize;
-            size += 2 * getCompletedTrackersList().size();
+            size += 2 * getPlayCompletedTrackersList().size();
           }
           if (((bitField0_ & 0x00000400) != 0)) {
             size += com.google.protobuf.GeneratedMessageV3.computeStringSize(23, appstoreId_);
@@ -29447,6 +29683,22 @@ java.lang.String defaultValue) {
           }
           if (((bitField0_ & 0x00008000) != 0)) {
             size += com.google.protobuf.GeneratedMessageV3.computeStringSize(25, appIconUrl_);
+          }
+          {
+            int dataSize = 0;
+            for (int i = 0; i < downloadTrackers_.size(); i++) {
+              dataSize += computeStringSizeNoTag(downloadTrackers_.getRaw(i));
+            }
+            size += dataSize;
+            size += 2 * getDownloadTrackersList().size();
+          }
+          {
+            int dataSize = 0;
+            for (int i = 0; i < downloadCompletedTrackers_.size(); i++) {
+              dataSize += computeStringSizeNoTag(downloadCompletedTrackers_.getRaw(i));
+            }
+            size += dataSize;
+            size += 2 * getDownloadCompletedTrackersList().size();
           }
           size += extensionsSerializedSize();
           size += getUnknownFields().getSerializedSize();
@@ -29560,12 +29812,16 @@ java.lang.String defaultValue) {
           }
           if (!getPlayTrackersList()
               .equals(other.getPlayTrackersList())) return false;
-          if (!getCompletedTrackersList()
-              .equals(other.getCompletedTrackersList())) return false;
+          if (!getPlayCompletedTrackersList()
+              .equals(other.getPlayCompletedTrackersList())) return false;
           if (!getErrorTrackersList()
               .equals(other.getErrorTrackersList())) return false;
           if (!getCloseTrackersList()
               .equals(other.getCloseTrackersList())) return false;
+          if (!getDownloadTrackersList()
+              .equals(other.getDownloadTrackersList())) return false;
+          if (!getDownloadCompletedTrackersList()
+              .equals(other.getDownloadCompletedTrackersList())) return false;
           if (!getUnknownFields().equals(other.getUnknownFields())) return false;
           if (!getExtensionFields().equals(other.getExtensionFields()))
             return false;
@@ -29665,9 +29921,9 @@ java.lang.String defaultValue) {
             hash = (37 * hash) + PLAY_TRACKERS_FIELD_NUMBER;
             hash = (53 * hash) + getPlayTrackersList().hashCode();
           }
-          if (getCompletedTrackersCount() > 0) {
-            hash = (37 * hash) + COMPLETED_TRACKERS_FIELD_NUMBER;
-            hash = (53 * hash) + getCompletedTrackersList().hashCode();
+          if (getPlayCompletedTrackersCount() > 0) {
+            hash = (37 * hash) + PLAY_COMPLETED_TRACKERS_FIELD_NUMBER;
+            hash = (53 * hash) + getPlayCompletedTrackersList().hashCode();
           }
           if (getErrorTrackersCount() > 0) {
             hash = (37 * hash) + ERROR_TRACKERS_FIELD_NUMBER;
@@ -29676,6 +29932,14 @@ java.lang.String defaultValue) {
           if (getCloseTrackersCount() > 0) {
             hash = (37 * hash) + CLOSE_TRACKERS_FIELD_NUMBER;
             hash = (53 * hash) + getCloseTrackersList().hashCode();
+          }
+          if (getDownloadTrackersCount() > 0) {
+            hash = (37 * hash) + DOWNLOAD_TRACKERS_FIELD_NUMBER;
+            hash = (53 * hash) + getDownloadTrackersList().hashCode();
+          }
+          if (getDownloadCompletedTrackersCount() > 0) {
+            hash = (37 * hash) + DOWNLOAD_COMPLETED_TRACKERS_FIELD_NUMBER;
+            hash = (53 * hash) + getDownloadCompletedTrackersList().hashCode();
           }
           hash = hashFields(hash, getExtensionFields());
           hash = (29 * hash) + getUnknownFields().hashCode();
@@ -29844,11 +30108,15 @@ java.lang.String defaultValue) {
             duration_ = 0L;
             playTrackers_ =
                 com.google.protobuf.LazyStringArrayList.emptyList();
-            completedTrackers_ =
+            playCompletedTrackers_ =
                 com.google.protobuf.LazyStringArrayList.emptyList();
             errorTrackers_ =
                 com.google.protobuf.LazyStringArrayList.emptyList();
             closeTrackers_ =
+                com.google.protobuf.LazyStringArrayList.emptyList();
+            downloadTrackers_ =
+                com.google.protobuf.LazyStringArrayList.emptyList();
+            downloadCompletedTrackers_ =
                 com.google.protobuf.LazyStringArrayList.emptyList();
             return this;
           }
@@ -29971,8 +30239,8 @@ java.lang.String defaultValue) {
               result.playTrackers_ = playTrackers_;
             }
             if (((from_bitField0_ & 0x00200000) != 0)) {
-              completedTrackers_.makeImmutable();
-              result.completedTrackers_ = completedTrackers_;
+              playCompletedTrackers_.makeImmutable();
+              result.playCompletedTrackers_ = playCompletedTrackers_;
             }
             if (((from_bitField0_ & 0x00400000) != 0)) {
               errorTrackers_.makeImmutable();
@@ -29981,6 +30249,14 @@ java.lang.String defaultValue) {
             if (((from_bitField0_ & 0x00800000) != 0)) {
               closeTrackers_.makeImmutable();
               result.closeTrackers_ = closeTrackers_;
+            }
+            if (((from_bitField0_ & 0x01000000) != 0)) {
+              downloadTrackers_.makeImmutable();
+              result.downloadTrackers_ = downloadTrackers_;
+            }
+            if (((from_bitField0_ & 0x02000000) != 0)) {
+              downloadCompletedTrackers_.makeImmutable();
+              result.downloadCompletedTrackers_ = downloadCompletedTrackers_;
             }
             result.bitField0_ |= to_bitField0_;
           }
@@ -30168,13 +30444,13 @@ java.lang.String defaultValue) {
               }
               onChanged();
             }
-            if (!other.completedTrackers_.isEmpty()) {
-              if (completedTrackers_.isEmpty()) {
-                completedTrackers_ = other.completedTrackers_;
+            if (!other.playCompletedTrackers_.isEmpty()) {
+              if (playCompletedTrackers_.isEmpty()) {
+                playCompletedTrackers_ = other.playCompletedTrackers_;
                 bitField0_ |= 0x00200000;
               } else {
-                ensureCompletedTrackersIsMutable();
-                completedTrackers_.addAll(other.completedTrackers_);
+                ensurePlayCompletedTrackersIsMutable();
+                playCompletedTrackers_.addAll(other.playCompletedTrackers_);
               }
               onChanged();
             }
@@ -30195,6 +30471,26 @@ java.lang.String defaultValue) {
               } else {
                 ensureCloseTrackersIsMutable();
                 closeTrackers_.addAll(other.closeTrackers_);
+              }
+              onChanged();
+            }
+            if (!other.downloadTrackers_.isEmpty()) {
+              if (downloadTrackers_.isEmpty()) {
+                downloadTrackers_ = other.downloadTrackers_;
+                bitField0_ |= 0x01000000;
+              } else {
+                ensureDownloadTrackersIsMutable();
+                downloadTrackers_.addAll(other.downloadTrackers_);
+              }
+              onChanged();
+            }
+            if (!other.downloadCompletedTrackers_.isEmpty()) {
+              if (downloadCompletedTrackers_.isEmpty()) {
+                downloadCompletedTrackers_ = other.downloadCompletedTrackers_;
+                bitField0_ |= 0x02000000;
+              } else {
+                ensureDownloadCompletedTrackersIsMutable();
+                downloadCompletedTrackers_.addAll(other.downloadCompletedTrackers_);
               }
               onChanged();
             }
@@ -30348,8 +30644,8 @@ java.lang.String defaultValue) {
                   } // case 170
                   case 178: {
                     com.google.protobuf.ByteString bs = input.readBytes();
-                    ensureCompletedTrackersIsMutable();
-                    completedTrackers_.add(bs);
+                    ensurePlayCompletedTrackersIsMutable();
+                    playCompletedTrackers_.add(bs);
                     break;
                   } // case 178
                   case 186: {
@@ -30368,6 +30664,18 @@ java.lang.String defaultValue) {
                     bitField0_ |= 0x00020000;
                     break;
                   } // case 202
+                  case 210: {
+                    com.google.protobuf.ByteString bs = input.readBytes();
+                    ensureDownloadTrackersIsMutable();
+                    downloadTrackers_.add(bs);
+                    break;
+                  } // case 210
+                  case 218: {
+                    com.google.protobuf.ByteString bs = input.readBytes();
+                    ensureDownloadCompletedTrackersIsMutable();
+                    downloadCompletedTrackers_.add(bs);
+                    break;
+                  } // case 218
                   default: {
                     if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                       done = true; // was an endgroup tag
@@ -32580,11 +32888,11 @@ java.lang.String defaultValue) {
             return this;
           }
 
-          private com.google.protobuf.LazyStringArrayList completedTrackers_ =
+          private com.google.protobuf.LazyStringArrayList playCompletedTrackers_ =
               com.google.protobuf.LazyStringArrayList.emptyList();
-          private void ensureCompletedTrackersIsMutable() {
-            if (!completedTrackers_.isModifiable()) {
-              completedTrackers_ = new com.google.protobuf.LazyStringArrayList(completedTrackers_);
+          private void ensurePlayCompletedTrackersIsMutable() {
+            if (!playCompletedTrackers_.isModifiable()) {
+              playCompletedTrackers_ = new com.google.protobuf.LazyStringArrayList(playCompletedTrackers_);
             }
             bitField0_ |= 0x00200000;
           }
@@ -32593,65 +32901,65 @@ java.lang.String defaultValue) {
            *音视频播放完成监测
            * </pre>
            *
-           * <code>repeated string completed_trackers = 22;</code>
-           * @return A list containing the completedTrackers.
+           * <code>repeated string play_completed_trackers = 22;</code>
+           * @return A list containing the playCompletedTrackers.
            */
           public com.google.protobuf.ProtocolStringList
-              getCompletedTrackersList() {
-            completedTrackers_.makeImmutable();
-            return completedTrackers_;
+              getPlayCompletedTrackersList() {
+            playCompletedTrackers_.makeImmutable();
+            return playCompletedTrackers_;
           }
           /**
            * <pre>
            *音视频播放完成监测
            * </pre>
            *
-           * <code>repeated string completed_trackers = 22;</code>
-           * @return The count of completedTrackers.
+           * <code>repeated string play_completed_trackers = 22;</code>
+           * @return The count of playCompletedTrackers.
            */
-          public int getCompletedTrackersCount() {
-            return completedTrackers_.size();
+          public int getPlayCompletedTrackersCount() {
+            return playCompletedTrackers_.size();
           }
           /**
            * <pre>
            *音视频播放完成监测
            * </pre>
            *
-           * <code>repeated string completed_trackers = 22;</code>
+           * <code>repeated string play_completed_trackers = 22;</code>
            * @param index The index of the element to return.
-           * @return The completedTrackers at the given index.
+           * @return The playCompletedTrackers at the given index.
            */
-          public java.lang.String getCompletedTrackers(int index) {
-            return completedTrackers_.get(index);
+          public java.lang.String getPlayCompletedTrackers(int index) {
+            return playCompletedTrackers_.get(index);
           }
           /**
            * <pre>
            *音视频播放完成监测
            * </pre>
            *
-           * <code>repeated string completed_trackers = 22;</code>
+           * <code>repeated string play_completed_trackers = 22;</code>
            * @param index The index of the value to return.
-           * @return The bytes of the completedTrackers at the given index.
+           * @return The bytes of the playCompletedTrackers at the given index.
            */
           public com.google.protobuf.ByteString
-              getCompletedTrackersBytes(int index) {
-            return completedTrackers_.getByteString(index);
+              getPlayCompletedTrackersBytes(int index) {
+            return playCompletedTrackers_.getByteString(index);
           }
           /**
            * <pre>
            *音视频播放完成监测
            * </pre>
            *
-           * <code>repeated string completed_trackers = 22;</code>
+           * <code>repeated string play_completed_trackers = 22;</code>
            * @param index The index to set the value at.
-           * @param value The completedTrackers to set.
+           * @param value The playCompletedTrackers to set.
            * @return This builder for chaining.
            */
-          public Builder setCompletedTrackers(
+          public Builder setPlayCompletedTrackers(
               int index, java.lang.String value) {
             if (value == null) { throw new NullPointerException(); }
-            ensureCompletedTrackersIsMutable();
-            completedTrackers_.set(index, value);
+            ensurePlayCompletedTrackersIsMutable();
+            playCompletedTrackers_.set(index, value);
             bitField0_ |= 0x00200000;
             onChanged();
             return this;
@@ -32661,15 +32969,15 @@ java.lang.String defaultValue) {
            *音视频播放完成监测
            * </pre>
            *
-           * <code>repeated string completed_trackers = 22;</code>
-           * @param value The completedTrackers to add.
+           * <code>repeated string play_completed_trackers = 22;</code>
+           * @param value The playCompletedTrackers to add.
            * @return This builder for chaining.
            */
-          public Builder addCompletedTrackers(
+          public Builder addPlayCompletedTrackers(
               java.lang.String value) {
             if (value == null) { throw new NullPointerException(); }
-            ensureCompletedTrackersIsMutable();
-            completedTrackers_.add(value);
+            ensurePlayCompletedTrackersIsMutable();
+            playCompletedTrackers_.add(value);
             bitField0_ |= 0x00200000;
             onChanged();
             return this;
@@ -32679,15 +32987,15 @@ java.lang.String defaultValue) {
            *音视频播放完成监测
            * </pre>
            *
-           * <code>repeated string completed_trackers = 22;</code>
-           * @param values The completedTrackers to add.
+           * <code>repeated string play_completed_trackers = 22;</code>
+           * @param values The playCompletedTrackers to add.
            * @return This builder for chaining.
            */
-          public Builder addAllCompletedTrackers(
+          public Builder addAllPlayCompletedTrackers(
               java.lang.Iterable<java.lang.String> values) {
-            ensureCompletedTrackersIsMutable();
+            ensurePlayCompletedTrackersIsMutable();
             com.google.protobuf.AbstractMessageLite.Builder.addAll(
-                values, completedTrackers_);
+                values, playCompletedTrackers_);
             bitField0_ |= 0x00200000;
             onChanged();
             return this;
@@ -32697,11 +33005,11 @@ java.lang.String defaultValue) {
            *音视频播放完成监测
            * </pre>
            *
-           * <code>repeated string completed_trackers = 22;</code>
+           * <code>repeated string play_completed_trackers = 22;</code>
            * @return This builder for chaining.
            */
-          public Builder clearCompletedTrackers() {
-            completedTrackers_ =
+          public Builder clearPlayCompletedTrackers() {
+            playCompletedTrackers_ =
               com.google.protobuf.LazyStringArrayList.emptyList();
             bitField0_ = (bitField0_ & ~0x00200000);;
             onChanged();
@@ -32712,15 +33020,15 @@ java.lang.String defaultValue) {
            *音视频播放完成监测
            * </pre>
            *
-           * <code>repeated string completed_trackers = 22;</code>
-           * @param value The bytes of the completedTrackers to add.
+           * <code>repeated string play_completed_trackers = 22;</code>
+           * @param value The bytes of the playCompletedTrackers to add.
            * @return This builder for chaining.
            */
-          public Builder addCompletedTrackersBytes(
+          public Builder addPlayCompletedTrackersBytes(
               com.google.protobuf.ByteString value) {
             if (value == null) { throw new NullPointerException(); }
-            ensureCompletedTrackersIsMutable();
-            completedTrackers_.add(value);
+            ensurePlayCompletedTrackersIsMutable();
+            playCompletedTrackers_.add(value);
             bitField0_ |= 0x00200000;
             onChanged();
             return this;
@@ -33014,6 +33322,298 @@ java.lang.String defaultValue) {
             ensureCloseTrackersIsMutable();
             closeTrackers_.add(value);
             bitField0_ |= 0x00800000;
+            onChanged();
+            return this;
+          }
+
+          private com.google.protobuf.LazyStringArrayList downloadTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+          private void ensureDownloadTrackersIsMutable() {
+            if (!downloadTrackers_.isModifiable()) {
+              downloadTrackers_ = new com.google.protobuf.LazyStringArrayList(downloadTrackers_);
+            }
+            bitField0_ |= 0x01000000;
+          }
+          /**
+           * <pre>
+           *应用下载监测
+           * </pre>
+           *
+           * <code>repeated string download_trackers = 26;</code>
+           * @return A list containing the downloadTrackers.
+           */
+          public com.google.protobuf.ProtocolStringList
+              getDownloadTrackersList() {
+            downloadTrackers_.makeImmutable();
+            return downloadTrackers_;
+          }
+          /**
+           * <pre>
+           *应用下载监测
+           * </pre>
+           *
+           * <code>repeated string download_trackers = 26;</code>
+           * @return The count of downloadTrackers.
+           */
+          public int getDownloadTrackersCount() {
+            return downloadTrackers_.size();
+          }
+          /**
+           * <pre>
+           *应用下载监测
+           * </pre>
+           *
+           * <code>repeated string download_trackers = 26;</code>
+           * @param index The index of the element to return.
+           * @return The downloadTrackers at the given index.
+           */
+          public java.lang.String getDownloadTrackers(int index) {
+            return downloadTrackers_.get(index);
+          }
+          /**
+           * <pre>
+           *应用下载监测
+           * </pre>
+           *
+           * <code>repeated string download_trackers = 26;</code>
+           * @param index The index of the value to return.
+           * @return The bytes of the downloadTrackers at the given index.
+           */
+          public com.google.protobuf.ByteString
+              getDownloadTrackersBytes(int index) {
+            return downloadTrackers_.getByteString(index);
+          }
+          /**
+           * <pre>
+           *应用下载监测
+           * </pre>
+           *
+           * <code>repeated string download_trackers = 26;</code>
+           * @param index The index to set the value at.
+           * @param value The downloadTrackers to set.
+           * @return This builder for chaining.
+           */
+          public Builder setDownloadTrackers(
+              int index, java.lang.String value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureDownloadTrackersIsMutable();
+            downloadTrackers_.set(index, value);
+            bitField0_ |= 0x01000000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *应用下载监测
+           * </pre>
+           *
+           * <code>repeated string download_trackers = 26;</code>
+           * @param value The downloadTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addDownloadTrackers(
+              java.lang.String value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureDownloadTrackersIsMutable();
+            downloadTrackers_.add(value);
+            bitField0_ |= 0x01000000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *应用下载监测
+           * </pre>
+           *
+           * <code>repeated string download_trackers = 26;</code>
+           * @param values The downloadTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addAllDownloadTrackers(
+              java.lang.Iterable<java.lang.String> values) {
+            ensureDownloadTrackersIsMutable();
+            com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                values, downloadTrackers_);
+            bitField0_ |= 0x01000000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *应用下载监测
+           * </pre>
+           *
+           * <code>repeated string download_trackers = 26;</code>
+           * @return This builder for chaining.
+           */
+          public Builder clearDownloadTrackers() {
+            downloadTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+            bitField0_ = (bitField0_ & ~0x01000000);;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *应用下载监测
+           * </pre>
+           *
+           * <code>repeated string download_trackers = 26;</code>
+           * @param value The bytes of the downloadTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addDownloadTrackersBytes(
+              com.google.protobuf.ByteString value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureDownloadTrackersIsMutable();
+            downloadTrackers_.add(value);
+            bitField0_ |= 0x01000000;
+            onChanged();
+            return this;
+          }
+
+          private com.google.protobuf.LazyStringArrayList downloadCompletedTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+          private void ensureDownloadCompletedTrackersIsMutable() {
+            if (!downloadCompletedTrackers_.isModifiable()) {
+              downloadCompletedTrackers_ = new com.google.protobuf.LazyStringArrayList(downloadCompletedTrackers_);
+            }
+            bitField0_ |= 0x02000000;
+          }
+          /**
+           * <pre>
+           *应用下载完成监测
+           * </pre>
+           *
+           * <code>repeated string download_completed_trackers = 27;</code>
+           * @return A list containing the downloadCompletedTrackers.
+           */
+          public com.google.protobuf.ProtocolStringList
+              getDownloadCompletedTrackersList() {
+            downloadCompletedTrackers_.makeImmutable();
+            return downloadCompletedTrackers_;
+          }
+          /**
+           * <pre>
+           *应用下载完成监测
+           * </pre>
+           *
+           * <code>repeated string download_completed_trackers = 27;</code>
+           * @return The count of downloadCompletedTrackers.
+           */
+          public int getDownloadCompletedTrackersCount() {
+            return downloadCompletedTrackers_.size();
+          }
+          /**
+           * <pre>
+           *应用下载完成监测
+           * </pre>
+           *
+           * <code>repeated string download_completed_trackers = 27;</code>
+           * @param index The index of the element to return.
+           * @return The downloadCompletedTrackers at the given index.
+           */
+          public java.lang.String getDownloadCompletedTrackers(int index) {
+            return downloadCompletedTrackers_.get(index);
+          }
+          /**
+           * <pre>
+           *应用下载完成监测
+           * </pre>
+           *
+           * <code>repeated string download_completed_trackers = 27;</code>
+           * @param index The index of the value to return.
+           * @return The bytes of the downloadCompletedTrackers at the given index.
+           */
+          public com.google.protobuf.ByteString
+              getDownloadCompletedTrackersBytes(int index) {
+            return downloadCompletedTrackers_.getByteString(index);
+          }
+          /**
+           * <pre>
+           *应用下载完成监测
+           * </pre>
+           *
+           * <code>repeated string download_completed_trackers = 27;</code>
+           * @param index The index to set the value at.
+           * @param value The downloadCompletedTrackers to set.
+           * @return This builder for chaining.
+           */
+          public Builder setDownloadCompletedTrackers(
+              int index, java.lang.String value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureDownloadCompletedTrackersIsMutable();
+            downloadCompletedTrackers_.set(index, value);
+            bitField0_ |= 0x02000000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *应用下载完成监测
+           * </pre>
+           *
+           * <code>repeated string download_completed_trackers = 27;</code>
+           * @param value The downloadCompletedTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addDownloadCompletedTrackers(
+              java.lang.String value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureDownloadCompletedTrackersIsMutable();
+            downloadCompletedTrackers_.add(value);
+            bitField0_ |= 0x02000000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *应用下载完成监测
+           * </pre>
+           *
+           * <code>repeated string download_completed_trackers = 27;</code>
+           * @param values The downloadCompletedTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addAllDownloadCompletedTrackers(
+              java.lang.Iterable<java.lang.String> values) {
+            ensureDownloadCompletedTrackersIsMutable();
+            com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                values, downloadCompletedTrackers_);
+            bitField0_ |= 0x02000000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *应用下载完成监测
+           * </pre>
+           *
+           * <code>repeated string download_completed_trackers = 27;</code>
+           * @return This builder for chaining.
+           */
+          public Builder clearDownloadCompletedTrackers() {
+            downloadCompletedTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+            bitField0_ = (bitField0_ & ~0x02000000);;
+            onChanged();
+            return this;
+          }
+          /**
+           * <pre>
+           *应用下载完成监测
+           * </pre>
+           *
+           * <code>repeated string download_completed_trackers = 27;</code>
+           * @param value The bytes of the downloadCompletedTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addDownloadCompletedTrackersBytes(
+              com.google.protobuf.ByteString value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureDownloadCompletedTrackersIsMutable();
+            downloadCompletedTrackers_.add(value);
+            bitField0_ |= 0x02000000;
             onChanged();
             return this;
           }
@@ -34284,6 +34884,60 @@ java.lang.String defaultValue) {
       }
     }
 
+    public static final int NBR_FIELD_NUMBER = 4;
+    private int nbr_ = 0;
+    /**
+     * <pre>
+     *No Bid Reason
+     * </pre>
+     *
+     * <code>optional uint32 nbr = 4;</code>
+     * @return Whether the nbr field is set.
+     */
+    @java.lang.Override
+    public boolean hasNbr() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <pre>
+     *No Bid Reason
+     * </pre>
+     *
+     * <code>optional uint32 nbr = 4;</code>
+     * @return The nbr.
+     */
+    @java.lang.Override
+    public int getNbr() {
+      return nbr_;
+    }
+
+    public static final int NO_BID_FIELD_NUMBER = 5;
+    private boolean noBid_ = false;
+    /**
+     * <pre>
+     *是否无出价,如果http接口直接返回 204的话，dsp平台可以忽略此字段
+     * </pre>
+     *
+     * <code>optional bool no_bid = 5;</code>
+     * @return Whether the noBid field is set.
+     */
+    @java.lang.Override
+    public boolean hasNoBid() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     * <pre>
+     *是否无出价,如果http接口直接返回 204的话，dsp平台可以忽略此字段
+     * </pre>
+     *
+     * <code>optional bool no_bid = 5;</code>
+     * @return The noBid.
+     */
+    @java.lang.Override
+    public boolean getNoBid() {
+      return noBid_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -34328,6 +34982,12 @@ java.lang.String defaultValue) {
       if (((bitField0_ & 0x00000002) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, bidid_);
       }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeUInt32(4, nbr_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        output.writeBool(5, noBid_);
+      }
       extensionWriter.writeUntil(300, output);
       getUnknownFields().writeTo(output);
     }
@@ -34347,6 +35007,14 @@ java.lang.String defaultValue) {
       }
       if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, bidid_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(4, nbr_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(5, noBid_);
       }
       size += extensionsSerializedSize();
       size += getUnknownFields().getSerializedSize();
@@ -34376,6 +35044,16 @@ java.lang.String defaultValue) {
         if (!getBidid()
             .equals(other.getBidid())) return false;
       }
+      if (hasNbr() != other.hasNbr()) return false;
+      if (hasNbr()) {
+        if (getNbr()
+            != other.getNbr()) return false;
+      }
+      if (hasNoBid() != other.hasNoBid()) return false;
+      if (hasNoBid()) {
+        if (getNoBid()
+            != other.getNoBid()) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       if (!getExtensionFields().equals(other.getExtensionFields()))
         return false;
@@ -34400,6 +35078,15 @@ java.lang.String defaultValue) {
       if (hasBidid()) {
         hash = (37 * hash) + BIDID_FIELD_NUMBER;
         hash = (53 * hash) + getBidid().hashCode();
+      }
+      if (hasNbr()) {
+        hash = (37 * hash) + NBR_FIELD_NUMBER;
+        hash = (53 * hash) + getNbr();
+      }
+      if (hasNoBid()) {
+        hash = (37 * hash) + NO_BID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getNoBid());
       }
       hash = hashFields(hash, getExtensionFields());
       hash = (29 * hash) + getUnknownFields().hashCode();
@@ -34543,6 +35230,8 @@ java.lang.String defaultValue) {
         }
         bitField0_ = (bitField0_ & ~0x00000002);
         bidid_ = "";
+        nbr_ = 0;
+        noBid_ = false;
         return this;
       }
 
@@ -34597,6 +35286,14 @@ java.lang.String defaultValue) {
         if (((from_bitField0_ & 0x00000004) != 0)) {
           result.bidid_ = bidid_;
           to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.nbr_ = nbr_;
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.noBid_ = noBid_;
+          to_bitField0_ |= 0x00000008;
         }
         result.bitField0_ |= to_bitField0_;
       }
@@ -34708,6 +35405,12 @@ java.lang.String defaultValue) {
           bitField0_ |= 0x00000004;
           onChanged();
         }
+        if (other.hasNbr()) {
+          setNbr(other.getNbr());
+        }
+        if (other.hasNoBid()) {
+          setNoBid(other.getNoBid());
+        }
         this.mergeExtensionFields(other);
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -34772,6 +35475,16 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00000004;
                 break;
               } // case 26
+              case 32: {
+                nbr_ = input.readUInt32();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 32
+              case 40: {
+                noBid_ = input.readBool();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 40
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -35308,6 +36021,118 @@ java.lang.String defaultValue) {
         onChanged();
         return this;
       }
+
+      private int nbr_ ;
+      /**
+       * <pre>
+       *No Bid Reason
+       * </pre>
+       *
+       * <code>optional uint32 nbr = 4;</code>
+       * @return Whether the nbr field is set.
+       */
+      @java.lang.Override
+      public boolean hasNbr() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <pre>
+       *No Bid Reason
+       * </pre>
+       *
+       * <code>optional uint32 nbr = 4;</code>
+       * @return The nbr.
+       */
+      @java.lang.Override
+      public int getNbr() {
+        return nbr_;
+      }
+      /**
+       * <pre>
+       *No Bid Reason
+       * </pre>
+       *
+       * <code>optional uint32 nbr = 4;</code>
+       * @param value The nbr to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNbr(int value) {
+
+        nbr_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *No Bid Reason
+       * </pre>
+       *
+       * <code>optional uint32 nbr = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNbr() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        nbr_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private boolean noBid_ ;
+      /**
+       * <pre>
+       *是否无出价,如果http接口直接返回 204的话，dsp平台可以忽略此字段
+       * </pre>
+       *
+       * <code>optional bool no_bid = 5;</code>
+       * @return Whether the noBid field is set.
+       */
+      @java.lang.Override
+      public boolean hasNoBid() {
+        return ((bitField0_ & 0x00000010) != 0);
+      }
+      /**
+       * <pre>
+       *是否无出价,如果http接口直接返回 204的话，dsp平台可以忽略此字段
+       * </pre>
+       *
+       * <code>optional bool no_bid = 5;</code>
+       * @return The noBid.
+       */
+      @java.lang.Override
+      public boolean getNoBid() {
+        return noBid_;
+      }
+      /**
+       * <pre>
+       *是否无出价,如果http接口直接返回 204的话，dsp平台可以忽略此字段
+       * </pre>
+       *
+       * <code>optional bool no_bid = 5;</code>
+       * @param value The noBid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNoBid(boolean value) {
+
+        noBid_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *是否无出价,如果http接口直接返回 204的话，dsp平台可以忽略此字段
+       * </pre>
+       *
+       * <code>optional bool no_bid = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNoBid() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        noBid_ = false;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -35531,37 +36356,40 @@ java.lang.String defaultValue) {
       "untry\030\003 \001(\t\022\022\n\006region\030\004 \001(\tB\002\030\001\022\020\n\004city\030" +
       "\005 \001(\tB\002\030\001\022\025\n\tarea_code\030\006 \001(\rB\002\030\001*\006\010\310\001\020\254\002" +
       "\032\036\n\004User\022\016\n\002id\030\001 \001(\tB\002\030\001*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002" +
-      "\"\230\t\n\013BidResponse\022\n\n\002id\030\001 \002(\t\022B\n\007seatbid\030" +
+      "\"\372\t\n\013BidResponse\022\n\n\002id\030\001 \002(\t\022B\n\007seatbid\030" +
       "\002 \003(\01321.top.openadexchange.rtb.proto.Bid" +
-      "Response.SeatBid\022\r\n\005bidid\030\003 \002(\t\032\271\003\n\010Nati" +
-      "veAd\022\023\n\013template_id\030\001 \001(\t\022R\n\006assets\030\002 \003(" +
-      "\0132>.top.openadexchange.rtb.proto.BidResp" +
-      "onse.NativeAd.AssetsEntryB\002\030\001\022\r\n\005title\030\003" +
-      " \001(\t\022\014\n\004desc\030\004 \001(\t\022\014\n\004icon\030\005 \001(\t\022\022\n\nmain" +
-      "_image\030\006 \001(\t\022\016\n\006images\030\007 \003(\t\022\021\n\tsponsore" +
-      "d\030\010 \001(\t\022\016\n\006rating\030\t \001(\t\022\r\n\005likes\030\n \001(\t\022\021" +
-      "\n\tdownloads\030\013 \001(\t\022\r\n\005price\030\014 \001(\t\022\022\n\nsale" +
-      "_price\030\r \001(\t\022\r\n\005phone\030\016 \001(\t\022\017\n\007address\030\017" +
-      " \001(\t\022\023\n\013display_url\030\020 \001(\t\022\013\n\003cta\030\021 \001(\t\022\r" +
-      "\n\005video\030\022 \001(\t\022\r\n\005desc2\030\023 \001(\t\032-\n\013AssetsEn" +
-      "try\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032\345\004\n\007" +
-      "SeatBid\022B\n\003bid\030\001 \003(\01325.top.openadexchang" +
-      "e.rtb.proto.BidResponse.SeatBid.Bid\022\014\n\004s" +
-      "eat\030\002 \001(\t\032\207\004\n\003Bid\022\n\n\002id\030\001 \002(\t\022\r\n\005impid\030\002" +
-      " \002(\t\022\r\n\005price\030\003 \002(\004\022\014\n\004crid\030\004 \002(\t\022\016\n\006dea" +
-      "lid\030\005 \001(\t\022\014\n\004nurl\030\024 \001(\t\022\024\n\014imp_trackers\030" +
-      "\006 \003(\t\022\024\n\014clk_trackers\030\007 \003(\t\022\013\n\003ldp\030\010 \001(\t" +
-      "\022\024\n\014creative_url\030\t \001(\t\022\022\n\nclick_type\030\n \001" +
-      "(\r\022\016\n\006bundle\030\013 \001(\t\022\023\n\013appstore_id\030\027 \001(\t\022" +
-      "\013\n\003adm\030\014 \001(\t\022D\n\010nativeAd\030\r \001(\01322.top.ope" +
+      "Response.SeatBid\022\r\n\005bidid\030\003 \002(\t\022\013\n\003nbr\030\004" +
+      " \001(\r\022\016\n\006no_bid\030\005 \001(\010\032\271\003\n\010NativeAd\022\023\n\013tem" +
+      "plate_id\030\001 \001(\t\022R\n\006assets\030\002 \003(\0132>.top.ope" +
       "nadexchange.rtb.proto.BidResponse.Native" +
-      "Ad\022\030\n\020app_download_url\030\016 \001(\t\022\020\n\010app_name" +
-      "\030\017 \001(\t\022\024\n\014app_icon_url\030\031 \001(\t\022\020\n\010deeplink" +
-      "\030\020 \001(\t\022\020\n\010duration\030\022 \001(\004\022\025\n\rplay_tracker" +
-      "s\030\023 \003(\t\022\032\n\022completed_trackers\030\026 \003(\t\022\026\n\016e" +
-      "rror_trackers\030\025 \003(\t\022\026\n\016close_trackers\030\030 " +
-      "\003(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002B+\n\034top.openadexchang" +
-      "e.rtb.protoB\013OaxRtbProto"
+      "Ad.AssetsEntryB\002\030\001\022\r\n\005title\030\003 \001(\t\022\014\n\004des" +
+      "c\030\004 \001(\t\022\014\n\004icon\030\005 \001(\t\022\022\n\nmain_image\030\006 \001(" +
+      "\t\022\016\n\006images\030\007 \003(\t\022\021\n\tsponsored\030\010 \001(\t\022\016\n\006" +
+      "rating\030\t \001(\t\022\r\n\005likes\030\n \001(\t\022\021\n\tdownloads" +
+      "\030\013 \001(\t\022\r\n\005price\030\014 \001(\t\022\022\n\nsale_price\030\r \001(" +
+      "\t\022\r\n\005phone\030\016 \001(\t\022\017\n\007address\030\017 \001(\t\022\023\n\013dis" +
+      "play_url\030\020 \001(\t\022\013\n\003cta\030\021 \001(\t\022\r\n\005video\030\022 \001" +
+      "(\t\022\r\n\005desc2\030\023 \001(\t\032-\n\013AssetsEntry\022\013\n\003key\030" +
+      "\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032\252\005\n\007SeatBid\022B\n\003" +
+      "bid\030\001 \003(\01325.top.openadexchange.rtb.proto" +
+      ".BidResponse.SeatBid.Bid\022\014\n\004seat\030\002 \001(\t\032\314" +
+      "\004\n\003Bid\022\n\n\002id\030\001 \002(\t\022\r\n\005impid\030\002 \002(\t\022\r\n\005pri" +
+      "ce\030\003 \002(\004\022\014\n\004crid\030\004 \002(\t\022\016\n\006dealid\030\005 \001(\t\022\014" +
+      "\n\004nurl\030\024 \001(\t\022\024\n\014imp_trackers\030\006 \003(\t\022\024\n\014cl" +
+      "k_trackers\030\007 \003(\t\022\013\n\003ldp\030\010 \001(\t\022\024\n\014creativ" +
+      "e_url\030\t \001(\t\022\022\n\nclick_type\030\n \001(\r\022\016\n\006bundl" +
+      "e\030\013 \001(\t\022\023\n\013appstore_id\030\027 \001(\t\022\013\n\003adm\030\014 \001(" +
+      "\t\022D\n\010nativeAd\030\r \001(\01322.top.openadexchange" +
+      ".rtb.proto.BidResponse.NativeAd\022\030\n\020app_d" +
+      "ownload_url\030\016 \001(\t\022\020\n\010app_name\030\017 \001(\t\022\024\n\014a" +
+      "pp_icon_url\030\031 \001(\t\022\020\n\010deeplink\030\020 \001(\t\022\020\n\010d" +
+      "uration\030\022 \001(\004\022\025\n\rplay_trackers\030\023 \003(\t\022\037\n\027" +
+      "play_completed_trackers\030\026 \003(\t\022\026\n\016error_t" +
+      "rackers\030\025 \003(\t\022\026\n\016close_trackers\030\030 \003(\t\022\031\n" +
+      "\021download_trackers\030\032 \003(\t\022#\n\033download_com" +
+      "pleted_trackers\030\033 \003(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002B+\n" +
+      "\034top.openadexchange.rtb.protoB\013OaxRtbPro" +
+      "to"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -35656,7 +36484,7 @@ java.lang.String defaultValue) {
     internal_static_top_openadexchange_rtb_proto_BidResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidResponse_descriptor,
-        new java.lang.String[] { "Id", "Seatbid", "Bidid", });
+        new java.lang.String[] { "Id", "Seatbid", "Bidid", "Nbr", "NoBid", });
     internal_static_top_openadexchange_rtb_proto_BidResponse_NativeAd_descriptor =
       internal_static_top_openadexchange_rtb_proto_BidResponse_descriptor.getNestedTypes().get(0);
     internal_static_top_openadexchange_rtb_proto_BidResponse_NativeAd_fieldAccessorTable = new
@@ -35680,7 +36508,7 @@ java.lang.String defaultValue) {
     internal_static_top_openadexchange_rtb_proto_BidResponse_SeatBid_Bid_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidResponse_SeatBid_Bid_descriptor,
-        new java.lang.String[] { "Id", "Impid", "Price", "Crid", "Dealid", "Nurl", "ImpTrackers", "ClkTrackers", "Ldp", "CreativeUrl", "ClickType", "Bundle", "AppstoreId", "Adm", "NativeAd", "AppDownloadUrl", "AppName", "AppIconUrl", "Deeplink", "Duration", "PlayTrackers", "CompletedTrackers", "ErrorTrackers", "CloseTrackers", });
+        new java.lang.String[] { "Id", "Impid", "Price", "Crid", "Dealid", "Nurl", "ImpTrackers", "ClkTrackers", "Ldp", "CreativeUrl", "ClickType", "Bundle", "AppstoreId", "Adm", "NativeAd", "AppDownloadUrl", "AppName", "AppIconUrl", "Deeplink", "Duration", "PlayTrackers", "PlayCompletedTrackers", "ErrorTrackers", "CloseTrackers", "DownloadTrackers", "DownloadCompletedTrackers", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

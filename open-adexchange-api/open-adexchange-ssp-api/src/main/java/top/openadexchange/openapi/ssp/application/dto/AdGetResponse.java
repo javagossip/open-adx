@@ -58,5 +58,7 @@ public class AdGetResponse {
         private String adl; // 应用下载地址
         private String dlk; // deeplink链接
         private NativeAd nativeAd; // 原生广告响应
+        //广告成交价
+        private long price;
     }
 }

@@ -19,6 +19,7 @@ import jakarta.annotation.Resource;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import top.openadexchange.constants.enums.AuctionType;
 import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.openapi.ssp.application.factory.IndexKeysBuilder;
@@ -45,7 +46,7 @@ import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid.Bid.Builder;
 public class AdExchangeEngine {
 
     private static final long DELTA = 10000; //1分
-
+    private static final Comparator<DspBid> BID_PRICE_DESCENDING = (a, b) -> Long.compare(b.getPrice(), a.getPrice());
     @Resource
     private DspClient dspClient;
     @Resource
@@ -57,7 +58,7 @@ public class AdExchangeEngine {
     @Resource
     private ExecutorFactories executorFactories;
 
-    public Map<String, Bid> bidding(BidRequest request) {
+    public Map<String, Bid> bidding(BidRequest.Builder request) {
         // 1. 获取所有 DSP 的响应 (并发逻辑同前)
         Map<String, Long> impFloorMap =
                 request.getImpList().stream().collect(Collectors.toMap(Imp::getId, Imp::getBidFloor, (a, b) -> a));
@@ -72,15 +73,19 @@ public class AdExchangeEngine {
 
     private Bid selectWinBid(List<DspBid> bids, long impFloor) {
         // 3. 执行二价计费算法
-        List<DspBid> sortedBids = bids.stream()
-                .sorted(Comparator.comparingDouble(DspBid::getPrice).reversed())
-                .collect(Collectors.toList());
-        DspBid winner = sortedBids.get(0);
-        long settlementPrice;
+        bids.sort(BID_PRICE_DESCENDING);
+        DspBid winner = bids.get(0);
 
-        if (sortedBids.size() > 1) {
+        //如果获胜dsp的出价类型是First Price，则直接返回中标者的出价
+        Dsp winDsp = winner.getDsp();
+        if (winDsp.getAt() == AuctionType.FIRST_PRICE.getValue()) {
+            return winner.getBid();
+        }
+
+        long settlementPrice;
+        if (bids.size() > 1) {
             // 有多个竞标者，取第二名价格 + DELTA
-            long secondPrice = sortedBids.get(1).getBid().getPrice();
+            long secondPrice = bids.get(1).getBid().getPrice();
             settlementPrice = secondPrice + DELTA;
 
             // 兜底：结算价不能超过中标者自己的出价
@@ -91,7 +96,6 @@ public class AdExchangeEngine {
         }
 
         // 4. 设置最终结算价格并返回
-        Dsp winDsp = winner.getDsp();
         Bid.Builder builder = Bid.newBuilder(winner.getBid()).setPrice(settlementPrice);
         //5. 对WinNotice url以及点击/曝光监测地址进行宏替换处理
         replaceMacros(builder, winner);
@@ -126,7 +130,7 @@ public class AdExchangeEngine {
     }
 
     //返回按照impid进行分组的竞价结果
-    private Map<String, List<DspBid>> fetchAllBids(BidRequest request, /*<impid, floorPrice>*/
+    private Map<String, List<DspBid>> fetchAllBids(BidRequest.Builder request, /*<impid, floorPrice>*/
             Map<String, Long> impFloorMap) {
         IndexService indexService = oaxEngineServices.getIndexService();
         MetadataRepository metadataRepository = oaxEngineServices.getCachedMetadataRepository();
@@ -141,6 +145,7 @@ public class AdExchangeEngine {
             log.info("test request, matchDspIds: {}", matchDspIds);
         }
         if (matchDspIds.isEmpty()) {
+            log.info("no match dsp, request id: {}", request.getId());
             return null;
         }
         List<DspAggregate> matchDsps = metadataRepository.getDspByIds(matchDspIds);

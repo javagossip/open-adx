@@ -9,6 +9,14 @@ public class EnvUtils implements EnvironmentAware {
 
     private static Environment environment;
 
+    public static String getAppName() {
+        return environment.getProperty("spring.application.name");
+    }
+
+    public static String getServerPort() {
+        return environment.getProperty("server.port");
+    }
+
     @Override
     public void setEnvironment(Environment env) {
         environment = env;

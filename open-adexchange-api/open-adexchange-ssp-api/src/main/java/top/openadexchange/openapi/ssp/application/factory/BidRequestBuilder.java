@@ -35,7 +35,7 @@ public class BidRequestBuilder {
     @Resource
     private OaxEngineServices oaxEngineServices;
 
-    public BidRequest buildBidRequest(AdGetRequest request) {
+    public BidRequest.Builder buildBidRequest(AdGetRequest request) {
         BidRequest.Builder builder = BidRequest.newBuilder();
 
         builder.setId(request.getId());
@@ -47,7 +47,7 @@ public class BidRequestBuilder {
         builder.setApp(buildApp(request));
         builder.setSite(buildSite(request));
         builder.setDevice(buildDevice(request));
-        return builder.build();
+        return builder;
     }
 
     private Imp buildImp(boolean isTest, AdGetRequest.Imp imp) {

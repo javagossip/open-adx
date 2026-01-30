@@ -9,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
+
+import org.springframework.util.StringUtils;
+
 import top.openadexchange.dao.AdPlacementDao;
 import top.openadexchange.dao.SiteAdPlacementDao;
 import top.openadexchange.dao.SiteDao;
@@ -16,6 +19,7 @@ import top.openadexchange.domain.entity.AdPlacementAggregate;
 import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
 import top.openadexchange.model.AdPlacement;
+import top.openadexchange.model.Dsp;
 import top.openadexchange.model.Site;
 import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.openapi.ssp.domain.gateway.IndexService;
@@ -44,6 +48,8 @@ public class ApplicationWarmupService {
     private SiteDao siteDao;
     @Resource
     private AdPlacementDao adPlacementDao;
+    @Resource
+    private RateLimiterManager rateLimiterManager;
 
     public void warmup() {
         //初始化索引库以及缓存库
@@ -63,7 +69,6 @@ public class ApplicationWarmupService {
         int pageNo = 1;
         int pageSize = 100;
         while (true) {
-            int offset = (pageNo - 1) * pageSize;
             List<SiteAdPlacementAggregate> siteAdPlacements =
                     siteAdPlacementAggregateRepository.listByPageNo(pageNo, pageSize);
             if (siteAdPlacements.isEmpty()) {
@@ -116,7 +121,27 @@ public class ApplicationWarmupService {
             }
             buildDspIndex(dspAggregates);
             buildDspCache(dspAggregates);
+            initDspRateLimiters(dspAggregates);
             pageNo++;
+        }
+    }
+
+    private void initDspRateLimiters(List<DspAggregate> dspAggregates) {
+        if (dspAggregates == null || dspAggregates.isEmpty()) {
+            return;
+        }
+        for (DspAggregate dspAggregate : dspAggregates) {
+            Dsp dsp = dspAggregate.getDsp();
+            if (dsp == null) {
+                log.warn("Dsp is null, skip rate limiter init");
+                continue;
+            }
+            String dspId = dsp.getDspId();
+            if (!StringUtils.hasText(dspId)) {
+                log.warn("DspId is null, skip rate limiter init, dspName: {}", dsp.getName());
+                continue;
+            }
+            rateLimiterManager.updateLimiter(dspId, dsp.getQpsLimit());
         }
     }
 
@@ -156,11 +181,14 @@ public class ApplicationWarmupService {
             }
             metadataCacheService.removeDsp(dspAggregate);
             oaxEngineServices.getIndexService().removeDsp(dspAggregate);
+            rateLimiterManager.removeRateLimiter(dspAggregate.getDsp().getDspId());
             return;
         }
         log.info("Update DSP cache or index: {}", dspAggregate);
         metadataCacheService.addDsp(dspAggregate);
         oaxEngineServices.getIndexService().indexDsp(dspAggregate);
+        //dsp信息变更，更新dsp qps限流器配置
+        rateLimiterManager.updateLimiter(dspAggregate.getDsp().getDspId(), dspAggregate.getDsp().getQpsLimit());
     }
 
     public void updateSiteById(Long entityId) {

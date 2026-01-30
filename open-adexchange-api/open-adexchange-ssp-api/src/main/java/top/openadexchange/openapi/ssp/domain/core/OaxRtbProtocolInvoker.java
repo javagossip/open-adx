@@ -34,6 +34,8 @@ public class OaxRtbProtocolInvoker implements RtbProtocolInvoker<BidRequest, Bid
             } catch (InvalidProtocolBufferException ex) {
                 throw new RuntimeException(ex);
             }
+        } else if (oaxHttpResponse.getStatusCode() == 204) {
+            return BidResponse.newBuilder().setNoBid(true).build();
         }
         return null;
     }

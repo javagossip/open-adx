@@ -35,7 +35,7 @@ public class IndexKeysBuilder {
     @Resource
     private OaxEngineServices oaxEngineServices;
 
-    public IndexKeys buildIndexKeys(BidRequest request) {
+    public IndexKeys buildIndexKeys(BidRequest.Builder request) {
         List<String> osKeys = new ArrayList<>();
         osKeys.add(request.getDevice().getOs().toUpperCase());
         osKeys.add(Constants.DEFAULT_ALL_TARGETING);

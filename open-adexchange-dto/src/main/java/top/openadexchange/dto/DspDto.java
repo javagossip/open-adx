@@ -46,4 +46,6 @@ public class DspDto {
     private String encryptionKey;
     @Schema(description = "完整性密钥")
     private String integrityKey;
+    @Schema(description = "Auction Type, 1-First Price, 2-Second Price")
+    private Integer at;
 }

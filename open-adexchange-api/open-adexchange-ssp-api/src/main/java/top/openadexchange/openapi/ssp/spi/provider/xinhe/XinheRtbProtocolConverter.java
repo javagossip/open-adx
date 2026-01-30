@@ -1,11 +1,16 @@
 package top.openadexchange.openapi.ssp.spi.provider.xinhe;
 
-import com.alibaba.fastjson2.JSON;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.chaincoretech.epc.annotation.Extension;
 
 import jakarta.annotation.Resource;
+import top.openadexchange.dto.TrackToken;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.DspPlacementMapping;
+import top.openadexchange.openapi.ssp.application.factory.TrackTokenBuilder;
+import top.openadexchange.openapi.ssp.config.OaxEngineProperties;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataRepository;
 import top.openadexchange.openapi.ssp.spi.RtbProtocolConverter;
 import top.openadexchange.rtb.proto.OaxRtbProto;
@@ -21,9 +26,6 @@ import top.openadexchange.rtb.proto.provider.xinhe.XinHeRtbProto.DeviceType;
 import top.openadexchange.rtb.proto.provider.xinhe.XinHeRtbProto.Geo;
 import top.openadexchange.rtb.proto.provider.xinhe.XinHeRtbProto.Imp;
 import top.openadexchange.rtb.proto.provider.xinhe.XinHeRtbProto.OperatorType;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Extension(keys = {"xinhe"})
 public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidRequest, BidResponse> {
@@ -64,8 +66,11 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
     @Resource
     private MetadataRepository metadataRepository;
 
+    @Resource
+    private OaxEngineProperties oaxEngineProperties;
+
     @Override
-    public BidRequest to(Dsp dsp, OaxRtbProto.BidRequest bidRequest) {
+    public BidRequest to(Dsp dsp, OaxRtbProto.BidRequest.Builder bidRequest) {
         BidRequest.Builder builder = BidRequest.newBuilder();
         builder.setId(bidRequest.getId());
         builder.setTmax(dsp.getTimeoutMs());
@@ -80,7 +85,7 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
         return builder.build();
     }
 
-    private Device buildDevice(Dsp dsp, OaxRtbProto.BidRequest bidRequest) {
+    private Device buildDevice(Dsp dsp, OaxRtbProto.BidRequest.Builder bidRequest) {
         Device.Builder builder = Device.newBuilder();
         builder.setConnectiontype(CONNECTION_TYPE_MAP.getOrDefault(bidRequest.getDevice().getConnectionType(),
                 ConnectionType.CT_UNKNOWN));
@@ -107,7 +112,7 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
         return builder.build();
     }
 
-    private App buildApp(Dsp dsp, OaxRtbProto.BidRequest bidRequest) {
+    private App buildApp(Dsp dsp, OaxRtbProto.BidRequest.Builder bidRequest) {
         App.Builder builder = App.newBuilder();
         builder.setBundle(bidRequest.getApp().getBundle());
         builder.setName(bidRequest.getApp().getName());
@@ -134,7 +139,7 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
     }
 
     @Override
-    public OaxRtbProto.BidResponse from(Dsp dsp, OaxRtbProto.BidRequest bidRequest, BidResponse bidResponse) {
+    public OaxRtbProto.BidResponse.Builder from(Dsp dsp, OaxRtbProto.BidRequest bidRequest, BidResponse bidResponse) {
         OaxRtbProto.BidResponse.Builder builder = OaxRtbProto.BidResponse.newBuilder();
         builder.setId(bidResponse.getId());
         builder.setBidid(bidResponse.getBidid());
@@ -147,17 +152,20 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
             // 注意：信和协议的Bid没有impid字段，这意味着无法准确关联到具体的Imp
             // 在实际使用中，可能需要通过其他方式（如上下文）来确定Imp的关联
             for (XinHeRtbProto.Bid xinheBid : xinheSeatBid.getBidList()) {
-                seatBidBuilder.addBid(buildOaxBid(impid, xinheBid));
+                seatBidBuilder.addBid(buildOaxBid(dsp, bidRequest, impid, xinheBid));
             }
             builder.addSeatbid(seatBidBuilder.build());
         }
-        return builder.build();
+        return builder;
     }
 
     /**
      * 将信和的Bid转换为OAX的Bid 注意：信和协议的Bid没有impid字段，这里生成的OaxBid也不会有impid
      */
-    private OaxRtbProto.BidResponse.SeatBid.Bid buildOaxBid(String impid, Bid xinheBid) {
+    private OaxRtbProto.BidResponse.SeatBid.Bid buildOaxBid(Dsp dsp,
+            OaxRtbProto.BidRequest bidRequest,
+            String impid,
+            Bid xinheBid) {
         OaxRtbProto.BidResponse.SeatBid.Bid.Builder builder = OaxRtbProto.BidResponse.SeatBid.Bid.newBuilder();
         builder.setNurl(xinheBid.getNurl());
         builder.setPrice(xinheBid.getPrice());
@@ -175,7 +183,7 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
         if (xinheBid.hasVideo()) {
             builder.setCreativeUrl(xinheBid.getVideo().getVideourl());
             builder.addAllPlayTrackers(xinheBid.getPlayvideomurlList());
-            builder.addAllCompletedTrackers(xinheBid.getFinishvideomurlList());
+            builder.addAllPlayCompletedTrackers(xinheBid.getFinishvideomurlList());
             builder.setDuration(xinheBid.getVideo().getVideoduration());
         }
         builder.addAllImpTrackers(xinheBid.getMurlList());

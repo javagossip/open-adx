@@ -47,6 +47,16 @@ public class StatDataSynchronizer {
         log.warn("syncCridStatData is not implemented yet");
     }
 
+    @XxlJob(value = "oax.stat.dsp.sync")
+    public void syncDspStatData() {
+        String jobParam = XxlJobHelper.getJobParam();
+        log.info("syncDspStatData start, job param: {}", jobParam);
+        StatDataSynchronizerParam param =
+                StringUtils.hasText(jobParam) ? JSON.parseObject(jobParam, StatDataSynchronizerParam.class) : null;
+        statDataSynchronizerService.syncDspStatData(param);
+        log.info("syncDspStatData end");
+    }
+
     @Data
     public static class StatDataSynchronizerParam {
 

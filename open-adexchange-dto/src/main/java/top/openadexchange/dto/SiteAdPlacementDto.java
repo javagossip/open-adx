@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import top.openadexchange.commons.FloorPriceUtils;
+import top.openadexchange.dto.util.FloorPriceUtils;
 
 @Data
 @NoArgsConstructor

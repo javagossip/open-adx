@@ -15,4 +15,10 @@ public class OaxEngineProperties {
     private String httpClient;
 
     private int dspCallTimeout = 200;
+    private String rateLimiterFactory;
+
+    /**
+     * 跟踪服务器URL，用于生成ADX平台自有的曝光和点击监测地址
+     */
+    private String trackingUrl;
 }

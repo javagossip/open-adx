@@ -48,7 +48,8 @@ public class TrackToken {
      * dsp ID, 对应dsp表中的code字段
      */
     private String dspId;
-
+    //dsp 类型,1-标准协议dsp,2-非标准协议dsp
+    private int dspType;
     /**
      * 时间戳
      */

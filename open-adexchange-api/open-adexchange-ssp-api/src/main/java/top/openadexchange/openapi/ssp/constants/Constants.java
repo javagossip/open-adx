@@ -8,4 +8,13 @@ public class Constants {
         String AD = "ad";
         String AD_GROUP = "ad_group";
     }
+
+    public interface RegistryKeys {
+
+        String SERVICE_NODE = "registry:service:nodes:%s";
+
+        static String serviceNodeKey(String serviceName) {
+            return String.format(SERVICE_NODE, serviceName);
+        }
+    }
 }
