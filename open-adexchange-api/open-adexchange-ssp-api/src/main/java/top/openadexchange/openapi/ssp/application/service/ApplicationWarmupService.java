@@ -13,6 +13,7 @@ import jakarta.annotation.Resource;
 import org.springframework.util.StringUtils;
 
 import top.openadexchange.dao.AdPlacementDao;
+import top.openadexchange.dao.PublisherDao;
 import top.openadexchange.dao.SiteAdPlacementDao;
 import top.openadexchange.dao.SiteDao;
 import top.openadexchange.domain.entity.AdPlacementAggregate;
@@ -20,6 +21,7 @@ import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
+import top.openadexchange.model.Publisher;
 import top.openadexchange.model.Site;
 import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.openapi.ssp.domain.gateway.IndexService;
@@ -48,6 +50,8 @@ public class ApplicationWarmupService {
     private SiteDao siteDao;
     @Resource
     private AdPlacementDao adPlacementDao;
+    @Resource
+    private PublisherDao publisherDao;
     @Resource
     private RateLimiterManager rateLimiterManager;
 
@@ -212,5 +216,15 @@ public class ApplicationWarmupService {
             log.info("Update siteAdPlacement cache: {}", siteAdPlacement);
             metadataCacheService.addSiteAdPlacement(siteAdPlacement);
         }
+    }
+
+    public void updatePublisherById(Long publisherId) {
+        Publisher publisher = publisherDao.getById(publisherId);
+        if (publisher == null || publisher.getStatus() == 0) {
+            log.info("Publisher not found or not active, entityId: {}", publisherId);
+            metadataCacheService.removePublisher(publisherId);
+            return;
+        }
+        metadataCacheService.addOrUpdatePublisher(publisher);
     }
 }

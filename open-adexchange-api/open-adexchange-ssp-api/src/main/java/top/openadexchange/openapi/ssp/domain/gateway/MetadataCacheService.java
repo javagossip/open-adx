@@ -7,6 +7,7 @@ import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
+import top.openadexchange.model.Publisher;
 import top.openadexchange.model.Site;
 import top.openadexchange.model.SiteAdPlacement;
 
@@ -51,4 +52,10 @@ public interface MetadataCacheService {
     SiteAdPlacementAggregate getSiteAdPlacementById(int siteAdPlacementId);
 
     void removeSiteAdPlacement(int siteAdPlacementId);
+
+    void removePublisher(Long publisherId);
+
+    void addOrUpdatePublisher(Publisher publisher);
+
+    Publisher getPublisher(Long publisherId);
 }

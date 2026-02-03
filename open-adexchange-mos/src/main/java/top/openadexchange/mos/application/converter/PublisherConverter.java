@@ -26,6 +26,7 @@ public class PublisherConverter {
         publisher.setContactEmail(publisherDto.getContactEmail());
         publisher.setContactPhone(publisherDto.getContactPhone());
         publisher.setStatus(publisherDto.getStatus());
+        publisher.setRevShare(publisherDto.getRevShare());
 
         // 设置code和userId
         if (entityCodeService != null) {
@@ -47,6 +48,7 @@ public class PublisherConverter {
         publisherDto.setContactEmail(publisher.getContactEmail());
         publisherDto.setContactPhone(publisher.getContactPhone());
         publisherDto.setStatus(publisher.getStatus());
+        publisherDto.setRevShare(publisher.getRevShare());
 
         return publisherDto;
     }

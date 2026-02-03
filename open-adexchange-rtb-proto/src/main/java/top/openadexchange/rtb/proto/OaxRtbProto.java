@@ -74,6 +74,21 @@ public final class OaxRtbProto {
         int index);
 
     /**
+     * <code>optional .top.openadexchange.rtb.proto.BidRequest.Publisher publisher = 11;</code>
+     * @return Whether the publisher field is set.
+     */
+    boolean hasPublisher();
+    /**
+     * <code>optional .top.openadexchange.rtb.proto.BidRequest.Publisher publisher = 11;</code>
+     * @return The publisher.
+     */
+    top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher getPublisher();
+    /**
+     * <code>optional .top.openadexchange.rtb.proto.BidRequest.Publisher publisher = 11;</code>
+     */
+    top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.PublisherOrBuilder getPublisherOrBuilder();
+
+    /**
      * <pre>
      *站点对象, 网站流量使用
      * </pre>
@@ -229,6 +244,40 @@ public final class OaxRtbProto {
      * @return The tmax.
      */
     int getTmax();
+
+    /**
+     * <code>map&lt;string, string&gt; ext = 10;</code>
+     */
+    int getExtCount();
+    /**
+     * <code>map&lt;string, string&gt; ext = 10;</code>
+     */
+    boolean containsExt(
+        java.lang.String key);
+    /**
+     * Use {@link #getExtMap()} instead.
+     */
+    @java.lang.Deprecated
+    java.util.Map<java.lang.String, java.lang.String>
+    getExt();
+    /**
+     * <code>map&lt;string, string&gt; ext = 10;</code>
+     */
+    java.util.Map<java.lang.String, java.lang.String>
+    getExtMap();
+    /**
+     * <code>map&lt;string, string&gt; ext = 10;</code>
+     */
+    /* nullable */
+java.lang.String getExtOrDefault(
+        java.lang.String key,
+        /* nullable */
+java.lang.String defaultValue);
+    /**
+     * <code>map&lt;string, string&gt; ext = 10;</code>
+     */
+    java.lang.String getExtOrThrow(
+        java.lang.String key);
   }
   /**
    * <pre>
@@ -264,12 +313,531 @@ public final class OaxRtbProto {
       return top.openadexchange.rtb.proto.OaxRtbProto.internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor;
     }
 
+    @SuppressWarnings({"rawtypes"})
+    @java.lang.Override
+    protected com.google.protobuf.MapFieldReflectionAccessor internalGetMapFieldReflection(
+        int number) {
+      switch (number) {
+        case 10:
+          return internalGetExt();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return top.openadexchange.rtb.proto.OaxRtbProto.internal_static_top_openadexchange_rtb_proto_BidRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.class, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Builder.class);
+    }
+
+    public interface PublisherOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:top.openadexchange.rtb.proto.BidRequest.Publisher)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>optional uint64 id = 1;</code>
+       * @return Whether the id field is set.
+       */
+      boolean hasId();
+      /**
+       * <code>optional uint64 id = 1;</code>
+       * @return The id.
+       */
+      long getId();
+    }
+    /**
+     * Protobuf type {@code top.openadexchange.rtb.proto.BidRequest.Publisher}
+     */
+    public static final class Publisher extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:top.openadexchange.rtb.proto.BidRequest.Publisher)
+        PublisherOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use Publisher.newBuilder() to construct.
+      private Publisher(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private Publisher() {
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new Publisher();
+      }
+
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return top.openadexchange.rtb.proto.OaxRtbProto.internal_static_top_openadexchange_rtb_proto_BidRequest_Publisher_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return top.openadexchange.rtb.proto.OaxRtbProto.internal_static_top_openadexchange_rtb_proto_BidRequest_Publisher_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher.class, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher.Builder.class);
+      }
+
+      private int bitField0_;
+      public static final int ID_FIELD_NUMBER = 1;
+      private long id_ = 0L;
+      /**
+       * <code>optional uint64 id = 1;</code>
+       * @return Whether the id field is set.
+       */
+      @java.lang.Override
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>optional uint64 id = 1;</code>
+       * @return The id.
+       */
+      @java.lang.Override
+      public long getId() {
+        return id_;
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (((bitField0_ & 0x00000001) != 0)) {
+          output.writeUInt64(1, id_);
+        }
+        getUnknownFields().writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt64Size(1, id_);
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher)) {
+          return super.equals(obj);
+        }
+        top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher other = (top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher) obj;
+
+        if (hasId() != other.hasId()) return false;
+        if (hasId()) {
+          if (getId()
+              != other.getId()) return false;
+        }
+        if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        if (hasId()) {
+          hash = (37 * hash) + ID_FIELD_NUMBER;
+          hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+              getId());
+        }
+        hash = (29 * hash) + getUnknownFields().hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      public static top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+
+      public static top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code top.openadexchange.rtb.proto.BidRequest.Publisher}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:top.openadexchange.rtb.proto.BidRequest.Publisher)
+          top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.PublisherOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return top.openadexchange.rtb.proto.OaxRtbProto.internal_static_top_openadexchange_rtb_proto_BidRequest_Publisher_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return top.openadexchange.rtb.proto.OaxRtbProto.internal_static_top_openadexchange_rtb_proto_BidRequest_Publisher_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher.class, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher.Builder.class);
+        }
+
+        // Construct using top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher.newBuilder()
+        private Builder() {
+
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          bitField0_ = 0;
+          id_ = 0L;
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return top.openadexchange.rtb.proto.OaxRtbProto.internal_static_top_openadexchange_rtb_proto_BidRequest_Publisher_descriptor;
+        }
+
+        @java.lang.Override
+        public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher getDefaultInstanceForType() {
+          return top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher build() {
+          top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher buildPartial() {
+          top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher result = new top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher(this);
+          if (bitField0_ != 0) { buildPartial0(result); }
+          onBuilt();
+          return result;
+        }
+
+        private void buildPartial0(top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher result) {
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          if (((from_bitField0_ & 0x00000001) != 0)) {
+            result.id_ = id_;
+            to_bitField0_ |= 0x00000001;
+          }
+          result.bitField0_ |= to_bitField0_;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher) {
+            return mergeFrom((top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher other) {
+          if (other == top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher.getDefaultInstance()) return this;
+          if (other.hasId()) {
+            setId(other.getId());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          if (extensionRegistry == null) {
+            throw new java.lang.NullPointerException();
+          }
+          try {
+            boolean done = false;
+            while (!done) {
+              int tag = input.readTag();
+              switch (tag) {
+                case 0:
+                  done = true;
+                  break;
+                case 8: {
+                  id_ = input.readUInt64();
+                  bitField0_ |= 0x00000001;
+                  break;
+                } // case 8
+                default: {
+                  if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                    done = true; // was an endgroup tag
+                  }
+                  break;
+                } // default:
+              } // switch (tag)
+            } // while (!done)
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            throw e.unwrapIOException();
+          } finally {
+            onChanged();
+          } // finally
+          return this;
+        }
+        private int bitField0_;
+
+        private long id_ ;
+        /**
+         * <code>optional uint64 id = 1;</code>
+         * @return Whether the id field is set.
+         */
+        @java.lang.Override
+        public boolean hasId() {
+          return ((bitField0_ & 0x00000001) != 0);
+        }
+        /**
+         * <code>optional uint64 id = 1;</code>
+         * @return The id.
+         */
+        @java.lang.Override
+        public long getId() {
+          return id_;
+        }
+        /**
+         * <code>optional uint64 id = 1;</code>
+         * @param value The id to set.
+         * @return This builder for chaining.
+         */
+        public Builder setId(long value) {
+
+          id_ = value;
+          bitField0_ |= 0x00000001;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional uint64 id = 1;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearId() {
+          bitField0_ = (bitField0_ & ~0x00000001);
+          id_ = 0L;
+          onChanged();
+          return this;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:top.openadexchange.rtb.proto.BidRequest.Publisher)
+      }
+
+      // @@protoc_insertion_point(class_scope:top.openadexchange.rtb.proto.BidRequest.Publisher)
+      private static final top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher();
+      }
+
+      public static top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      @java.lang.Deprecated public static final com.google.protobuf.Parser<Publisher>
+          PARSER = new com.google.protobuf.AbstractParser<Publisher>() {
+        @java.lang.Override
+        public Publisher parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          Builder builder = newBuilder();
+          try {
+            builder.mergeFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            throw e.setUnfinishedMessage(builder.buildPartial());
+          } catch (com.google.protobuf.UninitializedMessageException e) {
+            throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+          } catch (java.io.IOException e) {
+            throw new com.google.protobuf.InvalidProtocolBufferException(e)
+                .setUnfinishedMessage(builder.buildPartial());
+          }
+          return builder.buildPartial();
+        }
+      };
+
+      public static com.google.protobuf.Parser<Publisher> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Publisher> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
     }
 
     public interface ImpOrBuilder extends
@@ -543,6 +1111,40 @@ public final class OaxRtbProto {
        * @return The isNativeAd.
        */
       boolean getIsNativeAd();
+
+      /**
+       * <code>map&lt;string, string&gt; ext = 11;</code>
+       */
+      int getExtCount();
+      /**
+       * <code>map&lt;string, string&gt; ext = 11;</code>
+       */
+      boolean containsExt(
+          java.lang.String key);
+      /**
+       * Use {@link #getExtMap()} instead.
+       */
+      @java.lang.Deprecated
+      java.util.Map<java.lang.String, java.lang.String>
+      getExt();
+      /**
+       * <code>map&lt;string, string&gt; ext = 11;</code>
+       */
+      java.util.Map<java.lang.String, java.lang.String>
+      getExtMap();
+      /**
+       * <code>map&lt;string, string&gt; ext = 11;</code>
+       */
+      /* nullable */
+java.lang.String getExtOrDefault(
+          java.lang.String key,
+          /* nullable */
+java.lang.String defaultValue);
+      /**
+       * <code>map&lt;string, string&gt; ext = 11;</code>
+       */
+      java.lang.String getExtOrThrow(
+          java.lang.String key);
     }
     /**
      * Protobuf type {@code top.openadexchange.rtb.proto.BidRequest.Imp}
@@ -575,6 +1177,18 @@ public final class OaxRtbProto {
         return top.openadexchange.rtb.proto.OaxRtbProto.internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_descriptor;
       }
 
+      @SuppressWarnings({"rawtypes"})
+      @java.lang.Override
+      protected com.google.protobuf.MapFieldReflectionAccessor internalGetMapFieldReflection(
+          int number) {
+        switch (number) {
+          case 11:
+            return internalGetExt();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
@@ -6977,6 +7591,85 @@ public final class OaxRtbProto {
         return isNativeAd_;
       }
 
+      public static final int EXT_FIELD_NUMBER = 11;
+      private static final class ExtDefaultEntryHolder {
+        static final com.google.protobuf.MapEntry<
+            java.lang.String, java.lang.String> defaultEntry =
+                com.google.protobuf.MapEntry
+                .<java.lang.String, java.lang.String>newDefaultInstance(
+                    top.openadexchange.rtb.proto.OaxRtbProto.internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_ExtEntry_descriptor, 
+                    com.google.protobuf.WireFormat.FieldType.STRING,
+                    "",
+                    com.google.protobuf.WireFormat.FieldType.STRING,
+                    "");
+      }
+      @SuppressWarnings("serial")
+      private com.google.protobuf.MapField<
+          java.lang.String, java.lang.String> ext_;
+      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+      internalGetExt() {
+        if (ext_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              ExtDefaultEntryHolder.defaultEntry);
+        }
+        return ext_;
+      }
+      public int getExtCount() {
+        return internalGetExt().getMap().size();
+      }
+      /**
+       * <code>map&lt;string, string&gt; ext = 11;</code>
+       */
+      @java.lang.Override
+      public boolean containsExt(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        return internalGetExt().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getExtMap()} instead.
+       */
+      @java.lang.Override
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.String> getExt() {
+        return getExtMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; ext = 11;</code>
+       */
+      @java.lang.Override
+      public java.util.Map<java.lang.String, java.lang.String> getExtMap() {
+        return internalGetExt().getMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; ext = 11;</code>
+       */
+      @java.lang.Override
+      public /* nullable */
+java.lang.String getExtOrDefault(
+          java.lang.String key,
+          /* nullable */
+java.lang.String defaultValue) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetExt().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <code>map&lt;string, string&gt; ext = 11;</code>
+       */
+      @java.lang.Override
+      public java.lang.String getExtOrThrow(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetExt().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+
       private byte memoizedIsInitialized = -1;
       @java.lang.Override
       public final boolean isInitialized() {
@@ -7044,6 +7737,12 @@ public final class OaxRtbProto {
         if (((bitField0_ & 0x00000200) != 0)) {
           output.writeUInt32(10, secure_);
         }
+        com.google.protobuf.GeneratedMessageV3
+          .serializeStringMapTo(
+            output,
+            internalGetExt(),
+            ExtDefaultEntryHolder.defaultEntry,
+            11);
         if (((bitField0_ & 0x00000400) != 0)) {
           output.writeBool(12, isNativeAd_);
         }
@@ -7091,6 +7790,16 @@ public final class OaxRtbProto {
         if (((bitField0_ & 0x00000200) != 0)) {
           size += com.google.protobuf.CodedOutputStream
             .computeUInt32Size(10, secure_);
+        }
+        for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
+             : internalGetExt().getMap().entrySet()) {
+          com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+          ext__ = ExtDefaultEntryHolder.defaultEntry.newBuilderForType()
+              .setKey(entry.getKey())
+              .setValue(entry.getValue())
+              .build();
+          size += com.google.protobuf.CodedOutputStream
+              .computeMessageSize(11, ext__);
         }
         if (((bitField0_ & 0x00000400) != 0)) {
           size += com.google.protobuf.CodedOutputStream
@@ -7175,6 +7884,8 @@ public final class OaxRtbProto {
           if (getIsNativeAd()
               != other.getIsNativeAd()) return false;
         }
+        if (!internalGetExt().equals(
+            other.internalGetExt())) return false;
         if (!getUnknownFields().equals(other.getUnknownFields())) return false;
         if (!getExtensionFields().equals(other.getExtensionFields()))
           return false;
@@ -7233,6 +7944,10 @@ public final class OaxRtbProto {
           hash = (37 * hash) + IS_NATIVE_AD_FIELD_NUMBER;
           hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
               getIsNativeAd());
+        }
+        if (!internalGetExt().getMap().isEmpty()) {
+          hash = (37 * hash) + EXT_FIELD_NUMBER;
+          hash = (53 * hash) + internalGetExt().hashCode();
         }
         hash = hashFields(hash, getExtensionFields());
         hash = (29 * hash) + getUnknownFields().hashCode();
@@ -7345,6 +8060,28 @@ public final class OaxRtbProto {
           return top.openadexchange.rtb.proto.OaxRtbProto.internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_descriptor;
         }
 
+        @SuppressWarnings({"rawtypes"})
+        protected com.google.protobuf.MapFieldReflectionAccessor internalGetMapFieldReflection(
+            int number) {
+          switch (number) {
+            case 11:
+              return internalGetExt();
+            default:
+              throw new RuntimeException(
+                  "Invalid map field number: " + number);
+          }
+        }
+        @SuppressWarnings({"rawtypes"})
+        protected com.google.protobuf.MapFieldReflectionAccessor internalGetMutableMapFieldReflection(
+            int number) {
+          switch (number) {
+            case 11:
+              return internalGetMutableExt();
+            default:
+              throw new RuntimeException(
+                  "Invalid map field number: " + number);
+          }
+        }
         @java.lang.Override
         protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
             internalGetFieldAccessorTable() {
@@ -7408,6 +8145,7 @@ public final class OaxRtbProto {
           bidFloorCur_ = "";
           secure_ = 0;
           isNativeAd_ = false;
+          internalGetMutableExt().clear();
           return this;
         }
 
@@ -7495,6 +8233,10 @@ public final class OaxRtbProto {
           if (((from_bitField0_ & 0x00000400) != 0)) {
             result.isNativeAd_ = isNativeAd_;
             to_bitField0_ |= 0x00000400;
+          }
+          if (((from_bitField0_ & 0x00000800) != 0)) {
+            result.ext_ = internalGetExt();
+            result.ext_.makeImmutable();
           }
           result.bitField0_ |= to_bitField0_;
         }
@@ -7609,6 +8351,9 @@ public final class OaxRtbProto {
           if (other.hasIsNativeAd()) {
             setIsNativeAd(other.getIsNativeAd());
           }
+          internalGetMutableExt().mergeFrom(
+              other.internalGetExt());
+          bitField0_ |= 0x00000800;
           this.mergeExtensionFields(other);
           this.mergeUnknownFields(other.getUnknownFields());
           onChanged();
@@ -7703,6 +8448,15 @@ public final class OaxRtbProto {
                   bitField0_ |= 0x00000200;
                   break;
                 } // case 80
+                case 90: {
+                  com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+                  ext__ = input.readMessage(
+                      ExtDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+                  internalGetMutableExt().getMutableMap().put(
+                      ext__.getKey(), ext__.getValue());
+                  bitField0_ |= 0x00000800;
+                  break;
+                } // case 90
                 case 96: {
                   isNativeAd_ = input.readBool();
                   bitField0_ |= 0x00000400;
@@ -8977,6 +9731,133 @@ public final class OaxRtbProto {
           bitField0_ = (bitField0_ & ~0x00000400);
           isNativeAd_ = false;
           onChanged();
+          return this;
+        }
+
+        private com.google.protobuf.MapField<
+            java.lang.String, java.lang.String> ext_;
+        private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+            internalGetExt() {
+          if (ext_ == null) {
+            return com.google.protobuf.MapField.emptyMapField(
+                ExtDefaultEntryHolder.defaultEntry);
+          }
+          return ext_;
+        }
+        private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+            internalGetMutableExt() {
+          if (ext_ == null) {
+            ext_ = com.google.protobuf.MapField.newMapField(
+                ExtDefaultEntryHolder.defaultEntry);
+          }
+          if (!ext_.isMutable()) {
+            ext_ = ext_.copy();
+          }
+          bitField0_ |= 0x00000800;
+          onChanged();
+          return ext_;
+        }
+        public int getExtCount() {
+          return internalGetExt().getMap().size();
+        }
+        /**
+         * <code>map&lt;string, string&gt; ext = 11;</code>
+         */
+        @java.lang.Override
+        public boolean containsExt(
+            java.lang.String key) {
+          if (key == null) { throw new NullPointerException("map key"); }
+          return internalGetExt().getMap().containsKey(key);
+        }
+        /**
+         * Use {@link #getExtMap()} instead.
+         */
+        @java.lang.Override
+        @java.lang.Deprecated
+        public java.util.Map<java.lang.String, java.lang.String> getExt() {
+          return getExtMap();
+        }
+        /**
+         * <code>map&lt;string, string&gt; ext = 11;</code>
+         */
+        @java.lang.Override
+        public java.util.Map<java.lang.String, java.lang.String> getExtMap() {
+          return internalGetExt().getMap();
+        }
+        /**
+         * <code>map&lt;string, string&gt; ext = 11;</code>
+         */
+        @java.lang.Override
+        public /* nullable */
+java.lang.String getExtOrDefault(
+            java.lang.String key,
+            /* nullable */
+java.lang.String defaultValue) {
+          if (key == null) { throw new NullPointerException("map key"); }
+          java.util.Map<java.lang.String, java.lang.String> map =
+              internalGetExt().getMap();
+          return map.containsKey(key) ? map.get(key) : defaultValue;
+        }
+        /**
+         * <code>map&lt;string, string&gt; ext = 11;</code>
+         */
+        @java.lang.Override
+        public java.lang.String getExtOrThrow(
+            java.lang.String key) {
+          if (key == null) { throw new NullPointerException("map key"); }
+          java.util.Map<java.lang.String, java.lang.String> map =
+              internalGetExt().getMap();
+          if (!map.containsKey(key)) {
+            throw new java.lang.IllegalArgumentException();
+          }
+          return map.get(key);
+        }
+        public Builder clearExt() {
+          bitField0_ = (bitField0_ & ~0x00000800);
+          internalGetMutableExt().getMutableMap()
+              .clear();
+          return this;
+        }
+        /**
+         * <code>map&lt;string, string&gt; ext = 11;</code>
+         */
+        public Builder removeExt(
+            java.lang.String key) {
+          if (key == null) { throw new NullPointerException("map key"); }
+          internalGetMutableExt().getMutableMap()
+              .remove(key);
+          return this;
+        }
+        /**
+         * Use alternate mutation accessors instead.
+         */
+        @java.lang.Deprecated
+        public java.util.Map<java.lang.String, java.lang.String>
+            getMutableExt() {
+          bitField0_ |= 0x00000800;
+          return internalGetMutableExt().getMutableMap();
+        }
+        /**
+         * <code>map&lt;string, string&gt; ext = 11;</code>
+         */
+        public Builder putExt(
+            java.lang.String key,
+            java.lang.String value) {
+          if (key == null) { throw new NullPointerException("map key"); }
+          if (value == null) { throw new NullPointerException("map value"); }
+          internalGetMutableExt().getMutableMap()
+              .put(key, value);
+          bitField0_ |= 0x00000800;
+          return this;
+        }
+        /**
+         * <code>map&lt;string, string&gt; ext = 11;</code>
+         */
+        public Builder putAllExt(
+            java.util.Map<java.lang.String, java.lang.String> values) {
+          internalGetMutableExt().getMutableMap()
+              .putAll(values);
+          bitField0_ |= 0x00000800;
           return this;
         }
         @java.lang.Override
@@ -13033,21 +13914,21 @@ public final class OaxRtbProto {
       /**
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-       *     See rtb.proto;l=132
+       *     See rtb.proto;l=139
        * @return Whether the id field is set.
        */
       @java.lang.Deprecated boolean hasId();
       /**
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-       *     See rtb.proto;l=132
+       *     See rtb.proto;l=139
        * @return The id.
        */
       @java.lang.Deprecated java.lang.String getId();
       /**
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-       *     See rtb.proto;l=132
+       *     See rtb.proto;l=139
        * @return The bytes for id.
        */
       @java.lang.Deprecated com.google.protobuf.ByteString
@@ -13132,7 +14013,7 @@ public final class OaxRtbProto {
       /**
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-       *     See rtb.proto;l=132
+       *     See rtb.proto;l=139
        * @return Whether the id field is set.
        */
       @java.lang.Override
@@ -13142,7 +14023,7 @@ public final class OaxRtbProto {
       /**
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-       *     See rtb.proto;l=132
+       *     See rtb.proto;l=139
        * @return The id.
        */
       @java.lang.Override
@@ -13163,7 +14044,7 @@ public final class OaxRtbProto {
       /**
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-       *     See rtb.proto;l=132
+       *     See rtb.proto;l=139
        * @return The bytes for id.
        */
       @java.lang.Override
@@ -13677,7 +14558,7 @@ public final class OaxRtbProto {
         /**
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-         *     See rtb.proto;l=132
+         *     See rtb.proto;l=139
          * @return Whether the id field is set.
          */
         @java.lang.Deprecated public boolean hasId() {
@@ -13686,7 +14567,7 @@ public final class OaxRtbProto {
         /**
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-         *     See rtb.proto;l=132
+         *     See rtb.proto;l=139
          * @return The id.
          */
         @java.lang.Deprecated public java.lang.String getId() {
@@ -13706,7 +14587,7 @@ public final class OaxRtbProto {
         /**
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-         *     See rtb.proto;l=132
+         *     See rtb.proto;l=139
          * @return The bytes for id.
          */
         @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -13725,7 +14606,7 @@ public final class OaxRtbProto {
         /**
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-         *     See rtb.proto;l=132
+         *     See rtb.proto;l=139
          * @param value The id to set.
          * @return This builder for chaining.
          */
@@ -13740,7 +14621,7 @@ public final class OaxRtbProto {
         /**
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-         *     See rtb.proto;l=132
+         *     See rtb.proto;l=139
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearId() {
@@ -13752,7 +14633,7 @@ public final class OaxRtbProto {
         /**
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-         *     See rtb.proto;l=132
+         *     See rtb.proto;l=139
          * @param value The bytes for id to set.
          * @return This builder for chaining.
          */
@@ -14299,7 +15180,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string didmd5 = 13 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-       *     See rtb.proto;l=151
+       *     See rtb.proto;l=158
        * @return Whether the didmd5 field is set.
        */
       @java.lang.Deprecated boolean hasDidmd5();
@@ -14310,7 +15191,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string didmd5 = 13 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-       *     See rtb.proto;l=151
+       *     See rtb.proto;l=158
        * @return The didmd5.
        */
       @java.lang.Deprecated java.lang.String getDidmd5();
@@ -14321,7 +15202,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string didmd5 = 13 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-       *     See rtb.proto;l=151
+       *     See rtb.proto;l=158
        * @return The bytes for didmd5.
        */
       @java.lang.Deprecated com.google.protobuf.ByteString
@@ -14334,7 +15215,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string mac = 14 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-       *     See rtb.proto;l=152
+       *     See rtb.proto;l=159
        * @return Whether the mac field is set.
        */
       @java.lang.Deprecated boolean hasMac();
@@ -14345,7 +15226,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string mac = 14 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-       *     See rtb.proto;l=152
+       *     See rtb.proto;l=159
        * @return The mac.
        */
       @java.lang.Deprecated java.lang.String getMac();
@@ -14356,7 +15237,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string mac = 14 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-       *     See rtb.proto;l=152
+       *     See rtb.proto;l=159
        * @return The bytes for mac.
        */
       @java.lang.Deprecated com.google.protobuf.ByteString
@@ -14369,7 +15250,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string macmd5 = 15 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-       *     See rtb.proto;l=153
+       *     See rtb.proto;l=160
        * @return Whether the macmd5 field is set.
        */
       @java.lang.Deprecated boolean hasMacmd5();
@@ -14380,7 +15261,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string macmd5 = 15 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-       *     See rtb.proto;l=153
+       *     See rtb.proto;l=160
        * @return The macmd5.
        */
       @java.lang.Deprecated java.lang.String getMacmd5();
@@ -14391,7 +15272,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string macmd5 = 15 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-       *     See rtb.proto;l=153
+       *     See rtb.proto;l=160
        * @return The bytes for macmd5.
        */
       @java.lang.Deprecated com.google.protobuf.ByteString
@@ -14404,7 +15285,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string adid = 16 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-       *     See rtb.proto;l=154
+       *     See rtb.proto;l=161
        * @return Whether the adid field is set.
        */
       @java.lang.Deprecated boolean hasAdid();
@@ -14415,7 +15296,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string adid = 16 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-       *     See rtb.proto;l=154
+       *     See rtb.proto;l=161
        * @return The adid.
        */
       @java.lang.Deprecated java.lang.String getAdid();
@@ -14426,7 +15307,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string adid = 16 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-       *     See rtb.proto;l=154
+       *     See rtb.proto;l=161
        * @return The bytes for adid.
        */
       @java.lang.Deprecated com.google.protobuf.ByteString
@@ -15164,7 +16045,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string didmd5 = 13 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-       *     See rtb.proto;l=151
+       *     See rtb.proto;l=158
        * @return Whether the didmd5 field is set.
        */
       @java.lang.Override
@@ -15178,7 +16059,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string didmd5 = 13 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-       *     See rtb.proto;l=151
+       *     See rtb.proto;l=158
        * @return The didmd5.
        */
       @java.lang.Override
@@ -15203,7 +16084,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string didmd5 = 13 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-       *     See rtb.proto;l=151
+       *     See rtb.proto;l=158
        * @return The bytes for didmd5.
        */
       @java.lang.Override
@@ -15231,7 +16112,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string mac = 14 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-       *     See rtb.proto;l=152
+       *     See rtb.proto;l=159
        * @return Whether the mac field is set.
        */
       @java.lang.Override
@@ -15245,7 +16126,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string mac = 14 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-       *     See rtb.proto;l=152
+       *     See rtb.proto;l=159
        * @return The mac.
        */
       @java.lang.Override
@@ -15270,7 +16151,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string mac = 14 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-       *     See rtb.proto;l=152
+       *     See rtb.proto;l=159
        * @return The bytes for mac.
        */
       @java.lang.Override
@@ -15298,7 +16179,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string macmd5 = 15 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-       *     See rtb.proto;l=153
+       *     See rtb.proto;l=160
        * @return Whether the macmd5 field is set.
        */
       @java.lang.Override
@@ -15312,7 +16193,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string macmd5 = 15 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-       *     See rtb.proto;l=153
+       *     See rtb.proto;l=160
        * @return The macmd5.
        */
       @java.lang.Override
@@ -15337,7 +16218,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string macmd5 = 15 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-       *     See rtb.proto;l=153
+       *     See rtb.proto;l=160
        * @return The bytes for macmd5.
        */
       @java.lang.Override
@@ -15365,7 +16246,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string adid = 16 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-       *     See rtb.proto;l=154
+       *     See rtb.proto;l=161
        * @return Whether the adid field is set.
        */
       @java.lang.Override
@@ -15379,7 +16260,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string adid = 16 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-       *     See rtb.proto;l=154
+       *     See rtb.proto;l=161
        * @return The adid.
        */
       @java.lang.Override
@@ -15404,7 +16285,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string adid = 16 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-       *     See rtb.proto;l=154
+       *     See rtb.proto;l=161
        * @return The bytes for adid.
        */
       @java.lang.Override
@@ -17482,7 +18363,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string didmd5 = 13 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-         *     See rtb.proto;l=151
+         *     See rtb.proto;l=158
          * @return Whether the didmd5 field is set.
          */
         @java.lang.Deprecated public boolean hasDidmd5() {
@@ -17495,7 +18376,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string didmd5 = 13 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-         *     See rtb.proto;l=151
+         *     See rtb.proto;l=158
          * @return The didmd5.
          */
         @java.lang.Deprecated public java.lang.String getDidmd5() {
@@ -17519,7 +18400,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string didmd5 = 13 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-         *     See rtb.proto;l=151
+         *     See rtb.proto;l=158
          * @return The bytes for didmd5.
          */
         @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -17542,7 +18423,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string didmd5 = 13 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-         *     See rtb.proto;l=151
+         *     See rtb.proto;l=158
          * @param value The didmd5 to set.
          * @return This builder for chaining.
          */
@@ -17561,7 +18442,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string didmd5 = 13 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-         *     See rtb.proto;l=151
+         *     See rtb.proto;l=158
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearDidmd5() {
@@ -17577,7 +18458,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string didmd5 = 13 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-         *     See rtb.proto;l=151
+         *     See rtb.proto;l=158
          * @param value The bytes for didmd5 to set.
          * @return This builder for chaining.
          */
@@ -17598,7 +18479,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string mac = 14 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-         *     See rtb.proto;l=152
+         *     See rtb.proto;l=159
          * @return Whether the mac field is set.
          */
         @java.lang.Deprecated public boolean hasMac() {
@@ -17611,7 +18492,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string mac = 14 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-         *     See rtb.proto;l=152
+         *     See rtb.proto;l=159
          * @return The mac.
          */
         @java.lang.Deprecated public java.lang.String getMac() {
@@ -17635,7 +18516,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string mac = 14 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-         *     See rtb.proto;l=152
+         *     See rtb.proto;l=159
          * @return The bytes for mac.
          */
         @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -17658,7 +18539,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string mac = 14 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-         *     See rtb.proto;l=152
+         *     See rtb.proto;l=159
          * @param value The mac to set.
          * @return This builder for chaining.
          */
@@ -17677,7 +18558,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string mac = 14 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-         *     See rtb.proto;l=152
+         *     See rtb.proto;l=159
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearMac() {
@@ -17693,7 +18574,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string mac = 14 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-         *     See rtb.proto;l=152
+         *     See rtb.proto;l=159
          * @param value The bytes for mac to set.
          * @return This builder for chaining.
          */
@@ -17714,7 +18595,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string macmd5 = 15 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-         *     See rtb.proto;l=153
+         *     See rtb.proto;l=160
          * @return Whether the macmd5 field is set.
          */
         @java.lang.Deprecated public boolean hasMacmd5() {
@@ -17727,7 +18608,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string macmd5 = 15 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-         *     See rtb.proto;l=153
+         *     See rtb.proto;l=160
          * @return The macmd5.
          */
         @java.lang.Deprecated public java.lang.String getMacmd5() {
@@ -17751,7 +18632,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string macmd5 = 15 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-         *     See rtb.proto;l=153
+         *     See rtb.proto;l=160
          * @return The bytes for macmd5.
          */
         @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -17774,7 +18655,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string macmd5 = 15 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-         *     See rtb.proto;l=153
+         *     See rtb.proto;l=160
          * @param value The macmd5 to set.
          * @return This builder for chaining.
          */
@@ -17793,7 +18674,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string macmd5 = 15 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-         *     See rtb.proto;l=153
+         *     See rtb.proto;l=160
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearMacmd5() {
@@ -17809,7 +18690,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string macmd5 = 15 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-         *     See rtb.proto;l=153
+         *     See rtb.proto;l=160
          * @param value The bytes for macmd5 to set.
          * @return This builder for chaining.
          */
@@ -17830,7 +18711,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string adid = 16 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-         *     See rtb.proto;l=154
+         *     See rtb.proto;l=161
          * @return Whether the adid field is set.
          */
         @java.lang.Deprecated public boolean hasAdid() {
@@ -17843,7 +18724,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string adid = 16 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-         *     See rtb.proto;l=154
+         *     See rtb.proto;l=161
          * @return The adid.
          */
         @java.lang.Deprecated public java.lang.String getAdid() {
@@ -17867,7 +18748,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string adid = 16 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-         *     See rtb.proto;l=154
+         *     See rtb.proto;l=161
          * @return The bytes for adid.
          */
         @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -17890,7 +18771,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string adid = 16 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-         *     See rtb.proto;l=154
+         *     See rtb.proto;l=161
          * @param value The adid to set.
          * @return This builder for chaining.
          */
@@ -17909,7 +18790,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string adid = 16 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-         *     See rtb.proto;l=154
+         *     See rtb.proto;l=161
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearAdid() {
@@ -17925,7 +18806,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string adid = 16 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-         *     See rtb.proto;l=154
+         *     See rtb.proto;l=161
          * @param value The bytes for adid to set.
          * @return This builder for chaining.
          */
@@ -18349,7 +19230,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string region = 4 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-       *     See rtb.proto;l=166
+       *     See rtb.proto;l=173
        * @return Whether the region field is set.
        */
       @java.lang.Deprecated boolean hasRegion();
@@ -18360,7 +19241,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string region = 4 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-       *     See rtb.proto;l=166
+       *     See rtb.proto;l=173
        * @return The region.
        */
       @java.lang.Deprecated java.lang.String getRegion();
@@ -18371,7 +19252,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string region = 4 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-       *     See rtb.proto;l=166
+       *     See rtb.proto;l=173
        * @return The bytes for region.
        */
       @java.lang.Deprecated com.google.protobuf.ByteString
@@ -18384,7 +19265,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string city = 5 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-       *     See rtb.proto;l=167
+       *     See rtb.proto;l=174
        * @return Whether the city field is set.
        */
       @java.lang.Deprecated boolean hasCity();
@@ -18395,7 +19276,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string city = 5 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-       *     See rtb.proto;l=167
+       *     See rtb.proto;l=174
        * @return The city.
        */
       @java.lang.Deprecated java.lang.String getCity();
@@ -18406,7 +19287,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string city = 5 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-       *     See rtb.proto;l=167
+       *     See rtb.proto;l=174
        * @return The bytes for city.
        */
       @java.lang.Deprecated com.google.protobuf.ByteString
@@ -18419,7 +19300,7 @@ public final class OaxRtbProto {
        *
        * <code>optional uint32 area_code = 6 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
-       *     See rtb.proto;l=169
+       *     See rtb.proto;l=176
        * @return Whether the areaCode field is set.
        */
       @java.lang.Deprecated boolean hasAreaCode();
@@ -18430,7 +19311,7 @@ public final class OaxRtbProto {
        *
        * <code>optional uint32 area_code = 6 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
-       *     See rtb.proto;l=169
+       *     See rtb.proto;l=176
        * @return The areaCode.
        */
       @java.lang.Deprecated int getAreaCode();
@@ -18600,7 +19481,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string region = 4 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-       *     See rtb.proto;l=166
+       *     See rtb.proto;l=173
        * @return Whether the region field is set.
        */
       @java.lang.Override
@@ -18614,7 +19495,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string region = 4 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-       *     See rtb.proto;l=166
+       *     See rtb.proto;l=173
        * @return The region.
        */
       @java.lang.Override
@@ -18639,7 +19520,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string region = 4 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-       *     See rtb.proto;l=166
+       *     See rtb.proto;l=173
        * @return The bytes for region.
        */
       @java.lang.Override
@@ -18667,7 +19548,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string city = 5 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-       *     See rtb.proto;l=167
+       *     See rtb.proto;l=174
        * @return Whether the city field is set.
        */
       @java.lang.Override
@@ -18681,7 +19562,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string city = 5 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-       *     See rtb.proto;l=167
+       *     See rtb.proto;l=174
        * @return The city.
        */
       @java.lang.Override
@@ -18706,7 +19587,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string city = 5 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-       *     See rtb.proto;l=167
+       *     See rtb.proto;l=174
        * @return The bytes for city.
        */
       @java.lang.Override
@@ -18733,7 +19614,7 @@ public final class OaxRtbProto {
        *
        * <code>optional uint32 area_code = 6 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
-       *     See rtb.proto;l=169
+       *     See rtb.proto;l=176
        * @return Whether the areaCode field is set.
        */
       @java.lang.Override
@@ -18747,7 +19628,7 @@ public final class OaxRtbProto {
        *
        * <code>optional uint32 area_code = 6 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
-       *     See rtb.proto;l=169
+       *     See rtb.proto;l=176
        * @return The areaCode.
        */
       @java.lang.Override
@@ -19508,7 +20389,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string region = 4 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-         *     See rtb.proto;l=166
+         *     See rtb.proto;l=173
          * @return Whether the region field is set.
          */
         @java.lang.Deprecated public boolean hasRegion() {
@@ -19521,7 +20402,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string region = 4 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-         *     See rtb.proto;l=166
+         *     See rtb.proto;l=173
          * @return The region.
          */
         @java.lang.Deprecated public java.lang.String getRegion() {
@@ -19545,7 +20426,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string region = 4 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-         *     See rtb.proto;l=166
+         *     See rtb.proto;l=173
          * @return The bytes for region.
          */
         @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -19568,7 +20449,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string region = 4 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-         *     See rtb.proto;l=166
+         *     See rtb.proto;l=173
          * @param value The region to set.
          * @return This builder for chaining.
          */
@@ -19587,7 +20468,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string region = 4 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-         *     See rtb.proto;l=166
+         *     See rtb.proto;l=173
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearRegion() {
@@ -19603,7 +20484,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string region = 4 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-         *     See rtb.proto;l=166
+         *     See rtb.proto;l=173
          * @param value The bytes for region to set.
          * @return This builder for chaining.
          */
@@ -19624,7 +20505,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string city = 5 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-         *     See rtb.proto;l=167
+         *     See rtb.proto;l=174
          * @return Whether the city field is set.
          */
         @java.lang.Deprecated public boolean hasCity() {
@@ -19637,7 +20518,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string city = 5 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-         *     See rtb.proto;l=167
+         *     See rtb.proto;l=174
          * @return The city.
          */
         @java.lang.Deprecated public java.lang.String getCity() {
@@ -19661,7 +20542,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string city = 5 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-         *     See rtb.proto;l=167
+         *     See rtb.proto;l=174
          * @return The bytes for city.
          */
         @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -19684,7 +20565,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string city = 5 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-         *     See rtb.proto;l=167
+         *     See rtb.proto;l=174
          * @param value The city to set.
          * @return This builder for chaining.
          */
@@ -19703,7 +20584,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string city = 5 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-         *     See rtb.proto;l=167
+         *     See rtb.proto;l=174
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearCity() {
@@ -19719,7 +20600,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string city = 5 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-         *     See rtb.proto;l=167
+         *     See rtb.proto;l=174
          * @param value The bytes for city to set.
          * @return This builder for chaining.
          */
@@ -19740,7 +20621,7 @@ public final class OaxRtbProto {
          *
          * <code>optional uint32 area_code = 6 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
-         *     See rtb.proto;l=169
+         *     See rtb.proto;l=176
          * @return Whether the areaCode field is set.
          */
         @java.lang.Override
@@ -19754,7 +20635,7 @@ public final class OaxRtbProto {
          *
          * <code>optional uint32 area_code = 6 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
-         *     See rtb.proto;l=169
+         *     See rtb.proto;l=176
          * @return The areaCode.
          */
         @java.lang.Override
@@ -19768,7 +20649,7 @@ public final class OaxRtbProto {
          *
          * <code>optional uint32 area_code = 6 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
-         *     See rtb.proto;l=169
+         *     See rtb.proto;l=176
          * @param value The areaCode to set.
          * @return This builder for chaining.
          */
@@ -19786,7 +20667,7 @@ public final class OaxRtbProto {
          *
          * <code>optional uint32 area_code = 6 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
-         *     See rtb.proto;l=169
+         *     See rtb.proto;l=176
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearAreaCode() {
@@ -19871,7 +20752,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-       *     See rtb.proto;l=176
+       *     See rtb.proto;l=183
        * @return Whether the id field is set.
        */
       @java.lang.Deprecated boolean hasId();
@@ -19882,7 +20763,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-       *     See rtb.proto;l=176
+       *     See rtb.proto;l=183
        * @return The id.
        */
       @java.lang.Deprecated java.lang.String getId();
@@ -19893,7 +20774,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-       *     See rtb.proto;l=176
+       *     See rtb.proto;l=183
        * @return The bytes for id.
        */
       @java.lang.Deprecated com.google.protobuf.ByteString
@@ -19947,7 +20828,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-       *     See rtb.proto;l=176
+       *     See rtb.proto;l=183
        * @return Whether the id field is set.
        */
       @java.lang.Override
@@ -19961,7 +20842,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-       *     See rtb.proto;l=176
+       *     See rtb.proto;l=183
        * @return The id.
        */
       @java.lang.Override
@@ -19986,7 +20867,7 @@ public final class OaxRtbProto {
        *
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-       *     See rtb.proto;l=176
+       *     See rtb.proto;l=183
        * @return The bytes for id.
        */
       @java.lang.Override
@@ -20390,7 +21271,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-         *     See rtb.proto;l=176
+         *     See rtb.proto;l=183
          * @return Whether the id field is set.
          */
         @java.lang.Deprecated public boolean hasId() {
@@ -20403,7 +21284,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-         *     See rtb.proto;l=176
+         *     See rtb.proto;l=183
          * @return The id.
          */
         @java.lang.Deprecated public java.lang.String getId() {
@@ -20427,7 +21308,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-         *     See rtb.proto;l=176
+         *     See rtb.proto;l=183
          * @return The bytes for id.
          */
         @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -20450,7 +21331,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-         *     See rtb.proto;l=176
+         *     See rtb.proto;l=183
          * @param value The id to set.
          * @return This builder for chaining.
          */
@@ -20469,7 +21350,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-         *     See rtb.proto;l=176
+         *     See rtb.proto;l=183
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearId() {
@@ -20485,7 +21366,7 @@ public final class OaxRtbProto {
          *
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-         *     See rtb.proto;l=176
+         *     See rtb.proto;l=183
          * @param value The bytes for id to set.
          * @return This builder for chaining.
          */
@@ -20664,6 +21545,32 @@ public final class OaxRtbProto {
       return imp_.get(index);
     }
 
+    public static final int PUBLISHER_FIELD_NUMBER = 11;
+    private top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher publisher_;
+    /**
+     * <code>optional .top.openadexchange.rtb.proto.BidRequest.Publisher publisher = 11;</code>
+     * @return Whether the publisher field is set.
+     */
+    @java.lang.Override
+    public boolean hasPublisher() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>optional .top.openadexchange.rtb.proto.BidRequest.Publisher publisher = 11;</code>
+     * @return The publisher.
+     */
+    @java.lang.Override
+    public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher getPublisher() {
+      return publisher_ == null ? top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher.getDefaultInstance() : publisher_;
+    }
+    /**
+     * <code>optional .top.openadexchange.rtb.proto.BidRequest.Publisher publisher = 11;</code>
+     */
+    @java.lang.Override
+    public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.PublisherOrBuilder getPublisherOrBuilder() {
+      return publisher_ == null ? top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher.getDefaultInstance() : publisher_;
+    }
+
     public static final int SITE_FIELD_NUMBER = 3;
     private top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Site site_;
     /**
@@ -20676,7 +21583,7 @@ public final class OaxRtbProto {
      */
     @java.lang.Override
     public boolean hasSite() {
-      return ((bitField0_ & 0x00000002) != 0);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <pre>
@@ -20714,7 +21621,7 @@ public final class OaxRtbProto {
      */
     @java.lang.Override
     public boolean hasApp() {
-      return ((bitField0_ & 0x00000004) != 0);
+      return ((bitField0_ & 0x00000008) != 0);
     }
     /**
      * <pre>
@@ -20752,7 +21659,7 @@ public final class OaxRtbProto {
      */
     @java.lang.Override
     public boolean hasDevice() {
-      return ((bitField0_ & 0x00000008) != 0);
+      return ((bitField0_ & 0x00000010) != 0);
     }
     /**
      * <pre>
@@ -20790,7 +21697,7 @@ public final class OaxRtbProto {
      */
     @java.lang.Override
     public boolean hasUser() {
-      return ((bitField0_ & 0x00000010) != 0);
+      return ((bitField0_ & 0x00000020) != 0);
     }
     /**
      * <pre>
@@ -20824,7 +21731,7 @@ public final class OaxRtbProto {
      */
     @java.lang.Override
     public boolean hasTest() {
-      return ((bitField0_ & 0x00000020) != 0);
+      return ((bitField0_ & 0x00000040) != 0);
     }
     /**
      * <code>optional bool test = 7;</code>
@@ -20847,7 +21754,7 @@ public final class OaxRtbProto {
      */
     @java.lang.Override
     public boolean hasAt() {
-      return ((bitField0_ & 0x00000040) != 0);
+      return ((bitField0_ & 0x00000080) != 0);
     }
     /**
      * <pre>
@@ -20874,7 +21781,7 @@ public final class OaxRtbProto {
      */
     @java.lang.Override
     public boolean hasTmax() {
-      return ((bitField0_ & 0x00000080) != 0);
+      return ((bitField0_ & 0x00000100) != 0);
     }
     /**
      * <pre>
@@ -20887,6 +21794,85 @@ public final class OaxRtbProto {
     @java.lang.Override
     public int getTmax() {
       return tmax_;
+    }
+
+    public static final int EXT_FIELD_NUMBER = 10;
+    private static final class ExtDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.String, java.lang.String> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.String, java.lang.String>newDefaultInstance(
+                  top.openadexchange.rtb.proto.OaxRtbProto.internal_static_top_openadexchange_rtb_proto_BidRequest_ExtEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "",
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "");
+    }
+    @SuppressWarnings("serial")
+    private com.google.protobuf.MapField<
+        java.lang.String, java.lang.String> ext_;
+    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+    internalGetExt() {
+      if (ext_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            ExtDefaultEntryHolder.defaultEntry);
+      }
+      return ext_;
+    }
+    public int getExtCount() {
+      return internalGetExt().getMap().size();
+    }
+    /**
+     * <code>map&lt;string, string&gt; ext = 10;</code>
+     */
+    @java.lang.Override
+    public boolean containsExt(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      return internalGetExt().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getExtMap()} instead.
+     */
+    @java.lang.Override
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.String> getExt() {
+      return getExtMap();
+    }
+    /**
+     * <code>map&lt;string, string&gt; ext = 10;</code>
+     */
+    @java.lang.Override
+    public java.util.Map<java.lang.String, java.lang.String> getExtMap() {
+      return internalGetExt().getMap();
+    }
+    /**
+     * <code>map&lt;string, string&gt; ext = 10;</code>
+     */
+    @java.lang.Override
+    public /* nullable */
+java.lang.String getExtOrDefault(
+        java.lang.String key,
+        /* nullable */
+java.lang.String defaultValue) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetExt().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <code>map&lt;string, string&gt; ext = 10;</code>
+     */
+    @java.lang.Override
+    public java.lang.String getExtOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetExt().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -20950,26 +21936,35 @@ public final class OaxRtbProto {
       for (int i = 0; i < imp_.size(); i++) {
         output.writeMessage(2, imp_.get(i));
       }
-      if (((bitField0_ & 0x00000002) != 0)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeMessage(3, getSite());
       }
-      if (((bitField0_ & 0x00000004) != 0)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         output.writeMessage(4, getApp());
       }
-      if (((bitField0_ & 0x00000008) != 0)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         output.writeMessage(5, getDevice());
       }
-      if (((bitField0_ & 0x00000010) != 0)) {
+      if (((bitField0_ & 0x00000020) != 0)) {
         output.writeMessage(6, getUser());
       }
-      if (((bitField0_ & 0x00000020) != 0)) {
+      if (((bitField0_ & 0x00000040) != 0)) {
         output.writeBool(7, test_);
       }
-      if (((bitField0_ & 0x00000040) != 0)) {
+      if (((bitField0_ & 0x00000080) != 0)) {
         output.writeUInt32(8, at_);
       }
-      if (((bitField0_ & 0x00000080) != 0)) {
+      if (((bitField0_ & 0x00000100) != 0)) {
         output.writeUInt32(9, tmax_);
+      }
+      com.google.protobuf.GeneratedMessageV3
+        .serializeStringMapTo(
+          output,
+          internalGetExt(),
+          ExtDefaultEntryHolder.defaultEntry,
+          10);
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeMessage(11, getPublisher());
       }
       extensionWriter.writeUntil(300, output);
       getUnknownFields().writeTo(output);
@@ -20988,33 +21983,47 @@ public final class OaxRtbProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, imp_.get(i));
       }
-      if (((bitField0_ & 0x00000002) != 0)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, getSite());
       }
-      if (((bitField0_ & 0x00000004) != 0)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, getApp());
       }
-      if (((bitField0_ & 0x00000008) != 0)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, getDevice());
       }
-      if (((bitField0_ & 0x00000010) != 0)) {
+      if (((bitField0_ & 0x00000020) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(6, getUser());
       }
-      if (((bitField0_ & 0x00000020) != 0)) {
+      if (((bitField0_ & 0x00000040) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(7, test_);
       }
-      if (((bitField0_ & 0x00000040) != 0)) {
+      if (((bitField0_ & 0x00000080) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(8, at_);
       }
-      if (((bitField0_ & 0x00000080) != 0)) {
+      if (((bitField0_ & 0x00000100) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(9, tmax_);
+      }
+      for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
+           : internalGetExt().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+        ext__ = ExtDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
+        size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(10, ext__);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(11, getPublisher());
       }
       size += extensionsSerializedSize();
       size += getUnknownFields().getSerializedSize();
@@ -21039,6 +22048,11 @@ public final class OaxRtbProto {
       }
       if (!getImpList()
           .equals(other.getImpList())) return false;
+      if (hasPublisher() != other.hasPublisher()) return false;
+      if (hasPublisher()) {
+        if (!getPublisher()
+            .equals(other.getPublisher())) return false;
+      }
       if (hasSite() != other.hasSite()) return false;
       if (hasSite()) {
         if (!getSite()
@@ -21074,6 +22088,8 @@ public final class OaxRtbProto {
         if (getTmax()
             != other.getTmax()) return false;
       }
+      if (!internalGetExt().equals(
+          other.internalGetExt())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       if (!getExtensionFields().equals(other.getExtensionFields()))
         return false;
@@ -21094,6 +22110,10 @@ public final class OaxRtbProto {
       if (getImpCount() > 0) {
         hash = (37 * hash) + IMP_FIELD_NUMBER;
         hash = (53 * hash) + getImpList().hashCode();
+      }
+      if (hasPublisher()) {
+        hash = (37 * hash) + PUBLISHER_FIELD_NUMBER;
+        hash = (53 * hash) + getPublisher().hashCode();
       }
       if (hasSite()) {
         hash = (37 * hash) + SITE_FIELD_NUMBER;
@@ -21123,6 +22143,10 @@ public final class OaxRtbProto {
       if (hasTmax()) {
         hash = (37 * hash) + TMAX_FIELD_NUMBER;
         hash = (53 * hash) + getTmax();
+      }
+      if (!internalGetExt().getMap().isEmpty()) {
+        hash = (37 * hash) + EXT_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetExt().hashCode();
       }
       hash = hashFields(hash, getExtensionFields());
       hash = (29 * hash) + getUnknownFields().hashCode();
@@ -21239,6 +22263,28 @@ public final class OaxRtbProto {
         return top.openadexchange.rtb.proto.OaxRtbProto.internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor;
       }
 
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapFieldReflectionAccessor internalGetMapFieldReflection(
+          int number) {
+        switch (number) {
+          case 10:
+            return internalGetExt();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapFieldReflectionAccessor internalGetMutableMapFieldReflection(
+          int number) {
+        switch (number) {
+          case 10:
+            return internalGetMutableExt();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
@@ -21261,6 +22307,7 @@ public final class OaxRtbProto {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
           getImpFieldBuilder();
+          getPublisherFieldBuilder();
           getSiteFieldBuilder();
           getAppFieldBuilder();
           getDeviceFieldBuilder();
@@ -21279,6 +22326,11 @@ public final class OaxRtbProto {
           impBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
+        publisher_ = null;
+        if (publisherBuilder_ != null) {
+          publisherBuilder_.dispose();
+          publisherBuilder_ = null;
+        }
         site_ = null;
         if (siteBuilder_ != null) {
           siteBuilder_.dispose();
@@ -21302,6 +22354,7 @@ public final class OaxRtbProto {
         test_ = false;
         at_ = 0;
         tmax_ = 0;
+        internalGetMutableExt().clear();
         return this;
       }
 
@@ -21354,40 +22407,50 @@ public final class OaxRtbProto {
           to_bitField0_ |= 0x00000001;
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.site_ = siteBuilder_ == null
-              ? site_
-              : siteBuilder_.build();
+          result.publisher_ = publisherBuilder_ == null
+              ? publisher_
+              : publisherBuilder_.build();
           to_bitField0_ |= 0x00000002;
         }
         if (((from_bitField0_ & 0x00000008) != 0)) {
-          result.app_ = appBuilder_ == null
-              ? app_
-              : appBuilder_.build();
+          result.site_ = siteBuilder_ == null
+              ? site_
+              : siteBuilder_.build();
           to_bitField0_ |= 0x00000004;
         }
         if (((from_bitField0_ & 0x00000010) != 0)) {
-          result.device_ = deviceBuilder_ == null
-              ? device_
-              : deviceBuilder_.build();
+          result.app_ = appBuilder_ == null
+              ? app_
+              : appBuilder_.build();
           to_bitField0_ |= 0x00000008;
         }
         if (((from_bitField0_ & 0x00000020) != 0)) {
-          result.user_ = userBuilder_ == null
-              ? user_
-              : userBuilder_.build();
+          result.device_ = deviceBuilder_ == null
+              ? device_
+              : deviceBuilder_.build();
           to_bitField0_ |= 0x00000010;
         }
         if (((from_bitField0_ & 0x00000040) != 0)) {
-          result.test_ = test_;
+          result.user_ = userBuilder_ == null
+              ? user_
+              : userBuilder_.build();
           to_bitField0_ |= 0x00000020;
         }
         if (((from_bitField0_ & 0x00000080) != 0)) {
-          result.at_ = at_;
+          result.test_ = test_;
           to_bitField0_ |= 0x00000040;
         }
         if (((from_bitField0_ & 0x00000100) != 0)) {
-          result.tmax_ = tmax_;
+          result.at_ = at_;
           to_bitField0_ |= 0x00000080;
+        }
+        if (((from_bitField0_ & 0x00000200) != 0)) {
+          result.tmax_ = tmax_;
+          to_bitField0_ |= 0x00000100;
+        }
+        if (((from_bitField0_ & 0x00000400) != 0)) {
+          result.ext_ = internalGetExt();
+          result.ext_.makeImmutable();
         }
         result.bitField0_ |= to_bitField0_;
       }
@@ -21494,6 +22557,9 @@ public final class OaxRtbProto {
             }
           }
         }
+        if (other.hasPublisher()) {
+          mergePublisher(other.getPublisher());
+        }
         if (other.hasSite()) {
           mergeSite(other.getSite());
         }
@@ -21515,6 +22581,9 @@ public final class OaxRtbProto {
         if (other.hasTmax()) {
           setTmax(other.getTmax());
         }
+        internalGetMutableExt().mergeFrom(
+            other.internalGetExt());
+        bitField0_ |= 0x00000400;
         this.mergeExtensionFields(other);
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -21595,45 +22664,61 @@ public final class OaxRtbProto {
                 input.readMessage(
                     getSiteFieldBuilder().getBuilder(),
                     extensionRegistry);
-                bitField0_ |= 0x00000004;
+                bitField0_ |= 0x00000008;
                 break;
               } // case 26
               case 34: {
                 input.readMessage(
                     getAppFieldBuilder().getBuilder(),
                     extensionRegistry);
-                bitField0_ |= 0x00000008;
+                bitField0_ |= 0x00000010;
                 break;
               } // case 34
               case 42: {
                 input.readMessage(
                     getDeviceFieldBuilder().getBuilder(),
                     extensionRegistry);
-                bitField0_ |= 0x00000010;
+                bitField0_ |= 0x00000020;
                 break;
               } // case 42
               case 50: {
                 input.readMessage(
                     getUserFieldBuilder().getBuilder(),
                     extensionRegistry);
-                bitField0_ |= 0x00000020;
+                bitField0_ |= 0x00000040;
                 break;
               } // case 50
               case 56: {
                 test_ = input.readBool();
-                bitField0_ |= 0x00000040;
+                bitField0_ |= 0x00000080;
                 break;
               } // case 56
               case 64: {
                 at_ = input.readUInt32();
-                bitField0_ |= 0x00000080;
+                bitField0_ |= 0x00000100;
                 break;
               } // case 64
               case 72: {
                 tmax_ = input.readUInt32();
-                bitField0_ |= 0x00000100;
+                bitField0_ |= 0x00000200;
                 break;
               } // case 72
+              case 82: {
+                com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+                ext__ = input.readMessage(
+                    ExtDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+                internalGetMutableExt().getMutableMap().put(
+                    ext__.getKey(), ext__.getValue());
+                bitField0_ |= 0x00000400;
+                break;
+              } // case 82
+              case 90: {
+                input.readMessage(
+                    getPublisherFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 90
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -21995,6 +23080,127 @@ public final class OaxRtbProto {
         return impBuilder_;
       }
 
+      private top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher publisher_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher.Builder, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.PublisherOrBuilder> publisherBuilder_;
+      /**
+       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Publisher publisher = 11;</code>
+       * @return Whether the publisher field is set.
+       */
+      public boolean hasPublisher() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Publisher publisher = 11;</code>
+       * @return The publisher.
+       */
+      public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher getPublisher() {
+        if (publisherBuilder_ == null) {
+          return publisher_ == null ? top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher.getDefaultInstance() : publisher_;
+        } else {
+          return publisherBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Publisher publisher = 11;</code>
+       */
+      public Builder setPublisher(top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher value) {
+        if (publisherBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          publisher_ = value;
+        } else {
+          publisherBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Publisher publisher = 11;</code>
+       */
+      public Builder setPublisher(
+          top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher.Builder builderForValue) {
+        if (publisherBuilder_ == null) {
+          publisher_ = builderForValue.build();
+        } else {
+          publisherBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Publisher publisher = 11;</code>
+       */
+      public Builder mergePublisher(top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher value) {
+        if (publisherBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+            publisher_ != null &&
+            publisher_ != top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher.getDefaultInstance()) {
+            getPublisherBuilder().mergeFrom(value);
+          } else {
+            publisher_ = value;
+          }
+        } else {
+          publisherBuilder_.mergeFrom(value);
+        }
+        if (publisher_ != null) {
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Publisher publisher = 11;</code>
+       */
+      public Builder clearPublisher() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        publisher_ = null;
+        if (publisherBuilder_ != null) {
+          publisherBuilder_.dispose();
+          publisherBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Publisher publisher = 11;</code>
+       */
+      public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher.Builder getPublisherBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getPublisherFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Publisher publisher = 11;</code>
+       */
+      public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.PublisherOrBuilder getPublisherOrBuilder() {
+        if (publisherBuilder_ != null) {
+          return publisherBuilder_.getMessageOrBuilder();
+        } else {
+          return publisher_ == null ?
+              top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher.getDefaultInstance() : publisher_;
+        }
+      }
+      /**
+       * <code>optional .top.openadexchange.rtb.proto.BidRequest.Publisher publisher = 11;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher.Builder, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.PublisherOrBuilder> 
+          getPublisherFieldBuilder() {
+        if (publisherBuilder_ == null) {
+          publisherBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher.Builder, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.PublisherOrBuilder>(
+                  getPublisher(),
+                  getParentForChildren(),
+                  isClean());
+          publisher_ = null;
+        }
+        return publisherBuilder_;
+      }
+
       private top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Site site_;
       private com.google.protobuf.SingleFieldBuilderV3<
           top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Site, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Site.Builder, top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.SiteOrBuilder> siteBuilder_;
@@ -22007,7 +23213,7 @@ public final class OaxRtbProto {
        * @return Whether the site field is set.
        */
       public boolean hasSite() {
-        return ((bitField0_ & 0x00000004) != 0);
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <pre>
@@ -22040,7 +23246,7 @@ public final class OaxRtbProto {
         } else {
           siteBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -22058,7 +23264,7 @@ public final class OaxRtbProto {
         } else {
           siteBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -22071,7 +23277,7 @@ public final class OaxRtbProto {
        */
       public Builder mergeSite(top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Site value) {
         if (siteBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) != 0) &&
+          if (((bitField0_ & 0x00000008) != 0) &&
             site_ != null &&
             site_ != top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Site.getDefaultInstance()) {
             getSiteBuilder().mergeFrom(value);
@@ -22082,7 +23288,7 @@ public final class OaxRtbProto {
           siteBuilder_.mergeFrom(value);
         }
         if (site_ != null) {
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000008;
           onChanged();
         }
         return this;
@@ -22095,7 +23301,7 @@ public final class OaxRtbProto {
        * <code>optional .top.openadexchange.rtb.proto.BidRequest.Site site = 3;</code>
        */
       public Builder clearSite() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         site_ = null;
         if (siteBuilder_ != null) {
           siteBuilder_.dispose();
@@ -22112,7 +23318,7 @@ public final class OaxRtbProto {
        * <code>optional .top.openadexchange.rtb.proto.BidRequest.Site site = 3;</code>
        */
       public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Site.Builder getSiteBuilder() {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return getSiteFieldBuilder().getBuilder();
       }
@@ -22164,7 +23370,7 @@ public final class OaxRtbProto {
        * @return Whether the app field is set.
        */
       public boolean hasApp() {
-        return ((bitField0_ & 0x00000008) != 0);
+        return ((bitField0_ & 0x00000010) != 0);
       }
       /**
        * <pre>
@@ -22197,7 +23403,7 @@ public final class OaxRtbProto {
         } else {
           appBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -22215,7 +23421,7 @@ public final class OaxRtbProto {
         } else {
           appBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -22228,7 +23434,7 @@ public final class OaxRtbProto {
        */
       public Builder mergeApp(top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.App value) {
         if (appBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) != 0) &&
+          if (((bitField0_ & 0x00000010) != 0) &&
             app_ != null &&
             app_ != top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.App.getDefaultInstance()) {
             getAppBuilder().mergeFrom(value);
@@ -22239,7 +23445,7 @@ public final class OaxRtbProto {
           appBuilder_.mergeFrom(value);
         }
         if (app_ != null) {
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000010;
           onChanged();
         }
         return this;
@@ -22252,7 +23458,7 @@ public final class OaxRtbProto {
        * <code>optional .top.openadexchange.rtb.proto.BidRequest.App app = 4;</code>
        */
       public Builder clearApp() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         app_ = null;
         if (appBuilder_ != null) {
           appBuilder_.dispose();
@@ -22269,7 +23475,7 @@ public final class OaxRtbProto {
        * <code>optional .top.openadexchange.rtb.proto.BidRequest.App app = 4;</code>
        */
       public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.App.Builder getAppBuilder() {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         onChanged();
         return getAppFieldBuilder().getBuilder();
       }
@@ -22321,7 +23527,7 @@ public final class OaxRtbProto {
        * @return Whether the device field is set.
        */
       public boolean hasDevice() {
-        return ((bitField0_ & 0x00000010) != 0);
+        return ((bitField0_ & 0x00000020) != 0);
       }
       /**
        * <pre>
@@ -22354,7 +23560,7 @@ public final class OaxRtbProto {
         } else {
           deviceBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
@@ -22372,7 +23578,7 @@ public final class OaxRtbProto {
         } else {
           deviceBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
@@ -22385,7 +23591,7 @@ public final class OaxRtbProto {
        */
       public Builder mergeDevice(top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Device value) {
         if (deviceBuilder_ == null) {
-          if (((bitField0_ & 0x00000010) != 0) &&
+          if (((bitField0_ & 0x00000020) != 0) &&
             device_ != null &&
             device_ != top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Device.getDefaultInstance()) {
             getDeviceBuilder().mergeFrom(value);
@@ -22396,7 +23602,7 @@ public final class OaxRtbProto {
           deviceBuilder_.mergeFrom(value);
         }
         if (device_ != null) {
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000020;
           onChanged();
         }
         return this;
@@ -22409,7 +23615,7 @@ public final class OaxRtbProto {
        * <code>optional .top.openadexchange.rtb.proto.BidRequest.Device device = 5;</code>
        */
       public Builder clearDevice() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         device_ = null;
         if (deviceBuilder_ != null) {
           deviceBuilder_.dispose();
@@ -22426,7 +23632,7 @@ public final class OaxRtbProto {
        * <code>optional .top.openadexchange.rtb.proto.BidRequest.Device device = 5;</code>
        */
       public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Device.Builder getDeviceBuilder() {
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return getDeviceFieldBuilder().getBuilder();
       }
@@ -22478,7 +23684,7 @@ public final class OaxRtbProto {
        * @return Whether the user field is set.
        */
       public boolean hasUser() {
-        return ((bitField0_ & 0x00000020) != 0);
+        return ((bitField0_ & 0x00000040) != 0);
       }
       /**
        * <pre>
@@ -22511,7 +23717,7 @@ public final class OaxRtbProto {
         } else {
           userBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         onChanged();
         return this;
       }
@@ -22529,7 +23735,7 @@ public final class OaxRtbProto {
         } else {
           userBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         onChanged();
         return this;
       }
@@ -22542,7 +23748,7 @@ public final class OaxRtbProto {
        */
       public Builder mergeUser(top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.User value) {
         if (userBuilder_ == null) {
-          if (((bitField0_ & 0x00000020) != 0) &&
+          if (((bitField0_ & 0x00000040) != 0) &&
             user_ != null &&
             user_ != top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.User.getDefaultInstance()) {
             getUserBuilder().mergeFrom(value);
@@ -22553,7 +23759,7 @@ public final class OaxRtbProto {
           userBuilder_.mergeFrom(value);
         }
         if (user_ != null) {
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000040;
           onChanged();
         }
         return this;
@@ -22566,7 +23772,7 @@ public final class OaxRtbProto {
        * <code>optional .top.openadexchange.rtb.proto.BidRequest.User user = 6;</code>
        */
       public Builder clearUser() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         user_ = null;
         if (userBuilder_ != null) {
           userBuilder_.dispose();
@@ -22583,7 +23789,7 @@ public final class OaxRtbProto {
        * <code>optional .top.openadexchange.rtb.proto.BidRequest.User user = 6;</code>
        */
       public top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.User.Builder getUserBuilder() {
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         onChanged();
         return getUserFieldBuilder().getBuilder();
       }
@@ -22630,7 +23836,7 @@ public final class OaxRtbProto {
        */
       @java.lang.Override
       public boolean hasTest() {
-        return ((bitField0_ & 0x00000040) != 0);
+        return ((bitField0_ & 0x00000080) != 0);
       }
       /**
        * <code>optional bool test = 7;</code>
@@ -22648,7 +23854,7 @@ public final class OaxRtbProto {
       public Builder setTest(boolean value) {
 
         test_ = value;
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         onChanged();
         return this;
       }
@@ -22657,7 +23863,7 @@ public final class OaxRtbProto {
        * @return This builder for chaining.
        */
       public Builder clearTest() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000080);
         test_ = false;
         onChanged();
         return this;
@@ -22674,7 +23880,7 @@ public final class OaxRtbProto {
        */
       @java.lang.Override
       public boolean hasAt() {
-        return ((bitField0_ & 0x00000080) != 0);
+        return ((bitField0_ & 0x00000100) != 0);
       }
       /**
        * <pre>
@@ -22700,7 +23906,7 @@ public final class OaxRtbProto {
       public Builder setAt(int value) {
 
         at_ = value;
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000100;
         onChanged();
         return this;
       }
@@ -22713,7 +23919,7 @@ public final class OaxRtbProto {
        * @return This builder for chaining.
        */
       public Builder clearAt() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000100);
         at_ = 0;
         onChanged();
         return this;
@@ -22730,7 +23936,7 @@ public final class OaxRtbProto {
        */
       @java.lang.Override
       public boolean hasTmax() {
-        return ((bitField0_ & 0x00000100) != 0);
+        return ((bitField0_ & 0x00000200) != 0);
       }
       /**
        * <pre>
@@ -22756,7 +23962,7 @@ public final class OaxRtbProto {
       public Builder setTmax(int value) {
 
         tmax_ = value;
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000200;
         onChanged();
         return this;
       }
@@ -22769,9 +23975,136 @@ public final class OaxRtbProto {
        * @return This builder for chaining.
        */
       public Builder clearTmax() {
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000200);
         tmax_ = 0;
         onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.MapField<
+          java.lang.String, java.lang.String> ext_;
+      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+          internalGetExt() {
+        if (ext_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              ExtDefaultEntryHolder.defaultEntry);
+        }
+        return ext_;
+      }
+      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+          internalGetMutableExt() {
+        if (ext_ == null) {
+          ext_ = com.google.protobuf.MapField.newMapField(
+              ExtDefaultEntryHolder.defaultEntry);
+        }
+        if (!ext_.isMutable()) {
+          ext_ = ext_.copy();
+        }
+        bitField0_ |= 0x00000400;
+        onChanged();
+        return ext_;
+      }
+      public int getExtCount() {
+        return internalGetExt().getMap().size();
+      }
+      /**
+       * <code>map&lt;string, string&gt; ext = 10;</code>
+       */
+      @java.lang.Override
+      public boolean containsExt(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        return internalGetExt().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getExtMap()} instead.
+       */
+      @java.lang.Override
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.String> getExt() {
+        return getExtMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; ext = 10;</code>
+       */
+      @java.lang.Override
+      public java.util.Map<java.lang.String, java.lang.String> getExtMap() {
+        return internalGetExt().getMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; ext = 10;</code>
+       */
+      @java.lang.Override
+      public /* nullable */
+java.lang.String getExtOrDefault(
+          java.lang.String key,
+          /* nullable */
+java.lang.String defaultValue) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetExt().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <code>map&lt;string, string&gt; ext = 10;</code>
+       */
+      @java.lang.Override
+      public java.lang.String getExtOrThrow(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetExt().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+      public Builder clearExt() {
+        bitField0_ = (bitField0_ & ~0x00000400);
+        internalGetMutableExt().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <code>map&lt;string, string&gt; ext = 10;</code>
+       */
+      public Builder removeExt(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        internalGetMutableExt().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.String>
+          getMutableExt() {
+        bitField0_ |= 0x00000400;
+        return internalGetMutableExt().getMutableMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; ext = 10;</code>
+       */
+      public Builder putExt(
+          java.lang.String key,
+          java.lang.String value) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        if (value == null) { throw new NullPointerException("map value"); }
+        internalGetMutableExt().getMutableMap()
+            .put(key, value);
+        bitField0_ |= 0x00000400;
+        return this;
+      }
+      /**
+       * <code>map&lt;string, string&gt; ext = 10;</code>
+       */
+      public Builder putAllExt(
+          java.util.Map<java.lang.String, java.lang.String> values) {
+        internalGetMutableExt().getMutableMap()
+            .putAll(values);
+        bitField0_ |= 0x00000400;
         return this;
       }
       @java.lang.Override
@@ -22848,7 +24181,7 @@ public final class OaxRtbProto {
      *竞价请求id, 和BidRequest的id保持一致
      * </pre>
      *
-     * <code>required string id = 1;</code>
+     * <code>optional string id = 1;</code>
      * @return Whether the id field is set.
      */
     boolean hasId();
@@ -22857,7 +24190,7 @@ public final class OaxRtbProto {
      *竞价请求id, 和BidRequest的id保持一致
      * </pre>
      *
-     * <code>required string id = 1;</code>
+     * <code>optional string id = 1;</code>
      * @return The id.
      */
     java.lang.String getId();
@@ -22866,7 +24199,7 @@ public final class OaxRtbProto {
      *竞价请求id, 和BidRequest的id保持一致
      * </pre>
      *
-     * <code>required string id = 1;</code>
+     * <code>optional string id = 1;</code>
      * @return The bytes for id.
      */
     com.google.protobuf.ByteString
@@ -22921,7 +24254,7 @@ public final class OaxRtbProto {
      *dsp生成的竞价响应id
      * </pre>
      *
-     * <code>required string bidid = 3;</code>
+     * <code>optional string bidid = 3;</code>
      * @return Whether the bidid field is set.
      */
     boolean hasBidid();
@@ -22930,7 +24263,7 @@ public final class OaxRtbProto {
      *dsp生成的竞价响应id
      * </pre>
      *
-     * <code>required string bidid = 3;</code>
+     * <code>optional string bidid = 3;</code>
      * @return The bidid.
      */
     java.lang.String getBidid();
@@ -22939,7 +24272,7 @@ public final class OaxRtbProto {
      *dsp生成的竞价响应id
      * </pre>
      *
-     * <code>required string bidid = 3;</code>
+     * <code>optional string bidid = 3;</code>
      * @return The bytes for bidid.
      */
     com.google.protobuf.ByteString
@@ -34709,7 +36042,7 @@ java.lang.String defaultValue) {
      *竞价请求id, 和BidRequest的id保持一致
      * </pre>
      *
-     * <code>required string id = 1;</code>
+     * <code>optional string id = 1;</code>
      * @return Whether the id field is set.
      */
     @java.lang.Override
@@ -34721,7 +36054,7 @@ java.lang.String defaultValue) {
      *竞价请求id, 和BidRequest的id保持一致
      * </pre>
      *
-     * <code>required string id = 1;</code>
+     * <code>optional string id = 1;</code>
      * @return The id.
      */
     @java.lang.Override
@@ -34744,7 +36077,7 @@ java.lang.String defaultValue) {
      *竞价请求id, 和BidRequest的id保持一致
      * </pre>
      *
-     * <code>required string id = 1;</code>
+     * <code>optional string id = 1;</code>
      * @return The bytes for id.
      */
     @java.lang.Override
@@ -34831,7 +36164,7 @@ java.lang.String defaultValue) {
      *dsp生成的竞价响应id
      * </pre>
      *
-     * <code>required string bidid = 3;</code>
+     * <code>optional string bidid = 3;</code>
      * @return Whether the bidid field is set.
      */
     @java.lang.Override
@@ -34843,7 +36176,7 @@ java.lang.String defaultValue) {
      *dsp生成的竞价响应id
      * </pre>
      *
-     * <code>required string bidid = 3;</code>
+     * <code>optional string bidid = 3;</code>
      * @return The bidid.
      */
     @java.lang.Override
@@ -34866,7 +36199,7 @@ java.lang.String defaultValue) {
      *dsp生成的竞价响应id
      * </pre>
      *
-     * <code>required string bidid = 3;</code>
+     * <code>optional string bidid = 3;</code>
      * @return The bytes for bidid.
      */
     @java.lang.Override
@@ -34945,14 +36278,6 @@ java.lang.String defaultValue) {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasBidid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       for (int i = 0; i < getSeatbidCount(); i++) {
         if (!getSeatbid(i).isInitialized()) {
           memoizedIsInitialized = 0;
@@ -35419,12 +36744,6 @@ java.lang.String defaultValue) {
 
       @java.lang.Override
       public final boolean isInitialized() {
-        if (!hasId()) {
-          return false;
-        }
-        if (!hasBidid()) {
-          return false;
-        }
         for (int i = 0; i < getSeatbidCount(); i++) {
           if (!getSeatbid(i).isInitialized()) {
             return false;
@@ -35508,7 +36827,7 @@ java.lang.String defaultValue) {
        *竞价请求id, 和BidRequest的id保持一致
        * </pre>
        *
-       * <code>required string id = 1;</code>
+       * <code>optional string id = 1;</code>
        * @return Whether the id field is set.
        */
       public boolean hasId() {
@@ -35519,7 +36838,7 @@ java.lang.String defaultValue) {
        *竞价请求id, 和BidRequest的id保持一致
        * </pre>
        *
-       * <code>required string id = 1;</code>
+       * <code>optional string id = 1;</code>
        * @return The id.
        */
       public java.lang.String getId() {
@@ -35541,7 +36860,7 @@ java.lang.String defaultValue) {
        *竞价请求id, 和BidRequest的id保持一致
        * </pre>
        *
-       * <code>required string id = 1;</code>
+       * <code>optional string id = 1;</code>
        * @return The bytes for id.
        */
       public com.google.protobuf.ByteString
@@ -35562,7 +36881,7 @@ java.lang.String defaultValue) {
        *竞价请求id, 和BidRequest的id保持一致
        * </pre>
        *
-       * <code>required string id = 1;</code>
+       * <code>optional string id = 1;</code>
        * @param value The id to set.
        * @return This builder for chaining.
        */
@@ -35579,7 +36898,7 @@ java.lang.String defaultValue) {
        *竞价请求id, 和BidRequest的id保持一致
        * </pre>
        *
-       * <code>required string id = 1;</code>
+       * <code>optional string id = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearId() {
@@ -35593,7 +36912,7 @@ java.lang.String defaultValue) {
        *竞价请求id, 和BidRequest的id保持一致
        * </pre>
        *
-       * <code>required string id = 1;</code>
+       * <code>optional string id = 1;</code>
        * @param value The bytes for id to set.
        * @return This builder for chaining.
        */
@@ -35924,7 +37243,7 @@ java.lang.String defaultValue) {
        *dsp生成的竞价响应id
        * </pre>
        *
-       * <code>required string bidid = 3;</code>
+       * <code>optional string bidid = 3;</code>
        * @return Whether the bidid field is set.
        */
       public boolean hasBidid() {
@@ -35935,7 +37254,7 @@ java.lang.String defaultValue) {
        *dsp生成的竞价响应id
        * </pre>
        *
-       * <code>required string bidid = 3;</code>
+       * <code>optional string bidid = 3;</code>
        * @return The bidid.
        */
       public java.lang.String getBidid() {
@@ -35957,7 +37276,7 @@ java.lang.String defaultValue) {
        *dsp生成的竞价响应id
        * </pre>
        *
-       * <code>required string bidid = 3;</code>
+       * <code>optional string bidid = 3;</code>
        * @return The bytes for bidid.
        */
       public com.google.protobuf.ByteString
@@ -35978,7 +37297,7 @@ java.lang.String defaultValue) {
        *dsp生成的竞价响应id
        * </pre>
        *
-       * <code>required string bidid = 3;</code>
+       * <code>optional string bidid = 3;</code>
        * @param value The bidid to set.
        * @return This builder for chaining.
        */
@@ -35995,7 +37314,7 @@ java.lang.String defaultValue) {
        *dsp生成的竞价响应id
        * </pre>
        *
-       * <code>required string bidid = 3;</code>
+       * <code>optional string bidid = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearBidid() {
@@ -36009,7 +37328,7 @@ java.lang.String defaultValue) {
        *dsp生成的竞价响应id
        * </pre>
        *
-       * <code>required string bidid = 3;</code>
+       * <code>optional string bidid = 3;</code>
        * @param value The bytes for bidid to set.
        * @return This builder for chaining.
        */
@@ -36203,10 +37522,25 @@ java.lang.String defaultValue) {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_top_openadexchange_rtb_proto_BidRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_top_openadexchange_rtb_proto_BidRequest_ExtEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_top_openadexchange_rtb_proto_BidRequest_ExtEntry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_top_openadexchange_rtb_proto_BidRequest_Publisher_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_top_openadexchange_rtb_proto_BidRequest_Publisher_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_ExtEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_ExtEntry_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_Banner_descriptor;
   private static final 
@@ -36302,94 +37636,101 @@ java.lang.String defaultValue) {
   static {
     java.lang.String[] descriptorData = {
       "\n\trtb.proto\022\034top.openadexchange.rtb.prot" +
-      "o\"\354\020\n\nBidRequest\022\n\n\002id\030\001 \002(\t\0229\n\003imp\030\002 \003(" +
+      "o\"\250\023\n\nBidRequest\022\n\n\002id\030\001 \002(\t\0229\n\003imp\030\002 \003(" +
       "\0132,.top.openadexchange.rtb.proto.BidRequ" +
-      "est.Imp\022;\n\004site\030\003 \001(\0132-.top.openadexchan" +
-      "ge.rtb.proto.BidRequest.Site\0229\n\003app\030\004 \001(" +
-      "\0132,.top.openadexchange.rtb.proto.BidRequ" +
-      "est.App\022?\n\006device\030\005 \001(\0132/.top.openadexch" +
-      "ange.rtb.proto.BidRequest.Device\022;\n\004user" +
-      "\030\006 \001(\0132-.top.openadexchange.rtb.proto.Bi" +
-      "dRequest.User\022\014\n\004test\030\007 \001(\010\022\n\n\002at\030\010 \001(\r\022" +
-      "\014\n\004tmax\030\t \001(\r\032\200\007\n\003Imp\022\n\n\002id\030\001 \002(\t\022C\n\006ban" +
-      "ner\030\002 \001(\01323.top.openadexchange.rtb.proto" +
-      ".BidRequest.Imp.Banner\022A\n\005video\030\003 \001(\01322." +
+      "est.Imp\022E\n\tpublisher\030\013 \001(\01322.top.openade" +
+      "xchange.rtb.proto.BidRequest.Publisher\022;" +
+      "\n\004site\030\003 \001(\0132-.top.openadexchange.rtb.pr" +
+      "oto.BidRequest.Site\0229\n\003app\030\004 \001(\0132,.top.o" +
+      "penadexchange.rtb.proto.BidRequest.App\022?" +
+      "\n\006device\030\005 \001(\0132/.top.openadexchange.rtb." +
+      "proto.BidRequest.Device\022;\n\004user\030\006 \001(\0132-." +
       "top.openadexchange.rtb.proto.BidRequest." +
-      "Imp.Video\022L\n\013native_spec\030\r \001(\01327.top.ope" +
-      "nadexchange.rtb.proto.BidRequest.Imp.Nat" +
-      "iveSpec\022A\n\005audio\030\016 \001(\01322.top.openadexcha" +
-      "nge.rtb.proto.BidRequest.Imp.Audio\022=\n\003pm" +
-      "p\030\006 \001(\01320.top.openadexchange.rtb.proto.B" +
-      "idRequest.Imp.Pmp\022\r\n\005tagid\030\007 \001(\t\022\021\n\tbid_" +
-      "floor\030\010 \001(\004\022\025\n\rbid_floor_cur\030\t \001(\t\022\016\n\006se" +
-      "cure\030\n \001(\r\022\024\n\014is_native_ad\030\014 \001(\010\032B\n\006Bann" +
-      "er\022\t\n\001w\030\001 \001(\r\022\t\n\001h\030\002 \001(\r\022\013\n\003pos\030\003 \001(\r\022\r\n" +
-      "\005mimes\030\004 \003(\t*\006\010\310\001\020\254\002\032\231\001\n\005Video\022\r\n\005mimes\030" +
-      "\001 \003(\t\022\024\n\014min_duration\030\002 \001(\r\022\024\n\014max_durat" +
-      "ion\030\003 \001(\r\022\021\n\tskippable\030\006 \001(\010\022\020\n\010skip_min" +
-      "\030\007 \001(\r\022\022\n\nskip_after\030\010 \001(\r\022\t\n\001w\030\004 \001(\r\022\t\n" +
-      "\001h\030\005 \001(\r*\006\010\310\001\020\254\002\032B\n\005Audio\022\r\n\005mimes\030\001 \003(\t" +
-      "\022\024\n\014min_duration\030\002 \001(\r\022\024\n\014max_duration\030\003" +
-      " \001(\r\032!\n\nNativeSpec\022\023\n\013template_id\030\001 \003(\t\032" +
-      "g\n\003Pmp\022D\n\005deals\030\001 \003(\01325.top.openadexchan" +
-      "ge.rtb.proto.BidRequest.Imp.Pmp.Deal\032\022\n\004" +
-      "Deal\022\n\n\002id\030\001 \002(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002\032\246\001\n\003App" +
-      "\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\010 \001(\t\022\016\n\006bundle\030\002 \001" +
-      "(\t\022\013\n\003cat\030\003 \003(\t\022\013\n\003ver\030\004 \001(\t\022A\n\007content\030" +
-      "\006 \001(\01320.top.openadexchange.rtb.proto.Bid" +
-      "Request.Content\022\020\n\010keywords\030\007 \001(\t*\006\010\310\001\020\254" +
-      "\002\032\232\001\n\004Site\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\016\n\006" +
-      "domain\030\003 \001(\t\022\013\n\003cat\030\004 \003(\t\022A\n\007content\030\010 \001" +
-      "(\01320.top.openadexchange.rtb.proto.BidReq" +
-      "uest.Content\022\020\n\010keywords\030\t \001(\t*\006\010\310\001\020\254\002\032:" +
-      "\n\007Content\022\016\n\002id\030\001 \001(\tB\002\030\001\022\r\n\005title\030\002 \001(\t" +
-      "\022\020\n\010keywords\030\003 \001(\t\032\324\002\n\006Device\022\n\n\002ua\030\001 \001(" +
-      "\t\022\n\n\002ip\030\003 \001(\t\022\014\n\004ipv6\030\004 \001(\t\022\023\n\013device_ty" +
-      "pe\030\005 \001(\r\022\014\n\004make\030\006 \001(\t\022\r\n\005model\030\007 \001(\t\022\n\n" +
-      "\002os\030\010 \001(\t\022\013\n\003osv\030\t \001(\t\022\017\n\007carrier\030\n \001(\t\022" +
-      "\027\n\017connection_type\030\013 \001(\r\022\013\n\003ifa\030\014 \001(\t\022\022\n" +
-      "\006didmd5\030\r \001(\tB\002\030\001\022\017\n\003mac\030\016 \001(\tB\002\030\001\022\022\n\006ma" +
-      "cmd5\030\017 \001(\tB\002\030\001\022\020\n\004adid\030\020 \001(\tB\002\030\001\022\t\n\001h\030\021 " +
-      "\001(\r\022\t\n\001w\030\022 \001(\r\0229\n\003geo\030\002 \001(\0132,.top.openad" +
-      "exchange.rtb.proto.BidRequest.Geo*\006\010\310\001\020\254" +
-      "\002\032u\n\003Geo\022\013\n\003lat\030\001 \001(\002\022\013\n\003lon\030\002 \001(\002\022\017\n\007co" +
-      "untry\030\003 \001(\t\022\022\n\006region\030\004 \001(\tB\002\030\001\022\020\n\004city\030" +
-      "\005 \001(\tB\002\030\001\022\025\n\tarea_code\030\006 \001(\rB\002\030\001*\006\010\310\001\020\254\002" +
-      "\032\036\n\004User\022\016\n\002id\030\001 \001(\tB\002\030\001*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002" +
-      "\"\372\t\n\013BidResponse\022\n\n\002id\030\001 \002(\t\022B\n\007seatbid\030" +
-      "\002 \003(\01321.top.openadexchange.rtb.proto.Bid" +
-      "Response.SeatBid\022\r\n\005bidid\030\003 \002(\t\022\013\n\003nbr\030\004" +
-      " \001(\r\022\016\n\006no_bid\030\005 \001(\010\032\271\003\n\010NativeAd\022\023\n\013tem" +
-      "plate_id\030\001 \001(\t\022R\n\006assets\030\002 \003(\0132>.top.ope" +
-      "nadexchange.rtb.proto.BidResponse.Native" +
-      "Ad.AssetsEntryB\002\030\001\022\r\n\005title\030\003 \001(\t\022\014\n\004des" +
-      "c\030\004 \001(\t\022\014\n\004icon\030\005 \001(\t\022\022\n\nmain_image\030\006 \001(" +
-      "\t\022\016\n\006images\030\007 \003(\t\022\021\n\tsponsored\030\010 \001(\t\022\016\n\006" +
-      "rating\030\t \001(\t\022\r\n\005likes\030\n \001(\t\022\021\n\tdownloads" +
-      "\030\013 \001(\t\022\r\n\005price\030\014 \001(\t\022\022\n\nsale_price\030\r \001(" +
-      "\t\022\r\n\005phone\030\016 \001(\t\022\017\n\007address\030\017 \001(\t\022\023\n\013dis" +
-      "play_url\030\020 \001(\t\022\013\n\003cta\030\021 \001(\t\022\r\n\005video\030\022 \001" +
-      "(\t\022\r\n\005desc2\030\023 \001(\t\032-\n\013AssetsEntry\022\013\n\003key\030" +
-      "\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032\252\005\n\007SeatBid\022B\n\003" +
-      "bid\030\001 \003(\01325.top.openadexchange.rtb.proto" +
-      ".BidResponse.SeatBid.Bid\022\014\n\004seat\030\002 \001(\t\032\314" +
-      "\004\n\003Bid\022\n\n\002id\030\001 \002(\t\022\r\n\005impid\030\002 \002(\t\022\r\n\005pri" +
-      "ce\030\003 \002(\004\022\014\n\004crid\030\004 \002(\t\022\016\n\006dealid\030\005 \001(\t\022\014" +
-      "\n\004nurl\030\024 \001(\t\022\024\n\014imp_trackers\030\006 \003(\t\022\024\n\014cl" +
-      "k_trackers\030\007 \003(\t\022\013\n\003ldp\030\010 \001(\t\022\024\n\014creativ" +
-      "e_url\030\t \001(\t\022\022\n\nclick_type\030\n \001(\r\022\016\n\006bundl" +
-      "e\030\013 \001(\t\022\023\n\013appstore_id\030\027 \001(\t\022\013\n\003adm\030\014 \001(" +
-      "\t\022D\n\010nativeAd\030\r \001(\01322.top.openadexchange" +
-      ".rtb.proto.BidResponse.NativeAd\022\030\n\020app_d" +
-      "ownload_url\030\016 \001(\t\022\020\n\010app_name\030\017 \001(\t\022\024\n\014a" +
-      "pp_icon_url\030\031 \001(\t\022\020\n\010deeplink\030\020 \001(\t\022\020\n\010d" +
-      "uration\030\022 \001(\004\022\025\n\rplay_trackers\030\023 \003(\t\022\037\n\027" +
-      "play_completed_trackers\030\026 \003(\t\022\026\n\016error_t" +
-      "rackers\030\025 \003(\t\022\026\n\016close_trackers\030\030 \003(\t\022\031\n" +
-      "\021download_trackers\030\032 \003(\t\022#\n\033download_com" +
-      "pleted_trackers\030\033 \003(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002B+\n" +
-      "\034top.openadexchange.rtb.protoB\013OaxRtbPro" +
-      "to"
+      "User\022\014\n\004test\030\007 \001(\010\022\n\n\002at\030\010 \001(\r\022\014\n\004tmax\030\t" +
+      " \001(\r\022>\n\003ext\030\n \003(\01321.top.openadexchange.r" +
+      "tb.proto.BidRequest.ExtEntry\032*\n\010ExtEntry" +
+      "\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032\027\n\tPubl" +
+      "isher\022\n\n\002id\030\001 \001(\004\032\360\007\n\003Imp\022\n\n\002id\030\001 \002(\t\022C\n" +
+      "\006banner\030\002 \001(\01323.top.openadexchange.rtb.p" +
+      "roto.BidRequest.Imp.Banner\022A\n\005video\030\003 \001(" +
+      "\01322.top.openadexchange.rtb.proto.BidRequ" +
+      "est.Imp.Video\022L\n\013native_spec\030\r \001(\01327.top" +
+      ".openadexchange.rtb.proto.BidRequest.Imp" +
+      ".NativeSpec\022A\n\005audio\030\016 \001(\01322.top.openade" +
+      "xchange.rtb.proto.BidRequest.Imp.Audio\022=" +
+      "\n\003pmp\030\006 \001(\01320.top.openadexchange.rtb.pro" +
+      "to.BidRequest.Imp.Pmp\022\r\n\005tagid\030\007 \001(\t\022\021\n\t" +
+      "bid_floor\030\010 \001(\004\022\025\n\rbid_floor_cur\030\t \001(\t\022\016" +
+      "\n\006secure\030\n \001(\r\022\024\n\014is_native_ad\030\014 \001(\010\022B\n\003" +
+      "ext\030\013 \003(\01325.top.openadexchange.rtb.proto" +
+      ".BidRequest.Imp.ExtEntry\032*\n\010ExtEntry\022\013\n\003" +
+      "key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032B\n\006Banner\022\t" +
+      "\n\001w\030\001 \001(\r\022\t\n\001h\030\002 \001(\r\022\013\n\003pos\030\003 \001(\r\022\r\n\005mim" +
+      "es\030\004 \003(\t*\006\010\310\001\020\254\002\032\231\001\n\005Video\022\r\n\005mimes\030\001 \003(" +
+      "\t\022\024\n\014min_duration\030\002 \001(\r\022\024\n\014max_duration\030" +
+      "\003 \001(\r\022\021\n\tskippable\030\006 \001(\010\022\020\n\010skip_min\030\007 \001" +
+      "(\r\022\022\n\nskip_after\030\010 \001(\r\022\t\n\001w\030\004 \001(\r\022\t\n\001h\030\005" +
+      " \001(\r*\006\010\310\001\020\254\002\032B\n\005Audio\022\r\n\005mimes\030\001 \003(\t\022\024\n\014" +
+      "min_duration\030\002 \001(\r\022\024\n\014max_duration\030\003 \001(\r" +
+      "\032!\n\nNativeSpec\022\023\n\013template_id\030\001 \003(\t\032g\n\003P" +
+      "mp\022D\n\005deals\030\001 \003(\01325.top.openadexchange.r" +
+      "tb.proto.BidRequest.Imp.Pmp.Deal\032\022\n\004Deal" +
+      "\022\n\n\002id\030\001 \002(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002\032\246\001\n\003App\022\n\n\002" +
+      "id\030\001 \001(\t\022\014\n\004name\030\010 \001(\t\022\016\n\006bundle\030\002 \001(\t\022\013" +
+      "\n\003cat\030\003 \003(\t\022\013\n\003ver\030\004 \001(\t\022A\n\007content\030\006 \001(" +
+      "\01320.top.openadexchange.rtb.proto.BidRequ" +
+      "est.Content\022\020\n\010keywords\030\007 \001(\t*\006\010\310\001\020\254\002\032\232\001" +
+      "\n\004Site\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\016\n\006doma" +
+      "in\030\003 \001(\t\022\013\n\003cat\030\004 \003(\t\022A\n\007content\030\010 \001(\01320" +
+      ".top.openadexchange.rtb.proto.BidRequest" +
+      ".Content\022\020\n\010keywords\030\t \001(\t*\006\010\310\001\020\254\002\032:\n\007Co" +
+      "ntent\022\016\n\002id\030\001 \001(\tB\002\030\001\022\r\n\005title\030\002 \001(\t\022\020\n\010" +
+      "keywords\030\003 \001(\t\032\324\002\n\006Device\022\n\n\002ua\030\001 \001(\t\022\n\n" +
+      "\002ip\030\003 \001(\t\022\014\n\004ipv6\030\004 \001(\t\022\023\n\013device_type\030\005" +
+      " \001(\r\022\014\n\004make\030\006 \001(\t\022\r\n\005model\030\007 \001(\t\022\n\n\002os\030" +
+      "\010 \001(\t\022\013\n\003osv\030\t \001(\t\022\017\n\007carrier\030\n \001(\t\022\027\n\017c" +
+      "onnection_type\030\013 \001(\r\022\013\n\003ifa\030\014 \001(\t\022\022\n\006did" +
+      "md5\030\r \001(\tB\002\030\001\022\017\n\003mac\030\016 \001(\tB\002\030\001\022\022\n\006macmd5" +
+      "\030\017 \001(\tB\002\030\001\022\020\n\004adid\030\020 \001(\tB\002\030\001\022\t\n\001h\030\021 \001(\r\022" +
+      "\t\n\001w\030\022 \001(\r\0229\n\003geo\030\002 \001(\0132,.top.openadexch" +
+      "ange.rtb.proto.BidRequest.Geo*\006\010\310\001\020\254\002\032u\n" +
+      "\003Geo\022\013\n\003lat\030\001 \001(\002\022\013\n\003lon\030\002 \001(\002\022\017\n\007countr" +
+      "y\030\003 \001(\t\022\022\n\006region\030\004 \001(\tB\002\030\001\022\020\n\004city\030\005 \001(" +
+      "\tB\002\030\001\022\025\n\tarea_code\030\006 \001(\rB\002\030\001*\006\010\310\001\020\254\002\032\036\n\004" +
+      "User\022\016\n\002id\030\001 \001(\tB\002\030\001*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002\"\372\t\n" +
+      "\013BidResponse\022\n\n\002id\030\001 \001(\t\022B\n\007seatbid\030\002 \003(" +
+      "\01321.top.openadexchange.rtb.proto.BidResp" +
+      "onse.SeatBid\022\r\n\005bidid\030\003 \001(\t\022\013\n\003nbr\030\004 \001(\r" +
+      "\022\016\n\006no_bid\030\005 \001(\010\032\271\003\n\010NativeAd\022\023\n\013templat" +
+      "e_id\030\001 \001(\t\022R\n\006assets\030\002 \003(\0132>.top.openade" +
+      "xchange.rtb.proto.BidResponse.NativeAd.A" +
+      "ssetsEntryB\002\030\001\022\r\n\005title\030\003 \001(\t\022\014\n\004desc\030\004 " +
+      "\001(\t\022\014\n\004icon\030\005 \001(\t\022\022\n\nmain_image\030\006 \001(\t\022\016\n" +
+      "\006images\030\007 \003(\t\022\021\n\tsponsored\030\010 \001(\t\022\016\n\006rati" +
+      "ng\030\t \001(\t\022\r\n\005likes\030\n \001(\t\022\021\n\tdownloads\030\013 \001" +
+      "(\t\022\r\n\005price\030\014 \001(\t\022\022\n\nsale_price\030\r \001(\t\022\r\n" +
+      "\005phone\030\016 \001(\t\022\017\n\007address\030\017 \001(\t\022\023\n\013display" +
+      "_url\030\020 \001(\t\022\013\n\003cta\030\021 \001(\t\022\r\n\005video\030\022 \001(\t\022\r" +
+      "\n\005desc2\030\023 \001(\t\032-\n\013AssetsEntry\022\013\n\003key\030\001 \001(" +
+      "\t\022\r\n\005value\030\002 \001(\t:\0028\001\032\252\005\n\007SeatBid\022B\n\003bid\030" +
+      "\001 \003(\01325.top.openadexchange.rtb.proto.Bid" +
+      "Response.SeatBid.Bid\022\014\n\004seat\030\002 \001(\t\032\314\004\n\003B" +
+      "id\022\n\n\002id\030\001 \002(\t\022\r\n\005impid\030\002 \002(\t\022\r\n\005price\030\003" +
+      " \002(\004\022\014\n\004crid\030\004 \002(\t\022\016\n\006dealid\030\005 \001(\t\022\014\n\004nu" +
+      "rl\030\024 \001(\t\022\024\n\014imp_trackers\030\006 \003(\t\022\024\n\014clk_tr" +
+      "ackers\030\007 \003(\t\022\013\n\003ldp\030\010 \001(\t\022\024\n\014creative_ur" +
+      "l\030\t \001(\t\022\022\n\nclick_type\030\n \001(\r\022\016\n\006bundle\030\013 " +
+      "\001(\t\022\023\n\013appstore_id\030\027 \001(\t\022\013\n\003adm\030\014 \001(\t\022D\n" +
+      "\010nativeAd\030\r \001(\01322.top.openadexchange.rtb" +
+      ".proto.BidResponse.NativeAd\022\030\n\020app_downl" +
+      "oad_url\030\016 \001(\t\022\020\n\010app_name\030\017 \001(\t\022\024\n\014app_i" +
+      "con_url\030\031 \001(\t\022\020\n\010deeplink\030\020 \001(\t\022\020\n\010durat" +
+      "ion\030\022 \001(\004\022\025\n\rplay_trackers\030\023 \003(\t\022\037\n\027play" +
+      "_completed_trackers\030\026 \003(\t\022\026\n\016error_track" +
+      "ers\030\025 \003(\t\022\026\n\016close_trackers\030\030 \003(\t\022\031\n\021dow" +
+      "nload_trackers\030\032 \003(\t\022#\n\033download_complet" +
+      "ed_trackers\030\033 \003(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002B+\n\034top" +
+      ".openadexchange.rtb.protoB\013OaxRtbProto"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -36400,39 +37741,57 @@ java.lang.String defaultValue) {
     internal_static_top_openadexchange_rtb_proto_BidRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor,
-        new java.lang.String[] { "Id", "Imp", "Site", "App", "Device", "User", "Test", "At", "Tmax", });
-    internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_descriptor =
+        new java.lang.String[] { "Id", "Imp", "Publisher", "Site", "App", "Device", "User", "Test", "At", "Tmax", "Ext", });
+    internal_static_top_openadexchange_rtb_proto_BidRequest_ExtEntry_descriptor =
       internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(0);
+    internal_static_top_openadexchange_rtb_proto_BidRequest_ExtEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_top_openadexchange_rtb_proto_BidRequest_ExtEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_top_openadexchange_rtb_proto_BidRequest_Publisher_descriptor =
+      internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(1);
+    internal_static_top_openadexchange_rtb_proto_BidRequest_Publisher_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_top_openadexchange_rtb_proto_BidRequest_Publisher_descriptor,
+        new java.lang.String[] { "Id", });
+    internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_descriptor =
+      internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(2);
     internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_descriptor,
-        new java.lang.String[] { "Id", "Banner", "Video", "NativeSpec", "Audio", "Pmp", "Tagid", "BidFloor", "BidFloorCur", "Secure", "IsNativeAd", });
-    internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_Banner_descriptor =
+        new java.lang.String[] { "Id", "Banner", "Video", "NativeSpec", "Audio", "Pmp", "Tagid", "BidFloor", "BidFloorCur", "Secure", "IsNativeAd", "Ext", });
+    internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_ExtEntry_descriptor =
       internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_descriptor.getNestedTypes().get(0);
+    internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_ExtEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_ExtEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_Banner_descriptor =
+      internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_descriptor.getNestedTypes().get(1);
     internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_Banner_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_Banner_descriptor,
         new java.lang.String[] { "W", "H", "Pos", "Mimes", });
     internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_Video_descriptor =
-      internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_descriptor.getNestedTypes().get(1);
+      internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_descriptor.getNestedTypes().get(2);
     internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_Video_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_Video_descriptor,
         new java.lang.String[] { "Mimes", "MinDuration", "MaxDuration", "Skippable", "SkipMin", "SkipAfter", "W", "H", });
     internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_Audio_descriptor =
-      internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_descriptor.getNestedTypes().get(2);
+      internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_descriptor.getNestedTypes().get(3);
     internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_Audio_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_Audio_descriptor,
         new java.lang.String[] { "Mimes", "MinDuration", "MaxDuration", });
     internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_NativeSpec_descriptor =
-      internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_descriptor.getNestedTypes().get(3);
+      internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_descriptor.getNestedTypes().get(4);
     internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_NativeSpec_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_NativeSpec_descriptor,
         new java.lang.String[] { "TemplateId", });
     internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_Pmp_descriptor =
-      internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_descriptor.getNestedTypes().get(4);
+      internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_descriptor.getNestedTypes().get(5);
     internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_Pmp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_Pmp_descriptor,
@@ -36444,37 +37803,37 @@ java.lang.String defaultValue) {
         internal_static_top_openadexchange_rtb_proto_BidRequest_Imp_Pmp_Deal_descriptor,
         new java.lang.String[] { "Id", });
     internal_static_top_openadexchange_rtb_proto_BidRequest_App_descriptor =
-      internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(1);
+      internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(3);
     internal_static_top_openadexchange_rtb_proto_BidRequest_App_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidRequest_App_descriptor,
         new java.lang.String[] { "Id", "Name", "Bundle", "Cat", "Ver", "Content", "Keywords", });
     internal_static_top_openadexchange_rtb_proto_BidRequest_Site_descriptor =
-      internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(2);
+      internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(4);
     internal_static_top_openadexchange_rtb_proto_BidRequest_Site_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidRequest_Site_descriptor,
         new java.lang.String[] { "Id", "Name", "Domain", "Cat", "Content", "Keywords", });
     internal_static_top_openadexchange_rtb_proto_BidRequest_Content_descriptor =
-      internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(3);
+      internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(5);
     internal_static_top_openadexchange_rtb_proto_BidRequest_Content_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidRequest_Content_descriptor,
         new java.lang.String[] { "Id", "Title", "Keywords", });
     internal_static_top_openadexchange_rtb_proto_BidRequest_Device_descriptor =
-      internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(4);
+      internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(6);
     internal_static_top_openadexchange_rtb_proto_BidRequest_Device_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidRequest_Device_descriptor,
         new java.lang.String[] { "Ua", "Ip", "Ipv6", "DeviceType", "Make", "Model", "Os", "Osv", "Carrier", "ConnectionType", "Ifa", "Didmd5", "Mac", "Macmd5", "Adid", "H", "W", "Geo", });
     internal_static_top_openadexchange_rtb_proto_BidRequest_Geo_descriptor =
-      internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(5);
+      internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(7);
     internal_static_top_openadexchange_rtb_proto_BidRequest_Geo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidRequest_Geo_descriptor,
         new java.lang.String[] { "Lat", "Lon", "Country", "Region", "City", "AreaCode", });
     internal_static_top_openadexchange_rtb_proto_BidRequest_User_descriptor =
-      internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(6);
+      internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(8);
     internal_static_top_openadexchange_rtb_proto_BidRequest_User_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidRequest_User_descriptor,

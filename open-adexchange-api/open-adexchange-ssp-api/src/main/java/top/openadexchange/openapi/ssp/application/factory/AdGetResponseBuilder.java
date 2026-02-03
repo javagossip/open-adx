@@ -20,7 +20,7 @@ import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid.Bid;
 @Slf4j
 public class AdGetResponseBuilder {
 
-    public AdGetResponse buildAdGetResponse(AdGetRequest request, Map<String, Bid> bids) {
+    public AdGetResponse buildAdGetResponse(AdGetRequest request, Map<String, Bid.Builder> bids) {
         if (bids == null || bids.isEmpty()) {
             return null;
         }
@@ -33,7 +33,7 @@ public class AdGetResponseBuilder {
         return adGetResponse;
     }
 
-    private Ad buildAd(AdGetRequest request, String impid, Bid bid) {
+    private Ad buildAd(AdGetRequest request, String impid, Bid.Builder bid) {
         String tagId = request.getTagIdByImpId(impid);
         Ad ad = new Ad();
         ad.setPm(bid.getImpTrackersList());
@@ -50,7 +50,7 @@ public class AdGetResponseBuilder {
         return ad;
     }
 
-    private NativeAd buildNativeAd(Bid bid) {
+    private NativeAd buildNativeAd(Bid.Builder bid) {
         BidResponse.NativeAd nativeAd = bid.getNativeAd();
         if (!bid.hasNativeAd()) {
             return null;

@@ -1,12 +1,10 @@
 package top.openadexchange.tracking.application.service;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
-import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
@@ -22,18 +20,21 @@ import com.alibaba.fastjson2.JSON;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import top.openadexchange.constants.RedisKeys;
 import top.openadexchange.constants.enums.PriceMode;
 import top.openadexchange.dto.TrackToken;
+import top.openadexchange.dto.event.ClickEvent;
+import top.openadexchange.dto.event.DspBidEvent;
+import top.openadexchange.dto.event.DspReqEvent;
+import top.openadexchange.dto.event.DspWinEvent;
+import top.openadexchange.dto.event.ImpressionEvent;
 import top.openadexchange.tracking.application.factory.ClickEventFactory;
 import top.openadexchange.tracking.application.factory.ImpressionEventFactory;
-import top.openadexchange.tracking.domain.event.ClickEvent;
-import top.openadexchange.tracking.domain.event.ImpressionEvent;
 import top.openadexchange.tracking.domain.gateway.AdDedupService;
 import top.openadexchange.tracking.domain.gateway.OaxTrackingServices;
-import top.openadexchange.tracking.domain.model.IncrHashKey;
 import top.openadexchange.tracking.domain.model.TrackTokenParseResult;
 import top.openadexchange.tracking.infrastructure.constants.KafkaConstants;
-import top.openadexchange.tracking.infrastructure.constants.RedisKeys;
+import top.openadexchange.tracking.utils.RevenueUtils;
 
 @Service
 @Slf4j
@@ -50,8 +51,6 @@ public class TrackingService {
     private RedisTemplate<String, String> redisTemplate;
     @Resource
     private OaxTrackingServices oaxTrackingServices;
-    @Resource
-    private AntiFraudService antiFraudService;
 
     /**
      * 曝光跟踪
@@ -69,7 +68,7 @@ public class TrackingService {
         ImpressionEvent impEvent = ImpressionEventFactory.of(trackToken, request);
         // ⑤ 同步写 Kafka（Source of Truth）
         String eventJson = JSON.toJSONString(impEvent);
-        kafkaTemplate.send(KafkaConstants.KAFKA_TOPIC_IMPRESSION, impId, eventJson);
+        //kafkaTemplate.send(KafkaConstants.KAFKA_TOPIC_IMPRESSION, impId, eventJson);
         IMP_LOG.info("{}", eventJson);
 
         if (!trackTokenResult.isValid()) {
@@ -83,33 +82,55 @@ public class TrackingService {
             return;
         }
         // ⑥ 实时计数（Redis，弱一致）
-        String today = LocalDate.now().format(DATE_FORMATTER);
-        String adSlotImpKey = String.format(RedisKeys.HASH_KEY_IMP_ADSLOT, today);
-        String cridImpKey = String.format(RedisKeys.HASH_KEY_IMP_CRID, today);
-        String dspImpKey = String.format(RedisKeys.HASH_KEY_IMP_DSP, today);
+        String statAdSlotKey = RedisKeys.keyStatAdSlot(trackToken.getAdSlotId());
+        String statDspKey = RedisKeys.keyStatDsp(trackToken.getDspId());
+        String statCridKey = RedisKeys.keyStatCrid(trackToken.getCrid());
+        String statAdslotsKey = RedisKeys.keyStatAdslots();
 
-        List<IncrHashKey> incrHashKeys = Arrays.asList(new IncrHashKey(adSlotImpKey, trackToken.getAdSotId()),
-                new IncrHashKey(cridImpKey, trackToken.getCrid()),
-                new IncrHashKey(dspImpKey, trackToken.getDspId()));
-        batchIncrementHashKeys(incrHashKeys);
+        List<String> hashKeys = Arrays.asList(statAdSlotKey, statDspKey, statCridKey);
+
+        //这里计算一下一次曝光的收益，收益计入媒体广告位的收益中，按照 micro cent（1分=1,000,000）计算
+        long price = trackToken.getPrice();
+        int revShare = trackToken.getRevShare();
+        String adSlotId = trackToken.getAdSlotId();
+        String dspId = trackToken.getDspId();
+
+        long mediaRevenue = RevenueUtils.calcMediaRevenue(price, revShare);
+        long dspCost = RevenueUtils.calcDspCost(price, revShare);
+        long adxRevenue = RevenueUtils.calcAdxRevenue(price, revShare);
+
+        redisTemplate.executePipelined(new SessionCallback<>() {
+            @Override
+            public <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
+                K _statAdSlotKey = (K) statAdSlotKey;
+                batchIncrementHashKeys(ops, hashKeys, RedisKeys.HASH_FIELD_IMP);
+                ops.opsForHash().increment((K) statDspKey, RedisKeys.HASH_FIELD_DSP_COST, dspCost);
+                ops.opsForHash().increment(_statAdSlotKey, RedisKeys.HASH_FIELD_REVENUE, mediaRevenue);
+                ops.opsForHash().increment(_statAdSlotKey, RedisKeys.HASH_FIELD_ADX_REVENUE, adxRevenue);
+
+                ops.opsForSet().add((K) statAdslotsKey, (V) adSlotId);
+                ops.opsForSet().add((K) RedisKeys.keyStatDsps(), (V) dspId);
+                return null;
+            }
+        });
 
         // ⑦ 异步生成 BillingEvent（CPM 模式下曝光产生计费）
         if (PriceMode.CPM.name().equalsIgnoreCase(trackToken.getPriceMode())) {
-            sendBillingEventAsync(impEvent);
+            //sendBillingEventAsync(impEvent);
         }
     }
 
     public void clkTrack(String tk, HttpServletRequest request) {
         // ① ② 解析tk，校验签名和过期时间
         TrackTokenParseResult parseResult = TrackingTokenParser.parse(tk);
-        TrackToken payload = parseResult.getData();
-        String impId = payload.getImpId();
+        TrackToken trackToken = parseResult.getData();
+        String impId = trackToken.getImpId();
 
         // ④ 构造点击事件
-        ClickEvent clickEvent = ClickEventFactory.of(payload, request);
+        ClickEvent clickEvent = ClickEventFactory.of(trackToken, request);
         // ⑤ 同步写 Kafka（Source of Truth）
         String eventPayload = JSON.toJSONString(clickEvent);
-        kafkaTemplate.send(KafkaConstants.KAFKA_TOPIC_CLICK, impId, eventPayload);
+        //kafkaTemplate.send(KafkaConstants.KAFKA_TOPIC_CLICK, impId, eventPayload);
         CLK_LOG.info("{}", eventPayload);
 
         if (!parseResult.isValid()) {
@@ -124,37 +145,41 @@ public class TrackingService {
             return;
         }
 
+        String dspId = trackToken.getDspId();
+        String adSlotId = trackToken.getAdSlotId();
+
+        String statAdSlotKey = RedisKeys.keyStatAdSlot(trackToken.getAdSlotId());
+        String statCrIdKey = RedisKeys.keyStatCrid(trackToken.getCrid());
+        String statDspKey = RedisKeys.keyStatDsp(trackToken.getDspId());
+
         // ⑥ 实时计数（Redis，弱一致）
-        String now = LocalDate.now().format(DATE_FORMATTER);
-        String adSlotClickKey = String.format(RedisKeys.HASH_KEY_CLK_ADSLOT, now);
-        String cridClickKey = String.format(RedisKeys.HASH_KEY_CLK_CRID, now);
-        String dspClickKey = String.format(RedisKeys.HASH_KEY_CLK_DSP, now);
+        List<String> hashKeys = Arrays.asList(statAdSlotKey, statCrIdKey, statDspKey);
 
-        List<IncrHashKey> incrHashKeys = Arrays.asList(new IncrHashKey(adSlotClickKey, payload.getAdSotId()),
-                new IncrHashKey(cridClickKey, payload.getCrid()),
-                new IncrHashKey(dspClickKey, payload.getDspId()));
-
-        batchIncrementHashKeys(incrHashKeys);
-        // ⑦ 异步生成 BillingEvent（CPC 模式下点击产生计费）
-        if (PriceMode.CPC.name().equalsIgnoreCase(payload.getPriceMode())) {
-            sendBillingEventAsync(clickEvent);
-        }
-    }
-
-    public void batchIncrementHashKeys(List<IncrHashKey> incrHashKeys) {
         redisTemplate.executePipelined(new SessionCallback<>() {
             @Override
-            public @Nullable <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
-                for (IncrHashKey incrHashKey : incrHashKeys) {
-                    K key = (K) incrHashKey.getKey();
-                    ops.opsForHash().increment(key, incrHashKey.getField(), 1L);
-                    if (ops.getExpire(key) == null || ops.getExpire(key) < 0) {
-                        ops.expire(key, Duration.ofDays(2));
-                    }
-                }
+            public <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
+                batchIncrementHashKeys(ops, hashKeys, RedisKeys.HASH_FIELD_CLK);
+                ops.opsForSet().add((K) RedisKeys.keyStatAdslots(), (V) adSlotId);
+                ops.opsForSet().add((K) RedisKeys.keyStatDsps(), (V) dspId);
                 return null;
             }
         });
+
+        // ⑦ 异步生成 BillingEvent（CPC 模式下点击产生计费）
+        if (PriceMode.CPC.name().equalsIgnoreCase(trackToken.getPriceMode())) {
+            //sendBillingEventAsync(clickEvent);
+        }
+    }
+
+    public <K, V> Object batchIncrementHashKeys(RedisOperations<K, V> ops, List<String> hashKeys, String hashField) {
+        for (String incrHashKey : hashKeys) {
+            K key = (K) incrHashKey;
+            ops.opsForHash().increment(key, hashField, 1L);
+            if (ops.getExpire(key) == null || ops.getExpire(key) < 0) {
+                ops.expire(key, Duration.ofDays(2));
+            }
+        }
+        return null;
     }
 
     /**
@@ -183,5 +208,55 @@ public class TrackingService {
         } catch (Exception e) {
             log.error("Failed to send billing event for click: {}", clickEvent.getClickId(), e);
         }
+    }
+
+    public void onDspReqEvent(DspReqEvent dspReqEvent) {
+        log.info("DSP request event: {}", dspReqEvent);
+        String adslotKey = RedisKeys.keyStatAdSlot(dspReqEvent.getAdSlotId());
+        String dspKey = RedisKeys.keyStatDsp(dspReqEvent.getDspId());
+
+        redisTemplate.executePipelined(new SessionCallback<>() {
+            @Override
+            public <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
+                batchIncrementHashKeys(ops, Arrays.asList(adslotKey, dspKey), RedisKeys.HASH_FIELD_REQ);
+                ops.opsForSet().add((K) RedisKeys.keyStatAdslots(), (V) dspReqEvent.getAdSlotId());
+                ops.opsForSet().add((K) RedisKeys.keyStatDsps(), (V) dspReqEvent.getDspId());
+                return null;
+            }
+        });
+    }
+
+    public void onDspBidEvent(DspBidEvent dspBidEvent) {
+        log.info("DSP bid event: {}", dspBidEvent);
+        String adSlotKey = RedisKeys.keyStatAdSlot(dspBidEvent.getAdSlotId());
+        String dspKey = RedisKeys.keyStatDsp(dspBidEvent.getDspId());
+        String cridKey = RedisKeys.keyStatCrid(dspBidEvent.getCrid());
+
+        redisTemplate.executePipelined(new SessionCallback<>() {
+            @Override
+            public <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
+                batchIncrementHashKeys(ops, Arrays.asList(adSlotKey, dspKey, cridKey), RedisKeys.HASH_FIELD_BID);
+                ops.opsForSet().add((K) RedisKeys.keyStatAdslots(), (V) dspBidEvent.getAdSlotId());
+                ops.opsForSet().add((K) RedisKeys.keyStatDsps(), (V) dspBidEvent.getDspId());
+                return null;
+            }
+        });
+    }
+
+    public void onDspWinEvent(DspWinEvent dspWinEvent) {
+        log.info("DSP win event: {}", dspWinEvent);
+        String adSlotKey = RedisKeys.keyStatAdSlot(dspWinEvent.getAdSlotId());
+        String dspKey = RedisKeys.keyStatDsp(dspWinEvent.getDspId());
+        String cridKey = RedisKeys.keyStatCrid(dspWinEvent.getCrid());
+
+        redisTemplate.executePipelined(new SessionCallback<>() {
+            @Override
+            public <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
+                batchIncrementHashKeys(ops, Arrays.asList(adSlotKey, dspKey, cridKey), RedisKeys.HASH_FIELD_WIN);
+                ops.opsForSet().add((K) RedisKeys.keyStatAdslots(), (V) dspWinEvent.getAdSlotId());
+                ops.opsForSet().add((K) RedisKeys.keyStatDsps(), (V) dspWinEvent.getDspId());
+                return null;
+            }
+        });
     }
 }

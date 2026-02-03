@@ -9,11 +9,14 @@ import com.ruoyi.system.service.ISysUserService;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import top.openadexchange.constants.enums.DomainEventType;
+import top.openadexchange.dao.DomainEventDao;
 import top.openadexchange.dao.PublisherDao;
 import top.openadexchange.dto.PublisherDto;
 import top.openadexchange.dto.query.PublisherQueryDto;
 import top.openadexchange.model.Publisher;
 import top.openadexchange.mos.application.converter.PublisherConverter;
+import top.openadexchange.mos.application.factory.DomainEventFactory;
 import top.openadexchange.mos.application.factory.UserFactory;
 
 @Service
@@ -28,6 +31,8 @@ public class PublisherService {
     private ISysUserService sysUserService;
     @Resource
     private UserFactory userFactory;
+    @Resource
+    private DomainEventDao domainEventDao;
 
     public Long addPublisher(PublisherDto publisherDto) {
         log.info("addPublisher: {}", publisherDto);
@@ -38,13 +43,18 @@ public class PublisherService {
         publisher.setUserId(sysUser.getUserId());
         publisherDao.save(publisher);
 
+        domainEventDao.save(DomainEventFactory.create(DomainEventType.PUBLISHER_CREATED.name(), publisher.getId()));
         return publisher.getId();
     }
 
     public Boolean updatePublisher(PublisherDto publisherDto) {
         log.info("updatePublisher: {}", publisherDto);
         Publisher publisher = publisherConverter.from(publisherDto);
-        return publisherDao.updateById(publisher);
+        boolean updated = publisherDao.updateById(publisher);
+        if (updated) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.PUBLISHER_UPDATED.name(), publisher.getId()));
+        }
+        return updated;
     }
 
     public Boolean deletePublisher(Long id) {
@@ -52,6 +62,8 @@ public class PublisherService {
         publisherDao.removeById(id);
         Publisher publisher = publisherDao.getById(id);
         sysUserService.deleteUserById(publisher.getUserId());
+
+        domainEventDao.save(DomainEventFactory.create(DomainEventType.PUBLISHER_DELETED.name(), id));
         return true;
     }
 
@@ -60,11 +72,19 @@ public class PublisherService {
     }
 
     public Boolean enablePublisher(Long id) {
-        return publisherDao.enablePublisher(id);
+        boolean updated = publisherDao.enablePublisher(id);
+        if (updated) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.PUBLISHER_UPDATED.name(), id));
+        }
+        return updated;
     }
 
     public Boolean disablePublisher(Long id) {
-        return publisherDao.disablePublisher(id);
+        boolean updated = publisherDao.disablePublisher(id);
+        if (updated) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.PUBLISHER_UPDATED.name(), id));
+        }
+        return updated;
     }
 
     public Page<Publisher> pageListPublishers(PublisherQueryDto queryDto) {

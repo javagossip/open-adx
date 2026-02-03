@@ -2,8 +2,8 @@ package top.openadexchange.tracking.application.factory;
 
 import jakarta.servlet.http.HttpServletRequest;
 import top.openadexchange.dto.TrackToken;
+import top.openadexchange.dto.event.ImpressionEvent;
 import top.openadexchange.tracking.domain.event.EventType;
-import top.openadexchange.tracking.domain.event.ImpressionEvent;
 import top.openadexchange.tracking.utils.RequestUtils;
 
 import java.util.UUID;
@@ -23,7 +23,7 @@ public class ImpressionEventFactory {
         impEvent.setImpId(tk.getImpId());
         impEvent.setReqId(tk.getReqId());
         impEvent.setPublisherId(tk.getPublisherId());
-        impEvent.setAdSlotId(tk.getAdSotId());
+        impEvent.setAdSlotId(tk.getAdSlotId());
         impEvent.setCrid(tk.getCrid());
         impEvent.setAdvId(tk.getAdvId());
         impEvent.setDspId(tk.getDspId());
@@ -35,7 +35,6 @@ public class ImpressionEventFactory {
         impEvent.setOs(tk.getOs());
         impEvent.setOsv(tk.getOsv());
         impEvent.setEventTime(eventTime);
-        impEvent.setEventType(EventType.IMPRESSION);
         return impEvent;
     }
 }

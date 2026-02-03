@@ -1,17 +1,18 @@
 package top.openadexchange.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 /**
  * 追踪上下文信息
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class TrackToken {
 
     /**
@@ -32,7 +33,7 @@ public class TrackToken {
     /**
      * 广告位ID, 对应site_ad_placement表中的广告位编码字段(code)
      */
-    private String adSotId;
+    private String adSlotId;
 
     /**
      * 创意 ID
@@ -76,7 +77,7 @@ public class TrackToken {
     /**
      * 结算价格
      */
-    private String price;
+    private long price;
     /**
      * 操作系统：ios/android
      */
@@ -89,6 +90,10 @@ public class TrackToken {
      * 结算价格模式:CPM/CPC
      */
     private String priceMode;
+    /**
+     * 媒体收益分成
+     */
+    private int revShare;
     /**
      * 扩展字段
      */

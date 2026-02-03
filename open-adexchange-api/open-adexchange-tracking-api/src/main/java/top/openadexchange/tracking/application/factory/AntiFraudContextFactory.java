@@ -2,8 +2,8 @@ package top.openadexchange.tracking.application.factory;
 
 import jakarta.servlet.http.HttpServletRequest;
 import top.openadexchange.dto.TrackToken;
-import top.openadexchange.tracking.domain.event.ClickEvent;
-import top.openadexchange.tracking.domain.event.ImpressionEvent;
+import top.openadexchange.dto.event.ClickEvent;
+import top.openadexchange.dto.event.ImpressionEvent;
 import top.openadexchange.tracking.domain.model.AntiFraudContext;
 
 public class AntiFraudContextFactory {

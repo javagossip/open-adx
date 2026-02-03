@@ -79,6 +79,7 @@
         <guava.version>33.5.0-jre</guava.version>
         <xxl-job.version>3.2.0</xxl-job.version>
         <redisson.version>3.52.0</redisson.version>
+        <commons-lang3.version>3.20.0</commons-lang3.version>
         <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
 
@@ -235,6 +236,12 @@
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>
                 <version>${redisson.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
                 <scope>compile</scope>
             </dependency>
         </dependencies>

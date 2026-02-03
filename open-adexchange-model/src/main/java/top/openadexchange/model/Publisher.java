@@ -2,6 +2,7 @@ package top.openadexchange.model;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import com.mybatisflex.annotation.Id;
@@ -38,6 +39,8 @@ public class Publisher implements Serializable {
     private String contactEmail;
 
     private String contactPhone;
+    //媒体收益分成, 0-100
+    private Integer revShare;
 
     private Long userId;
 

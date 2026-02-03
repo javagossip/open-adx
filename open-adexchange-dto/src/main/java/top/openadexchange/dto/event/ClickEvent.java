@@ -1,7 +1,6 @@
-package top.openadexchange.tracking.domain.event;
+package top.openadexchange.dto.event;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -61,7 +60,7 @@ public class ClickEvent {
     /**
      * 结算价格
      */
-    private String price;
+    private long price;
 
     /**
      * 价格模式: CPM/CPC
@@ -97,8 +96,4 @@ public class ClickEvent {
      * 事件时间戳
      */
     private long eventTime;
-    /**
-     * 事件类型
-     */
-    private EventType eventType;
 }

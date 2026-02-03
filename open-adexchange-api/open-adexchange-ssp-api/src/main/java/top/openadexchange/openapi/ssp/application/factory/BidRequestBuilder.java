@@ -15,6 +15,7 @@ import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.openapi.ssp.application.dto.AdGetRequest;
+import top.openadexchange.openapi.ssp.domain.gateway.MetadataCacheService;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataRepository;
 import top.openadexchange.openapi.ssp.domain.gateway.OaxEngineServices;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
@@ -27,6 +28,7 @@ import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Imp.Audio;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Imp.Banner;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Imp.NativeSpec;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Imp.Video;
+import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Publisher;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Site;
 
 @Component
@@ -34,6 +36,8 @@ public class BidRequestBuilder {
 
     @Resource
     private OaxEngineServices oaxEngineServices;
+    @Resource
+    private MetadataCacheService metadataCacheService;
 
     public BidRequest.Builder buildBidRequest(AdGetRequest request) {
         BidRequest.Builder builder = BidRequest.newBuilder();
@@ -42,7 +46,7 @@ public class BidRequestBuilder {
         builder.setAt(2);
         builder.setTest(request.isTest());
         request.getImp().forEach(imp -> {
-            builder.addImp(buildImp(request.isTest(), imp));
+            builder.addImp(buildImp(request.isTest(), imp, builder));
         });
         builder.setApp(buildApp(request));
         builder.setSite(buildSite(request));
@@ -50,7 +54,7 @@ public class BidRequestBuilder {
         return builder;
     }
 
-    private Imp buildImp(boolean isTest, AdGetRequest.Imp imp) {
+    private Imp buildImp(boolean isTest, AdGetRequest.Imp imp, BidRequest.Builder reqBuilder) {
         Imp.Builder builder = Imp.newBuilder();
         builder.setId(imp.getId());
         builder.setTagid(imp.getTagid());
@@ -60,8 +64,14 @@ public class BidRequestBuilder {
                 metadataRepository.getSiteAdPlacementByTagId(imp.getTagid());
         Assert.notNull(siteAdPlacementAggregate, "未找到对应的媒体广告位");
         SiteAdPlacement siteAdPlacement = siteAdPlacementAggregate.getSiteAdPlacement();
+        Assert.notNull(siteAdPlacement, "未找到对应的媒体广告位信息");
         AdPlacement adPlacementSpec = metadataRepository.getAdPlacement(siteAdPlacementAggregate.getAdPlacementId());
         Assert.notNull(adPlacementSpec, "未找到对应的广告位规格描述");
+
+        top.openadexchange.model.Site site = metadataCacheService.getSite(siteAdPlacement.getSiteId());
+        Assert.notNull(site, "未找到对应的媒体信息");
+        reqBuilder.setPublisher(Publisher.newBuilder().setId(site.getPublisherId()));
+
         AdFormat adFormat = AdFormat.valueOf(adPlacementSpec.getAdFormat().toUpperCase());
         if (adFormat == AdFormat.BANNER) {
             builder.setBanner(Banner.newBuilder()

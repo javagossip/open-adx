@@ -4,6 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
@@ -34,6 +35,8 @@ public class DomainEvent implements Serializable {
      */
     @Id(keyType = KeyType.Auto)
     private Long id;
+    @Column("entity_id")
+    private String entityId;
 
     /**
      * event type

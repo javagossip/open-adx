@@ -5,8 +5,11 @@ import org.springframework.util.StringUtils;
 
 import com.ruoyi.common.utils.SecurityUtils;
 
+import top.openadexchange.constants.enums.Platform;
 import top.openadexchange.dto.SiteDto;
 import top.openadexchange.model.Site;
+
+import java.util.Arrays;
 
 @Component
 public class SiteConverter {
@@ -23,7 +26,7 @@ public class SiteConverter {
         site.setDomain(siteDto.getDomain());
         site.setAppId(siteDto.getAppId());
         site.setAppBundle(siteDto.getAppBundle());
-        site.setPlatform(siteDto.getPlatform());
+        site.setPlatform(Platform.fromValue(siteDto.getPlatform()).name());
         site.setSiteType(siteDto.getSiteType());
         site.setStatus(siteDto.getStatus());
         site.setKeywords(StringUtils.collectionToCommaDelimitedString(siteDto.getKeywords()));
@@ -47,7 +50,9 @@ public class SiteConverter {
         siteDto.setDomain(site.getDomain());
         siteDto.setAppId(site.getAppId());
         siteDto.setAppBundle(site.getAppBundle());
-        siteDto.setPlatform(site.getPlatform());
+        siteDto.setCats(Arrays.asList(site.getCats().split(",")));
+        siteDto.setKeywords(Arrays.asList(site.getKeywords().split(",")));
+        siteDto.setPlatform(site.getPlatform() == null ? null : Platform.valueOf(site.getPlatform()).name());
         siteDto.setSiteType(site.getSiteType());
         siteDto.setStatus(site.getStatus());
 

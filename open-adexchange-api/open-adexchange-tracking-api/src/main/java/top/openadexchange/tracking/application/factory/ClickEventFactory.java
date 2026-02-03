@@ -1,12 +1,11 @@
 package top.openadexchange.tracking.application.factory;
 
+import java.util.UUID;
+
 import jakarta.servlet.http.HttpServletRequest;
 import top.openadexchange.dto.TrackToken;
-import top.openadexchange.tracking.domain.event.ClickEvent;
-import top.openadexchange.tracking.domain.event.EventType;
+import top.openadexchange.dto.event.ClickEvent;
 import top.openadexchange.tracking.utils.RequestUtils;
-
-import java.util.UUID;
 
 /**
  * 点击事件工厂
@@ -25,7 +24,7 @@ public class ClickEventFactory {
         clickEvent.setImpId(tk.getImpId());
         clickEvent.setReqId(tk.getReqId());
         clickEvent.setPublisherId(tk.getPublisherId());
-        clickEvent.setAdSlotId(tk.getAdSotId());
+        clickEvent.setAdSlotId(tk.getAdSlotId());
         clickEvent.setCrid(tk.getCrid());
         clickEvent.setAdvId(tk.getAdvId());
         clickEvent.setDspId(tk.getDspId());
@@ -37,7 +36,6 @@ public class ClickEventFactory {
         clickEvent.setOs(tk.getOs());
         clickEvent.setOsv(tk.getOsv());
         clickEvent.setEventTime(eventTime);
-        clickEvent.setEventType(EventType.CLICK);
         return clickEvent;
     }
 }

@@ -15,6 +15,7 @@ import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
+import top.openadexchange.model.Publisher;
 import top.openadexchange.model.Site;
 import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataCacheService;
@@ -41,6 +42,8 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
     private Cache<Long, CreativeAggregate> creativeCache;
     @Resource
     private Cache<Integer, AdPlacementAggregate> adPlacementAggregateCache;
+    @Resource
+    private Cache<Long, Publisher> publisherCache;
 
     @Override
     public void addDsp(DspAggregate dspAggregate) {
@@ -148,5 +151,20 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
             siteAdPlacementCache.invalidate(siteAdPlacement.getSiteAdPlacement().getCode());
             siteAdPlacementCacheById.invalidate(siteAdPlacementId);
         }
+    }
+
+    @Override
+    public void removePublisher(Long publisherId) {
+        publisherCache.invalidate(publisherId);
+    }
+
+    @Override
+    public void addOrUpdatePublisher(Publisher publisher) {
+        publisherCache.put(publisher.getId(), publisher);
+    }
+
+    @Override
+    public Publisher getPublisher(Long publisherId) {
+        return publisherCache.getIfPresent(publisherId);
     }
 }

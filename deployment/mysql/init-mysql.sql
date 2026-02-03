@@ -5,9 +5,9 @@
 # https://sequel-ace.com/
 # https://github.com/Sequel-Ace/Sequel-Ace
 #
-# 主机: 127.0.0.1 (MySQL 8.0.45)
+# 主机: 101.126.128.177 (MySQL 8.0.41)
 # 数据库: open-adexchange
-# 生成时间: 2026-01-28 11:48:54 +0000
+# 生成时间: 2026-02-01 12:46:38 +0000
 # ************************************************************
 
 
@@ -56,10 +56,7 @@ VALUES
 	(3,'实体编码8位测试','V56obKPz',NULL,'BANNER','app',250,100,NULL,NULL,0,NULL,NULL,NULL,'2025-12-18 00:44:47','2025-12-18 00:44:47',1),
 	(4,'iqiyi视频前贴片','ADP-EV08N6yX',1,'VIDEO','app',0,0,30,60,1,10,5,'[\"video/mp4\", \"video/ogg\"]','2025-12-21 19:34:55','2025-12-21 19:49:54',1),
 	(5,'iwanvi原生广告位模板','ADP-qW4Ly0m8',1,'NATIVE','app',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,'2025-12-21 19:53:19','2025-12-21 20:30:00',1),
-	(6,'图片开屏广告（竖屏）','ADP-pW0GO0eZ',1,'BANNER','app',1080,1920,NULL,NULL,0,NULL,NULL,NULL,'2026-01-15 17:40:47','2026-01-15 17:40:47',1),
-	(7,'一点资讯视频开屏广告（竖屏）','ADP-Jr4OD0Ry',1,'BANNER','app',1080,1920,NULL,NULL,0,NULL,NULL,NULL,'2026-01-19 11:11:26','2026-01-19 11:11:26',1),
-	(8,'一点资讯安卓信息流','ADP-Xd4d2KVo',1,'NATIVE','app',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,'2026-01-19 11:51:42','2026-01-19 11:51:42',1),
-	(9,'一点资讯安卓竖版视频','ADP-Xn4ewKEy',1,'VIDEO','app',0,0,30,120,0,0,0,'[\"video/mp4\", \"video/webm\", \"video/ogg\", \"video/3gpp\"]','2026-01-19 17:37:25','2026-01-19 17:37:25',1);
+	(6,'图片开屏广告（竖屏）','ADP-pW0GO0eZ',1,'BANNER','app',1080,1920,NULL,NULL,0,NULL,NULL,NULL,'2026-01-15 17:40:47','2026-01-15 17:40:47',1);
 
 /*!40000 ALTER TABLE `ad_placement` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -72,17 +69,23 @@ DROP TABLE IF EXISTS `ad_slot_stat`;
 
 CREATE TABLE `ad_slot_stat` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '自增主键',
-  `ad_slot_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '媒体广告位编码',
+  `ad_slot_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '媒体广告位编码',
   `publisher_id` bigint DEFAULT NULL COMMENT '媒体ID',
   `stat_date` int DEFAULT NULL COMMENT '统计日期(yyyyMMdd)',
   `imp_count` bigint DEFAULT NULL COMMENT '曝光量',
+  `req_count` bigint DEFAULT NULL COMMENT '请求数',
+  `bid_count` bigint DEFAULT NULL COMMENT '竞价数',
+  `win_count` bigint DEFAULT NULL COMMENT '竞价成功数',
   `click_count` bigint DEFAULT NULL COMMENT '点击量',
+  `dsp_cost` bigint DEFAULT NULL COMMENT 'dsp成本',
+  `revenue` bigint DEFAULT NULL COMMENT '媒体收入',
+  `adx_revenue` bigint DEFAULT NULL COMMENT 'adx 平台收益',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日期',
   `site_id` bigint DEFAULT NULL COMMENT 'site/app ID',
   PRIMARY KEY (`id` DESC),
   UNIQUE KEY `uniq_idx_slotid_statdate` (`ad_slot_id`,`stat_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='媒体广告位数据统计';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='媒体广告位数据统计';
 
 
 
@@ -119,7 +122,7 @@ CREATE TABLE `advertiser` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_advertiser_license` (`business_license_no`),
   UNIQUE KEY `uniq_idx_dsp_advertiser_id` (`dsp_id`,`dsp_advertiser_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='广告主';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 LOCK TABLES `advertiser` WRITE;
 /*!40000 ALTER TABLE `advertiser` DISABLE KEYS */;
@@ -146,7 +149,7 @@ CREATE TABLE `advertiser_industry_license` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日期',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='广告主资质';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 
@@ -3719,42 +3722,23 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `domain_event`;
 
 CREATE TABLE `domain_event` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT 'event ID',
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'event ID',
   `type` varchar(64) DEFAULT NULL COMMENT 'event type',
   `payload` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT '事件数据',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Pending,Closed,Failed',
+  `entity_id` bigint DEFAULT NULL COMMENT '实体 ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='领域事件';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 LOCK TABLES `domain_event` WRITE;
 /*!40000 ALTER TABLE `domain_event` DISABLE KEYS */;
 
-INSERT INTO `domain_event` (`id`, `type`, `payload`, `created_at`, `updated_at`, `status`)
+INSERT INTO `domain_event` (`id`, `type`, `payload`, `created_at`, `updated_at`, `status`, `entity_id`)
 VALUES
-	(1,'DSP_UPDATED','{\"entityId\":3}','2026-01-18 14:38:36','2026-01-18 14:38:36','SUCCESS'),
-	(2,'DSP_UPDATED','{\"entityId\":3}','2026-01-19 07:58:39','2026-01-19 08:08:52','SUCCESS'),
-	(3,'DSP_UPDATED','{\"entityId\":3}','2026-01-19 08:23:16','2026-01-19 08:23:16','SUCCESS'),
-	(4,'AD_PLACEMENT_CREATED','{\"entityId\":7}','2026-01-19 11:11:26','2026-01-19 11:11:26','SUCCESS'),
-	(5,'SITE_AD_PLACEMENT_UPDATED','{\"entityId\":3}','2026-01-19 11:15:08','2026-01-19 11:15:08','SUCCESS'),
-	(6,'SITE_AD_PLACEMENT_UPDATED','{\"entityId\":3}','2026-01-19 11:32:22','2026-01-19 11:32:22','SUCCESS'),
-	(7,'AD_PLACEMENT_CREATED','{\"entityId\":8}','2026-01-19 11:51:42','2026-01-19 11:51:42','SUCCESS'),
-	(8,'SITE_AD_PLACEMENT_CREATED','{\"entityId\":4}','2026-01-19 12:05:26','2026-01-19 12:05:26','SUCCESS'),
-	(9,'DSP_UPDATED','{\"entityId\":3}','2026-01-19 12:08:58','2026-01-19 12:08:58','SUCCESS'),
-	(10,'DSP_UPDATED','{\"entityId\":3}','2026-01-19 12:21:03','2026-01-19 12:21:03','SUCCESS'),
-	(11,'DSP_UPDATED','{\"entityId\":3}','2026-01-19 12:21:24','2026-01-19 12:21:24','SUCCESS'),
-	(12,'DSP_UPDATED','{\"entityId\":3}','2026-01-19 12:33:22','2026-01-19 12:33:22','SUCCESS'),
-	(13,'DSP_UPDATED','{\"entityId\":3}','2026-01-19 12:33:30','2026-01-19 12:33:30','SUCCESS'),
-	(14,'DSP_UPDATED','{\"entityId\":3}','2026-01-19 12:54:35','2026-01-19 12:54:35','SUCCESS'),
-	(15,'DSP_UPDATED','{\"entityId\":3}','2026-01-19 12:54:44','2026-01-19 12:54:44','SUCCESS'),
-	(16,'AD_PLACEMENT_UPDATED','{\"entityId\":8}','2026-01-19 13:10:38','2026-01-19 13:10:38','SUCCESS'),
-	(17,'SITE_AD_PLACEMENT_UPDATED','{\"entityId\":4}','2026-01-19 13:14:08','2026-01-19 13:14:08','SUCCESS'),
-	(18,'AD_PLACEMENT_CREATED','{\"entityId\":9}','2026-01-19 17:37:25','2026-01-19 17:37:25','SUCCESS'),
-	(19,'SITE_AD_PLACEMENT_CREATED','{\"entityId\":5}','2026-01-19 17:38:02','2026-01-19 17:38:02','SUCCESS'),
-	(20,'DSP_UPDATED','{\"entityId\":3}','2026-01-19 17:38:33','2026-01-19 17:38:33','SUCCESS'),
-	(21,'DSP_UPDATED','{\"entityId\":3}','2026-01-19 17:48:11','2026-01-19 17:48:11','SUCCESS'),
-	(22,'DSP_UPDATED','{\"entityId\":3}','2026-01-19 17:55:52','2026-01-19 17:55:52','SUCCESS');
+	(1,'DSP_UPDATED','{\"entityId\":3}','2026-01-29 17:38:00','2026-01-29 17:38:00','PENDING',NULL),
+	(2,'PUBLISHER_CREATED','{\"entityId\":5}','2026-02-01 18:55:18','2026-02-01 18:55:18','PENDING',NULL);
 
 /*!40000 ALTER TABLE `domain_event` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -3785,16 +3769,17 @@ CREATE TABLE `dsp` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `rtb_protocol_type` int DEFAULT '1' COMMENT '协议类型： 1-标准,2-自定义',
+  `at` int DEFAULT '1' COMMENT 'dsp 结算方式,1-一价,2-二价',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Dsp 平台数据表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 LOCK TABLES `dsp` WRITE;
 /*!40000 ALTER TABLE `dsp` DISABLE KEYS */;
 
-INSERT INTO `dsp` (`id`, `name`, `dsp_id`, `user_id`, `bid_endpoint`, `win_notice_endpoint`, `contact_name`, `contact_email`, `contact_phone`, `brand_logo`, `token`, `encryption_key`, `integrity_key`, `status`, `qps_limit`, `timeout_ms`, `created_at`, `updated_at`, `rtb_protocol_type`)
+INSERT INTO `dsp` (`id`, `name`, `dsp_id`, `user_id`, `bid_endpoint`, `win_notice_endpoint`, `contact_name`, `contact_email`, `contact_phone`, `brand_logo`, `token`, `encryption_key`, `integrity_key`, `status`, `qps_limit`, `timeout_ms`, `created_at`, `updated_at`, `rtb_protocol_type`, `at`)
 VALUES
-	(1,'F2Time','DSP-89Kxo03Y',1,'https://api.iwanvi.com/v1/bidder','https://api.iwanvi.com/v1/winnotice','weiping wang','blogjava@163.com','13621088515','https://open-adexchange-1301501150.cos.ap-beijing.myqcloud.com/18beef7eab9f450bbc09c0d087eacb91','KycNt00001','4mEbcUi_XwqF4Q0y08-IMHtkbI8wJVosvJ496QitOVs','oMdlDbIfs2SXMrGxu_0tz-cyM1yRErTS3Thk9jBKNKQ',1,500,50,'2025-12-15 13:38:52','2026-01-13 11:06:12',2),
-	(3,'一点资讯 ','xinhe',1,'http://test-dsp.yidianzixun.com/bid?adxType=test&rtbVersion=4','http://test.dsp.yidianzixun.com/win?adxType=test&rtbVersion=4','weiping wang',NULL,NULL,NULL,'abWa9r3TPPxqwn766czLxZHUmPKr2mCGitEP64groYk','1234567890123456','1234567890123456',1,500,3000,'2026-01-15 16:49:42','2026-01-19 08:23:16',2);
+	(1,'F2Time','DSP-89Kxo03Y',1,'https://api.iwanvi.com/v1/bidder','https://api.iwanvi.com/v1/winnotice','weiping wang','blogjava@163.com','13621088515','https://open-adexchange-1301501150.cos.ap-beijing.myqcloud.com/18beef7eab9f450bbc09c0d087eacb91','KycNt00001','4mEbcUi_XwqF4Q0y08-IMHtkbI8wJVosvJ496QitOVs','oMdlDbIfs2SXMrGxu_0tz-cyM1yRErTS3Thk9jBKNKQ',1,500,50,'2025-12-15 13:38:52','2026-01-13 11:06:12',2,NULL),
+	(3,'一点资讯 ','xinhe',1,'http://test-dsp.yidianzixun.com/bid?adxType=test&rtbVersion=4','http://test.dsp.yidianzixun.com/win?adxType=test&rtbVersion=4',NULL,NULL,NULL,NULL,'abWa9r3TPPxqwn766czLxZHUmPKr2mCGitEP64groYk','1234567890123456','1234567890123456',1,500,3000,'2026-01-15 16:49:42','2026-01-29 17:38:00',2,2);
 
 /*!40000 ALTER TABLE `dsp` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -3811,7 +3796,7 @@ CREATE TABLE `dsp_placement_mapping` (
   `site_ad_placement_id` int DEFAULT NULL,
   `dsp_slot_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'dsp 平台广告位编码/id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='媒体广告位和 dsp 平台广告位映射';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 LOCK TABLES `dsp_placement_mapping` WRITE;
 /*!40000 ALTER TABLE `dsp_placement_mapping` DISABLE KEYS */;
@@ -3819,9 +3804,7 @@ LOCK TABLES `dsp_placement_mapping` WRITE;
 INSERT INTO `dsp_placement_mapping` (`id`, `dsp_id`, `site_ad_placement_id`, `dsp_slot_id`)
 VALUES
 	(2,1,1,'adslot-00002'),
-	(3,3,3,'5ee5bee654b60a6b'),
-	(5,3,4,'8b528edc477ba63d'),
-	(6,3,5,'2613a41ead9a2bdd');
+	(3,3,3,'5ee5bee654b60a6b');
 
 /*!40000 ALTER TABLE `dsp_placement_mapping` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -3844,12 +3827,35 @@ LOCK TABLES `dsp_site_ad_placement` WRITE;
 INSERT INTO `dsp_site_ad_placement` (`dsp_id`, `site_ad_placement_id`)
 VALUES
 	(1,1),
-	(3,3),
-	(3,4),
-	(3,5);
+	(3,3);
 
 /*!40000 ALTER TABLE `dsp_site_ad_placement` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+# 转储表 dsp_stat
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `dsp_stat`;
+
+CREATE TABLE `dsp_stat` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `dsp_id` int DEFAULT NULL COMMENT 'dsp ID',
+  `dsp_code` varchar(32) DEFAULT NULL COMMENT 'dsp 编码',
+  `dsp_name` varchar(200) DEFAULT NULL COMMENT 'dsp 名称',
+  `imp_count` bigint DEFAULT NULL COMMENT '曝光量',
+  `clk_count` bigint DEFAULT NULL COMMENT '点击量',
+  `bid_count` bigint DEFAULT NULL COMMENT '参与竞价数',
+  `req_count` bigint DEFAULT NULL COMMENT '请求数',
+  `win_count` bigint DEFAULT NULL COMMENT '竞价成功数',
+  `cost` bigint DEFAULT NULL COMMENT 'dsp 成本',
+  `stat_date` int DEFAULT NULL COMMENT '统计日期,yyyyMMdd 按天统计',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日期',
+  PRIMARY KEY (`id`),
+  KEY `uniq_idx_dspcode_statdate` (`dsp_code`,`stat_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Dsp统计表';
+
 
 
 # 转储表 dsp_targeting
@@ -3867,7 +3873,7 @@ CREATE TABLE `dsp_targeting` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='dsp 流量定向';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 LOCK TABLES `dsp_targeting` WRITE;
 /*!40000 ALTER TABLE `dsp_targeting` DISABLE KEYS */;
@@ -3877,7 +3883,8 @@ VALUES
 	(1,1,'[\"android\", \"ios\"]','HK','[\"phone\", \"pad\", \"pc\"]','[\"120000\", \"110000\", \"310000\", \"500000\"]','2025-12-16 00:36:30','2025-12-16 00:36:30'),
 	(2,1,'[\"ios\"]','HK','[\"phone\"]','[\"120000\", \"110000\"]','2025-12-16 00:39:05','2025-12-16 00:39:05'),
 	(3,1,'[\"android\", \"ios\"]','CN','[\"phone\", \"pad\", \"pc\"]','[\"120000\", \"110000\", \"310000\", \"500000\"]','2026-01-11 23:43:01','2026-01-11 23:43:01'),
-	(12,3,'[]','CN','[\"phone\"]','[]','2026-01-19 17:55:52','2026-01-19 17:55:52');
+	(4,3,'[]','CN','[]','[]','2026-01-15 20:31:11','2026-01-15 20:31:11'),
+	(5,3,'[]','CN','[]','[]','2026-01-15 21:03:30','2026-01-15 21:03:30');
 
 /*!40000 ALTER TABLE `dsp_targeting` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -3896,7 +3903,7 @@ CREATE TABLE `floor_price` (
   `region_level_id` int DEFAULT NULL,
   `status` int DEFAULT '1' COMMENT '0-禁用,1-启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='广告位底价配置（分行业、地域以及操作系统)';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 LOCK TABLES `floor_price` WRITE;
 /*!40000 ALTER TABLE `floor_price` DISABLE KEYS */;
@@ -4005,18 +4012,20 @@ CREATE TABLE `publisher` (
   `status` tinyint NOT NULL DEFAULT '1' COMMENT '1=active,0=inactive',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `rev_share` int DEFAULT '0' COMMENT '平台收益分成，0-100',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='媒体方';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 LOCK TABLES `publisher` WRITE;
 /*!40000 ALTER TABLE `publisher` DISABLE KEYS */;
 
-INSERT INTO `publisher` (`id`, `name`, `code`, `user_id`, `contact_email`, `contact_phone`, `status`, `created_at`, `updated_at`)
+INSERT INTO `publisher` (`id`, `name`, `code`, `user_id`, `contact_email`, `contact_phone`, `status`, `created_at`, `updated_at`, `rev_share`)
 VALUES
-	(1,'iwanvi',NULL,NULL,'iwanvi@iwanvi.com','13621088515',1,'2025-12-14 20:49:48','2025-12-14 23:35:22'),
-	(2,'iqiyi',NULL,101,'partner@iqiyi.com','13821033333',1,'2025-12-17 18:14:36','2025-12-17 18:14:36'),
-	(3,'youku','PUB-yx4wB6PA',102,'youku@youku.com','1222222',1,'2025-12-21 18:48:14','2025-12-21 18:48:14'),
-	(4,'一点资讯','PUB-3rK134Ym',104,'xinhe@yidianzixun.com','13621088515',1,'2026-01-15 17:36:15','2026-01-15 17:36:15');
+	(1,'iwanvi',NULL,NULL,'iwanvi@iwanvi.com','13621088515',1,'2025-12-14 20:49:48','2025-12-14 23:35:22',NULL),
+	(2,'iqiyi',NULL,101,'partner@iqiyi.com','13821033333',1,'2025-12-17 18:14:36','2025-12-17 18:14:36',NULL),
+	(3,'youku','PUB-yx4wB6PA',102,'youku@youku.com','1222222',1,'2025-12-21 18:48:14','2025-12-21 18:48:14',NULL),
+	(4,'一点资讯','PUB-3rK134Ym',104,'xinhe@yidianzixun.com','13621088515',1,'2026-01-15 17:36:15','2026-01-15 17:36:15',NULL),
+	(5,'泰之菩','PUB-Jr4OD0Ry',105,'948517839@qq.com','13621088515',1,'2026-02-01 18:55:18','2026-02-01 18:55:18',90);
 
 /*!40000 ALTER TABLE `publisher` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -4055,7 +4064,7 @@ CREATE TABLE `region_pkg_district` (
   `region_pkg_id` int DEFAULT NULL,
   `district_code` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '区域编码',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='地域包-城市映射表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 LOCK TABLES `region_pkg_district` WRITE;
 /*!40000 ALTER TABLE `region_pkg_district` DISABLE KEYS */;
@@ -4092,7 +4101,7 @@ CREATE TABLE `site` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='站点/app';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 LOCK TABLES `site` WRITE;
 /*!40000 ALTER TABLE `site` DISABLE KEYS */;
@@ -4137,9 +4146,7 @@ INSERT INTO `site_ad_placement` (`id`, `code`, `site_id`, `user_id`, `ad_placeme
 VALUES
 	(1,'SAP-EBKRJK2z',1,1,1,NULL,'中文在线00001',100,NULL,NULL,1,'2025-12-15 16:06:27','2026-01-14 11:45:47'),
 	(2,'SAP-RL6DZ0Mv',3,1,4,NULL,'iqiyi 视频前贴',NULL,NULL,'https://open-adexchange-1301501150.cos.ap-beijing.myqcloud.com/494b1728a4ea42e0b3cad9852560704b',1,'2026-01-14 10:45:51','2026-01-14 10:45:51'),
-	(3,'SAP-nz6PZ0x2',4,1,6,NULL,'一点资讯安卓开屏竖屏广告',1100,NULL,NULL,1,'2026-01-15 17:41:47','2026-01-19 11:32:22'),
-	(4,'SAP-5v4jN4MJ',4,1,NULL,NULL,'一点资讯安卓信息流',600,NULL,NULL,1,'2026-01-19 12:05:26','2026-01-19 13:14:08'),
-	(5,'SAP-PR6k36A1',4,1,NULL,NULL,'一点资讯安卓竖版视频',1000,NULL,NULL,1,'2026-01-19 17:38:02','2026-01-19 17:38:02');
+	(3,'SAP-EGKZx4Ae',4,1,6,NULL,'一点资讯安卓开屏竖屏广告',1100,NULL,NULL,1,'2026-01-15 17:41:47','2026-01-15 17:53:43');
 
 /*!40000 ALTER TABLE `site_ad_placement` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -4157,18 +4164,6 @@ CREATE TABLE `site_adp_adt_mapping` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='媒体广告位-广告模板关联表';
 
-LOCK TABLES `site_adp_adt_mapping` WRITE;
-/*!40000 ALTER TABLE `site_adp_adt_mapping` DISABLE KEYS */;
-
-INSERT INTO `site_adp_adt_mapping` (`id`, `site_ad_placement_id`, `ad_placement_id`)
-VALUES
-	(1,3,6),
-	(2,3,7),
-	(4,4,8),
-	(5,5,9);
-
-/*!40000 ALTER TABLE `site_adp_adt_mapping` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # 转储表 sys_config
@@ -4399,7 +4394,11 @@ VALUES
 	(2013,'地域包管理',2000,8,'regionPkg','app/regionpkg/index',NULL,'regionPkg',1,0,'C','0','0','regionPkg','region_pkg','admin','2026-01-14 15:39:11','',NULL,''),
 	(2014,'系统工具',0,5,'/tool/adsimulator',NULL,NULL,'',1,0,'M','0','0','','tool','admin','2026-01-15 15:46:18','admin','2026-01-15 15:46:54',''),
 	(2015,'广告模拟器',2014,1,'adsimulator','tool/adsimulator/index',NULL,'adsimulator',1,0,'C','0','0','adsimulator','ad','admin','2026-01-15 15:54:06','admin','2026-01-15 15:59:50',''),
-	(2016,'点击曝光模拟',2014,2,'oaxTrackingSimulator','tool/tracking-simulator/index',NULL,'oaxTrackingSimulator',1,0,'C','0','0','oaxTrackingSimulator','druid','admin','2026-01-27 07:58:30','admin','2026-01-27 07:59:45','');
+	(2016,'点击曝光模拟',2014,2,'oaxTrackingSimulator','tool/tracking-simulator/index',NULL,'oaxTrackingSimulator',1,0,'C','0','0','oaxTrackingSimulator','druid','admin','2026-01-27 07:58:30','admin','2026-01-27 07:59:45',''),
+	(2017,'报表管理',0,3,'reports',NULL,NULL,'',1,0,'M','0','0','','chart','admin','2026-01-28 14:44:39','admin','2026-01-28 14:46:37',''),
+	(2018,'媒体报表',2017,1,'publisherReports','report/publisher/index',NULL,'publisherReports',1,0,'C','0','0','publisherReports','peoples','admin','2026-01-28 15:27:53','',NULL,''),
+	(2019,'媒体广告位报表',2017,2,'/report/publisher/adslot','report/publisher/adslot',NULL,'adslot-stat',1,1,'C','1','0','adslot-stat','ad','admin','2026-01-28 15:33:25','admin','2026-01-28 15:51:36',''),
+	(2020,'dsp 平台报表',2017,3,'report/dsp','report/dsp/index',NULL,'report/dsp',1,0,'C','0','0','dspReport','dsp_ad','admin','2026-01-29 22:53:10','admin','2026-01-29 23:02:24','');
 
 /*!40000 ALTER TABLE `sys_menu` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -4521,14 +4520,7 @@ VALUES
 	(28),
 	(29),
 	(30),
-	(31),
-	(32),
-	(33),
-	(34),
-	(35),
-	(36),
-	(37),
-	(38);
+	(31);
 
 /*!40000 ALTER TABLE `sys_seq` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -4568,12 +4560,13 @@ LOCK TABLES `sys_user` WRITE;
 
 INSERT INTO `sys_user` (`user_id`, `dept_id`, `user_name`, `nick_name`, `user_type`, `email`, `phonenumber`, `sex`, `avatar`, `password`, `status`, `del_flag`, `login_ip`, `login_date`, `pwd_update_date`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`)
 VALUES
-	(1,103,'admin','超级管理员','00','javagossip@gmail.com','13621088515','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','192.168.65.1','2026-01-27 07:47:12','2025-12-13 20:40:20','admin','2025-12-13 20:40:20','','2026-01-27 07:47:12','管理员'),
+	(1,103,'admin','超级管理员','00','javagossip@gmail.com','13621088515','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2026-02-01 10:53:22','2025-12-13 20:40:20','admin','2025-12-13 20:40:20','','2026-02-01 18:53:22','管理员'),
 	(100,NULL,'f2time','f2time','00','','','0','','$2a$10$k6tUgO72Pmu9788Xd82qAO6LdJoMvL3P8WpVPBpi5UG4YP9EojPOe','0','2','',NULL,NULL,'','2025-12-17 18:10:00','',NULL,NULL),
 	(101,NULL,'iqiyi','iqiyi','00','partner@iqiyi.com','13821033333','0','','$2a$10$BusbDQQv9W63HKw4hA.aJ.5tAfb3pSZuI7oYBS7LOTj8dhsvFjqpi','0','0','',NULL,NULL,'','2025-12-17 18:14:36','',NULL,NULL),
 	(102,NULL,'youku','youku','00','youku@youku.com','1222222','0','','$2a$10$eSjfAcN.VD71PZjKzt1M2eLOcOzi22uvKyahDKoYu.gPGZL.DqjYS','0','0','',NULL,NULL,'','2025-12-21 18:48:14','',NULL,NULL),
 	(103,NULL,'一点资讯 ','一点资讯 ','00','','','0','','$2a$10$CuumVds2IHajHdIo455J2eRbyrqUnJDKR/.RmpbF1IGPuucXlU4tS','0','0','',NULL,NULL,'','2026-01-15 16:49:42','',NULL,NULL),
-	(104,NULL,'一点资讯','一点资讯','00','xinhe@yidianzixun.com','13621088515','0','','$2a$10$Bsz5u3uyX4vo934tLZYD0ueRPj8O0RlQzNkefhr3ggZ//iOdYWtzq','0','0','',NULL,NULL,'','2026-01-15 17:36:14','',NULL,NULL);
+	(104,NULL,'一点资讯','一点资讯','00','xinhe@yidianzixun.com','13621088515','0','','$2a$10$Bsz5u3uyX4vo934tLZYD0ueRPj8O0RlQzNkefhr3ggZ//iOdYWtzq','0','0','',NULL,NULL,'','2026-01-15 17:36:14','',NULL,NULL),
+	(105,NULL,'泰之菩','泰之菩','00','948517839@qq.com','13621088515','0','','$2a$10$8gcvgoUsgJQyFCi8nZ4HKuIrWc6TDkDWJLxLVW5O1soDNFAlDzuHG','0','0','',NULL,NULL,'','2026-02-01 18:55:18','',NULL,NULL);
 
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -4599,7 +4592,8 @@ VALUES
 	(101,100),
 	(102,100),
 	(103,101),
-	(104,100);
+	(104,100),
+	(105,100);
 
 /*!40000 ALTER TABLE `sys_user_role` ENABLE KEYS */;
 UNLOCK TABLES;

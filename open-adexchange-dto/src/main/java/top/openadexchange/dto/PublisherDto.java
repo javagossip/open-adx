@@ -21,6 +21,8 @@ public class PublisherDto {
     private String contactEmail;
     @Schema(description = "联系人电话")
     private String contactPhone;
+    @Schema(description = "媒体收益分成, 0-100")
+    private Integer revShare;
 
     /**
      * 1=active,0=inactive

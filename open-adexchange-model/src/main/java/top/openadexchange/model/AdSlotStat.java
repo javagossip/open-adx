@@ -53,7 +53,9 @@ public class AdSlotStat implements Serializable {
      * 统计日期(yyyyMMdd)
      */
     private Integer statDate;
-
+    private Long reqCount;
+    private Long bidCount;
+    private Long winCount;
     /**
      * 曝光量
      */
@@ -63,7 +65,18 @@ public class AdSlotStat implements Serializable {
      * 点击量
      */
     private Long clickCount;
-
+    /**
+     * 广告主花费
+     */
+    private Long dspCost;
+    /**
+     * 媒体收益
+     */
+    private Long revenue;
+    /**
+     * ADX收益
+     */
+    private Long adxRevenue;
     /**
      * 创建日期
      */

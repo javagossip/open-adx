@@ -11,6 +11,7 @@ public class DomainEventFactory {
 
     public static DomainEvent create(String eventType, Number entityId) {
         DomainEvent domainEvent = new DomainEvent();
+        domainEvent.setEntityId(entityId.toString());
         domainEvent.setType(eventType);
         domainEvent.setPayload(JSON.toJSONString(Map.of("entityId", entityId)));
         domainEvent.setStatus(EventStatus.PENDING.name());

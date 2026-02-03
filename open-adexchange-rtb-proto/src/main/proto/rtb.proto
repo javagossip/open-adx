@@ -10,6 +10,7 @@ message BidRequest {
   required string id = 1; //竞价请求id, 由adx自动生成
 
   repeated Imp imp = 2;
+  optional Publisher publisher = 11;
   //站点对象, 网站流量使用
   optional Site site = 3;
   //移动应用，移动app流量使用
@@ -25,8 +26,13 @@ message BidRequest {
   //请求超时时间，单位毫秒
   optional uint32 tmax = 9;
 
+  map<string,string> ext = 10;
   //保留扩展，扩展协议字段编号
   extensions 200 to 299;
+
+  message Publisher {
+    optional uint64 id = 1;
+  }
 
   message Imp {
     required string id = 1;
@@ -47,6 +53,7 @@ message BidRequest {
     optional uint32 secure = 10;
     optional bool is_native_ad = 12; //是否原生广告，原生广告dsp平台可以根据tagid来进行快速匹配
 
+    map<string,string> ext = 11;
     //协议扩展保留字段
     extensions 200 to 299;
 

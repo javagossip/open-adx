@@ -48,4 +48,8 @@ public class DspAggregate {
     public DspPlacementMapping getDspPlacementMapping(String tagid) {
         return sapCodeDspSlotIdMapping.get(tagid);
     }
+
+    public String getDspId() {
+        return dsp.getDspId();
+    }
 }

@@ -1,16 +1,17 @@
 package top.openadexchange.openapi.ssp.application.service;
 
-import jakarta.annotation.Resource;
-
-import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.stereotype.Component;
-
-import top.openadexchange.openapi.ssp.domain.gateway.RateLimiter;
-import top.openadexchange.openapi.ssp.domain.gateway.RateLimiterFactories;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import top.openadexchange.model.Dsp;
+import top.openadexchange.openapi.ssp.domain.gateway.MetadataCacheService;
+import top.openadexchange.openapi.ssp.domain.gateway.RateLimiter;
+import top.openadexchange.openapi.ssp.domain.gateway.RateLimiterFactories;
 
 @Component
 @Slf4j
@@ -21,6 +22,8 @@ public class RateLimiterManager {
 
     @Resource
     private RateLimiterFactories rateLimiterFactories;
+    @Resource
+    private MetadataCacheService metadataCacheService;
 
     /**
      * 更新或创建限流器
@@ -52,5 +55,19 @@ public class RateLimiterManager {
 
     public void removeRateLimiter(String resource) {
         limiters.remove(resource);
+    }
+
+    //服务节点变更的时候，重新分配节点的限流限额，这里采用轮训的方式来更新
+    @Scheduled(fixedRate = 60000)
+    public void dynamicUpdateRateLimiters() {
+        if (limiters == null || limiters.isEmpty()) {
+            return;
+        }
+        limiters.forEach((resource, limiter) -> {
+            Dsp dsp = metadataCacheService.getDspByDspId(resource);
+            if (dsp != null) {
+                updateLimiter(resource, dsp.getQpsLimit());
+            }
+        });
     }
 }

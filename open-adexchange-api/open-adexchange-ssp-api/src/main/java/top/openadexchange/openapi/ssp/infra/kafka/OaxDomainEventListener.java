@@ -49,6 +49,11 @@ public class OaxDomainEventListener {
             case SITE_AD_PLACEMENT_DELETED:
                 applicationWarmupService.updateSiteAdPlacementById(entityId);
                 break;
+            case PUBLISHER_CREATED:
+            case PUBLISHER_UPDATED:
+            case PUBLISHER_DELETED:
+                applicationWarmupService.updatePublisherById(entityId);
+                break;
             default:
                 log.warn("Unsupported event type: {}", eventType);
                 break;
