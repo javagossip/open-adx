@@ -25,7 +25,7 @@ public class PublisherReportConverter {
         return PublisherReportDto.builder()
                 .publisherId(aggregate.getPublisherId())
                 .publisherName(aggregate.getPublisherName())
-                .publisherCode(aggregate.getPublisherCode())
+//                .publisherCode(aggregate.getPublisherCode())
                 .impCount(aggregate.getImpCount())
                 .clickCount(aggregate.getClickCount())
                 .clickRate(aggregate.getClickRate())

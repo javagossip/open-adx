@@ -2,6 +2,9 @@ package top.openadexchange.dto.query;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import top.openadexchange.constants.Constants;
+
+import java.time.LocalDate;
 
 /**
  * 报表查询条件DTO
@@ -30,4 +33,24 @@ public class ReportQueryDto {
 
     @Schema(description = "每页条数, 默认20")
     private Integer pageSize = 20;
+
+    public Integer getPageNo() {
+        return pageNo == null ? 1 : pageNo;
+    }
+
+    public Integer getPageSize() {
+        return pageSize == null ? 20 : pageSize;
+    }
+
+    public Integer getStartDate() {
+        return startDate == null ? currentDay() : startDate;
+    }
+
+    public Integer getEndDate() {
+        return endDate == null ? currentDay() : endDate;
+    }
+
+    private Integer currentDay() {
+        return Integer.parseInt(LocalDate.now().format(Constants.REDIS_KEY_DATEFORMAT));
+    }
 }

@@ -7,7 +7,7 @@
 #
 # 主机: 101.126.128.177 (MySQL 8.0.41)
 # 数据库: open-adexchange
-# 生成时间: 2026-02-01 12:46:38 +0000
+# 生成时间: 2026-02-03 04:21:29 +0000
 # ************************************************************
 
 
@@ -3728,7 +3728,7 @@ CREATE TABLE `domain_event` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Pending,Closed,Failed',
-  `entity_id` bigint DEFAULT NULL COMMENT '实体 ID',
+  `entity_id` varchar(32) DEFAULT NULL COMMENT '实体 ID',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -3738,7 +3738,14 @@ LOCK TABLES `domain_event` WRITE;
 INSERT INTO `domain_event` (`id`, `type`, `payload`, `created_at`, `updated_at`, `status`, `entity_id`)
 VALUES
 	(1,'DSP_UPDATED','{\"entityId\":3}','2026-01-29 17:38:00','2026-01-29 17:38:00','PENDING',NULL),
-	(2,'PUBLISHER_CREATED','{\"entityId\":5}','2026-02-01 18:55:18','2026-02-01 18:55:18','PENDING',NULL);
+	(2,'PUBLISHER_CREATED','{\"entityId\":5}','2026-02-01 18:55:18','2026-02-01 18:55:18','PENDING',NULL),
+	(3,'SITE_UPDATED','{\"entityId\":4}','2026-02-03 11:21:44','2026-02-03 11:21:44','PENDING',NULL),
+	(4,'SITE_UPDATED','{\"entityId\":4}','2026-02-03 11:21:59','2026-02-03 11:21:59','PENDING',NULL),
+	(5,'SITE_UPDATED','{\"entityId\":4}','2026-02-03 11:27:53','2026-02-03 11:27:53','PENDING',NULL),
+	(6,'SITE_UPDATED','{\"entityId\":4}','2026-02-03 11:40:00','2026-02-03 11:40:00','PENDING',NULL),
+	(7,'SITE_UPDATED','{\"entityId\":4}','2026-02-03 11:46:57','2026-02-03 11:46:57','PENDING',NULL),
+	(8,'SITE_UPDATED','{\"entityId\":4}','2026-02-03 11:53:23','2026-02-03 11:53:23','PENDING',NULL),
+	(9,'SITE_UPDATED','{\"entityId\":4}','2026-02-03 12:02:22','2026-02-03 12:02:22','PENDING','4');
 
 /*!40000 ALTER TABLE `domain_event` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -4111,7 +4118,7 @@ VALUES
 	(1,1,'中文在线官网','www.iwanvi.cn',NULL,NULL,NULL,1,1,NULL,NULL,NULL,'2025-12-15 00:08:21','2025-12-15 00:08:21'),
 	(2,2,'iqiyi主站','www.iqiyi.com',NULL,'WEB',NULL,1,1,1,NULL,NULL,'2025-12-21 18:52:26','2025-12-21 18:52:26'),
 	(3,2,'iqiyi app',NULL,'iqiyi','IOS','iqiyi bundle',2,1,1,NULL,NULL,'2025-12-21 18:53:09','2025-12-21 18:53:09'),
-	(4,4,'一点资讯安卓 app',NULL,'com.xinhe.yidianzixun','ANDROID','com.xinhe.yidianzixun',2,1,1,'一点资讯,新闻资讯','','2026-01-15 17:38:14','2026-01-15 17:38:14');
+	(4,4,'一点资讯安卓 app',NULL,'com.xinhe.yidianzixun','ANDROID','com.xinhe.yidianzixun',2,1,1,'一点资讯,新闻资讯','FINANCE','2026-01-15 17:38:14','2026-02-03 11:27:53');
 
 /*!40000 ALTER TABLE `site` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -4560,7 +4567,7 @@ LOCK TABLES `sys_user` WRITE;
 
 INSERT INTO `sys_user` (`user_id`, `dept_id`, `user_name`, `nick_name`, `user_type`, `email`, `phonenumber`, `sex`, `avatar`, `password`, `status`, `del_flag`, `login_ip`, `login_date`, `pwd_update_date`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`)
 VALUES
-	(1,103,'admin','超级管理员','00','javagossip@gmail.com','13621088515','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2026-02-01 10:53:22','2025-12-13 20:40:20','admin','2025-12-13 20:40:20','','2026-02-01 18:53:22','管理员'),
+	(1,103,'admin','超级管理员','00','javagossip@gmail.com','13621088515','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2026-02-03 03:55:53','2025-12-13 20:40:20','admin','2025-12-13 20:40:20','','2026-02-03 11:55:52','管理员'),
 	(100,NULL,'f2time','f2time','00','','','0','','$2a$10$k6tUgO72Pmu9788Xd82qAO6LdJoMvL3P8WpVPBpi5UG4YP9EojPOe','0','2','',NULL,NULL,'','2025-12-17 18:10:00','',NULL,NULL),
 	(101,NULL,'iqiyi','iqiyi','00','partner@iqiyi.com','13821033333','0','','$2a$10$BusbDQQv9W63HKw4hA.aJ.5tAfb3pSZuI7oYBS7LOTj8dhsvFjqpi','0','0','',NULL,NULL,'','2025-12-17 18:14:36','',NULL,NULL),
 	(102,NULL,'youku','youku','00','youku@youku.com','1222222','0','','$2a$10$eSjfAcN.VD71PZjKzt1M2eLOcOzi22uvKyahDKoYu.gPGZL.DqjYS','0','0','',NULL,NULL,'','2025-12-21 18:48:14','',NULL,NULL),

@@ -1,10 +1,14 @@
 package top.openadexchange.dto.report;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import top.openadexchange.commons.AmountSerializer;
+import top.openadexchange.commons.StatsUtils;
 
 import java.math.BigDecimal;
 
@@ -46,5 +50,45 @@ public class AdSlotReportDto {
     private BigDecimal clickRate;
 
     @Schema(description = "收入(元)")
-    private BigDecimal revenue;
+    @JsonSerialize(using = AmountSerializer.class)
+    private Long revenue;
+    @Schema(description = "adx平台收入(元)")
+    @JsonSerialize(using = AmountSerializer.class)
+    private Long adxRevenue;
+
+    public void incrImpCount(Long impCount) {
+        if (this.impCount == null) {
+            this.impCount = impCount;
+        } else {
+            this.impCount += (impCount == null ? 0 : impCount);
+        }
+    }
+
+    public void incrClickCount(Long clickCount) {
+        if (this.clickCount == null) {
+            this.clickCount = clickCount;
+        } else {
+            this.clickCount += (clickCount == null ? 0 : clickCount);
+        }
+    }
+
+    public void incrRevenue(Long revenue) {
+        if (this.revenue == null) {
+            this.revenue = revenue;
+        } else {
+            this.revenue += (revenue == null ? 0 : revenue);
+        }
+    }
+
+    public void incrAdxRevenue(Long adxRevenue) {
+        if (this.adxRevenue == null) {
+            this.adxRevenue = adxRevenue;
+        } else {
+            this.adxRevenue += (adxRevenue == null ? 0 : adxRevenue);
+        }
+    }
+
+    public BigDecimal getClickRate() {
+        return StatsUtils.getClickRateAsPercent(clickCount, impCount);
+    }
 }

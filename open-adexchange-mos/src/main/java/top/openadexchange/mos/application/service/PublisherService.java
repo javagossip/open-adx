@@ -9,6 +9,9 @@ import com.ruoyi.system.service.ISysUserService;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import top.openadexchange.constants.enums.DomainEventType;
 import top.openadexchange.dao.DomainEventDao;
 import top.openadexchange.dao.PublisherDao;
@@ -34,6 +37,7 @@ public class PublisherService {
     @Resource
     private DomainEventDao domainEventDao;
 
+    @Transactional
     public Long addPublisher(PublisherDto publisherDto) {
         log.info("addPublisher: {}", publisherDto);
         SysUser sysUser = userFactory.forPublisher(publisherDto);
@@ -47,6 +51,7 @@ public class PublisherService {
         return publisher.getId();
     }
 
+    @Transactional
     public Boolean updatePublisher(PublisherDto publisherDto) {
         log.info("updatePublisher: {}", publisherDto);
         Publisher publisher = publisherConverter.from(publisherDto);
@@ -57,12 +62,17 @@ public class PublisherService {
         return updated;
     }
 
+    @Transactional
     public Boolean deletePublisher(Long id) {
         log.info("deletePublisher: {}", id);
-        publisherDao.removeById(id);
-        Publisher publisher = publisherDao.getById(id);
-        sysUserService.deleteUserById(publisher.getUserId());
 
+        Publisher publisher = publisherDao.getById(id);
+        if (publisher == null) {
+            log.warn("publisher not found: {}", id);
+            return false;
+        }
+        sysUserService.deleteUserById(publisher.getUserId());
+        publisherDao.removeById(id);
         domainEventDao.save(DomainEventFactory.create(DomainEventType.PUBLISHER_DELETED.name(), id));
         return true;
     }
@@ -71,6 +81,7 @@ public class PublisherService {
         return publisherConverter.toPublisherDto(publisherDao.getById(id));
     }
 
+    @Transactional
     public Boolean enablePublisher(Long id) {
         boolean updated = publisherDao.enablePublisher(id);
         if (updated) {
@@ -79,6 +90,7 @@ public class PublisherService {
         return updated;
     }
 
+    @Transactional
     public Boolean disablePublisher(Long id) {
         boolean updated = publisherDao.disablePublisher(id);
         if (updated) {

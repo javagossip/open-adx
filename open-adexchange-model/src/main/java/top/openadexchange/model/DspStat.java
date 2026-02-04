@@ -66,7 +66,7 @@ public class DspStat implements Serializable {
     private Long winCount;
     private Long reqCount;
 
-    private Long dspCost;
+    private Long cost;
     /**
      * 统计日期,yyyyMMdd 按天统计
      */

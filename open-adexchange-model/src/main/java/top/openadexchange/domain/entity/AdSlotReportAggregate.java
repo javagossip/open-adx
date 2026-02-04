@@ -67,7 +67,11 @@ public class AdSlotReportAggregate implements Serializable {
     private BigDecimal clickRate;
 
     /**
-     * 收入(元)
+     * 媒体收入(元)
      */
-    private BigDecimal revenue;
+    private Long revenue;
+    /**
+     *  adx平台收入(元)
+     */
+    private Long adxRevenue;
 }

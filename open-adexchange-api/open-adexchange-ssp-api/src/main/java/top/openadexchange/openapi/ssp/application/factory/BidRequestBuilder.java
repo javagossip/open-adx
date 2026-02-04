@@ -59,13 +59,13 @@ public class BidRequestBuilder {
         builder.setId(imp.getId());
         builder.setTagid(imp.getTagid());
 
-        MetadataRepository metadataRepository = oaxEngineServices.getCachedMetadataRepository();
+        //MetadataRepository metadataRepository = oaxEngineServices.getCachedMetadataRepository();
         SiteAdPlacementAggregate siteAdPlacementAggregate =
-                metadataRepository.getSiteAdPlacementByTagId(imp.getTagid());
+                metadataCacheService.getSiteAdPlacementByTagId(imp.getTagid());
         Assert.notNull(siteAdPlacementAggregate, "未找到对应的媒体广告位");
         SiteAdPlacement siteAdPlacement = siteAdPlacementAggregate.getSiteAdPlacement();
-        Assert.notNull(siteAdPlacement, "未找到对应的媒体广告位信息");
-        AdPlacement adPlacementSpec = metadataRepository.getAdPlacement(siteAdPlacementAggregate.getAdPlacementId());
+        Assert.notNull(siteAdPlacementAggregate.getAdPlacementId(), "媒体广告位对应广告模版不存在");
+        AdPlacement adPlacementSpec = metadataCacheService.getAdPlacement(siteAdPlacementAggregate.getAdPlacementId());
         Assert.notNull(adPlacementSpec, "未找到对应的广告位规格描述");
 
         top.openadexchange.model.Site site = metadataCacheService.getSite(siteAdPlacement.getSiteId());

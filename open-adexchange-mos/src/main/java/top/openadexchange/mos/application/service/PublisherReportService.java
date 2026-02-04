@@ -1,18 +1,36 @@
 package top.openadexchange.mos.application.service;
 
 import com.mybatisflex.core.paginate.Page;
+import com.mybatisflex.core.query.QueryOrderBy;
+import com.mybatisflex.core.query.QueryWrapper;
+
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Service;
+
+import org.springframework.util.Assert;
+
+import top.openadexchange.constants.Constants;
 import top.openadexchange.dao.AdSlotStatDao;
-import top.openadexchange.domain.entity.AdSlotReportAggregate;
-import top.openadexchange.domain.entity.PublisherReportAggregate;
 import top.openadexchange.dto.query.ReportQueryDto;
 import top.openadexchange.dto.report.AdSlotReportDto;
 import top.openadexchange.dto.report.PublisherReportDto;
-import top.openadexchange.mos.application.converter.PublisherReportConverter;
+import top.openadexchange.model.AdSlotStat;
+import top.openadexchange.model.Publisher;
+import top.openadexchange.model.Site;
+import top.openadexchange.model.SiteAdPlacement;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static com.mybatisflex.core.query.QueryMethods.*;
+import static top.openadexchange.model.table.AdSlotStatTableDef.*;
+import static top.openadexchange.model.table.PublisherTableDef.*;
+import static top.openadexchange.model.table.SiteAdPlacementTableDef.*;
+import static top.openadexchange.model.table.SiteTableDef.*;
 
 /**
  * 媒体报表服务
@@ -23,91 +41,111 @@ public class PublisherReportService {
 
     @Resource
     private AdSlotStatDao adSlotStatDao;
-
     @Resource
-    private PublisherReportConverter publisherReportConverter;
+    private RedisAdStatService redisAdStatService;
 
     /**
      * 分页查询媒体报表
      */
     public Page<PublisherReportDto> pagePublisherReport(ReportQueryDto queryDto) {
         log.info("查询媒体报表: {}", queryDto);
+        int today = Integer.parseInt(LocalDate.now().format(Constants.REDIS_KEY_DATEFORMAT));
+        Page<PublisherReportDto> result = adSlotStatDao.pageAs(Page.of(queryDto.getPageNo(), queryDto.getPageSize()),
+                QueryWrapper.create()
+                        .select(PUBLISHER.ID.as("publisher_id"),
+                                PUBLISHER.NAME.as("publisher_name"),
+                                PUBLISHER.CODE.as("publisher_code"),
+                                sum(AD_SLOT_STAT.IMP_COUNT).as("imp_count"),
+                                sum(AD_SLOT_STAT.CLICK_COUNT).as("click_count"),
+                                sum(AD_SLOT_STAT.REVENUE).as("revenue"),
+                                sum(AD_SLOT_STAT.ADX_REVENUE).as("adx_revenue"))
+                        .from(PUBLISHER.as("t2"))
+                        .leftJoin(AD_SLOT_STAT.as("t1"))
+                        .on(AD_SLOT_STAT.PUBLISHER_ID.eq(PUBLISHER.ID)
+                                .and(AD_SLOT_STAT.STAT_DATE.ne(today))
+                                .and(AD_SLOT_STAT.PUBLISHER_ID.eq(queryDto.getPublisherId()))
+                                .and(AD_SLOT_STAT.SITE_ID.eq(queryDto.getSiteId()))
+                                .and(PUBLISHER.NAME.like(queryDto.getPublisherName()))
+                                .and(AD_SLOT_STAT.STAT_DATE.between(queryDto.getStartDate(), queryDto.getEndDate())))
+                        .groupBy(PUBLISHER.ID),
+                PublisherReportDto.class);
 
-        int pageNo = queryDto.getPageNo() != null ? queryDto.getPageNo() : 1;
-        int pageSize = queryDto.getPageSize() != null ? queryDto.getPageSize() : 20;
-        int offset = (pageNo - 1) * pageSize;
-
-        // 查询列表（返回聚合模型）
-        List<PublisherReportAggregate> aggregates = adSlotStatDao.selectPublisherReport(
-                queryDto.getPublisherId(),
-                queryDto.getPublisherName(),
-                queryDto.getStartDate(),
-                queryDto.getEndDate(),
-                offset,
-                pageSize
-        );
-
-        // 转换为DTO
-        List<PublisherReportDto> records = publisherReportConverter.toPublisherReportDtoList(aggregates);
-
-        // 查询总数
-        Long total = adSlotStatDao.countPublisherReport(
-                queryDto.getPublisherId(),
-                queryDto.getPublisherName(),
-                queryDto.getStartDate(),
-                queryDto.getEndDate()
-        );
-
-        // 构建分页结果
-        Page<PublisherReportDto> page = new Page<>();
-        page.setRecords(records);
-        page.setTotalRow(total);
-        page.setPageNumber(pageNo);
-        page.setPageSize(pageSize);
-        page.setTotalPage((int) Math.ceil((double) total / pageSize));
-
-        return page;
+        if (queryDto.getStartDate() > today || queryDto.getEndDate() < today) {
+            log.info("查询媒体报表, 开始日期：{}", queryDto.getStartDate());
+            return result;
+        }
+        List<Long> publisherIds =
+                result.getRecords().stream().map(PublisherReportDto::getPublisherId).collect(Collectors.toList());
+        Map<Long, PublisherReportDto> publisherReportDtoMap =
+                redisAdStatService.getTodayAdSlotStatsAggregatePublisherId(publisherIds);
+        result.getRecords().forEach(reportDto -> {
+            PublisherReportDto publisherReportDto = publisherReportDtoMap.get(reportDto.getPublisherId());
+            if (publisherReportDto != null) {
+                reportDto.incrImpCount(publisherReportDto.getImpCount());
+                reportDto.incrClickCount(publisherReportDto.getClickCount());
+                reportDto.incrRevenue(publisherReportDto.getRevenue());
+                reportDto.incrAdxRevenue(publisherReportDto.getAdxRevenue());
+            }
+        });
+        return result;
     }
 
     /**
      * 分页查询广告位报表（按媒体下钻）
      */
     public Page<AdSlotReportDto> pageAdSlotReport(ReportQueryDto queryDto) {
+        Assert.notNull(queryDto.getPublisherId(), "publisherId不能为空");
         log.info("查询广告位报表: {}", queryDto);
 
-        int pageNo = queryDto.getPageNo() != null ? queryDto.getPageNo() : 1;
-        int pageSize = queryDto.getPageSize() != null ? queryDto.getPageSize() : 20;
-        int offset = (pageNo - 1) * pageSize;
+        Integer today = Integer.parseInt(LocalDate.now().format(Constants.REDIS_KEY_DATEFORMAT));
+        Page<AdSlotReportDto> result = adSlotStatDao.pageAs(Page.of(queryDto.getPageNo(), queryDto.getPageSize()),
+                QueryWrapper.create()
+                        .select(SITE_AD_PLACEMENT.CODE.as("ad_slot_id"),
+                                SITE_AD_PLACEMENT.NAME.as("ad_slot_name"),
+                                SITE.PUBLISHER_ID.as("publisher_id"),
+                                SITE.ID.as("site_id"),
+                                SITE.NAME.as("site_name"),
+                                sum(AD_SLOT_STAT.IMP_COUNT).as("imp_count"),
+                                sum(AD_SLOT_STAT.CLICK_COUNT).as("click_count"),
+                                sum(AD_SLOT_STAT.REVENUE).as("revenue"),
+                                sum(AD_SLOT_STAT.ADX_REVENUE).as("adx_revenue"))
+                        .from(SITE_AD_PLACEMENT)
+                        .leftJoin(AD_SLOT_STAT)
+                        .on(SITE_AD_PLACEMENT.SITE_ID.eq(AD_SLOT_STAT.SITE_ID)
+                                .and(AD_SLOT_STAT.PUBLISHER_ID.eq(queryDto.getPublisherId()))
+                                .and(AD_SLOT_STAT.STAT_DATE.ne(today))
+                                .and(AD_SLOT_STAT.STAT_DATE.between(queryDto.getStartDate(), queryDto.getEndDate())))
+                        .leftJoin(SITE)
+                        .on(AD_SLOT_STAT.SITE_ID.eq(SITE.ID))
+                        .eq(SiteAdPlacement::getSiteId, queryDto.getSiteId()),
+                AdSlotReportDto.class);
 
-        // 查询列表（返回聚合模型）
-        List<AdSlotReportAggregate> aggregates = adSlotStatDao.selectAdSlotReport(
-                queryDto.getPublisherId(),
-                queryDto.getSiteId(),
-                queryDto.getStartDate(),
-                queryDto.getEndDate(),
-                offset,
-                pageSize
-        );
-
-        // 转换为DTO
-        List<AdSlotReportDto> records = publisherReportConverter.toAdSlotReportDtoList(aggregates);
-
-        // 查询总数
-        Long total = adSlotStatDao.countAdSlotReport(
-                queryDto.getPublisherId(),
-                queryDto.getSiteId(),
-                queryDto.getStartDate(),
-                queryDto.getEndDate()
-        );
-
-        // 构建分页结果
-        Page<AdSlotReportDto> page = new Page<>();
-        page.setRecords(records);
-        page.setTotalRow(total);
-        page.setPageNumber(pageNo);
-        page.setPageSize(pageSize);
-        page.setTotalPage((int) Math.ceil((double) total / pageSize));
-
-        return page;
+        if (!result.hasRecords()) {
+            return result;
+        }
+        if (queryDto.getStartDate() > today || queryDto.getEndDate() < today) {
+            log.info("查询广告位报表, 媒体ID: {}, 站点ID: {}, 开始日期: {}",
+                    queryDto.getPublisherId(),
+                    queryDto.getSiteId(),
+                    queryDto.getStartDate());
+            return result;
+        }
+        List<String> adSlotIds =
+                result.getRecords().stream().map(AdSlotReportDto::getAdSlotId).collect(Collectors.toList());
+        if (adSlotIds == null || adSlotIds.isEmpty()) {
+            return result;
+        }
+        Map<String, AdSlotReportDto> adSlotReportDtoMap =
+                redisAdStatService.getTodayAdSlotStatsAggregateAdSlotId(adSlotIds);
+        result.getRecords().forEach(reportDto -> {
+            AdSlotReportDto adSlotReportDto = adSlotReportDtoMap.get(reportDto.getAdSlotId());
+            if (adSlotReportDto != null) {
+                reportDto.incrImpCount(adSlotReportDto.getImpCount());
+                reportDto.incrClickCount(adSlotReportDto.getClickCount());
+                reportDto.incrRevenue(adSlotReportDto.getRevenue());
+                reportDto.incrAdxRevenue(adSlotReportDto.getAdxRevenue());
+            }
+        });
+        return result;
     }
 }

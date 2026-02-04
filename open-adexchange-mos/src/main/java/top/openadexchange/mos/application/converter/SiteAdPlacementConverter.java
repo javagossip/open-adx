@@ -32,7 +32,7 @@ public class SiteAdPlacementConverter {
         siteAdPlacement.setFloorPrice(FloorPriceUtils.yuanToCent(siteAdPlacementDto.getFloorPrice()));
 
         // 设置code和userId
-        if (entityCodeService != null && siteAdPlacement.getCode() == null) {
+        if (entityCodeService != null && siteAdPlacementDto.getCode() == null) {
             siteAdPlacement.setCode(entityCodeService.generateSiteAdPlacementCode());
         }
         siteAdPlacement.setUserId(SecurityUtils.getUserId());

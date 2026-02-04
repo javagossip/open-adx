@@ -18,4 +18,16 @@ public class RevenueUtils {
     public static long calcDspCost(long price, int revShare) {
         return price * MICRO_CENT;
     }
+
+    public static void main(String[] args) {
+        long mediaRevenue = calcMediaRevenue(1100, 90);
+        long adxRevenue = calcAdxRevenue(1100, 90);
+        long dspCost = calcDspCost(1100, 90);
+
+        log.info("{}", mediaRevenue);
+        log.info("{}", adxRevenue);
+        log.info("{}", dspCost);
+        log.info("{}", dspCost==(mediaRevenue+adxRevenue));
+    }
 }
+

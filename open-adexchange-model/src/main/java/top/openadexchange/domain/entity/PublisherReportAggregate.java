@@ -32,11 +32,6 @@ public class PublisherReportAggregate implements Serializable {
     private String publisherName;
 
     /**
-     * 媒体编码
-     */
-    private String publisherCode;
-
-    /**
      * 曝光量
      */
     private Long impCount;
@@ -54,5 +49,9 @@ public class PublisherReportAggregate implements Serializable {
     /**
      * 媒体收入(元)
      */
-    private BigDecimal revenue;
+    private Long revenue;
+    /**
+     * adx平台收入(元)
+     */
+    private Long adxRevenue;
 }

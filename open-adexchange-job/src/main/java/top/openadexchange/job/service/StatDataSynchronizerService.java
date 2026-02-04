@@ -63,6 +63,7 @@ public class StatDataSynchronizerService {
     @SuppressWarnings("unchecked")
     public void syncAdSlotStatData(StatDataSynchronizerParam param) {
         String syncDate = (param == null || !StringUtils.hasText(param.getSyncDate())) ? LocalDate.now()
+                .minusDays(1L)
                 .format(Constants.REDIS_KEY_DATEFORMAT) : param.getSyncDate();
 
         String keyAdSlots = RedisKeys.keyStatAdslots(syncDate);
@@ -71,8 +72,29 @@ public class StatDataSynchronizerService {
             return;
         }
 
+        List<SiteAdPlacement> siteAdPlacements =
+                siteAdPlacementDao.list(QueryWrapper.create().in(SiteAdPlacement::getCode, statAdSlotIds));
+        if (siteAdPlacements.isEmpty()) {
+            log.info("no stat adslots, statAdSlotIds: {}", statAdSlotIds);
+            return;
+        }
+        List<Site> sites = siteDao.list(QueryWrapper.create()
+                .in(Site::getId,
+                        siteAdPlacements.stream().map(SiteAdPlacement::getSiteId).collect(Collectors.toSet())));
+        if (sites.isEmpty()) {
+            return;
+        }
+        Map<Long, Site> siteMap =
+                sites.stream().collect(Collectors.toMap(Site::getId, Function.identity(), (a, b) -> a));
+        Map<String, SiteAdPlacement> siteAdPlacementMap = siteAdPlacements.stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toMap(SiteAdPlacement::getCode, Function.identity(), (a, b) -> a));
         List<AdSlotStat> adSlotStats = new ArrayList<>(statAdSlotIds.size());
         for (String adSlotId : statAdSlotIds) {
+            SiteAdPlacement siteAdPlacement = siteAdPlacementMap.get(adSlotId);
+            if (siteAdPlacement == null) {
+                continue;
+            }
             String keyAdSlot = RedisKeys.keyStatAdSlot(adSlotId, syncDate);
             List<Object> values = redisTemplate.opsForHash().multiGet(keyAdSlot, RedisKeys.HASH_FIELDS);
             if (values == null || values.isEmpty()) {
@@ -89,6 +111,10 @@ public class StatDataSynchronizerService {
 
             AdSlotStat adSlotStat = new AdSlotStat();
             adSlotStat.setAdSlotId(adSlotId);
+            adSlotStat.setSiteId(siteAdPlacement.getSiteId());
+
+            Site site = siteMap.get(siteAdPlacement.getSiteId());
+            adSlotStat.setPublisherId(site == null ? null : site.getPublisherId());
             adSlotStat.setStatDate(Integer.parseInt(syncDate));
             adSlotStat.setImpCount(NumberUtils.toLong(impCountStr));
             adSlotStat.setClickCount(NumberUtils.toLong(clickCountStr));
@@ -112,16 +138,18 @@ public class StatDataSynchronizerService {
 
     public void syncDspStatData(StatDataSynchronizerParam param) {
         String syncDate = (param == null || !StringUtils.hasText(param.getSyncDate())) ? LocalDate.now()
+                .minusDays(1L)
                 .format(Constants.REDIS_KEY_DATEFORMAT) : param.getSyncDate();
         String keyStatDsps = RedisKeys.keyStatDsps(syncDate);
         Set<String> statDspIds = redisTemplate.opsForSet().members(keyStatDsps);
         if (statDspIds == null || statDspIds.isEmpty()) {
             return;
         }
+        log.info("syncDspStatData start, statDspIds: {}", statDspIds);
         Map<String, Dsp> dspMap = dspDao.list(QueryWrapper.create().in(Dsp::getDspId, statDspIds))
                 .stream()
                 .filter(Objects::nonNull)
-                .collect(Collectors.toMap(Dsp::getDspId, Function.identity()));
+                .collect(Collectors.toMap(Dsp::getDspId, Function.identity(), (a, b) -> a));
 
         List<DspStat> dspStats = new ArrayList<>(statDspIds.size());
         for (String dspId : statDspIds) {
@@ -153,8 +181,9 @@ public class StatDataSynchronizerService {
             dspStat.setBidCount(NumberUtils.toLong(bidCountStr));
             dspStat.setWinCount(NumberUtils.toLong(winCountStr));
             dspStat.setReqCount(NumberUtils.toLong(reqCountStr));
-            dspStat.setDspCost(NumberUtils.toLong(dspCostStr));
+            dspStat.setCost(NumberUtils.toLong(dspCostStr));
             dspStats.add(dspStat);
         }
+        dspStatDao.saveBatchOnDuplicateKeyUpdate(dspStats);
     }
 }

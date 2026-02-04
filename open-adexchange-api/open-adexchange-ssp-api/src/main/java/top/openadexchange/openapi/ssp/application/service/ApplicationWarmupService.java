@@ -2,19 +2,15 @@ package top.openadexchange.openapi.ssp.application.service;
 
 import java.util.List;
 
-import com.mybatisflex.core.query.QueryWrapper;
-
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
-
-import jakarta.annotation.Resource;
-
 import org.springframework.util.StringUtils;
 
+import com.mybatisflex.core.query.QueryWrapper;
+
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import top.openadexchange.dao.AdPlacementDao;
 import top.openadexchange.dao.PublisherDao;
-import top.openadexchange.dao.SiteAdPlacementDao;
 import top.openadexchange.dao.SiteDao;
 import top.openadexchange.domain.entity.AdPlacementAggregate;
 import top.openadexchange.domain.entity.DspAggregate;
@@ -23,7 +19,6 @@ import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.Publisher;
 import top.openadexchange.model.Site;
-import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.openapi.ssp.domain.gateway.IndexService;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataCacheService;
 import top.openadexchange.openapi.ssp.domain.gateway.OaxEngineServices;
@@ -225,6 +220,7 @@ public class ApplicationWarmupService {
             metadataCacheService.removePublisher(publisherId);
             return;
         }
+        log.info("Update publisher cache: {}", publisher);
         metadataCacheService.addOrUpdatePublisher(publisher);
     }
 }

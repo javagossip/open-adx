@@ -88,6 +88,7 @@ public class DspService {
         return updated;
     }
 
+    @Transactional
     public Boolean deleteDsp(Integer id) {
         log.info("deleteDsp: {}", id);
         Dsp dsp = dspDao.getById(id);
@@ -104,6 +105,7 @@ public class DspService {
         return dspConverter.toDspDto(dspDao.getById(id));
     }
 
+    @Transactional
     public Boolean enableDsp(Integer id) {
         boolean enabled = dspDao.enableDsp(id);
         if (enabled) {
@@ -112,6 +114,7 @@ public class DspService {
         return enabled;
     }
 
+    @Transactional
     public Boolean disableDsp(Integer id) {
         boolean disabled = dspDao.disableDsp(id);
         if (disabled) {

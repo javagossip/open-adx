@@ -1,10 +1,16 @@
 package top.openadexchange.dto.report;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import org.apache.commons.lang3.math.NumberUtils;
+
+import top.openadexchange.commons.AmountSerializer;
 
 import java.math.BigDecimal;
 
@@ -37,5 +43,60 @@ public class PublisherReportDto {
     private BigDecimal clickRate;
 
     @Schema(description = "媒体收入(元)")
-    private BigDecimal revenue;
+    @JsonSerialize(using = AmountSerializer.class)
+    private Long revenue;
+    @Schema(description = "adx平台收入(元)")
+    @JsonSerialize(using = AmountSerializer.class)
+    private Long adxRevenue;
+
+    public void incrImpCount(Long count) {
+        Long incrCount = count == null ? 0 : count;
+        if (this.impCount == null) {
+            this.impCount = incrCount;
+        } else {
+            this.impCount += incrCount;
+        }
+    }
+
+    public void incrClickCount(Long count) {
+        Long incrCount = count == null ? 0 : count;
+        if (this.clickCount == null) {
+            this.clickCount = incrCount;
+        } else {
+            this.clickCount += incrCount;
+        }
+    }
+
+    public void incrRevenue(Long count) {
+        Long incrCount = count == null ? 0 : count;
+        if (this.revenue == null) {
+            this.revenue = incrCount;
+        } else {
+            this.revenue += incrCount;
+        }
+    }
+
+    public void incrAdxRevenue(Long count) {
+        Long incrCount = count == null ? 0 : count;
+        if (this.adxRevenue == null) {
+            this.adxRevenue = incrCount;
+        } else {
+            this.adxRevenue += incrCount;
+        }
+    }
+
+    public BigDecimal getClickRate() {
+        return calcClickRate();
+    }
+
+    public BigDecimal calcClickRate() {
+        BigDecimal clickRate;
+        if (this.impCount != null && this.impCount > 0) {
+            clickRate = new BigDecimal(this.clickCount).multiply(new BigDecimal(100))
+                    .divide(new BigDecimal(this.impCount), 4, BigDecimal.ROUND_HALF_UP);
+        } else {
+            clickRate = NumberUtils.createBigDecimal("0.0");
+        }
+        return clickRate;
+    }
 }

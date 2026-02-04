@@ -16,7 +16,8 @@
                 WHEN COALESCE(SUM(s.imp_count), 0) = 0 THEN 0
                 ELSE ROUND(COALESCE(SUM(s.click_count), 0) * 100.0 / SUM(s.imp_count), 2)
             END AS clickRate,
-            0 AS revenue
+            SUM(revenue) AS revenue,
+            SUM(adx_revenue) as adxRevenue
         FROM publisher p
         LEFT JOIN ad_slot_stat s ON p.id = s.publisher_id
             <if test="startDate != null">
@@ -76,7 +77,8 @@
                 WHEN COALESCE(SUM(s.imp_count), 0) = 0 THEN 0
                 ELSE ROUND(COALESCE(SUM(s.click_count), 0) * 100.0 / SUM(s.imp_count), 2)
             END AS clickRate,
-            0 AS revenue
+            SUM(revenue) AS revenue,
+            SUM(adx_revenue) as adxRevenue
         FROM site_ad_placement sap
         LEFT JOIN site st ON sap.site_id = st.id
         LEFT JOIN publisher p ON st.publisher_id = p.id

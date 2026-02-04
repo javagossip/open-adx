@@ -89,6 +89,8 @@ public class AdExchangeEngine {
         //如果获胜dsp的出价类型是First Price，则直接返回中标者的出价
         Dsp winDsp = winner.getDsp();
         if (winDsp.getAt() == AuctionType.FIRST_PRICE.getValue()) {
+            replaceMacros(winner.getBid(), winner);
+            resetBidTrackers(request, winDsp, winner.getBid(), imp);
             return winner.getBid();
         }
 
@@ -249,7 +251,7 @@ public class AdExchangeEngine {
         //添加ADX平台自有的曝光监测和点击监测地址，用来记录广告的点击以及曝光数
         String trackingUrl = oaxEngineProperties.getTrackingUrl();
         if (trackingUrl != null && !trackingUrl.isEmpty()) {
-            TrackToken trackToken = buildTrackToken(dsp, request, bid, imp.getId());
+            TrackToken trackToken = buildTrackToken(dsp, request, bid, imp);
             String impTrackUrl = TrackTokenBuilder.buildImpTrackUrl(trackingUrl, trackToken);
             String clkTrackUrl = TrackTokenBuilder.buildClkTrackUrl(trackingUrl, trackToken);
             bid.addImpTrackers(impTrackUrl);
@@ -263,20 +265,20 @@ public class AdExchangeEngine {
      * @param dsp DSP信息
      * @param request OAX竞价请求
      * @param bid 竞价响应中的Bid
-     * @param impid 曝光ID
+     * @param imp 曝光ID
      * @return TrackToken
      */
     private TrackToken buildTrackToken(Dsp dsp,
             BidRequest.Builder request,
             OaxRtbProto.BidResponse.SeatBid.Bid.Builder bid,
-            String impid) {
+            Imp imp) {
         long publisherId = request.getPublisher().getId();
         TrackToken trackToken = new TrackToken();
         trackToken.setReqId(request.getId());
-        trackToken.setImpId(impid);
+        trackToken.setImpId(imp.getId());
         // 暂时使用空字符串，后续可以通过tagId查询SiteAdPlacement获取siteId作为publisherId
         trackToken.setPublisherId(String.valueOf(publisherId));
-        trackToken.setAdSlotId(impid);
+        trackToken.setAdSlotId(imp.getTagid());
         trackToken.setCrid(bid.getCrid());
         // 信和Bid没有advId字段，暂时使用空字符串
         trackToken.setAdvId("");
