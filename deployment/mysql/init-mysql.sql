@@ -46,7 +46,7 @@ CREATE TABLE `ad_placement` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='广告位模板';
 
-LOCK TABLES `ad_placement` WRITE;
+-- -- LOCK TABLES `ad_placement` WRITE;
 /*!40000 ALTER TABLE `ad_placement` DISABLE KEYS */;
 
 INSERT INTO `ad_placement` (`id`, `name`, `code`, `user_id`, `ad_format`, `channel`, `width`, `height`, `min_duration`, `max_duration`, `skippable`, `skip_min`, `skip_after`, `mimes`, `created_at`, `updated_at`, `status`)
@@ -59,7 +59,7 @@ VALUES
 	(6,'图片开屏广告（竖屏）','ADP-pW0GO0eZ',1,'BANNER','app',1080,1920,NULL,NULL,0,NULL,NULL,NULL,'2026-01-15 17:40:47','2026-01-15 17:40:47',1);
 
 /*!40000 ALTER TABLE `ad_placement` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 ad_slot_stat
@@ -124,7 +124,7 @@ CREATE TABLE `advertiser` (
   UNIQUE KEY `uniq_idx_dsp_advertiser_id` (`dsp_id`,`dsp_advertiser_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-LOCK TABLES `advertiser` WRITE;
+-- -- LOCK TABLES `advertiser` WRITE;
 /*!40000 ALTER TABLE `advertiser` DISABLE KEYS */;
 
 INSERT INTO `advertiser` (`id`, `user_id`, `agency_id`, `dsp_id`, `dsp_advertiser_id`, `code`, `advertiser_name`, `industry_code`, `company_name`, `business_license_no`, `legal_person_name`, `registered_address`, `contact_name`, `contact_phone`, `contact_email`, `business_license_url`, `legal_person_id_url`, `audit_status`, `audit_reason`, `audit_time`, `auditor_id`, `status`, `created_at`, `updated_at`)
@@ -132,7 +132,7 @@ VALUES
 	(1,NULL,NULL,NULL,NULL,NULL,'netease',NULL,'netease','900000234','weiping wang','xxxxx','weiping wang','13621088515','javagossip@gmail.com','https://open-adexchange-1301501150.cos.ap-beijing.myqcloud.com/681f792e9af342548842a59347c18c74',NULL,'APPROVED','不通过',NULL,NULL,1,'2025-12-17 00:24:56','2025-12-17 13:27:33');
 
 /*!40000 ALTER TABLE `advertiser` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 advertiser_industry_license
@@ -176,7 +176,7 @@ CREATE TABLE `category` (
   KEY `idx_status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='App/Site 内容分类字典表';
 
-LOCK TABLES `category` WRITE;
+-- -- LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
 
 INSERT INTO `category` (`id`, `system`, `code`, `name`, `parent_code`, `level`, `status`, `description`, `created_at`, `updated_at`)
@@ -184,7 +184,7 @@ VALUES
 	(1,'INTERNAL','FINANCE','金融',NULL,1,1,'金融一级分类','2025-12-29 21:01:20','2025-12-29 21:01:20');
 
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 creative
@@ -273,7 +273,7 @@ CREATE TABLE `district` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='数据来源：https://github.com/eduosi/district.git';
 
-LOCK TABLES `district` WRITE;
+-- -- LOCK TABLES `district` WRITE;
 /*!40000 ALTER TABLE `district` DISABLE KEYS */;
 
 INSERT INTO `district` (`id`, `name`, `parent_id`, `initial`, `initials`, `pinyin`, `extra`, `suffix`, `code`, `area_code`, `order`)
@@ -3713,7 +3713,7 @@ VALUES
 	(7111,'那玛夏',486,'n','nmx','namaxia','','区','710638','07',38);
 
 /*!40000 ALTER TABLE `district` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 domain_event
@@ -3732,7 +3732,7 @@ CREATE TABLE `domain_event` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-LOCK TABLES `domain_event` WRITE;
+-- -- LOCK TABLES `domain_event` WRITE;
 /*!40000 ALTER TABLE `domain_event` DISABLE KEYS */;
 
 INSERT INTO `domain_event` (`id`, `type`, `payload`, `created_at`, `updated_at`, `status`, `entity_id`)
@@ -3748,7 +3748,7 @@ VALUES
 	(9,'SITE_UPDATED','{\"entityId\":4}','2026-02-03 12:02:22','2026-02-03 12:02:22','PENDING','4');
 
 /*!40000 ALTER TABLE `domain_event` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 dsp
@@ -3780,7 +3780,7 @@ CREATE TABLE `dsp` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-LOCK TABLES `dsp` WRITE;
+-- -- LOCK TABLES `dsp` WRITE;
 /*!40000 ALTER TABLE `dsp` DISABLE KEYS */;
 
 INSERT INTO `dsp` (`id`, `name`, `dsp_id`, `user_id`, `bid_endpoint`, `win_notice_endpoint`, `contact_name`, `contact_email`, `contact_phone`, `brand_logo`, `token`, `encryption_key`, `integrity_key`, `status`, `qps_limit`, `timeout_ms`, `created_at`, `updated_at`, `rtb_protocol_type`, `at`)
@@ -3789,7 +3789,7 @@ VALUES
 	(3,'一点资讯 ','xinhe',1,'http://test-dsp.yidianzixun.com/bid?adxType=test&rtbVersion=4','http://test.dsp.yidianzixun.com/win?adxType=test&rtbVersion=4',NULL,NULL,NULL,NULL,'abWa9r3TPPxqwn766czLxZHUmPKr2mCGitEP64groYk','1234567890123456','1234567890123456',1,500,3000,'2026-01-15 16:49:42','2026-01-29 17:38:00',2,2);
 
 /*!40000 ALTER TABLE `dsp` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 dsp_placement_mapping
@@ -3805,7 +3805,7 @@ CREATE TABLE `dsp_placement_mapping` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-LOCK TABLES `dsp_placement_mapping` WRITE;
+-- -- LOCK TABLES `dsp_placement_mapping` WRITE;
 /*!40000 ALTER TABLE `dsp_placement_mapping` DISABLE KEYS */;
 
 INSERT INTO `dsp_placement_mapping` (`id`, `dsp_id`, `site_ad_placement_id`, `dsp_slot_id`)
@@ -3814,7 +3814,7 @@ VALUES
 	(3,3,3,'5ee5bee654b60a6b');
 
 /*!40000 ALTER TABLE `dsp_placement_mapping` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 dsp_site_ad_placement
@@ -3828,7 +3828,7 @@ CREATE TABLE `dsp_site_ad_placement` (
   PRIMARY KEY (`dsp_id`,`site_ad_placement_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='dsp和媒体广告位的绑定关系(dsp需要哪些广告位流量)';
 
-LOCK TABLES `dsp_site_ad_placement` WRITE;
+-- -- LOCK TABLES `dsp_site_ad_placement` WRITE;
 /*!40000 ALTER TABLE `dsp_site_ad_placement` DISABLE KEYS */;
 
 INSERT INTO `dsp_site_ad_placement` (`dsp_id`, `site_ad_placement_id`)
@@ -3837,7 +3837,7 @@ VALUES
 	(3,3);
 
 /*!40000 ALTER TABLE `dsp_site_ad_placement` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 dsp_stat
@@ -3882,7 +3882,7 @@ CREATE TABLE `dsp_targeting` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-LOCK TABLES `dsp_targeting` WRITE;
+-- -- LOCK TABLES `dsp_targeting` WRITE;
 /*!40000 ALTER TABLE `dsp_targeting` DISABLE KEYS */;
 
 INSERT INTO `dsp_targeting` (`id`, `dsp_id`, `os`, `country`, `device_type`, `region`, `created_at`, `updated_at`)
@@ -3894,7 +3894,7 @@ VALUES
 	(5,3,'[]','CN','[]','[]','2026-01-15 21:03:30','2026-01-15 21:03:30');
 
 /*!40000 ALTER TABLE `dsp_targeting` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 floor_price
@@ -3912,7 +3912,7 @@ CREATE TABLE `floor_price` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-LOCK TABLES `floor_price` WRITE;
+-- -- LOCK TABLES `floor_price` WRITE;
 /*!40000 ALTER TABLE `floor_price` DISABLE KEYS */;
 
 INSERT INTO `floor_price` (`id`, `site_ad_placement_id`, `floor_price`, `industry_id`, `region_level_id`, `status`)
@@ -3920,7 +3920,7 @@ VALUES
 	(1,1,1000,2,1,1);
 
 /*!40000 ALTER TABLE `floor_price` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 industry
@@ -3946,7 +3946,7 @@ CREATE TABLE `industry` (
   KEY `idx_status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='广告行业字典表';
 
-LOCK TABLES `industry` WRITE;
+-- -- LOCK TABLES `industry` WRITE;
 /*!40000 ALTER TABLE `industry` DISABLE KEYS */;
 
 INSERT INTO `industry` (`id`, `code`, `name`, `parent_id`, `level`, `risk_level`, `need_license`, `status`, `description`, `created_at`, `updated_at`)
@@ -3957,7 +3957,7 @@ VALUES
 	(4,'CREDIT','信用卡',3,2,2,1,1,'金融-信用卡','2025-12-29 21:26:49','2025-12-29 21:26:49');
 
 /*!40000 ALTER TABLE `industry` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 native_asset
@@ -3990,7 +3990,7 @@ CREATE TABLE `native_asset` (
   KEY `idx_placement_id` (`ad_placement_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Native模板字段定义';
 
-LOCK TABLES `native_asset` WRITE;
+-- -- LOCK TABLES `native_asset` WRITE;
 /*!40000 ALTER TABLE `native_asset` DISABLE KEYS */;
 
 INSERT INTO `native_asset` (`id`, `ad_placement_id`, `asset_name`, `asset_key`, `asset_type`, `data_asset_type`, `format`, `required`, `repeatable`, `max_length`, `min_length`, `width`, `height`, `ratio`, `mime_types`, `max_size_kb`, `constraints`, `created_at`, `updated_at`)
@@ -4001,7 +4001,7 @@ VALUES
 	(4,5,'评分','rating','data',NULL,NULL,0,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2026-01-15 15:14:22','2026-01-15 15:14:22');
 
 /*!40000 ALTER TABLE `native_asset` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 publisher
@@ -4023,7 +4023,7 @@ CREATE TABLE `publisher` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-LOCK TABLES `publisher` WRITE;
+-- -- LOCK TABLES `publisher` WRITE;
 /*!40000 ALTER TABLE `publisher` DISABLE KEYS */;
 
 INSERT INTO `publisher` (`id`, `name`, `code`, `user_id`, `contact_email`, `contact_phone`, `status`, `created_at`, `updated_at`, `rev_share`)
@@ -4035,7 +4035,7 @@ VALUES
 	(5,'泰之菩','PUB-Jr4OD0Ry',105,'948517839@qq.com','13621088515',1,'2026-02-01 18:55:18','2026-02-01 18:55:18',90);
 
 /*!40000 ALTER TABLE `publisher` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 region_pkg
@@ -4050,7 +4050,7 @@ CREATE TABLE `region_pkg` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='地域包管理';
 
-LOCK TABLES `region_pkg` WRITE;
+-- -- LOCK TABLES `region_pkg` WRITE;
 /*!40000 ALTER TABLE `region_pkg` DISABLE KEYS */;
 
 INSERT INTO `region_pkg` (`id`, `name`, `type`)
@@ -4058,7 +4058,7 @@ VALUES
 	(1,'一级城市',1);
 
 /*!40000 ALTER TABLE `region_pkg` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 region_pkg_district
@@ -4073,7 +4073,7 @@ CREATE TABLE `region_pkg_district` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-LOCK TABLES `region_pkg_district` WRITE;
+-- LOCK TABLES `region_pkg_district` WRITE;
 /*!40000 ALTER TABLE `region_pkg_district` DISABLE KEYS */;
 
 INSERT INTO `region_pkg_district` (`id`, `region_pkg_id`, `district_code`)
@@ -4084,7 +4084,7 @@ VALUES
 	(13,1,'440300');
 
 /*!40000 ALTER TABLE `region_pkg_district` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 site
@@ -4110,7 +4110,7 @@ CREATE TABLE `site` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-LOCK TABLES `site` WRITE;
+-- LOCK TABLES `site` WRITE;
 /*!40000 ALTER TABLE `site` DISABLE KEYS */;
 
 INSERT INTO `site` (`id`, `publisher_id`, `name`, `domain`, `app_id`, `platform`, `app_bundle`, `site_type`, `status`, `user_id`, `keywords`, `cats`, `created_at`, `updated_at`)
@@ -4121,7 +4121,7 @@ VALUES
 	(4,4,'一点资讯安卓 app',NULL,'com.xinhe.yidianzixun','ANDROID','com.xinhe.yidianzixun',2,1,1,'一点资讯,新闻资讯','FINANCE','2026-01-15 17:38:14','2026-02-03 11:27:53');
 
 /*!40000 ALTER TABLE `site` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 site_ad_placement
@@ -4146,7 +4146,7 @@ CREATE TABLE `site_ad_placement` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='媒体广告位管理';
 
-LOCK TABLES `site_ad_placement` WRITE;
+-- LOCK TABLES `site_ad_placement` WRITE;
 /*!40000 ALTER TABLE `site_ad_placement` DISABLE KEYS */;
 
 INSERT INTO `site_ad_placement` (`id`, `code`, `site_id`, `user_id`, `ad_placement_id`, `platform`, `name`, `floor_price`, `currency`, `demo_url`, `status`, `created_at`, `updated_at`)
@@ -4156,7 +4156,7 @@ VALUES
 	(3,'SAP-EGKZx4Ae',4,1,6,NULL,'一点资讯安卓开屏竖屏广告',1100,NULL,NULL,1,'2026-01-15 17:41:47','2026-01-15 17:53:43');
 
 /*!40000 ALTER TABLE `site_ad_placement` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 site_adp_adt_mapping
@@ -4192,7 +4192,7 @@ CREATE TABLE `sys_config` (
   PRIMARY KEY (`config_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='参数配置表';
 
-LOCK TABLES `sys_config` WRITE;
+-- LOCK TABLES `sys_config` WRITE;
 /*!40000 ALTER TABLE `sys_config` DISABLE KEYS */;
 
 INSERT INTO `sys_config` (`config_id`, `config_name`, `config_key`, `config_value`, `config_type`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`)
@@ -4210,7 +4210,7 @@ VALUES
 	(102,'媒体资源管理-内容分类管理-分类体系','sys.category.system','INTERNAL','Y','admin','2025-12-29 23:22:53','',NULL,'默认内容分类体系');
 
 /*!40000 ALTER TABLE `sys_config` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 sys_dict_data
@@ -4236,7 +4236,7 @@ CREATE TABLE `sys_dict_data` (
   PRIMARY KEY (`dict_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='字典数据表';
 
-LOCK TABLES `sys_dict_data` WRITE;
+-- LOCK TABLES `sys_dict_data` WRITE;
 /*!40000 ALTER TABLE `sys_dict_data` DISABLE KEYS */;
 
 INSERT INTO `sys_dict_data` (`dict_code`, `dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `status`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`)
@@ -4276,7 +4276,7 @@ VALUES
 	(103,1,'母婴','baby','sys_ad_industry',NULL,'default','N','0','admin','2025-12-16 20:08:30','',NULL,NULL);
 
 /*!40000 ALTER TABLE `sys_dict_data` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 sys_dict_type
@@ -4298,7 +4298,7 @@ CREATE TABLE `sys_dict_type` (
   UNIQUE KEY `dict_type` (`dict_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='字典类型表';
 
-LOCK TABLES `sys_dict_type` WRITE;
+-- LOCK TABLES `sys_dict_type` WRITE;
 /*!40000 ALTER TABLE `sys_dict_type` DISABLE KEYS */;
 
 INSERT INTO `sys_dict_type` (`dict_id`, `dict_name`, `dict_type`, `status`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`)
@@ -4317,7 +4317,7 @@ VALUES
 	(101,'行业字典','sys_ad_industry','0','admin','2025-12-16 20:07:48','',NULL,'行业字典');
 
 /*!40000 ALTER TABLE `sys_dict_type` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 sys_menu
@@ -4349,7 +4349,7 @@ CREATE TABLE `sys_menu` (
   PRIMARY KEY (`menu_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单权限表';
 
-LOCK TABLES `sys_menu` WRITE;
+-- LOCK TABLES `sys_menu` WRITE;
 /*!40000 ALTER TABLE `sys_menu` DISABLE KEYS */;
 
 INSERT INTO `sys_menu` (`menu_id`, `menu_name`, `parent_id`, `order_num`, `path`, `component`, `query`, `route_name`, `is_frame`, `is_cache`, `menu_type`, `visible`, `status`, `perms`, `icon`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`)
@@ -4408,7 +4408,7 @@ VALUES
 	(2020,'dsp 平台报表',2017,3,'report/dsp','report/dsp/index',NULL,'report/dsp',1,0,'C','0','0','dspReport','dsp_ad','admin','2026-01-29 22:53:10','admin','2026-01-29 23:02:24','');
 
 /*!40000 ALTER TABLE `sys_menu` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 sys_notice
@@ -4455,7 +4455,7 @@ CREATE TABLE `sys_role` (
   PRIMARY KEY (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色信息表';
 
-LOCK TABLES `sys_role` WRITE;
+-- LOCK TABLES `sys_role` WRITE;
 /*!40000 ALTER TABLE `sys_role` DISABLE KEYS */;
 
 INSERT INTO `sys_role` (`role_id`, `role_name`, `role_key`, `role_sort`, `data_scope`, `menu_check_strictly`, `dept_check_strictly`, `status`, `del_flag`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`)
@@ -4466,7 +4466,7 @@ VALUES
 	(101,'dsp管理员','dsp',0,'1',1,1,'0','0','admin','2025-12-14 11:36:46','',NULL,NULL);
 
 /*!40000 ALTER TABLE `sys_role` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 sys_role_menu
@@ -4492,7 +4492,7 @@ CREATE TABLE `sys_seq` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-LOCK TABLES `sys_seq` WRITE;
+-- LOCK TABLES `sys_seq` WRITE;
 /*!40000 ALTER TABLE `sys_seq` DISABLE KEYS */;
 
 INSERT INTO `sys_seq` (`id`)
@@ -4530,7 +4530,7 @@ VALUES
 	(31);
 
 /*!40000 ALTER TABLE `sys_seq` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 sys_user
@@ -4562,7 +4562,7 @@ CREATE TABLE `sys_user` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户信息表';
 
-LOCK TABLES `sys_user` WRITE;
+-- LOCK TABLES `sys_user` WRITE;
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
 
 INSERT INTO `sys_user` (`user_id`, `dept_id`, `user_name`, `nick_name`, `user_type`, `email`, `phonenumber`, `sex`, `avatar`, `password`, `status`, `del_flag`, `login_ip`, `login_date`, `pwd_update_date`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`)
@@ -4576,7 +4576,7 @@ VALUES
 	(105,NULL,'泰之菩','泰之菩','00','948517839@qq.com','13621088515','0','','$2a$10$8gcvgoUsgJQyFCi8nZ4HKuIrWc6TDkDWJLxLVW5O1soDNFAlDzuHG','0','0','',NULL,NULL,'','2026-02-01 18:55:18','',NULL,NULL);
 
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 # 转储表 sys_user_role
@@ -4590,7 +4590,7 @@ CREATE TABLE `sys_user_role` (
   PRIMARY KEY (`user_id`,`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户和角色关联表';
 
-LOCK TABLES `sys_user_role` WRITE;
+-- LOCK TABLES `sys_user_role` WRITE;
 /*!40000 ALTER TABLE `sys_user_role` DISABLE KEYS */;
 
 INSERT INTO `sys_user_role` (`user_id`, `role_id`)
@@ -4603,7 +4603,7 @@ VALUES
 	(105,100);
 
 /*!40000 ALTER TABLE `sys_user_role` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
 
 
