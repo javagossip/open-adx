@@ -33,7 +33,7 @@ fi
 
 # 2. 进程停止之后，执行启动命令
 echo "正在启动 ${PROCESS_NAME} 进程..."
-nohup java -Xms2g -Xmx2g -XX:+UseZGC -jar ${JAR_PATH} > /dev/null 2>&1 &
+nohup java -Xms1g -Xmx1g -XX:+UseZGC -jar ${JAR_PATH} > /dev/null 2>&1 &
 
 if [ $? -eq 0 ]; then
     echo "${PROCESS_NAME} 进程已成功启动。"
