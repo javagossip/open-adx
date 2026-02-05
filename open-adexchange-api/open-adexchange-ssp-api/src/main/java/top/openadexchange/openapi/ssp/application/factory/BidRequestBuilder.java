@@ -3,6 +3,7 @@ package top.openadexchange.openapi.ssp.application.factory;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -161,7 +162,7 @@ public class BidRequestBuilder {
             builder.setOsv(device.getOsv());
         }
         if (device.getCarrier() != null) {
-            builder.setCarrier(device.getCarrier());
+            builder.setCarrier(NumberUtils.toInt(device.getCarrier()));
         }
         builder.setH(device.getH() == null ? 0 : device.getH());
         builder.setW(device.getW() == null ? 0 : device.getW());

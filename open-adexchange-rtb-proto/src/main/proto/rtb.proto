@@ -152,7 +152,7 @@ message BidRequest {
     optional string model = 7;       //设备型号, 如：iPhone
     optional string os = 8;          //操作系统，如：ios/Android
     optional string osv = 9;         //操作系统版本
-    optional string carrier = 10;    //运营商, 0-未知,1-移动,2-联通,3-电信
+    optional uint32 carrier = 10;    //运营商, 0-未知,1-移动,2-联通,3-电信
 
     optional uint32 connection_type = 11; //网络连接类型, 1-wifi; 2-2G;3-3G;4-4G;5-5G; 0-未知
     optional string ifa = 12;      //明文设备码，iOS → IDFA,Android → GAID

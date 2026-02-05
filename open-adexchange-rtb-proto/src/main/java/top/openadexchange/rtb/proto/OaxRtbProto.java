@@ -15101,7 +15101,7 @@ java.lang.String defaultValue) {
        *运营商, 0-未知,1-移动,2-联通,3-电信
        * </pre>
        *
-       * <code>optional string carrier = 10;</code>
+       * <code>optional uint32 carrier = 10;</code>
        * @return Whether the carrier field is set.
        */
       boolean hasCarrier();
@@ -15110,20 +15110,10 @@ java.lang.String defaultValue) {
        *运营商, 0-未知,1-移动,2-联通,3-电信
        * </pre>
        *
-       * <code>optional string carrier = 10;</code>
+       * <code>optional uint32 carrier = 10;</code>
        * @return The carrier.
        */
-      java.lang.String getCarrier();
-      /**
-       * <pre>
-       *运营商, 0-未知,1-移动,2-联通,3-电信
-       * </pre>
-       *
-       * <code>optional string carrier = 10;</code>
-       * @return The bytes for carrier.
-       */
-      com.google.protobuf.ByteString
-          getCarrierBytes();
+      int getCarrier();
 
       /**
        * <pre>
@@ -15403,7 +15393,6 @@ java.lang.String defaultValue) {
         model_ = "";
         os_ = "";
         osv_ = "";
-        carrier_ = "";
         ifa_ = "";
         didmd5_ = "";
         mac_ = "";
@@ -15887,14 +15876,13 @@ java.lang.String defaultValue) {
       }
 
       public static final int CARRIER_FIELD_NUMBER = 10;
-      @SuppressWarnings("serial")
-      private volatile java.lang.Object carrier_ = "";
+      private int carrier_ = 0;
       /**
        * <pre>
        *运营商, 0-未知,1-移动,2-联通,3-电信
        * </pre>
        *
-       * <code>optional string carrier = 10;</code>
+       * <code>optional uint32 carrier = 10;</code>
        * @return Whether the carrier field is set.
        */
       @java.lang.Override
@@ -15906,45 +15894,12 @@ java.lang.String defaultValue) {
        *运营商, 0-未知,1-移动,2-联通,3-电信
        * </pre>
        *
-       * <code>optional string carrier = 10;</code>
+       * <code>optional uint32 carrier = 10;</code>
        * @return The carrier.
        */
       @java.lang.Override
-      public java.lang.String getCarrier() {
-        java.lang.Object ref = carrier_;
-        if (ref instanceof java.lang.String) {
-          return (java.lang.String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            carrier_ = s;
-          }
-          return s;
-        }
-      }
-      /**
-       * <pre>
-       *运营商, 0-未知,1-移动,2-联通,3-电信
-       * </pre>
-       *
-       * <code>optional string carrier = 10;</code>
-       * @return The bytes for carrier.
-       */
-      @java.lang.Override
-      public com.google.protobuf.ByteString
-          getCarrierBytes() {
-        java.lang.Object ref = carrier_;
-        if (ref instanceof java.lang.String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          carrier_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
+      public int getCarrier() {
+        return carrier_;
       }
 
       public static final int CONNECTION_TYPE_FIELD_NUMBER = 11;
@@ -16450,7 +16405,7 @@ java.lang.String defaultValue) {
           com.google.protobuf.GeneratedMessageV3.writeString(output, 9, osv_);
         }
         if (((bitField0_ & 0x00000100) != 0)) {
-          com.google.protobuf.GeneratedMessageV3.writeString(output, 10, carrier_);
+          output.writeUInt32(10, carrier_);
         }
         if (((bitField0_ & 0x00000200) != 0)) {
           output.writeUInt32(11, connectionType_);
@@ -16516,7 +16471,8 @@ java.lang.String defaultValue) {
           size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, osv_);
         }
         if (((bitField0_ & 0x00000100) != 0)) {
-          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, carrier_);
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32Size(10, carrier_);
         }
         if (((bitField0_ & 0x00000200) != 0)) {
           size += com.google.protobuf.CodedOutputStream
@@ -16603,8 +16559,8 @@ java.lang.String defaultValue) {
         }
         if (hasCarrier() != other.hasCarrier()) return false;
         if (hasCarrier()) {
-          if (!getCarrier()
-              .equals(other.getCarrier())) return false;
+          if (getCarrier()
+              != other.getCarrier()) return false;
         }
         if (hasConnectionType() != other.hasConnectionType()) return false;
         if (hasConnectionType()) {
@@ -16698,7 +16654,7 @@ java.lang.String defaultValue) {
         }
         if (hasCarrier()) {
           hash = (37 * hash) + CARRIER_FIELD_NUMBER;
-          hash = (53 * hash) + getCarrier().hashCode();
+          hash = (53 * hash) + getCarrier();
         }
         if (hasConnectionType()) {
           hash = (37 * hash) + CONNECTION_TYPE_FIELD_NUMBER;
@@ -16887,7 +16843,7 @@ java.lang.String defaultValue) {
           model_ = "";
           os_ = "";
           osv_ = "";
-          carrier_ = "";
+          carrier_ = 0;
           connectionType_ = 0;
           ifa_ = "";
           didmd5_ = "";
@@ -17122,9 +17078,7 @@ java.lang.String defaultValue) {
             onChanged();
           }
           if (other.hasCarrier()) {
-            carrier_ = other.carrier_;
-            bitField0_ |= 0x00000100;
-            onChanged();
+            setCarrier(other.getCarrier());
           }
           if (other.hasConnectionType()) {
             setConnectionType(other.getConnectionType());
@@ -17245,11 +17199,11 @@ java.lang.String defaultValue) {
                   bitField0_ |= 0x00000080;
                   break;
                 } // case 74
-                case 82: {
-                  carrier_ = input.readBytes();
+                case 80: {
+                  carrier_ = input.readUInt32();
                   bitField0_ |= 0x00000100;
                   break;
-                } // case 82
+                } // case 80
                 case 88: {
                   connectionType_ = input.readUInt32();
                   bitField0_ |= 0x00000200;
@@ -18091,15 +18045,16 @@ java.lang.String defaultValue) {
           return this;
         }
 
-        private java.lang.Object carrier_ = "";
+        private int carrier_ ;
         /**
          * <pre>
          *运营商, 0-未知,1-移动,2-联通,3-电信
          * </pre>
          *
-         * <code>optional string carrier = 10;</code>
+         * <code>optional uint32 carrier = 10;</code>
          * @return Whether the carrier field is set.
          */
+        @java.lang.Override
         public boolean hasCarrier() {
           return ((bitField0_ & 0x00000100) != 0);
         }
@@ -18108,56 +18063,24 @@ java.lang.String defaultValue) {
          *运营商, 0-未知,1-移动,2-联通,3-电信
          * </pre>
          *
-         * <code>optional string carrier = 10;</code>
+         * <code>optional uint32 carrier = 10;</code>
          * @return The carrier.
          */
-        public java.lang.String getCarrier() {
-          java.lang.Object ref = carrier_;
-          if (!(ref instanceof java.lang.String)) {
-            com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
-            java.lang.String s = bs.toStringUtf8();
-            if (bs.isValidUtf8()) {
-              carrier_ = s;
-            }
-            return s;
-          } else {
-            return (java.lang.String) ref;
-          }
+        @java.lang.Override
+        public int getCarrier() {
+          return carrier_;
         }
         /**
          * <pre>
          *运营商, 0-未知,1-移动,2-联通,3-电信
          * </pre>
          *
-         * <code>optional string carrier = 10;</code>
-         * @return The bytes for carrier.
-         */
-        public com.google.protobuf.ByteString
-            getCarrierBytes() {
-          java.lang.Object ref = carrier_;
-          if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8(
-                    (java.lang.String) ref);
-            carrier_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
-        }
-        /**
-         * <pre>
-         *运营商, 0-未知,1-移动,2-联通,3-电信
-         * </pre>
-         *
-         * <code>optional string carrier = 10;</code>
+         * <code>optional uint32 carrier = 10;</code>
          * @param value The carrier to set.
          * @return This builder for chaining.
          */
-        public Builder setCarrier(
-            java.lang.String value) {
-          if (value == null) { throw new NullPointerException(); }
+        public Builder setCarrier(int value) {
+
           carrier_ = value;
           bitField0_ |= 0x00000100;
           onChanged();
@@ -18168,29 +18091,12 @@ java.lang.String defaultValue) {
          *运营商, 0-未知,1-移动,2-联通,3-电信
          * </pre>
          *
-         * <code>optional string carrier = 10;</code>
+         * <code>optional uint32 carrier = 10;</code>
          * @return This builder for chaining.
          */
         public Builder clearCarrier() {
-          carrier_ = getDefaultInstance().getCarrier();
           bitField0_ = (bitField0_ & ~0x00000100);
-          onChanged();
-          return this;
-        }
-        /**
-         * <pre>
-         *运营商, 0-未知,1-移动,2-联通,3-电信
-         * </pre>
-         *
-         * <code>optional string carrier = 10;</code>
-         * @param value The bytes for carrier to set.
-         * @return This builder for chaining.
-         */
-        public Builder setCarrierBytes(
-            com.google.protobuf.ByteString value) {
-          if (value == null) { throw new NullPointerException(); }
-          carrier_ = value;
-          bitField0_ |= 0x00000100;
+          carrier_ = 0;
           onChanged();
           return this;
         }
@@ -37688,7 +37594,7 @@ java.lang.String defaultValue) {
       "keywords\030\003 \001(\t\032\324\002\n\006Device\022\n\n\002ua\030\001 \001(\t\022\n\n" +
       "\002ip\030\003 \001(\t\022\014\n\004ipv6\030\004 \001(\t\022\023\n\013device_type\030\005" +
       " \001(\r\022\014\n\004make\030\006 \001(\t\022\r\n\005model\030\007 \001(\t\022\n\n\002os\030" +
-      "\010 \001(\t\022\013\n\003osv\030\t \001(\t\022\017\n\007carrier\030\n \001(\t\022\027\n\017c" +
+      "\010 \001(\t\022\013\n\003osv\030\t \001(\t\022\017\n\007carrier\030\n \001(\r\022\027\n\017c" +
       "onnection_type\030\013 \001(\r\022\013\n\003ifa\030\014 \001(\t\022\022\n\006did" +
       "md5\030\r \001(\tB\002\030\001\022\017\n\003mac\030\016 \001(\tB\002\030\001\022\022\n\006macmd5" +
       "\030\017 \001(\tB\002\030\001\022\020\n\004adid\030\020 \001(\tB\002\030\001\022\t\n\001h\030\021 \001(\r\022" +
