@@ -46,6 +46,7 @@ public class BidRequestBuilder {
         builder.setId(request.getId());
         builder.setAt(2);
         builder.setTest(request.isTest());
+        builder.setDebug(request.isDebug());
         request.getImp().forEach(imp -> {
             builder.addImp(buildImp(request.isTest(), imp, builder));
         });

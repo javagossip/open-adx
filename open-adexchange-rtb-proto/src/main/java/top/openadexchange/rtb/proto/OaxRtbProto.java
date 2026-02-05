@@ -208,6 +208,17 @@ public final class OaxRtbProto {
     boolean getTest();
 
     /**
+     * <code>optional bool debug = 12;</code>
+     * @return Whether the debug field is set.
+     */
+    boolean hasDebug();
+    /**
+     * <code>optional bool debug = 12;</code>
+     * @return The debug.
+     */
+    boolean getDebug();
+
+    /**
      * <pre>
      *竞价方式：1-一价；2-二价
      * </pre>
@@ -13914,21 +13925,21 @@ java.lang.String defaultValue) {
       /**
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-       *     See rtb.proto;l=139
+       *     See rtb.proto;l=140
        * @return Whether the id field is set.
        */
       @java.lang.Deprecated boolean hasId();
       /**
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-       *     See rtb.proto;l=139
+       *     See rtb.proto;l=140
        * @return The id.
        */
       @java.lang.Deprecated java.lang.String getId();
       /**
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-       *     See rtb.proto;l=139
+       *     See rtb.proto;l=140
        * @return The bytes for id.
        */
       @java.lang.Deprecated com.google.protobuf.ByteString
@@ -14013,7 +14024,7 @@ java.lang.String defaultValue) {
       /**
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-       *     See rtb.proto;l=139
+       *     See rtb.proto;l=140
        * @return Whether the id field is set.
        */
       @java.lang.Override
@@ -14023,7 +14034,7 @@ java.lang.String defaultValue) {
       /**
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-       *     See rtb.proto;l=139
+       *     See rtb.proto;l=140
        * @return The id.
        */
       @java.lang.Override
@@ -14044,7 +14055,7 @@ java.lang.String defaultValue) {
       /**
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-       *     See rtb.proto;l=139
+       *     See rtb.proto;l=140
        * @return The bytes for id.
        */
       @java.lang.Override
@@ -14558,7 +14569,7 @@ java.lang.String defaultValue) {
         /**
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-         *     See rtb.proto;l=139
+         *     See rtb.proto;l=140
          * @return Whether the id field is set.
          */
         @java.lang.Deprecated public boolean hasId() {
@@ -14567,7 +14578,7 @@ java.lang.String defaultValue) {
         /**
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-         *     See rtb.proto;l=139
+         *     See rtb.proto;l=140
          * @return The id.
          */
         @java.lang.Deprecated public java.lang.String getId() {
@@ -14587,7 +14598,7 @@ java.lang.String defaultValue) {
         /**
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-         *     See rtb.proto;l=139
+         *     See rtb.proto;l=140
          * @return The bytes for id.
          */
         @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -14606,7 +14617,7 @@ java.lang.String defaultValue) {
         /**
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-         *     See rtb.proto;l=139
+         *     See rtb.proto;l=140
          * @param value The id to set.
          * @return This builder for chaining.
          */
@@ -14621,7 +14632,7 @@ java.lang.String defaultValue) {
         /**
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-         *     See rtb.proto;l=139
+         *     See rtb.proto;l=140
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearId() {
@@ -14633,7 +14644,7 @@ java.lang.String defaultValue) {
         /**
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Content.id is deprecated.
-         *     See rtb.proto;l=139
+         *     See rtb.proto;l=140
          * @param value The bytes for id to set.
          * @return This builder for chaining.
          */
@@ -15170,7 +15181,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string didmd5 = 13 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-       *     See rtb.proto;l=158
+       *     See rtb.proto;l=159
        * @return Whether the didmd5 field is set.
        */
       @java.lang.Deprecated boolean hasDidmd5();
@@ -15181,7 +15192,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string didmd5 = 13 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-       *     See rtb.proto;l=158
+       *     See rtb.proto;l=159
        * @return The didmd5.
        */
       @java.lang.Deprecated java.lang.String getDidmd5();
@@ -15192,7 +15203,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string didmd5 = 13 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-       *     See rtb.proto;l=158
+       *     See rtb.proto;l=159
        * @return The bytes for didmd5.
        */
       @java.lang.Deprecated com.google.protobuf.ByteString
@@ -15205,7 +15216,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string mac = 14 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-       *     See rtb.proto;l=159
+       *     See rtb.proto;l=160
        * @return Whether the mac field is set.
        */
       @java.lang.Deprecated boolean hasMac();
@@ -15216,7 +15227,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string mac = 14 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-       *     See rtb.proto;l=159
+       *     See rtb.proto;l=160
        * @return The mac.
        */
       @java.lang.Deprecated java.lang.String getMac();
@@ -15227,7 +15238,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string mac = 14 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-       *     See rtb.proto;l=159
+       *     See rtb.proto;l=160
        * @return The bytes for mac.
        */
       @java.lang.Deprecated com.google.protobuf.ByteString
@@ -15240,7 +15251,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string macmd5 = 15 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-       *     See rtb.proto;l=160
+       *     See rtb.proto;l=161
        * @return Whether the macmd5 field is set.
        */
       @java.lang.Deprecated boolean hasMacmd5();
@@ -15251,7 +15262,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string macmd5 = 15 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-       *     See rtb.proto;l=160
+       *     See rtb.proto;l=161
        * @return The macmd5.
        */
       @java.lang.Deprecated java.lang.String getMacmd5();
@@ -15262,7 +15273,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string macmd5 = 15 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-       *     See rtb.proto;l=160
+       *     See rtb.proto;l=161
        * @return The bytes for macmd5.
        */
       @java.lang.Deprecated com.google.protobuf.ByteString
@@ -15275,7 +15286,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string adid = 16 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-       *     See rtb.proto;l=161
+       *     See rtb.proto;l=162
        * @return Whether the adid field is set.
        */
       @java.lang.Deprecated boolean hasAdid();
@@ -15286,7 +15297,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string adid = 16 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-       *     See rtb.proto;l=161
+       *     See rtb.proto;l=162
        * @return The adid.
        */
       @java.lang.Deprecated java.lang.String getAdid();
@@ -15297,7 +15308,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string adid = 16 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-       *     See rtb.proto;l=161
+       *     See rtb.proto;l=162
        * @return The bytes for adid.
        */
       @java.lang.Deprecated com.google.protobuf.ByteString
@@ -16000,7 +16011,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string didmd5 = 13 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-       *     See rtb.proto;l=158
+       *     See rtb.proto;l=159
        * @return Whether the didmd5 field is set.
        */
       @java.lang.Override
@@ -16014,7 +16025,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string didmd5 = 13 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-       *     See rtb.proto;l=158
+       *     See rtb.proto;l=159
        * @return The didmd5.
        */
       @java.lang.Override
@@ -16039,7 +16050,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string didmd5 = 13 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-       *     See rtb.proto;l=158
+       *     See rtb.proto;l=159
        * @return The bytes for didmd5.
        */
       @java.lang.Override
@@ -16067,7 +16078,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string mac = 14 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-       *     See rtb.proto;l=159
+       *     See rtb.proto;l=160
        * @return Whether the mac field is set.
        */
       @java.lang.Override
@@ -16081,7 +16092,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string mac = 14 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-       *     See rtb.proto;l=159
+       *     See rtb.proto;l=160
        * @return The mac.
        */
       @java.lang.Override
@@ -16106,7 +16117,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string mac = 14 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-       *     See rtb.proto;l=159
+       *     See rtb.proto;l=160
        * @return The bytes for mac.
        */
       @java.lang.Override
@@ -16134,7 +16145,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string macmd5 = 15 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-       *     See rtb.proto;l=160
+       *     See rtb.proto;l=161
        * @return Whether the macmd5 field is set.
        */
       @java.lang.Override
@@ -16148,7 +16159,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string macmd5 = 15 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-       *     See rtb.proto;l=160
+       *     See rtb.proto;l=161
        * @return The macmd5.
        */
       @java.lang.Override
@@ -16173,7 +16184,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string macmd5 = 15 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-       *     See rtb.proto;l=160
+       *     See rtb.proto;l=161
        * @return The bytes for macmd5.
        */
       @java.lang.Override
@@ -16201,7 +16212,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string adid = 16 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-       *     See rtb.proto;l=161
+       *     See rtb.proto;l=162
        * @return Whether the adid field is set.
        */
       @java.lang.Override
@@ -16215,7 +16226,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string adid = 16 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-       *     See rtb.proto;l=161
+       *     See rtb.proto;l=162
        * @return The adid.
        */
       @java.lang.Override
@@ -16240,7 +16251,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string adid = 16 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-       *     See rtb.proto;l=161
+       *     See rtb.proto;l=162
        * @return The bytes for adid.
        */
       @java.lang.Override
@@ -18269,7 +18280,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string didmd5 = 13 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-         *     See rtb.proto;l=158
+         *     See rtb.proto;l=159
          * @return Whether the didmd5 field is set.
          */
         @java.lang.Deprecated public boolean hasDidmd5() {
@@ -18282,7 +18293,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string didmd5 = 13 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-         *     See rtb.proto;l=158
+         *     See rtb.proto;l=159
          * @return The didmd5.
          */
         @java.lang.Deprecated public java.lang.String getDidmd5() {
@@ -18306,7 +18317,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string didmd5 = 13 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-         *     See rtb.proto;l=158
+         *     See rtb.proto;l=159
          * @return The bytes for didmd5.
          */
         @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -18329,7 +18340,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string didmd5 = 13 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-         *     See rtb.proto;l=158
+         *     See rtb.proto;l=159
          * @param value The didmd5 to set.
          * @return This builder for chaining.
          */
@@ -18348,7 +18359,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string didmd5 = 13 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-         *     See rtb.proto;l=158
+         *     See rtb.proto;l=159
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearDidmd5() {
@@ -18364,7 +18375,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string didmd5 = 13 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.didmd5 is deprecated.
-         *     See rtb.proto;l=158
+         *     See rtb.proto;l=159
          * @param value The bytes for didmd5 to set.
          * @return This builder for chaining.
          */
@@ -18385,7 +18396,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string mac = 14 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-         *     See rtb.proto;l=159
+         *     See rtb.proto;l=160
          * @return Whether the mac field is set.
          */
         @java.lang.Deprecated public boolean hasMac() {
@@ -18398,7 +18409,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string mac = 14 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-         *     See rtb.proto;l=159
+         *     See rtb.proto;l=160
          * @return The mac.
          */
         @java.lang.Deprecated public java.lang.String getMac() {
@@ -18422,7 +18433,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string mac = 14 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-         *     See rtb.proto;l=159
+         *     See rtb.proto;l=160
          * @return The bytes for mac.
          */
         @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -18445,7 +18456,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string mac = 14 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-         *     See rtb.proto;l=159
+         *     See rtb.proto;l=160
          * @param value The mac to set.
          * @return This builder for chaining.
          */
@@ -18464,7 +18475,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string mac = 14 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-         *     See rtb.proto;l=159
+         *     See rtb.proto;l=160
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearMac() {
@@ -18480,7 +18491,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string mac = 14 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.mac is deprecated.
-         *     See rtb.proto;l=159
+         *     See rtb.proto;l=160
          * @param value The bytes for mac to set.
          * @return This builder for chaining.
          */
@@ -18501,7 +18512,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string macmd5 = 15 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-         *     See rtb.proto;l=160
+         *     See rtb.proto;l=161
          * @return Whether the macmd5 field is set.
          */
         @java.lang.Deprecated public boolean hasMacmd5() {
@@ -18514,7 +18525,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string macmd5 = 15 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-         *     See rtb.proto;l=160
+         *     See rtb.proto;l=161
          * @return The macmd5.
          */
         @java.lang.Deprecated public java.lang.String getMacmd5() {
@@ -18538,7 +18549,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string macmd5 = 15 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-         *     See rtb.proto;l=160
+         *     See rtb.proto;l=161
          * @return The bytes for macmd5.
          */
         @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -18561,7 +18572,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string macmd5 = 15 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-         *     See rtb.proto;l=160
+         *     See rtb.proto;l=161
          * @param value The macmd5 to set.
          * @return This builder for chaining.
          */
@@ -18580,7 +18591,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string macmd5 = 15 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-         *     See rtb.proto;l=160
+         *     See rtb.proto;l=161
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearMacmd5() {
@@ -18596,7 +18607,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string macmd5 = 15 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.macmd5 is deprecated.
-         *     See rtb.proto;l=160
+         *     See rtb.proto;l=161
          * @param value The bytes for macmd5 to set.
          * @return This builder for chaining.
          */
@@ -18617,7 +18628,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string adid = 16 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-         *     See rtb.proto;l=161
+         *     See rtb.proto;l=162
          * @return Whether the adid field is set.
          */
         @java.lang.Deprecated public boolean hasAdid() {
@@ -18630,7 +18641,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string adid = 16 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-         *     See rtb.proto;l=161
+         *     See rtb.proto;l=162
          * @return The adid.
          */
         @java.lang.Deprecated public java.lang.String getAdid() {
@@ -18654,7 +18665,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string adid = 16 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-         *     See rtb.proto;l=161
+         *     See rtb.proto;l=162
          * @return The bytes for adid.
          */
         @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -18677,7 +18688,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string adid = 16 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-         *     See rtb.proto;l=161
+         *     See rtb.proto;l=162
          * @param value The adid to set.
          * @return This builder for chaining.
          */
@@ -18696,7 +18707,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string adid = 16 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-         *     See rtb.proto;l=161
+         *     See rtb.proto;l=162
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearAdid() {
@@ -18712,7 +18723,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string adid = 16 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Device.adid is deprecated.
-         *     See rtb.proto;l=161
+         *     See rtb.proto;l=162
          * @param value The bytes for adid to set.
          * @return This builder for chaining.
          */
@@ -19136,7 +19147,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string region = 4 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-       *     See rtb.proto;l=173
+       *     See rtb.proto;l=174
        * @return Whether the region field is set.
        */
       @java.lang.Deprecated boolean hasRegion();
@@ -19147,7 +19158,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string region = 4 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-       *     See rtb.proto;l=173
+       *     See rtb.proto;l=174
        * @return The region.
        */
       @java.lang.Deprecated java.lang.String getRegion();
@@ -19158,7 +19169,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string region = 4 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-       *     See rtb.proto;l=173
+       *     See rtb.proto;l=174
        * @return The bytes for region.
        */
       @java.lang.Deprecated com.google.protobuf.ByteString
@@ -19171,7 +19182,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string city = 5 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-       *     See rtb.proto;l=174
+       *     See rtb.proto;l=175
        * @return Whether the city field is set.
        */
       @java.lang.Deprecated boolean hasCity();
@@ -19182,7 +19193,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string city = 5 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-       *     See rtb.proto;l=174
+       *     See rtb.proto;l=175
        * @return The city.
        */
       @java.lang.Deprecated java.lang.String getCity();
@@ -19193,7 +19204,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string city = 5 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-       *     See rtb.proto;l=174
+       *     See rtb.proto;l=175
        * @return The bytes for city.
        */
       @java.lang.Deprecated com.google.protobuf.ByteString
@@ -19206,7 +19217,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional uint32 area_code = 6 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
-       *     See rtb.proto;l=176
+       *     See rtb.proto;l=177
        * @return Whether the areaCode field is set.
        */
       @java.lang.Deprecated boolean hasAreaCode();
@@ -19217,7 +19228,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional uint32 area_code = 6 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
-       *     See rtb.proto;l=176
+       *     See rtb.proto;l=177
        * @return The areaCode.
        */
       @java.lang.Deprecated int getAreaCode();
@@ -19387,7 +19398,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string region = 4 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-       *     See rtb.proto;l=173
+       *     See rtb.proto;l=174
        * @return Whether the region field is set.
        */
       @java.lang.Override
@@ -19401,7 +19412,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string region = 4 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-       *     See rtb.proto;l=173
+       *     See rtb.proto;l=174
        * @return The region.
        */
       @java.lang.Override
@@ -19426,7 +19437,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string region = 4 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-       *     See rtb.proto;l=173
+       *     See rtb.proto;l=174
        * @return The bytes for region.
        */
       @java.lang.Override
@@ -19454,7 +19465,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string city = 5 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-       *     See rtb.proto;l=174
+       *     See rtb.proto;l=175
        * @return Whether the city field is set.
        */
       @java.lang.Override
@@ -19468,7 +19479,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string city = 5 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-       *     See rtb.proto;l=174
+       *     See rtb.proto;l=175
        * @return The city.
        */
       @java.lang.Override
@@ -19493,7 +19504,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string city = 5 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-       *     See rtb.proto;l=174
+       *     See rtb.proto;l=175
        * @return The bytes for city.
        */
       @java.lang.Override
@@ -19520,7 +19531,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional uint32 area_code = 6 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
-       *     See rtb.proto;l=176
+       *     See rtb.proto;l=177
        * @return Whether the areaCode field is set.
        */
       @java.lang.Override
@@ -19534,7 +19545,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional uint32 area_code = 6 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
-       *     See rtb.proto;l=176
+       *     See rtb.proto;l=177
        * @return The areaCode.
        */
       @java.lang.Override
@@ -20295,7 +20306,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string region = 4 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-         *     See rtb.proto;l=173
+         *     See rtb.proto;l=174
          * @return Whether the region field is set.
          */
         @java.lang.Deprecated public boolean hasRegion() {
@@ -20308,7 +20319,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string region = 4 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-         *     See rtb.proto;l=173
+         *     See rtb.proto;l=174
          * @return The region.
          */
         @java.lang.Deprecated public java.lang.String getRegion() {
@@ -20332,7 +20343,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string region = 4 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-         *     See rtb.proto;l=173
+         *     See rtb.proto;l=174
          * @return The bytes for region.
          */
         @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -20355,7 +20366,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string region = 4 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-         *     See rtb.proto;l=173
+         *     See rtb.proto;l=174
          * @param value The region to set.
          * @return This builder for chaining.
          */
@@ -20374,7 +20385,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string region = 4 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-         *     See rtb.proto;l=173
+         *     See rtb.proto;l=174
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearRegion() {
@@ -20390,7 +20401,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string region = 4 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.region is deprecated.
-         *     See rtb.proto;l=173
+         *     See rtb.proto;l=174
          * @param value The bytes for region to set.
          * @return This builder for chaining.
          */
@@ -20411,7 +20422,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string city = 5 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-         *     See rtb.proto;l=174
+         *     See rtb.proto;l=175
          * @return Whether the city field is set.
          */
         @java.lang.Deprecated public boolean hasCity() {
@@ -20424,7 +20435,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string city = 5 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-         *     See rtb.proto;l=174
+         *     See rtb.proto;l=175
          * @return The city.
          */
         @java.lang.Deprecated public java.lang.String getCity() {
@@ -20448,7 +20459,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string city = 5 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-         *     See rtb.proto;l=174
+         *     See rtb.proto;l=175
          * @return The bytes for city.
          */
         @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -20471,7 +20482,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string city = 5 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-         *     See rtb.proto;l=174
+         *     See rtb.proto;l=175
          * @param value The city to set.
          * @return This builder for chaining.
          */
@@ -20490,7 +20501,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string city = 5 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-         *     See rtb.proto;l=174
+         *     See rtb.proto;l=175
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearCity() {
@@ -20506,7 +20517,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string city = 5 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.city is deprecated.
-         *     See rtb.proto;l=174
+         *     See rtb.proto;l=175
          * @param value The bytes for city to set.
          * @return This builder for chaining.
          */
@@ -20527,7 +20538,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional uint32 area_code = 6 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
-         *     See rtb.proto;l=176
+         *     See rtb.proto;l=177
          * @return Whether the areaCode field is set.
          */
         @java.lang.Override
@@ -20541,7 +20552,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional uint32 area_code = 6 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
-         *     See rtb.proto;l=176
+         *     See rtb.proto;l=177
          * @return The areaCode.
          */
         @java.lang.Override
@@ -20555,7 +20566,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional uint32 area_code = 6 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
-         *     See rtb.proto;l=176
+         *     See rtb.proto;l=177
          * @param value The areaCode to set.
          * @return This builder for chaining.
          */
@@ -20573,7 +20584,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional uint32 area_code = 6 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.Geo.area_code is deprecated.
-         *     See rtb.proto;l=176
+         *     See rtb.proto;l=177
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearAreaCode() {
@@ -20658,7 +20669,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-       *     See rtb.proto;l=183
+       *     See rtb.proto;l=184
        * @return Whether the id field is set.
        */
       @java.lang.Deprecated boolean hasId();
@@ -20669,7 +20680,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-       *     See rtb.proto;l=183
+       *     See rtb.proto;l=184
        * @return The id.
        */
       @java.lang.Deprecated java.lang.String getId();
@@ -20680,7 +20691,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-       *     See rtb.proto;l=183
+       *     See rtb.proto;l=184
        * @return The bytes for id.
        */
       @java.lang.Deprecated com.google.protobuf.ByteString
@@ -20734,7 +20745,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-       *     See rtb.proto;l=183
+       *     See rtb.proto;l=184
        * @return Whether the id field is set.
        */
       @java.lang.Override
@@ -20748,7 +20759,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-       *     See rtb.proto;l=183
+       *     See rtb.proto;l=184
        * @return The id.
        */
       @java.lang.Override
@@ -20773,7 +20784,7 @@ java.lang.String defaultValue) {
        *
        * <code>optional string id = 1 [deprecated = true];</code>
        * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-       *     See rtb.proto;l=183
+       *     See rtb.proto;l=184
        * @return The bytes for id.
        */
       @java.lang.Override
@@ -21177,7 +21188,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-         *     See rtb.proto;l=183
+         *     See rtb.proto;l=184
          * @return Whether the id field is set.
          */
         @java.lang.Deprecated public boolean hasId() {
@@ -21190,7 +21201,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-         *     See rtb.proto;l=183
+         *     See rtb.proto;l=184
          * @return The id.
          */
         @java.lang.Deprecated public java.lang.String getId() {
@@ -21214,7 +21225,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-         *     See rtb.proto;l=183
+         *     See rtb.proto;l=184
          * @return The bytes for id.
          */
         @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -21237,7 +21248,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-         *     See rtb.proto;l=183
+         *     See rtb.proto;l=184
          * @param value The id to set.
          * @return This builder for chaining.
          */
@@ -21256,7 +21267,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-         *     See rtb.proto;l=183
+         *     See rtb.proto;l=184
          * @return This builder for chaining.
          */
         @java.lang.Deprecated public Builder clearId() {
@@ -21272,7 +21283,7 @@ java.lang.String defaultValue) {
          *
          * <code>optional string id = 1 [deprecated = true];</code>
          * @deprecated top.openadexchange.rtb.proto.BidRequest.User.id is deprecated.
-         *     See rtb.proto;l=183
+         *     See rtb.proto;l=184
          * @param value The bytes for id to set.
          * @return This builder for chaining.
          */
@@ -21648,6 +21659,25 @@ java.lang.String defaultValue) {
       return test_;
     }
 
+    public static final int DEBUG_FIELD_NUMBER = 12;
+    private boolean debug_ = false;
+    /**
+     * <code>optional bool debug = 12;</code>
+     * @return Whether the debug field is set.
+     */
+    @java.lang.Override
+    public boolean hasDebug() {
+      return ((bitField0_ & 0x00000080) != 0);
+    }
+    /**
+     * <code>optional bool debug = 12;</code>
+     * @return The debug.
+     */
+    @java.lang.Override
+    public boolean getDebug() {
+      return debug_;
+    }
+
     public static final int AT_FIELD_NUMBER = 8;
     private int at_ = 0;
     /**
@@ -21660,7 +21690,7 @@ java.lang.String defaultValue) {
      */
     @java.lang.Override
     public boolean hasAt() {
-      return ((bitField0_ & 0x00000080) != 0);
+      return ((bitField0_ & 0x00000100) != 0);
     }
     /**
      * <pre>
@@ -21687,7 +21717,7 @@ java.lang.String defaultValue) {
      */
     @java.lang.Override
     public boolean hasTmax() {
-      return ((bitField0_ & 0x00000100) != 0);
+      return ((bitField0_ & 0x00000200) != 0);
     }
     /**
      * <pre>
@@ -21857,10 +21887,10 @@ java.lang.String defaultValue) {
       if (((bitField0_ & 0x00000040) != 0)) {
         output.writeBool(7, test_);
       }
-      if (((bitField0_ & 0x00000080) != 0)) {
+      if (((bitField0_ & 0x00000100) != 0)) {
         output.writeUInt32(8, at_);
       }
-      if (((bitField0_ & 0x00000100) != 0)) {
+      if (((bitField0_ & 0x00000200) != 0)) {
         output.writeUInt32(9, tmax_);
       }
       com.google.protobuf.GeneratedMessageV3
@@ -21871,6 +21901,9 @@ java.lang.String defaultValue) {
           10);
       if (((bitField0_ & 0x00000002) != 0)) {
         output.writeMessage(11, getPublisher());
+      }
+      if (((bitField0_ & 0x00000080) != 0)) {
+        output.writeBool(12, debug_);
       }
       extensionWriter.writeUntil(300, output);
       getUnknownFields().writeTo(output);
@@ -21909,11 +21942,11 @@ java.lang.String defaultValue) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(7, test_);
       }
-      if (((bitField0_ & 0x00000080) != 0)) {
+      if (((bitField0_ & 0x00000100) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(8, at_);
       }
-      if (((bitField0_ & 0x00000100) != 0)) {
+      if (((bitField0_ & 0x00000200) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(9, tmax_);
       }
@@ -21930,6 +21963,10 @@ java.lang.String defaultValue) {
       if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(11, getPublisher());
+      }
+      if (((bitField0_ & 0x00000080) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(12, debug_);
       }
       size += extensionsSerializedSize();
       size += getUnknownFields().getSerializedSize();
@@ -21983,6 +22020,11 @@ java.lang.String defaultValue) {
       if (hasTest()) {
         if (getTest()
             != other.getTest()) return false;
+      }
+      if (hasDebug() != other.hasDebug()) return false;
+      if (hasDebug()) {
+        if (getDebug()
+            != other.getDebug()) return false;
       }
       if (hasAt() != other.hasAt()) return false;
       if (hasAt()) {
@@ -22041,6 +22083,11 @@ java.lang.String defaultValue) {
         hash = (37 * hash) + TEST_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
             getTest());
+      }
+      if (hasDebug()) {
+        hash = (37 * hash) + DEBUG_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getDebug());
       }
       if (hasAt()) {
         hash = (37 * hash) + AT_FIELD_NUMBER;
@@ -22258,6 +22305,7 @@ java.lang.String defaultValue) {
           userBuilder_ = null;
         }
         test_ = false;
+        debug_ = false;
         at_ = 0;
         tmax_ = 0;
         internalGetMutableExt().clear();
@@ -22347,14 +22395,18 @@ java.lang.String defaultValue) {
           to_bitField0_ |= 0x00000040;
         }
         if (((from_bitField0_ & 0x00000100) != 0)) {
-          result.at_ = at_;
+          result.debug_ = debug_;
           to_bitField0_ |= 0x00000080;
         }
         if (((from_bitField0_ & 0x00000200) != 0)) {
-          result.tmax_ = tmax_;
+          result.at_ = at_;
           to_bitField0_ |= 0x00000100;
         }
         if (((from_bitField0_ & 0x00000400) != 0)) {
+          result.tmax_ = tmax_;
+          to_bitField0_ |= 0x00000200;
+        }
+        if (((from_bitField0_ & 0x00000800) != 0)) {
           result.ext_ = internalGetExt();
           result.ext_.makeImmutable();
         }
@@ -22481,6 +22533,9 @@ java.lang.String defaultValue) {
         if (other.hasTest()) {
           setTest(other.getTest());
         }
+        if (other.hasDebug()) {
+          setDebug(other.getDebug());
+        }
         if (other.hasAt()) {
           setAt(other.getAt());
         }
@@ -22489,7 +22544,7 @@ java.lang.String defaultValue) {
         }
         internalGetMutableExt().mergeFrom(
             other.internalGetExt());
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000800;
         this.mergeExtensionFields(other);
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -22601,12 +22656,12 @@ java.lang.String defaultValue) {
               } // case 56
               case 64: {
                 at_ = input.readUInt32();
-                bitField0_ |= 0x00000100;
+                bitField0_ |= 0x00000200;
                 break;
               } // case 64
               case 72: {
                 tmax_ = input.readUInt32();
-                bitField0_ |= 0x00000200;
+                bitField0_ |= 0x00000400;
                 break;
               } // case 72
               case 82: {
@@ -22615,7 +22670,7 @@ java.lang.String defaultValue) {
                     ExtDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
                 internalGetMutableExt().getMutableMap().put(
                     ext__.getKey(), ext__.getValue());
-                bitField0_ |= 0x00000400;
+                bitField0_ |= 0x00000800;
                 break;
               } // case 82
               case 90: {
@@ -22625,6 +22680,11 @@ java.lang.String defaultValue) {
                 bitField0_ |= 0x00000004;
                 break;
               } // case 90
+              case 96: {
+                debug_ = input.readBool();
+                bitField0_ |= 0x00000100;
+                break;
+              } // case 96
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -23775,6 +23835,46 @@ java.lang.String defaultValue) {
         return this;
       }
 
+      private boolean debug_ ;
+      /**
+       * <code>optional bool debug = 12;</code>
+       * @return Whether the debug field is set.
+       */
+      @java.lang.Override
+      public boolean hasDebug() {
+        return ((bitField0_ & 0x00000100) != 0);
+      }
+      /**
+       * <code>optional bool debug = 12;</code>
+       * @return The debug.
+       */
+      @java.lang.Override
+      public boolean getDebug() {
+        return debug_;
+      }
+      /**
+       * <code>optional bool debug = 12;</code>
+       * @param value The debug to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDebug(boolean value) {
+
+        debug_ = value;
+        bitField0_ |= 0x00000100;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool debug = 12;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDebug() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        debug_ = false;
+        onChanged();
+        return this;
+      }
+
       private int at_ ;
       /**
        * <pre>
@@ -23786,7 +23886,7 @@ java.lang.String defaultValue) {
        */
       @java.lang.Override
       public boolean hasAt() {
-        return ((bitField0_ & 0x00000100) != 0);
+        return ((bitField0_ & 0x00000200) != 0);
       }
       /**
        * <pre>
@@ -23812,7 +23912,7 @@ java.lang.String defaultValue) {
       public Builder setAt(int value) {
 
         at_ = value;
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000200;
         onChanged();
         return this;
       }
@@ -23825,7 +23925,7 @@ java.lang.String defaultValue) {
        * @return This builder for chaining.
        */
       public Builder clearAt() {
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000200);
         at_ = 0;
         onChanged();
         return this;
@@ -23842,7 +23942,7 @@ java.lang.String defaultValue) {
        */
       @java.lang.Override
       public boolean hasTmax() {
-        return ((bitField0_ & 0x00000200) != 0);
+        return ((bitField0_ & 0x00000400) != 0);
       }
       /**
        * <pre>
@@ -23868,7 +23968,7 @@ java.lang.String defaultValue) {
       public Builder setTmax(int value) {
 
         tmax_ = value;
-        bitField0_ |= 0x00000200;
+        bitField0_ |= 0x00000400;
         onChanged();
         return this;
       }
@@ -23881,7 +23981,7 @@ java.lang.String defaultValue) {
        * @return This builder for chaining.
        */
       public Builder clearTmax() {
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000400);
         tmax_ = 0;
         onChanged();
         return this;
@@ -23906,7 +24006,7 @@ java.lang.String defaultValue) {
         if (!ext_.isMutable()) {
           ext_ = ext_.copy();
         }
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000800;
         onChanged();
         return ext_;
       }
@@ -23966,7 +24066,7 @@ java.lang.String defaultValue) {
         return map.get(key);
       }
       public Builder clearExt() {
-        bitField0_ = (bitField0_ & ~0x00000400);
+        bitField0_ = (bitField0_ & ~0x00000800);
         internalGetMutableExt().getMutableMap()
             .clear();
         return this;
@@ -23987,7 +24087,7 @@ java.lang.String defaultValue) {
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, java.lang.String>
           getMutableExt() {
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000800;
         return internalGetMutableExt().getMutableMap();
       }
       /**
@@ -24000,7 +24100,7 @@ java.lang.String defaultValue) {
         if (value == null) { throw new NullPointerException("map value"); }
         internalGetMutableExt().getMutableMap()
             .put(key, value);
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000800;
         return this;
       }
       /**
@@ -24010,7 +24110,7 @@ java.lang.String defaultValue) {
           java.util.Map<java.lang.String, java.lang.String> values) {
         internalGetMutableExt().getMutableMap()
             .putAll(values);
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000800;
         return this;
       }
       @java.lang.Override
@@ -37542,7 +37642,7 @@ java.lang.String defaultValue) {
   static {
     java.lang.String[] descriptorData = {
       "\n\trtb.proto\022\034top.openadexchange.rtb.prot" +
-      "o\"\250\023\n\nBidRequest\022\n\n\002id\030\001 \002(\t\0229\n\003imp\030\002 \003(" +
+      "o\"\267\023\n\nBidRequest\022\n\n\002id\030\001 \002(\t\0229\n\003imp\030\002 \003(" +
       "\0132,.top.openadexchange.rtb.proto.BidRequ" +
       "est.Imp\022E\n\tpublisher\030\013 \001(\01322.top.openade" +
       "xchange.rtb.proto.BidRequest.Publisher\022;" +
@@ -37552,91 +37652,92 @@ java.lang.String defaultValue) {
       "\n\006device\030\005 \001(\0132/.top.openadexchange.rtb." +
       "proto.BidRequest.Device\022;\n\004user\030\006 \001(\0132-." +
       "top.openadexchange.rtb.proto.BidRequest." +
-      "User\022\014\n\004test\030\007 \001(\010\022\n\n\002at\030\010 \001(\r\022\014\n\004tmax\030\t" +
-      " \001(\r\022>\n\003ext\030\n \003(\01321.top.openadexchange.r" +
-      "tb.proto.BidRequest.ExtEntry\032*\n\010ExtEntry" +
-      "\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032\027\n\tPubl" +
-      "isher\022\n\n\002id\030\001 \001(\004\032\360\007\n\003Imp\022\n\n\002id\030\001 \002(\t\022C\n" +
-      "\006banner\030\002 \001(\01323.top.openadexchange.rtb.p" +
-      "roto.BidRequest.Imp.Banner\022A\n\005video\030\003 \001(" +
+      "User\022\014\n\004test\030\007 \001(\010\022\r\n\005debug\030\014 \001(\010\022\n\n\002at\030" +
+      "\010 \001(\r\022\014\n\004tmax\030\t \001(\r\022>\n\003ext\030\n \003(\01321.top.o" +
+      "penadexchange.rtb.proto.BidRequest.ExtEn" +
+      "try\032*\n\010ExtEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 " +
+      "\001(\t:\0028\001\032\027\n\tPublisher\022\n\n\002id\030\001 \001(\004\032\360\007\n\003Imp" +
+      "\022\n\n\002id\030\001 \002(\t\022C\n\006banner\030\002 \001(\01323.top.opena" +
+      "dexchange.rtb.proto.BidRequest.Imp.Banne" +
+      "r\022A\n\005video\030\003 \001(\01322.top.openadexchange.rt" +
+      "b.proto.BidRequest.Imp.Video\022L\n\013native_s" +
+      "pec\030\r \001(\01327.top.openadexchange.rtb.proto" +
+      ".BidRequest.Imp.NativeSpec\022A\n\005audio\030\016 \001(" +
       "\01322.top.openadexchange.rtb.proto.BidRequ" +
-      "est.Imp.Video\022L\n\013native_spec\030\r \001(\01327.top" +
-      ".openadexchange.rtb.proto.BidRequest.Imp" +
-      ".NativeSpec\022A\n\005audio\030\016 \001(\01322.top.openade" +
-      "xchange.rtb.proto.BidRequest.Imp.Audio\022=" +
-      "\n\003pmp\030\006 \001(\01320.top.openadexchange.rtb.pro" +
-      "to.BidRequest.Imp.Pmp\022\r\n\005tagid\030\007 \001(\t\022\021\n\t" +
-      "bid_floor\030\010 \001(\004\022\025\n\rbid_floor_cur\030\t \001(\t\022\016" +
-      "\n\006secure\030\n \001(\r\022\024\n\014is_native_ad\030\014 \001(\010\022B\n\003" +
-      "ext\030\013 \003(\01325.top.openadexchange.rtb.proto" +
-      ".BidRequest.Imp.ExtEntry\032*\n\010ExtEntry\022\013\n\003" +
-      "key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032B\n\006Banner\022\t" +
-      "\n\001w\030\001 \001(\r\022\t\n\001h\030\002 \001(\r\022\013\n\003pos\030\003 \001(\r\022\r\n\005mim" +
-      "es\030\004 \003(\t*\006\010\310\001\020\254\002\032\231\001\n\005Video\022\r\n\005mimes\030\001 \003(" +
-      "\t\022\024\n\014min_duration\030\002 \001(\r\022\024\n\014max_duration\030" +
-      "\003 \001(\r\022\021\n\tskippable\030\006 \001(\010\022\020\n\010skip_min\030\007 \001" +
-      "(\r\022\022\n\nskip_after\030\010 \001(\r\022\t\n\001w\030\004 \001(\r\022\t\n\001h\030\005" +
-      " \001(\r*\006\010\310\001\020\254\002\032B\n\005Audio\022\r\n\005mimes\030\001 \003(\t\022\024\n\014" +
-      "min_duration\030\002 \001(\r\022\024\n\014max_duration\030\003 \001(\r" +
-      "\032!\n\nNativeSpec\022\023\n\013template_id\030\001 \003(\t\032g\n\003P" +
-      "mp\022D\n\005deals\030\001 \003(\01325.top.openadexchange.r" +
-      "tb.proto.BidRequest.Imp.Pmp.Deal\032\022\n\004Deal" +
-      "\022\n\n\002id\030\001 \002(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002\032\246\001\n\003App\022\n\n\002" +
-      "id\030\001 \001(\t\022\014\n\004name\030\010 \001(\t\022\016\n\006bundle\030\002 \001(\t\022\013" +
-      "\n\003cat\030\003 \003(\t\022\013\n\003ver\030\004 \001(\t\022A\n\007content\030\006 \001(" +
-      "\01320.top.openadexchange.rtb.proto.BidRequ" +
-      "est.Content\022\020\n\010keywords\030\007 \001(\t*\006\010\310\001\020\254\002\032\232\001" +
-      "\n\004Site\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\016\n\006doma" +
-      "in\030\003 \001(\t\022\013\n\003cat\030\004 \003(\t\022A\n\007content\030\010 \001(\01320" +
+      "est.Imp.Audio\022=\n\003pmp\030\006 \001(\01320.top.openade" +
+      "xchange.rtb.proto.BidRequest.Imp.Pmp\022\r\n\005" +
+      "tagid\030\007 \001(\t\022\021\n\tbid_floor\030\010 \001(\004\022\025\n\rbid_fl" +
+      "oor_cur\030\t \001(\t\022\016\n\006secure\030\n \001(\r\022\024\n\014is_nati" +
+      "ve_ad\030\014 \001(\010\022B\n\003ext\030\013 \003(\01325.top.openadexc" +
+      "hange.rtb.proto.BidRequest.Imp.ExtEntry\032" +
+      "*\n\010ExtEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:" +
+      "\0028\001\032B\n\006Banner\022\t\n\001w\030\001 \001(\r\022\t\n\001h\030\002 \001(\r\022\013\n\003p" +
+      "os\030\003 \001(\r\022\r\n\005mimes\030\004 \003(\t*\006\010\310\001\020\254\002\032\231\001\n\005Vide" +
+      "o\022\r\n\005mimes\030\001 \003(\t\022\024\n\014min_duration\030\002 \001(\r\022\024" +
+      "\n\014max_duration\030\003 \001(\r\022\021\n\tskippable\030\006 \001(\010\022" +
+      "\020\n\010skip_min\030\007 \001(\r\022\022\n\nskip_after\030\010 \001(\r\022\t\n" +
+      "\001w\030\004 \001(\r\022\t\n\001h\030\005 \001(\r*\006\010\310\001\020\254\002\032B\n\005Audio\022\r\n\005" +
+      "mimes\030\001 \003(\t\022\024\n\014min_duration\030\002 \001(\r\022\024\n\014max" +
+      "_duration\030\003 \001(\r\032!\n\nNativeSpec\022\023\n\013templat" +
+      "e_id\030\001 \003(\t\032g\n\003Pmp\022D\n\005deals\030\001 \003(\01325.top.o" +
+      "penadexchange.rtb.proto.BidRequest.Imp.P" +
+      "mp.Deal\032\022\n\004Deal\022\n\n\002id\030\001 \002(\t*\006\010\310\001\020\254\002*\006\010\310\001" +
+      "\020\254\002\032\246\001\n\003App\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\010 \001(\t\022\016\n" +
+      "\006bundle\030\002 \001(\t\022\013\n\003cat\030\003 \003(\t\022\013\n\003ver\030\004 \001(\t\022" +
+      "A\n\007content\030\006 \001(\01320.top.openadexchange.rt" +
+      "b.proto.BidRequest.Content\022\020\n\010keywords\030\007" +
+      " \001(\t*\006\010\310\001\020\254\002\032\232\001\n\004Site\022\n\n\002id\030\001 \001(\t\022\014\n\004nam" +
+      "e\030\002 \001(\t\022\016\n\006domain\030\003 \001(\t\022\013\n\003cat\030\004 \003(\t\022A\n\007" +
+      "content\030\010 \001(\01320.top.openadexchange.rtb.p" +
+      "roto.BidRequest.Content\022\020\n\010keywords\030\t \001(" +
+      "\t*\006\010\310\001\020\254\002\032:\n\007Content\022\016\n\002id\030\001 \001(\tB\002\030\001\022\r\n\005" +
+      "title\030\002 \001(\t\022\020\n\010keywords\030\003 \001(\t\032\324\002\n\006Device" +
+      "\022\n\n\002ua\030\001 \001(\t\022\n\n\002ip\030\003 \001(\t\022\014\n\004ipv6\030\004 \001(\t\022\023" +
+      "\n\013device_type\030\005 \001(\r\022\014\n\004make\030\006 \001(\t\022\r\n\005mod" +
+      "el\030\007 \001(\t\022\n\n\002os\030\010 \001(\t\022\013\n\003osv\030\t \001(\t\022\017\n\007car" +
+      "rier\030\n \001(\r\022\027\n\017connection_type\030\013 \001(\r\022\013\n\003i" +
+      "fa\030\014 \001(\t\022\022\n\006didmd5\030\r \001(\tB\002\030\001\022\017\n\003mac\030\016 \001(" +
+      "\tB\002\030\001\022\022\n\006macmd5\030\017 \001(\tB\002\030\001\022\020\n\004adid\030\020 \001(\tB" +
+      "\002\030\001\022\t\n\001h\030\021 \001(\r\022\t\n\001w\030\022 \001(\r\0229\n\003geo\030\002 \001(\0132," +
       ".top.openadexchange.rtb.proto.BidRequest" +
-      ".Content\022\020\n\010keywords\030\t \001(\t*\006\010\310\001\020\254\002\032:\n\007Co" +
-      "ntent\022\016\n\002id\030\001 \001(\tB\002\030\001\022\r\n\005title\030\002 \001(\t\022\020\n\010" +
-      "keywords\030\003 \001(\t\032\324\002\n\006Device\022\n\n\002ua\030\001 \001(\t\022\n\n" +
-      "\002ip\030\003 \001(\t\022\014\n\004ipv6\030\004 \001(\t\022\023\n\013device_type\030\005" +
-      " \001(\r\022\014\n\004make\030\006 \001(\t\022\r\n\005model\030\007 \001(\t\022\n\n\002os\030" +
-      "\010 \001(\t\022\013\n\003osv\030\t \001(\t\022\017\n\007carrier\030\n \001(\r\022\027\n\017c" +
-      "onnection_type\030\013 \001(\r\022\013\n\003ifa\030\014 \001(\t\022\022\n\006did" +
-      "md5\030\r \001(\tB\002\030\001\022\017\n\003mac\030\016 \001(\tB\002\030\001\022\022\n\006macmd5" +
-      "\030\017 \001(\tB\002\030\001\022\020\n\004adid\030\020 \001(\tB\002\030\001\022\t\n\001h\030\021 \001(\r\022" +
-      "\t\n\001w\030\022 \001(\r\0229\n\003geo\030\002 \001(\0132,.top.openadexch" +
-      "ange.rtb.proto.BidRequest.Geo*\006\010\310\001\020\254\002\032u\n" +
-      "\003Geo\022\013\n\003lat\030\001 \001(\002\022\013\n\003lon\030\002 \001(\002\022\017\n\007countr" +
-      "y\030\003 \001(\t\022\022\n\006region\030\004 \001(\tB\002\030\001\022\020\n\004city\030\005 \001(" +
-      "\tB\002\030\001\022\025\n\tarea_code\030\006 \001(\rB\002\030\001*\006\010\310\001\020\254\002\032\036\n\004" +
-      "User\022\016\n\002id\030\001 \001(\tB\002\030\001*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002\"\372\t\n" +
-      "\013BidResponse\022\n\n\002id\030\001 \001(\t\022B\n\007seatbid\030\002 \003(" +
-      "\01321.top.openadexchange.rtb.proto.BidResp" +
-      "onse.SeatBid\022\r\n\005bidid\030\003 \001(\t\022\013\n\003nbr\030\004 \001(\r" +
-      "\022\016\n\006no_bid\030\005 \001(\010\032\271\003\n\010NativeAd\022\023\n\013templat" +
-      "e_id\030\001 \001(\t\022R\n\006assets\030\002 \003(\0132>.top.openade" +
-      "xchange.rtb.proto.BidResponse.NativeAd.A" +
-      "ssetsEntryB\002\030\001\022\r\n\005title\030\003 \001(\t\022\014\n\004desc\030\004 " +
-      "\001(\t\022\014\n\004icon\030\005 \001(\t\022\022\n\nmain_image\030\006 \001(\t\022\016\n" +
-      "\006images\030\007 \003(\t\022\021\n\tsponsored\030\010 \001(\t\022\016\n\006rati" +
-      "ng\030\t \001(\t\022\r\n\005likes\030\n \001(\t\022\021\n\tdownloads\030\013 \001" +
-      "(\t\022\r\n\005price\030\014 \001(\t\022\022\n\nsale_price\030\r \001(\t\022\r\n" +
-      "\005phone\030\016 \001(\t\022\017\n\007address\030\017 \001(\t\022\023\n\013display" +
-      "_url\030\020 \001(\t\022\013\n\003cta\030\021 \001(\t\022\r\n\005video\030\022 \001(\t\022\r" +
-      "\n\005desc2\030\023 \001(\t\032-\n\013AssetsEntry\022\013\n\003key\030\001 \001(" +
-      "\t\022\r\n\005value\030\002 \001(\t:\0028\001\032\252\005\n\007SeatBid\022B\n\003bid\030" +
-      "\001 \003(\01325.top.openadexchange.rtb.proto.Bid" +
-      "Response.SeatBid.Bid\022\014\n\004seat\030\002 \001(\t\032\314\004\n\003B" +
-      "id\022\n\n\002id\030\001 \002(\t\022\r\n\005impid\030\002 \002(\t\022\r\n\005price\030\003" +
-      " \002(\004\022\014\n\004crid\030\004 \002(\t\022\016\n\006dealid\030\005 \001(\t\022\014\n\004nu" +
-      "rl\030\024 \001(\t\022\024\n\014imp_trackers\030\006 \003(\t\022\024\n\014clk_tr" +
-      "ackers\030\007 \003(\t\022\013\n\003ldp\030\010 \001(\t\022\024\n\014creative_ur" +
-      "l\030\t \001(\t\022\022\n\nclick_type\030\n \001(\r\022\016\n\006bundle\030\013 " +
-      "\001(\t\022\023\n\013appstore_id\030\027 \001(\t\022\013\n\003adm\030\014 \001(\t\022D\n" +
-      "\010nativeAd\030\r \001(\01322.top.openadexchange.rtb" +
-      ".proto.BidResponse.NativeAd\022\030\n\020app_downl" +
-      "oad_url\030\016 \001(\t\022\020\n\010app_name\030\017 \001(\t\022\024\n\014app_i" +
-      "con_url\030\031 \001(\t\022\020\n\010deeplink\030\020 \001(\t\022\020\n\010durat" +
-      "ion\030\022 \001(\004\022\025\n\rplay_trackers\030\023 \003(\t\022\037\n\027play" +
-      "_completed_trackers\030\026 \003(\t\022\026\n\016error_track" +
-      "ers\030\025 \003(\t\022\026\n\016close_trackers\030\030 \003(\t\022\031\n\021dow" +
-      "nload_trackers\030\032 \003(\t\022#\n\033download_complet" +
-      "ed_trackers\030\033 \003(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002B+\n\034top" +
-      ".openadexchange.rtb.protoB\013OaxRtbProto"
+      ".Geo*\006\010\310\001\020\254\002\032u\n\003Geo\022\013\n\003lat\030\001 \001(\002\022\013\n\003lon\030" +
+      "\002 \001(\002\022\017\n\007country\030\003 \001(\t\022\022\n\006region\030\004 \001(\tB\002" +
+      "\030\001\022\020\n\004city\030\005 \001(\tB\002\030\001\022\025\n\tarea_code\030\006 \001(\rB" +
+      "\002\030\001*\006\010\310\001\020\254\002\032\036\n\004User\022\016\n\002id\030\001 \001(\tB\002\030\001*\006\010\310\001" +
+      "\020\254\002*\006\010\310\001\020\254\002\"\372\t\n\013BidResponse\022\n\n\002id\030\001 \001(\t\022" +
+      "B\n\007seatbid\030\002 \003(\01321.top.openadexchange.rt" +
+      "b.proto.BidResponse.SeatBid\022\r\n\005bidid\030\003 \001" +
+      "(\t\022\013\n\003nbr\030\004 \001(\r\022\016\n\006no_bid\030\005 \001(\010\032\271\003\n\010Nati" +
+      "veAd\022\023\n\013template_id\030\001 \001(\t\022R\n\006assets\030\002 \003(" +
+      "\0132>.top.openadexchange.rtb.proto.BidResp" +
+      "onse.NativeAd.AssetsEntryB\002\030\001\022\r\n\005title\030\003" +
+      " \001(\t\022\014\n\004desc\030\004 \001(\t\022\014\n\004icon\030\005 \001(\t\022\022\n\nmain" +
+      "_image\030\006 \001(\t\022\016\n\006images\030\007 \003(\t\022\021\n\tsponsore" +
+      "d\030\010 \001(\t\022\016\n\006rating\030\t \001(\t\022\r\n\005likes\030\n \001(\t\022\021" +
+      "\n\tdownloads\030\013 \001(\t\022\r\n\005price\030\014 \001(\t\022\022\n\nsale" +
+      "_price\030\r \001(\t\022\r\n\005phone\030\016 \001(\t\022\017\n\007address\030\017" +
+      " \001(\t\022\023\n\013display_url\030\020 \001(\t\022\013\n\003cta\030\021 \001(\t\022\r" +
+      "\n\005video\030\022 \001(\t\022\r\n\005desc2\030\023 \001(\t\032-\n\013AssetsEn" +
+      "try\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032\252\005\n\007" +
+      "SeatBid\022B\n\003bid\030\001 \003(\01325.top.openadexchang" +
+      "e.rtb.proto.BidResponse.SeatBid.Bid\022\014\n\004s" +
+      "eat\030\002 \001(\t\032\314\004\n\003Bid\022\n\n\002id\030\001 \002(\t\022\r\n\005impid\030\002" +
+      " \002(\t\022\r\n\005price\030\003 \002(\004\022\014\n\004crid\030\004 \002(\t\022\016\n\006dea" +
+      "lid\030\005 \001(\t\022\014\n\004nurl\030\024 \001(\t\022\024\n\014imp_trackers\030" +
+      "\006 \003(\t\022\024\n\014clk_trackers\030\007 \003(\t\022\013\n\003ldp\030\010 \001(\t" +
+      "\022\024\n\014creative_url\030\t \001(\t\022\022\n\nclick_type\030\n \001" +
+      "(\r\022\016\n\006bundle\030\013 \001(\t\022\023\n\013appstore_id\030\027 \001(\t\022" +
+      "\013\n\003adm\030\014 \001(\t\022D\n\010nativeAd\030\r \001(\01322.top.ope" +
+      "nadexchange.rtb.proto.BidResponse.Native" +
+      "Ad\022\030\n\020app_download_url\030\016 \001(\t\022\020\n\010app_name" +
+      "\030\017 \001(\t\022\024\n\014app_icon_url\030\031 \001(\t\022\020\n\010deeplink" +
+      "\030\020 \001(\t\022\020\n\010duration\030\022 \001(\004\022\025\n\rplay_tracker" +
+      "s\030\023 \003(\t\022\037\n\027play_completed_trackers\030\026 \003(\t" +
+      "\022\026\n\016error_trackers\030\025 \003(\t\022\026\n\016close_tracke" +
+      "rs\030\030 \003(\t\022\031\n\021download_trackers\030\032 \003(\t\022#\n\033d" +
+      "ownload_completed_trackers\030\033 \003(\t*\006\010\310\001\020\254\002" +
+      "*\006\010\310\001\020\254\002B+\n\034top.openadexchange.rtb.proto" +
+      "B\013OaxRtbProto"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -37647,7 +37748,7 @@ java.lang.String defaultValue) {
     internal_static_top_openadexchange_rtb_proto_BidRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor,
-        new java.lang.String[] { "Id", "Imp", "Publisher", "Site", "App", "Device", "User", "Test", "At", "Tmax", "Ext", });
+        new java.lang.String[] { "Id", "Imp", "Publisher", "Site", "App", "Device", "User", "Test", "Debug", "At", "Tmax", "Ext", });
     internal_static_top_openadexchange_rtb_proto_BidRequest_ExtEntry_descriptor =
       internal_static_top_openadexchange_rtb_proto_BidRequest_descriptor.getNestedTypes().get(0);
     internal_static_top_openadexchange_rtb_proto_BidRequest_ExtEntry_fieldAccessorTable = new

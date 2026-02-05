@@ -21,6 +21,7 @@ message BidRequest {
   optional User user = 6;
 
   optional bool test = 7;
+  optional bool debug = 12;
   //竞价方式：1-一价；2-二价
   optional uint32 at = 8;
   //请求超时时间，单位毫秒

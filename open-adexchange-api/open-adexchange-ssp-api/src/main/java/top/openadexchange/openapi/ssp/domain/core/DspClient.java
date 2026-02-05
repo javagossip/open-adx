@@ -41,18 +41,14 @@ public class DspClient {
         //2. 获取协议调用扩展点
         RtbProtocolInvoker invoker = OaxSpiFactory.getRtbProtocolInvoker(dspId);
         //3. 发起rtb请求调用
-        if (request.getTest()) {
+        if (request.getTest() || request.getDebug()) {
             log.info("BidRequest: {}", request);
         }
         Object dspRequest = rtbProtocolConverter.to(dspAggregate.getDsp(), request);
         Object response = invoker.invoke(dspAggregate.getDsp(), dspRequest);
         BidResponse.Builder bidResponse = rtbProtocolConverter.from(dspAggregate.getDsp(), request.build(), response);
-//        bidResponse.getSeatbidBuilderList().forEach(seatbid -> {
-//            seatbid.getBidBuilderList().forEach(bid -> {
-//                resetBidTrackers(dspAggregate, request, bid);
-//            });
-//        });
-        if (request.getTest()) {
+
+        if (request.getTest() || request.getDebug()) {
             log.info("dsp {} BidResponse: {}", dspAggregate.getDsp().getName(), bidResponse.toString());
         }
         return bidResponse;
