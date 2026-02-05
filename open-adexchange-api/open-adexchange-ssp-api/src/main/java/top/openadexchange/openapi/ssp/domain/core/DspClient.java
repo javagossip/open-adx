@@ -45,7 +45,13 @@ public class DspClient {
             log.info("BidRequest: {}", request);
         }
         Object dspRequest = rtbProtocolConverter.to(dspAggregate.getDsp(), request);
+        if (request.getTest() || request.getDebug()) {
+            log.info("dsp {} BidRequest: {}", dspAggregate.getDsp().getName(), request);
+        }
         Object response = invoker.invoke(dspAggregate.getDsp(), dspRequest);
+        if (request.getTest() || request.getDebug()) {
+            log.info("dsp {} BidResponse: {}", dspAggregate.getDsp().getName(), response);
+        }
         BidResponse.Builder bidResponse = rtbProtocolConverter.from(dspAggregate.getDsp(), request.build(), response);
 
         if (request.getTest() || request.getDebug()) {
