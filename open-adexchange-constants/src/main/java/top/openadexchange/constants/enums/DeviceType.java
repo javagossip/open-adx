@@ -1,5 +1,8 @@
 package top.openadexchange.constants.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum DeviceType {
     UNKNOWN(0),
     PHONE(1),
