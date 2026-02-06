@@ -1,8 +1,8 @@
 package top.openadexchange.openapi.ssp.config;
 
-import lombok.Data;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import lombok.Data;
 
 @Data
 @ConfigurationProperties(prefix = "oax.engine")

@@ -33,6 +33,12 @@ public class PublisherReportDto {
     @Schema(description = "媒体编码")
     private String publisherCode;
 
+    @Schema(description = "请求量")
+    private Long reqCount;
+    @Schema(description = "响应量")
+    private Long bidCount;
+    @Schema(description = "中标量")
+    private Long winCount;
     @Schema(description = "曝光量")
     private Long impCount;
 
@@ -49,6 +55,32 @@ public class PublisherReportDto {
     @JsonSerialize(using = AmountSerializer.class)
     private Long adxRevenue;
 
+    public void incrReqCount(Long count) {
+        Long incrCount = count == null ? 0 : count;
+        if (this.reqCount == null) {
+            this.reqCount = incrCount;
+        } else {
+            this.reqCount += incrCount;
+        }
+    }
+
+    public void incrBidCount(Long count) {
+        Long incrCount = count == null ? 0 : count;
+        if (this.bidCount == null) {
+            this.bidCount = incrCount;
+        } else {
+            this.bidCount += incrCount;
+        }
+    }
+
+    public void incrWinCount(Long count) {
+        Long incrCount = count == null ? 0 : count;
+        if (this.winCount == null) {
+            this.winCount = incrCount;
+        } else {
+            this.winCount += incrCount;
+        }
+    }
     public void incrImpCount(Long count) {
         Long incrCount = count == null ? 0 : count;
         if (this.impCount == null) {

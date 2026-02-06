@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import jakarta.annotation.Resource;
-
 import org.springframework.stereotype.Component;
 
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import top.openadexchange.commons.StatsUtils;
 import top.openadexchange.model.Publisher;

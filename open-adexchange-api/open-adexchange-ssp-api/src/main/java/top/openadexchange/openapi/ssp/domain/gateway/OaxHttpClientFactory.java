@@ -1,10 +1,8 @@
 package top.openadexchange.openapi.ssp.domain.gateway;
 
-import com.chaincoretech.epc.ExtensionRegistry;
-
-import jakarta.annotation.PostConstruct;
-
 import org.springframework.stereotype.Component;
+
+import com.chaincoretech.epc.ExtensionRegistry;
 
 @Component
 public class OaxHttpClientFactory {

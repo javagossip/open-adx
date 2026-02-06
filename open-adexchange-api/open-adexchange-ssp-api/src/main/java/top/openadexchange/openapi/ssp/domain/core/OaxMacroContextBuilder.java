@@ -1,5 +1,8 @@
 package top.openadexchange.openapi.ssp.domain.core;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.chaincoretech.epc.annotation.Extension;
 
 import top.openadexchange.openapi.ssp.domain.core.AdExchangeEngine.DspBid;
@@ -7,9 +10,6 @@ import top.openadexchange.openapi.ssp.spi.MacroContextBuilder;
 import top.openadexchange.openapi.ssp.spi.WinPriceCodec;
 import top.openadexchange.openapi.ssp.spi.factory.OaxSpiFactory;
 import top.openadexchange.openapi.ssp.spi.model.MacroContext;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Extension(keys = {"default"})
 public class OaxMacroContextBuilder implements MacroContextBuilder {

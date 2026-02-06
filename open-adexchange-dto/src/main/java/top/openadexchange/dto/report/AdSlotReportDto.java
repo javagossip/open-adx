@@ -40,6 +40,13 @@ public class AdSlotReportDto {
     @Schema(description = "媒体名称")
     private String publisherName;
 
+    @Schema(description = "请求量")
+    private Long reqCount;
+    @Schema(description = "响应量")
+    private Long bidCount;
+    @Schema(description = "中标量")
+    private Long winCount;
+
     @Schema(description = "曝光量")
     private Long impCount;
 
@@ -55,6 +62,30 @@ public class AdSlotReportDto {
     @Schema(description = "adx平台收入(元)")
     @JsonSerialize(using = AmountSerializer.class)
     private Long adxRevenue;
+
+    public void incrReqCount(Long reqCount) {
+        if (this.reqCount == null) {
+            this.reqCount = reqCount;
+        } else {
+            this.reqCount += (reqCount == null ? 0 : reqCount);
+        }
+    }
+
+    public void incrBidCount(Long bidCount) {
+        if (this.bidCount == null) {
+            this.bidCount = bidCount;
+        } else {
+            this.bidCount += (bidCount == null ? 0 : bidCount);
+        }
+    }
+
+    public void incrWinCount(Long winCount) {
+        if (this.winCount == null) {
+            this.winCount = winCount;
+        } else {
+            this.winCount += (winCount == null ? 0 : winCount);
+        }
+    }
 
     public void incrImpCount(Long impCount) {
         if (this.impCount == null) {

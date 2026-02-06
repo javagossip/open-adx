@@ -55,6 +55,9 @@ public class PublisherReportService {
                         .select(PUBLISHER.ID.as("publisher_id"),
                                 PUBLISHER.NAME.as("publisher_name"),
                                 PUBLISHER.CODE.as("publisher_code"),
+                                sum(AD_SLOT_STAT.REQ_COUNT).as("req_count"),
+                                sum(AD_SLOT_STAT.BID_COUNT).as("bid_count"),
+                                sum(AD_SLOT_STAT.WIN_COUNT).as("win_count"),
                                 sum(AD_SLOT_STAT.IMP_COUNT).as("imp_count"),
                                 sum(AD_SLOT_STAT.CLICK_COUNT).as("click_count"),
                                 sum(AD_SLOT_STAT.REVENUE).as("revenue"),
@@ -81,6 +84,9 @@ public class PublisherReportService {
         result.getRecords().forEach(reportDto -> {
             PublisherReportDto publisherReportDto = publisherReportDtoMap.get(reportDto.getPublisherId());
             if (publisherReportDto != null) {
+                reportDto.incrReqCount(publisherReportDto.getReqCount());
+                reportDto.incrBidCount(publisherReportDto.getBidCount());
+                reportDto.incrWinCount(publisherReportDto.getWinCount());
                 reportDto.incrImpCount(publisherReportDto.getImpCount());
                 reportDto.incrClickCount(publisherReportDto.getClickCount());
                 reportDto.incrRevenue(publisherReportDto.getRevenue());
@@ -105,6 +111,9 @@ public class PublisherReportService {
                                 SITE.PUBLISHER_ID.as("publisher_id"),
                                 SITE.ID.as("site_id"),
                                 SITE.NAME.as("site_name"),
+                                sum(AD_SLOT_STAT.REQ_COUNT).as("req_count"),
+                                sum(AD_SLOT_STAT.BID_COUNT).as("bid_count"),
+                                sum(AD_SLOT_STAT.WIN_COUNT).as("win_count"),
                                 sum(AD_SLOT_STAT.IMP_COUNT).as("imp_count"),
                                 sum(AD_SLOT_STAT.CLICK_COUNT).as("click_count"),
                                 sum(AD_SLOT_STAT.REVENUE).as("revenue"),
@@ -141,6 +150,9 @@ public class PublisherReportService {
         result.getRecords().forEach(reportDto -> {
             AdSlotReportDto adSlotReportDto = adSlotReportDtoMap.get(reportDto.getAdSlotId());
             if (adSlotReportDto != null) {
+                reportDto.incrReqCount(adSlotReportDto.getReqCount());
+                reportDto.incrBidCount(adSlotReportDto.getBidCount());
+                reportDto.incrWinCount(adSlotReportDto.getWinCount());
                 reportDto.incrImpCount(adSlotReportDto.getImpCount());
                 reportDto.incrClickCount(adSlotReportDto.getClickCount());
                 reportDto.incrRevenue(adSlotReportDto.getRevenue());

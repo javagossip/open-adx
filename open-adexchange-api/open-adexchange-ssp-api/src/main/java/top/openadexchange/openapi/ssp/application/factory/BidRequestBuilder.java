@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import top.openadexchange.constants.enums.AdFormat;
 import top.openadexchange.constants.enums.SiteType;

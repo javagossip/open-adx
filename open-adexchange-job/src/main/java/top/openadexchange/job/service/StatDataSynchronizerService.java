@@ -45,8 +45,6 @@ import top.openadexchange.model.SiteAdPlacement;
 @Slf4j
 public class StatDataSynchronizerService {
 
-    private static final int BATCH_SIZE = 100;
-
     @Resource(name = "oaxStringRedisTemplate")
     private RedisTemplate<String, String> redisTemplate;
     @Resource

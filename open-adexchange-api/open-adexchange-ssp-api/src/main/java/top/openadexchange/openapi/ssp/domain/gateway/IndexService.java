@@ -1,11 +1,11 @@
 package top.openadexchange.openapi.ssp.domain.gateway;
 
+import java.util.List;
+
 import com.chaincoretech.epc.annotation.ExtensionPoint;
 
 import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.openapi.ssp.domain.model.IndexKeys;
-
-import java.util.List;
 
 @ExtensionPoint
 public interface IndexService {

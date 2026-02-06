@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import top.openadexchange.openapi.ssp.application.service.ApplicationWarmupService;
 import top.openadexchange.openapi.ssp.application.service.RegistryService;
-import top.openadexchange.openapi.ssp.constants.Constants.RegistryKeys;
 
 //系统数据初始化，包括索引库建立、广告数据缓存初始化等
 @Component

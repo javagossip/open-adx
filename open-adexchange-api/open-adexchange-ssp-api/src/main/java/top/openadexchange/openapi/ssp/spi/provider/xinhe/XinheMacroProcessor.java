@@ -1,13 +1,12 @@
 package top.openadexchange.openapi.ssp.spi.provider.xinhe;
 
+import java.util.regex.Pattern;
+
 import com.chaincoretech.epc.annotation.Extension;
 
 import top.openadexchange.openapi.ssp.spi.MacroProcessor;
 import top.openadexchange.openapi.ssp.spi.MacroUtils;
 import top.openadexchange.openapi.ssp.spi.model.MacroContext;
-
-import java.util.Map;
-import java.util.regex.Pattern;
 
 @Extension(keys = {"xinhe"})
 public class XinheMacroProcessor implements MacroProcessor {

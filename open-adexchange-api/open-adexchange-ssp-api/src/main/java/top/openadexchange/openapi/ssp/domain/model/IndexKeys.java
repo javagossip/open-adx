@@ -1,8 +1,8 @@
 package top.openadexchange.openapi.ssp.domain.model;
 
-import lombok.Data;
-
 import java.util.List;
+
+import lombok.Data;
 
 @Data
 public class IndexKeys {

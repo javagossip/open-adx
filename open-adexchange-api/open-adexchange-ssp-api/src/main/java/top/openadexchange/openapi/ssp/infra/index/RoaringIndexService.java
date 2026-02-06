@@ -1,33 +1,25 @@
 package top.openadexchange.openapi.ssp.infra.index;
 
-import com.alibaba.fastjson2.JSON;
-import com.chaincoretech.epc.annotation.Extension;
-
-import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
-
-import org.roaringbitmap.IntIterator;
-import org.roaringbitmap.RoaringBitmap;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
-
-import top.openadexchange.constants.Constants;
-import top.openadexchange.domain.entity.DspAggregate;
-import top.openadexchange.model.Dsp;
-import top.openadexchange.model.DspTargeting;
-import top.openadexchange.model.SiteAdPlacement;
-import top.openadexchange.openapi.ssp.application.factory.IndexKeysBuilder;
-import top.openadexchange.openapi.ssp.domain.gateway.IndexService;
-import top.openadexchange.openapi.ssp.domain.model.IndexKeys;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.roaringbitmap.IntIterator;
+import org.roaringbitmap.RoaringBitmap;
+
+import com.chaincoretech.epc.annotation.Extension;
+
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import top.openadexchange.domain.entity.DspAggregate;
+import top.openadexchange.model.Dsp;
+import top.openadexchange.openapi.ssp.application.factory.IndexKeysBuilder;
+import top.openadexchange.openapi.ssp.domain.gateway.IndexService;
+import top.openadexchange.openapi.ssp.domain.model.IndexKeys;
 
 @Extension(keys = {"roaringBitmap", "default"})
 @Slf4j

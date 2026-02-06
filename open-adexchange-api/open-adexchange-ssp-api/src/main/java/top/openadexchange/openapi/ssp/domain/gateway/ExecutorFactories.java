@@ -1,12 +1,10 @@
 package top.openadexchange.openapi.ssp.domain.gateway;
 
-import com.chaincoretech.epc.ExtensionRegistry;
-
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.Resource;
-
 import org.springframework.stereotype.Component;
 
+import com.chaincoretech.epc.ExtensionRegistry;
+
+import jakarta.annotation.Resource;
 import top.openadexchange.openapi.ssp.config.OaxEngineProperties;
 
 @Component

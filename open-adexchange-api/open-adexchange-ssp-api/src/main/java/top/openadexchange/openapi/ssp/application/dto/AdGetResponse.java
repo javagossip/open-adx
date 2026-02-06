@@ -1,9 +1,9 @@
 package top.openadexchange.openapi.ssp.application.dto;
 
-import lombok.Data;
-
 import java.util.List;
 import java.util.Map;
+
+import lombok.Data;
 
 /**
  * 广告响应对象

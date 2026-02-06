@@ -4,25 +4,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.alibaba.fastjson2.JSON;
-
-import lombok.extern.slf4j.Slf4j;
-
-import org.roaringbitmap.RoaringBitmap;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-
-import jakarta.annotation.Resource;
-
 import org.springframework.util.StringUtils;
 
+import com.alibaba.fastjson2.JSON;
+
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import top.openadexchange.constants.Constants;
 import top.openadexchange.constants.enums.DeviceType;
 import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.DspTargeting;
 import top.openadexchange.model.SiteAdPlacement;
-import top.openadexchange.openapi.ssp.application.dto.AdGetRequest;
 import top.openadexchange.openapi.ssp.domain.gateway.OaxEngineServices;
 import top.openadexchange.openapi.ssp.domain.model.IndexKeys;
 import top.openadexchange.openapi.ssp.domain.model.IpLocation;

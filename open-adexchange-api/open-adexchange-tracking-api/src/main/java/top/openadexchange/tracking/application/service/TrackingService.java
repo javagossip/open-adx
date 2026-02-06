@@ -43,8 +43,6 @@ public class TrackingService {
     private static final Logger IMP_LOG = LoggerFactory.getLogger("imp");
     private static final Logger CLK_LOG = LoggerFactory.getLogger("clk");
 
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
-
     @Resource
     private KafkaTemplate<String, String> kafkaTemplate;
     @Resource(name = "oaxStringRedisTemplate")

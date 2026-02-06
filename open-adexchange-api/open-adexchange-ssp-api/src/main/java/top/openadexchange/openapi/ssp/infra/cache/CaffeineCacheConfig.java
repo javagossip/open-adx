@@ -15,7 +15,6 @@ import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.Publisher;
 import top.openadexchange.model.Site;
-import top.openadexchange.model.SiteAdPlacement;
 
 @Configuration
 public class CaffeineCacheConfig {

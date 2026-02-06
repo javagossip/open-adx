@@ -1,36 +1,34 @@
 package top.openadexchange.openapi.ssp.domain.core;
 
-import jakarta.annotation.Resource;
-
 import org.springframework.stereotype.Component;
 
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import top.openadexchange.constants.enums.PriceMode;
 import top.openadexchange.domain.entity.DspAggregate;
-import top.openadexchange.dto.TrackToken;
-import top.openadexchange.model.Dsp;
-import top.openadexchange.openapi.ssp.application.factory.TrackTokenBuilder;
+import top.openadexchange.openapi.ssp.application.service.MetricsCollector;
 import top.openadexchange.openapi.ssp.application.service.RateLimiterManager;
-import top.openadexchange.openapi.ssp.config.OaxEngineProperties;
 import top.openadexchange.openapi.ssp.spi.RtbProtocolConverter;
 import top.openadexchange.openapi.ssp.spi.RtbProtocolInvoker;
 import top.openadexchange.openapi.ssp.spi.factory.OaxSpiFactory;
-import top.openadexchange.rtb.proto.OaxRtbProto;
+import top.openadexchange.openapi.ssp.utils.BidRequestUtils;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
+import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Imp;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse;
-import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid.Bid;
 
 @Component
 @Slf4j
 public class DspClient {
 
     @Resource
-    private OaxEngineProperties oaxEngineProperties;
-    @Resource
     private RateLimiterManager rateLimiterManager;
+    @Resource
+    private MetricsCollector metricsCollector;
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     public BidResponse.Builder bidding(DspAggregate dspAggregate, BidRequest.Builder request) {
+        for (Imp imp : request.getImpList()) {
+            metricsCollector.incrementAdSlotBids(imp.getTagid());
+        }
         if (!rateLimiterManager.tryAcquire(dspAggregate.getDspId())) {
             log.warn("dsp {} rate limit", dspAggregate.getDsp().getName());
             return null;
@@ -41,20 +39,23 @@ public class DspClient {
         //2. 获取协议调用扩展点
         RtbProtocolInvoker invoker = OaxSpiFactory.getRtbProtocolInvoker(dspId);
         //3. 发起rtb请求调用
-        if (request.getTest() || request.getDebug()) {
+        if (BidRequestUtils.traceEnabled(request)) {
             log.info("BidRequest: {}", request);
         }
         Object dspRequest = rtbProtocolConverter.to(dspAggregate.getDsp(), request);
-        if (request.getTest() || request.getDebug()) {
+        if (BidRequestUtils.traceEnabled(request)) {
             log.info("dsp {} BidRequest: {}", dspAggregate.getDsp().getName(), dspRequest);
         }
+        metricsCollector.incrementDspReqs(dspAggregate.getDspId());
         Object response = invoker.invoke(dspAggregate.getDsp(), dspRequest);
-        if (request.getTest() || request.getDebug()) {
+        if (BidRequestUtils.traceEnabled(request)) {
             log.info("dsp {} BidResponse: {}", dspAggregate.getDsp().getName(), response);
         }
         BidResponse.Builder bidResponse = rtbProtocolConverter.from(dspAggregate.getDsp(), request.build(), response);
-
-        if (request.getTest() || request.getDebug()) {
+        if (bidResponse != null && !bidResponse.getNoBid()) {
+            metricsCollector.incrementDspBids(dspAggregate.getDspId());
+        }
+        if (BidRequestUtils.traceEnabled(request)) {
             log.info("BidResponse: {}", bidResponse.toString());
         }
         return bidResponse;

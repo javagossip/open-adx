@@ -16,7 +16,6 @@ import top.openadexchange.constants.Constants;
 import top.openadexchange.dao.DspStatDao;
 import top.openadexchange.dto.query.DspReportQueryDto;
 import top.openadexchange.dto.report.DspReportDto;
-import top.openadexchange.model.DspStat;
 
 import static top.openadexchange.model.table.DspStatTableDef.*;
 import static top.openadexchange.model.table.DspTableDef.*;
@@ -39,6 +38,7 @@ public class DspReportService {
                         DSP_STAT.CLK_COUNT,
                         DSP_STAT.BID_COUNT,
                         DSP_STAT.WIN_COUNT,
+                        DSP_STAT.REQ_COUNT,
                         DSP_STAT.STAT_DATE,
                         DSP_STAT.COST)
                 .from(DSP)
@@ -62,11 +62,14 @@ public class DspReportService {
         }
         List<String> dspCodes =
                 dspReports.getRecords().stream().filter(Objects::nonNull).map(DspReportDto::getDspCode).toList();
-        Map<String, DspReportDto> dspReportMap = redisAdStatService.getTodayAdSlotStatsAggregateDspCodes(dspCodes);
+        Map<String, DspReportDto> dspReportMap = redisAdStatService.getTodayDspStatsAggregateDspCodes(dspCodes);
         log.info("查询DSP当天统计报表, 缓存数据结束, cache data: {}", dspReportMap);
         dspReports.getRecords().forEach(reportDto -> {
             DspReportDto dspReportDto = dspReportMap.get(reportDto.getDspCode());
             if (dspReportDto != null) {
+                reportDto.incrReqCount(dspReportDto.getReqCount());
+                reportDto.incrBidCount(dspReportDto.getBidCount());
+                reportDto.incrWinCount(dspReportDto.getWinCount());
                 reportDto.incrImpCount(dspReportDto.getImpCount());
                 reportDto.incrClkCount(dspReportDto.getClkCount());
                 reportDto.incrCost(dspReportDto.getCost());

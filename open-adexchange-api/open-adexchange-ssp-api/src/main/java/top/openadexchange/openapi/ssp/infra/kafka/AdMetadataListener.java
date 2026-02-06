@@ -1,9 +1,9 @@
 package top.openadexchange.openapi.ssp.infra.kafka;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
 
 //监听OAX元数据变更消息, 实时更新元数据缓存以及索引
 @Component

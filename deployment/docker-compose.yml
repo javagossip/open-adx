@@ -100,6 +100,7 @@ services:
         ports:
             - "9090:9090"
         environment:
+            TZ: Asia/Shanghai
             SPRING_PROFILES_ACTIVE: docker
             MYSQL_HOST: mysql
             MYSQL_PORT: 3306
@@ -173,6 +174,7 @@ services:
         ports:
             - "9091:9091"
         environment:
+            TZ: Asia/Shanghai
             SPRING_PROFILES_ACTIVE: docker
             MYSQL_HOST: mysql
             MYSQL_PORT: 3306
@@ -216,6 +218,7 @@ services:
         ports:
             - "8081:8080"
         environment:
+            TZ: Asia/Shanghai
             SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
             SPRING_DATASOURCE_USERNAME: ${MYSQL_USER:-openadx_user}
             SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD:-openadx_password}
@@ -245,6 +248,7 @@ services:
         ports:
             - "8082:8082"
         environment:
+            TZ: Asia/Shanghai
             SPRING_PROFILES_ACTIVE: docker
             MYSQL_HOST: mysql
             MYSQL_PORT: 3306
@@ -292,6 +296,7 @@ services:
         ports:
             - "8080:8080"
         environment:
+            TZ: Asia/Shanghai
             SPRING_PROFILES_ACTIVE: docker
             MYSQL_HOST: mysql
             MYSQL_PORT: 3306
@@ -338,6 +343,7 @@ services:
         ports:
             - "8083:8083"
         environment:
+            TZ: Asia/Shanghai
             SPRING_PROFILES_ACTIVE: docker
             MYSQL_HOST: mysql
             MYSQL_PORT: 3306

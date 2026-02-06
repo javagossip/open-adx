@@ -6,10 +6,8 @@ import java.util.Map;
 import com.chaincoretech.epc.annotation.Extension;
 
 import jakarta.annotation.Resource;
-import top.openadexchange.dto.TrackToken;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.DspPlacementMapping;
-import top.openadexchange.openapi.ssp.application.factory.TrackTokenBuilder;
 import top.openadexchange.openapi.ssp.config.OaxEngineProperties;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataRepository;
 import top.openadexchange.openapi.ssp.spi.RtbProtocolConverter;
@@ -30,6 +28,7 @@ import top.openadexchange.rtb.proto.provider.xinhe.XinHeRtbProto.OperatorType;
 @Extension(keys = {"xinhe"})
 public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidRequest, BidResponse> {
 
+    private static final int NO_AD_CODE = 707;
     // OAX连接类型 -> 信和连接类型映射
     public static final Map<Integer, ConnectionType> CONNECTION_TYPE_MAP = new HashMap<>();
 
@@ -142,8 +141,11 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
     public OaxRtbProto.BidResponse.Builder from(Dsp dsp, OaxRtbProto.BidRequest bidRequest, BidResponse bidResponse) {
         OaxRtbProto.BidResponse.Builder builder = OaxRtbProto.BidResponse.newBuilder();
         builder.setId(bidResponse.getId());
+        if (bidResponse.getCode() == NO_AD_CODE) {
+            builder.setNoBid(true);
+            return builder;
+        }
         builder.setBidid(bidResponse.getBidid());
-
         String impid = bidRequest.getImpList().get(0).getId();
         // 处理SeatBid
         for (XinHeRtbProto.SeatBid xinheSeatBid : bidResponse.getSeatBidList()) {

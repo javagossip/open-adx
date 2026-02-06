@@ -1,5 +1,8 @@
 package top.openadexchange.openapi.ssp.domain.gateway;
 
+import java.util.List;
+import java.util.Map;
+
 import com.chaincoretech.epc.annotation.ExtensionPoint;
 
 import top.openadexchange.domain.entity.AdPlacementAggregate;
@@ -9,10 +12,6 @@ import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.Publisher;
 import top.openadexchange.model.Site;
-import top.openadexchange.model.SiteAdPlacement;
-
-import java.util.List;
-import java.util.Map;
 
 @ExtensionPoint
 public interface MetadataCacheService {

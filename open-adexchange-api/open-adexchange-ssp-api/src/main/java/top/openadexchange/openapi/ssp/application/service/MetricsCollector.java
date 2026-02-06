@@ -1,0 +1,170 @@
+package top.openadexchange.openapi.ssp.application.service;
+
+import java.time.Duration;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.LongAdder;
+
+import jakarta.annotation.Resource;
+
+import lombok.extern.slf4j.Slf4j;
+
+import org.jspecify.annotations.Nullable;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.core.RedisOperations;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SessionCallback;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import top.openadexchange.constants.RedisKeys;
+
+@Service
+@Slf4j
+public class MetricsCollector {
+
+    private final ConcurrentMap<String, AdSlotMetrics> adSlotMetrics = new ConcurrentHashMap<>(20);
+    private final ConcurrentMap<String, AdSlotMetrics> slaveAdSlotMetrics = new ConcurrentHashMap<>(20);
+
+    private final ConcurrentMap<String, DspMetrics> dspMetrics = new ConcurrentHashMap<>(10);
+    private final ConcurrentMap<String, DspMetrics> slaveDspMetrics = new ConcurrentHashMap<>(10);
+
+    private final AtomicReference<ConcurrentMap<String, AdSlotMetrics>> currentAdSlotMetricsRef =
+            new AtomicReference<>(adSlotMetrics);
+    private final AtomicReference<ConcurrentMap<String, DspMetrics>> currentDspMetricsRef =
+            new AtomicReference<>(dspMetrics);
+
+    @Resource(name = "oaxStringRedisTemplate")
+    private RedisTemplate<String, String> redisTemplate;
+
+    public record DspMetrics(String dspId, LongAdder reqs, LongAdder bids, LongAdder wins) {
+
+        public DspMetrics(String dspId) {
+            this(dspId, new LongAdder(), new LongAdder(), new LongAdder());
+        }
+
+        public static DspMetrics of(String dspId) {
+            return new DspMetrics(dspId);
+        }
+    }
+
+    public record AdSlotMetrics(String adSlotId, LongAdder reqs, LongAdder bids, LongAdder wins) {
+
+        public AdSlotMetrics(String adSlotId) {
+            this(adSlotId, new LongAdder(), new LongAdder(), new LongAdder());
+        }
+
+        public static AdSlotMetrics of(String adSlotId) {
+            return new AdSlotMetrics(adSlotId);
+        }
+    }
+
+    public void incrementDspReqs(String dspId) {
+        DspMetrics metrics = currentDspMetricsRef.get().computeIfAbsent(dspMetricKey(dspId), DspMetrics::of);
+        metrics.reqs.increment();
+    }
+
+    public void incrementDspBids(String dspId) {
+        DspMetrics metrics = currentDspMetricsRef.get().computeIfAbsent(dspMetricKey(dspId), DspMetrics::of);
+        metrics.bids.increment();
+    }
+
+    public void incrementDspWins(String dspId) {
+        DspMetrics metrics = currentDspMetricsRef.get().computeIfAbsent(dspMetricKey(dspId), DspMetrics::of);
+        metrics.wins.increment();
+    }
+
+    public void incrementAdSlotReqs(String adSlotId) {
+        AdSlotMetrics metrics =
+                currentAdSlotMetricsRef.get().computeIfAbsent(adSlotMetricKey(adSlotId), AdSlotMetrics::of);
+        metrics.reqs.increment();
+    }
+
+    public void incrementAdSlotBids(String adSlotId) {
+        AdSlotMetrics metrics =
+                currentAdSlotMetricsRef.get().computeIfAbsent(adSlotMetricKey(adSlotId), AdSlotMetrics::of);
+        metrics.bids.increment();
+    }
+
+    public void incrementAdSlotWins(String adSlotId) {
+        AdSlotMetrics metrics =
+                currentAdSlotMetricsRef.get().computeIfAbsent(adSlotMetricKey(adSlotId), AdSlotMetrics::of);
+        metrics.wins.increment();
+    }
+
+    private String adSlotMetricKey(String adSlotId) {
+        return RedisKeys.keyStatAdSlot(adSlotId);
+    }
+
+    private String dspMetricKey(String dspId) {
+        return RedisKeys.keyStatDsp(dspId);
+    }
+
+    private ConcurrentMap<String, DspMetrics> swapAndGetDspMetrics() {
+        ConcurrentMap<String, DspMetrics> activeMap = currentDspMetricsRef.get();
+        ConcurrentMap<String, DspMetrics> nextActiveMap = (activeMap == dspMetrics) ? slaveDspMetrics : dspMetrics;
+        // 切换
+        currentDspMetricsRef.set(nextActiveMap);
+        // 返回刚才写满的 Map 供同步逻辑读取
+        return activeMap;
+    }
+
+    private ConcurrentMap<String, AdSlotMetrics> swapAndGetAdSlotMetrics() {
+        ConcurrentMap<String, AdSlotMetrics> activeMap = currentAdSlotMetricsRef.get();
+        ConcurrentMap<String, AdSlotMetrics> nextActiveMap =
+                (activeMap == adSlotMetrics) ? slaveAdSlotMetrics : adSlotMetrics;
+        // 切换
+        currentAdSlotMetricsRef.set(nextActiveMap);
+        // 返回刚才写满的 Map 供同步逻辑读取
+        return activeMap;
+    }
+
+    @Scheduled(fixedDelay = 5,
+            timeUnit = TimeUnit.SECONDS)
+    public void syncMetricsToRedis() {
+        try {
+            // 1、同步dsp统计数据到redis
+            ConcurrentMap<String, DspMetrics> dspMetrics = swapAndGetDspMetrics();
+            dspMetrics.forEach((dspMetricKey, metrics) -> {
+                redisTemplate.executePipelined(new SessionCallback<>() {
+                    @Override
+                    public @Nullable <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
+                        ops.opsForHash().increment((K) dspMetricKey, RedisKeys.HASH_FIELD_REQ, metrics.reqs.sum());
+                        ops.opsForHash().increment((K) dspMetricKey, RedisKeys.HASH_FIELD_BID, metrics.bids.sum());
+                        ops.opsForHash().increment((K) dspMetricKey, RedisKeys.HASH_FIELD_WIN, metrics.wins.sum());
+
+                        Long expire = ops.getExpire((K) dspMetricKey);
+                        if (expire == null || expire < 0) {
+                            ops.expire((K) dspMetricKey, Duration.ofDays(2));
+                        }
+                        return null;
+                    }
+                });
+            });
+            dspMetrics.clear();
+            // 2、同步 adslot统计数据到redis
+            ConcurrentMap<String, AdSlotMetrics> adSlotMetrics = swapAndGetAdSlotMetrics();
+            adSlotMetrics.forEach((adSlotMetricKey, metrics) -> {
+                redisTemplate.executePipelined(new SessionCallback<>() {
+                    @Override
+                    public @Nullable <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
+                        ops.opsForHash().increment((K) adSlotMetricKey, RedisKeys.HASH_FIELD_REQ, metrics.reqs.sum());
+                        ops.opsForHash().increment((K) adSlotMetricKey, RedisKeys.HASH_FIELD_BID, metrics.bids.sum());
+                        ops.opsForHash().increment((K) adSlotMetricKey, RedisKeys.HASH_FIELD_WIN, metrics.wins.sum());
+
+                        Long expire = ops.getExpire((K) adSlotMetricKey);
+                        if (expire == null || expire < 0) {
+                            ops.expire((K) adSlotMetricKey, Duration.ofDays(2));
+                        }
+                        return null;
+                    }
+                });
+            });
+            adSlotMetrics.clear();
+        } catch (Exception ex) {
+            log.error("sync metrics to redis error", ex);
+        }
+    }
+}

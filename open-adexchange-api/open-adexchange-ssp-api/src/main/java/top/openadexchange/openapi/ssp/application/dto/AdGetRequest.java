@@ -1,10 +1,10 @@
 package top.openadexchange.openapi.ssp.application.dto;
 
-import lombok.Data;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import lombok.Data;
 
 /**
  * 竞价请求对象DTO

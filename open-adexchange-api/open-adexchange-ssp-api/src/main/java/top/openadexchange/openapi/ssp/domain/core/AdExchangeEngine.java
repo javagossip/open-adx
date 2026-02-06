@@ -27,6 +27,7 @@ import top.openadexchange.model.Dsp;
 import top.openadexchange.model.Publisher;
 import top.openadexchange.openapi.ssp.application.factory.IndexKeysBuilder;
 import top.openadexchange.openapi.ssp.application.factory.TrackTokenBuilder;
+import top.openadexchange.openapi.ssp.application.service.MetricsCollector;
 import top.openadexchange.openapi.ssp.config.OaxEngineProperties;
 import top.openadexchange.openapi.ssp.domain.gateway.ExecutorFactories;
 import top.openadexchange.openapi.ssp.domain.gateway.ExecutorFactory;
@@ -51,7 +52,7 @@ import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid.Bid.Builder;
 @Slf4j
 public class AdExchangeEngine {
 
-    private static final long DELTA = 10000; //1分
+    private static final long DELTA = 1; //1分
     private static final Comparator<DspBid> BID_PRICE_DESCENDING = (a, b) -> Long.compare(b.getPrice(), a.getPrice());
     @Resource
     private DspClient dspClient;
@@ -65,9 +66,14 @@ public class AdExchangeEngine {
     private ExecutorFactories executorFactories;
     @Resource
     private MetadataCacheService metadataCacheService;
+    @Resource
+    private MetricsCollector metricsCollector;
 
     public Map<String, Bid.Builder> bidding(BidRequest.Builder request) {
         // 1. 获取所有 DSP 的响应 (并发逻辑同前)
+        for (Imp imp : request.getImpList()) {
+            metricsCollector.incrementAdSlotReqs(imp.getTagid());
+        }
         Map<String, Imp> impFloorMap =
                 request.getImpList().stream().collect(Collectors.toMap(Imp::getId, Function.identity(), (a, b) -> a));
         Map<String, List<DspBid>> validImpBids = fetchAllBids(request, impFloorMap);
@@ -86,6 +92,8 @@ public class AdExchangeEngine {
         bids.sort(BID_PRICE_DESCENDING);
         DspBid winner = bids.get(0);
 
+        metricsCollector.incrementDspWins(winner.getDspId());
+        metricsCollector.incrementAdSlotWins(imp.getTagid());
         //如果获胜dsp的出价类型是First Price，则直接返回中标者的出价
         Dsp winDsp = winner.getDsp();
         if (winDsp.getAt() == AuctionType.FIRST_PRICE.getValue()) {

@@ -1,7 +1,5 @@
 package top.openadexchange.openapi.ssp.domain.core;
 
-import java.util.regex.Matcher;
-
 import com.chaincoretech.epc.annotation.Extension;
 
 import top.openadexchange.openapi.ssp.spi.MacroProcessor;

@@ -31,7 +31,6 @@ import top.openadexchange.dto.report.DspReportDto;
 import top.openadexchange.dto.report.PublisherReportDto;
 import top.openadexchange.model.AdSlotStat;
 import top.openadexchange.model.Dsp;
-import top.openadexchange.model.DspStat;
 import top.openadexchange.model.Publisher;
 import top.openadexchange.model.Site;
 import top.openadexchange.model.SiteAdPlacement;
@@ -68,6 +67,9 @@ public class RedisAdStatService {
             }
             PublisherReportDto publisherReportDto =
                     publisherReportDtoMap.computeIfAbsent(adSlotStat.getPublisherId(), k -> new PublisherReportDto());
+            publisherReportDto.incrReqCount(adSlotStat.getReqCount());
+            publisherReportDto.incrBidCount(adSlotStat.getBidCount());
+            publisherReportDto.incrWinCount(adSlotStat.getWinCount());
             publisherReportDto.incrImpCount(adSlotStat.getImpCount());
             publisherReportDto.incrClickCount(adSlotStat.getClickCount());
             publisherReportDto.incrRevenue(adSlotStat.getRevenue());
@@ -158,7 +160,7 @@ public class RedisAdStatService {
         return adSlotStats;
     }
 
-    public Map<String, DspReportDto> getTodayAdSlotStatsAggregateDspCodes(List<String> dspCodes) {
+    public Map<String, DspReportDto> getTodayDspStatsAggregateDspCodes(List<String> dspCodes) {
         List<DspReportDto> redisDspStats = batchGetTodayDspStats(dspCodes);
         log.info("Get dspCodes stat from redis: {}, redisDspStats: {}", dspCodes, redisDspStats);
         return redisDspStats.stream()
@@ -185,6 +187,9 @@ public class RedisAdStatService {
             }
             List<Object> values =
                     redisTemplate.opsForHash().multiGet(RedisKeys.keyStatDsp(dspCode), RedisKeys.HASH_FIELDS);
+            String reqCountStr = (String) values.get(4);
+            String bidCountStr = (String) values.get(2);
+            String winCountStr = (String) values.get(3);
             String impCountStr = (String) values.get(0);
             String clickCountStr = (String) values.get(1);
             String costStr = (String) values.get(6);
@@ -193,6 +198,9 @@ public class RedisAdStatService {
             dspStat.setDspId(String.valueOf(dsp.getId()));
             dspStat.setStatDate(Integer.parseInt(statDate));
             dspStat.setDspCode(dspCode);
+            dspStat.setBidCount(NumberUtils.toLong(bidCountStr));
+            dspStat.setReqCount(NumberUtils.toLong(reqCountStr));
+            dspStat.setWinCount(NumberUtils.toLong(winCountStr));
             dspStat.setImpCount(NumberUtils.toLong(impCountStr));
             dspStat.setClkCount(NumberUtils.toLong(clickCountStr));
             dspStat.setCost(NumberUtils.toLong(costStr));

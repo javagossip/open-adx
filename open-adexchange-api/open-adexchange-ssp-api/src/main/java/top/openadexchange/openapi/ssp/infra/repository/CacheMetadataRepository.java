@@ -13,7 +13,6 @@ import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.DspPlacementMapping;
 import top.openadexchange.model.Site;
-import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataCacheService;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataRepository;
 
