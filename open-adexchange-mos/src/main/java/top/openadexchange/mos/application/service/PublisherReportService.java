@@ -117,7 +117,8 @@ public class PublisherReportService {
                                 .and(AD_SLOT_STAT.STAT_DATE.between(queryDto.getStartDate(), queryDto.getEndDate())))
                         .leftJoin(SITE)
                         .on(AD_SLOT_STAT.SITE_ID.eq(SITE.ID))
-                        .eq(SiteAdPlacement::getSiteId, queryDto.getSiteId()),
+                        .eq(SiteAdPlacement::getSiteId, queryDto.getSiteId())
+                        .groupBy(SITE_AD_PLACEMENT.CODE),
                 AdSlotReportDto.class);
 
         if (!result.hasRecords()) {

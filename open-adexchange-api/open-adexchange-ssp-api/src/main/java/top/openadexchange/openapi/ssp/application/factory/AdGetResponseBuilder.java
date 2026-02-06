@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import jakarta.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import top.openadexchange.commons.StatsUtils;
+import top.openadexchange.model.Publisher;
 import top.openadexchange.openapi.ssp.application.dto.AdGetRequest;
 import top.openadexchange.openapi.ssp.application.dto.AdGetResponse;
 import top.openadexchange.openapi.ssp.application.dto.AdGetResponse.Ad;
 import top.openadexchange.openapi.ssp.application.dto.AdGetResponse.NativeAd;
-import top.openadexchange.openapi.ssp.domain.gateway.MetadataRepository;
+import top.openadexchange.openapi.ssp.domain.gateway.MetadataCacheService;
+import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
+import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Builder;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid.Bid;
 
@@ -20,7 +25,12 @@ import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid.Bid;
 @Slf4j
 public class AdGetResponseBuilder {
 
-    public AdGetResponse buildAdGetResponse(AdGetRequest request, Map<String, Bid.Builder> bids) {
+    @Resource
+    private MetadataCacheService metadataCacheService;
+
+    public AdGetResponse buildAdGetResponse(BidRequest.Builder bidRequest,
+            AdGetRequest request,
+            Map<String, Bid.Builder> bids) {
         if (bids == null || bids.isEmpty()) {
             return null;
         }
@@ -28,12 +38,14 @@ public class AdGetResponseBuilder {
         adGetResponse.setId(request.getId());
 
         List<Ad> ads = new ArrayList<>(bids.size());
-        bids.forEach((impId, bid) -> ads.add(buildAd(request, impId, bid)));
+        bids.forEach((impId, bid) -> ads.add(buildAd(bidRequest, request, impId, bid)));
         adGetResponse.setAds(ads);
         return adGetResponse;
     }
 
-    private Ad buildAd(AdGetRequest request, String impid, Bid.Builder bid) {
+    private Ad buildAd(Builder bidRequest, AdGetRequest request, String impid, Bid.Builder bid) {
+        Publisher publisher = metadataCacheService.getPublisher(bidRequest.getPublisher().getId());
+
         String tagId = request.getTagIdByImpId(impid);
         Ad ad = new Ad();
         ad.setPm(bid.getImpTrackersList());
@@ -46,7 +58,9 @@ public class AdGetResponseBuilder {
         ad.setTagid(tagId);
         ad.setBundle(bid.getBundle());
         ad.setNativeAd(buildNativeAd(bid));
-        ad.setPrice(bid.getPrice());
+        if (publisher != null && publisher.getRevShare() != null) {
+            ad.setPrice(StatsUtils.calcMediaRevenue(bid.getPrice(), publisher.getRevShare()));
+        }
         return ad;
     }
 

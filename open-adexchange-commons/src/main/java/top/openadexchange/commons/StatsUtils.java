@@ -1,6 +1,7 @@
 package top.openadexchange.commons;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public final class StatsUtils {
 
@@ -22,5 +23,14 @@ public final class StatsUtils {
                     .divide(new BigDecimal(impCount), 4, BigDecimal.ROUND_HALF_UP);
         }
         return BigDecimal.ZERO;
+    }
+
+    public static long calcMediaRevenue(long price, Integer revShare) {
+        if (revShare == null || revShare <= 0) {
+            return 0;
+        }
+        return new BigDecimal(price).multiply(new BigDecimal(revShare))
+                .divide(new BigDecimal(100), 2, RoundingMode.HALF_UP)
+                .longValue();
     }
 }
