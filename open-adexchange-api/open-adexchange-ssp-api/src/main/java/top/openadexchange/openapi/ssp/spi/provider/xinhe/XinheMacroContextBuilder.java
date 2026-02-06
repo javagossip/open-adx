@@ -17,6 +17,9 @@ public class XinheMacroContextBuilder implements MacroContextBuilder {
     public MacroContext build(DspBid dspBid) {
         WinPriceCodec winPriceCodec = OaxSpiFactory.getWinPriceCodec(dspBid.getDspId());
         String encodedPrice = winPriceCodec.encode(dspBid.getPrice(), dspBid.getDsp());
-        return new MacroContext(Map.of(XinheMacros.WIN_PRICE, encodedPrice));
+        return new MacroContext(Map.of(XinheMacros.WIN_PRICE,
+                encodedPrice,
+                XinheMacros.TS,
+                String.valueOf(System.currentTimeMillis())));
     }
 }

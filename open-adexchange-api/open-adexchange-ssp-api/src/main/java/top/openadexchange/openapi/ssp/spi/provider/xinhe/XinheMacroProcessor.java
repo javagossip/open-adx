@@ -6,6 +6,9 @@ import top.openadexchange.openapi.ssp.spi.MacroProcessor;
 import top.openadexchange.openapi.ssp.spi.MacroUtils;
 import top.openadexchange.openapi.ssp.spi.model.MacroContext;
 
+import java.util.Map;
+import java.util.regex.Pattern;
+
 @Extension(keys = {"xinhe"})
 public class XinheMacroProcessor implements MacroProcessor {
 
@@ -14,6 +17,10 @@ public class XinheMacroProcessor implements MacroProcessor {
         if (template == null || !template.contains(XinheMacros.START_MACRO)) {
             return template;
         }
-        return MacroUtils.replaceMacros(template, XinheMacros.MACRO_PATTERN, context);
+        String result = template;
+        for (Pattern pattern : XinheMacros.MACRO_PATTERNS) {
+            result = MacroUtils.replaceMacros(result, pattern, context);
+        }
+        return result;
     }
 }
