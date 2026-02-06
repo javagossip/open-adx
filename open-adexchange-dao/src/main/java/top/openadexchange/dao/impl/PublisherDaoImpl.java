@@ -1,5 +1,7 @@
 package top.openadexchange.dao.impl;
 
+import com.mybatisflex.core.query.QueryWrapper;
+
 import org.springframework.stereotype.Service;
 
 import com.mybatisflex.spring.service.impl.ServiceImpl;
@@ -7,6 +9,10 @@ import com.mybatisflex.spring.service.impl.ServiceImpl;
 import top.openadexchange.dao.PublisherDao;
 import top.openadexchange.mapper.PublisherMapper;
 import top.openadexchange.model.Publisher;
+import top.openadexchange.model.SiteAdPlacement;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * 服务层实现。
@@ -25,5 +31,12 @@ public class PublisherDaoImpl extends ServiceImpl<PublisherMapper, Publisher> im
     @Override
     public Boolean disablePublisher(Long id) {
         return updateChain().set(Publisher::getStatus, 0).eq(Publisher::getId, id).update();
+    }
+
+    @Override
+    public List<Publisher> pageList(int pageNo, int pageSize) {
+        List<Publisher> publisherList =
+                list(QueryWrapper.create().eq(Publisher::getStatus, 1).limit((pageNo - 1) * pageSize, pageSize));
+        return publisherList;
     }
 }

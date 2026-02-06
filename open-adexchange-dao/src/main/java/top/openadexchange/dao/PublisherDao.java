@@ -4,6 +4,8 @@ import com.mybatisflex.core.service.IService;
 
 import top.openadexchange.model.Publisher;
 
+import java.util.List;
+
 /**
  * 服务层。
  *
@@ -15,4 +17,6 @@ public interface PublisherDao extends IService<Publisher> {
     Boolean enablePublisher(Long id);
 
     Boolean disablePublisher(Long id);
+
+    List<Publisher> pageList(int pageNo, int pageSize);
 }

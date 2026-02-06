@@ -89,6 +89,7 @@ public class AdExchangeEngine {
         //如果获胜dsp的出价类型是First Price，则直接返回中标者的出价
         Dsp winDsp = winner.getDsp();
         if (winDsp.getAt() == AuctionType.FIRST_PRICE.getValue()) {
+            log.info("竞价完成，中标者: {}, 一价结算，结算价：{}", winDsp.getName(), winner.getBid().getPrice());
             replaceMacros(winner.getBid(), winner);
             resetBidTrackers(request, winDsp, winner.getBid(), imp);
             return winner.getBid();
@@ -109,16 +110,15 @@ public class AdExchangeEngine {
 
         // 4. 设置最终结算价格并返回
         Bid.Builder builder = winner.getBid();
-        builder.setPrice(settlementPrice);
         //5. 对WinNotice url以及点击/曝光监测地址进行宏替换处理
-        resetBidTrackers(request, winner.getDsp(), builder, imp);
-        replaceMacros(builder, winner);
         //6. 发送WinNotice请求
         log.info("竞价完成，中标者: {}, 原始出价: {}, 最终结算价: {}",
                 winDsp.getName(),
                 winner.getBid().getPrice(),
                 settlementPrice);
-
+        builder.setPrice(settlementPrice);
+        resetBidTrackers(request, winner.getDsp(), builder, imp);
+        replaceMacros(builder, winner);
         return builder;
     }
 
@@ -284,8 +284,8 @@ public class AdExchangeEngine {
         trackToken.setAdvId("");
         trackToken.setDspId(dsp.getDspId());
         trackToken.setTs(System.currentTimeMillis());
-        // TODO 设置过期时间为30天后（可根据不同广告类型调整）
-        trackToken.setExpireAt(System.currentTimeMillis() + 30 * 24 * 60 * 60 * 1000L);
+        // TODO 设置过期时间为2个小时（可根据不同广告类型调整）
+        trackToken.setExpireAt(System.currentTimeMillis() + 2 * 60 * 60 * 1000L);
         trackToken.setUa(request.getDevice().getUa());
         trackToken.setIp(request.getDevice().getIp());
         trackToken.setIpv6(request.getDevice().getIpv6());

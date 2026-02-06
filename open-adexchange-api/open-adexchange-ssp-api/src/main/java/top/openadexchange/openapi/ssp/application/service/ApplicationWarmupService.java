@@ -59,9 +59,25 @@ public class ApplicationWarmupService {
     }
 
     private void initMetadataCache() {
+        log.info("Init metadata cache...");
+        buildPublisherCache();
         buildSiteCache();
         buildAdPlacementCache();
         buildSiteAdPlacementCache();
+    }
+
+    private void buildPublisherCache() {
+        log.info("init publisher cache");
+        int pageNo = 1;
+        int pageSize = 100;
+        while (true) {
+            List<Publisher> publisherList = publisherDao.pageList(pageNo, pageSize);
+            if (publisherList.isEmpty()) {
+                break;
+            }
+            publisherList.forEach(publisher -> metadataCacheService.addOrUpdatePublisher(publisher));
+            pageNo++;
+        }
     }
 
     private void buildSiteAdPlacementCache() {
