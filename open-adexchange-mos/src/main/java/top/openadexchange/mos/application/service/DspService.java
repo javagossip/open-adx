@@ -92,11 +92,28 @@ public class DspService {
     public Boolean deleteDsp(Integer id) {
         log.info("deleteDsp: {}", id);
         Dsp dsp = dspDao.getById(id);
-        sysUserService.deleteUserById(dsp.getUserId());
+        Assert.notNull(dsp, "dsp not exists");
+        if (dsp.getUserId() != null) {
+            log.info("Delete dsp user: {}", dsp.getUserId());
+            sysUserService.deleteUserById(dsp.getUserId());
+        }
+        log.info("Delete dsp placement mappings: {}", id);
+        dspPlacementMappingDao.remove(QueryWrapper.create().eq(DspPlacementMapping::getDspId, id));
         boolean deleted = dspDao.removeById(id);
-
         if (deleted) {
             domainEventDao.save(DomainEventFactory.create(DomainEventType.DSP_DELETED.name(), dsp.getId()));
+        }
+        return true;
+    }
+
+    @Transactional
+    public Boolean batchDeleteDsp(List<Integer> ids) {
+        log.info("batchDeleteDsp: {}", ids);
+        if (ids == null || ids.isEmpty()) {
+            return false;
+        }
+        for (Integer id : ids) {
+            deleteDsp(id);
         }
         return true;
     }
@@ -225,6 +242,14 @@ public class DspService {
 
     @Transactional
     public Integer addDspPlacementMapping(DspPlacementMapping dspPlacementMapping) {
+        Assert.notNull(dspPlacementMapping.getDspId(), "dspId cannot be null");
+        Assert.notNull(dspPlacementMapping.getSiteAdPlacementId(), "Please select a site ad placement");
+        boolean mappingExists = dspPlacementMappingDao.exists(QueryWrapper.create()
+                .eq(DspPlacementMapping::getDspId, dspPlacementMapping.getDspId())
+                .eq(DspPlacementMapping::getSiteAdPlacementId, dspPlacementMapping.getSiteAdPlacementId())
+                .eq(DspPlacementMapping::getDspSlotId, dspPlacementMapping.getDspSlotId()));
+        Assert.isTrue(!mappingExists, "The mapping already exists");
+
         dspPlacementMappingDao.save(dspPlacementMapping);
         domainEventDao.save(DomainEventFactory.create(DomainEventType.DSP_UPDATED.name(),
                 dspPlacementMapping.getDspId()));
@@ -233,11 +258,27 @@ public class DspService {
 
     @Transactional
     public Boolean deleteDspPlacementMapping(Integer id) {
+        Assert.notNull(id, "id cannot be null");
         DspPlacementMapping origDspPlacementMapping = dspPlacementMappingDao.getById(id);
+        Assert.notNull(origDspPlacementMapping, "dspPlacementMapping is null");
+        log.info("Delete dspPlacementMapping: {}", id);
         boolean updated = dspPlacementMappingDao.removeById(id);
         if (updated) {
             domainEventDao.save(DomainEventFactory.create(DomainEventType.DSP_UPDATED.name(),
                     origDspPlacementMapping.getDspId()));
+        }
+        return updated;
+    }
+
+    @Transactional
+    public Boolean updateDspPlacementMapping(DspPlacementMapping dspPlacementMapping) {
+        Assert.notNull(dspPlacementMapping.getId(), "id cannot be null");
+        log.info("updateDspPlacementMapping: {}", dspPlacementMapping);
+
+        boolean updated = dspPlacementMappingDao.updateById(dspPlacementMapping);
+        if (updated) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.DSP_UPDATED.name(),
+                    dspPlacementMapping.getDspId()));
         }
         return updated;
     }

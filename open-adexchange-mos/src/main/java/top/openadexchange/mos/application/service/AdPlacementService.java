@@ -11,15 +11,21 @@ import jakarta.annotation.Resource;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.util.Assert;
+
 import top.openadexchange.constants.enums.AdFormat;
 import top.openadexchange.constants.enums.DomainEventType;
 import top.openadexchange.dao.AdPlacementDao;
 import top.openadexchange.dao.DomainEventDao;
 import top.openadexchange.dao.NativeAssetDao;
+import top.openadexchange.dao.SiteAdPlacementDao;
+import top.openadexchange.dao.SiteAdpAdtMappingDao;
 import top.openadexchange.dto.AdPlacementDto;
 import top.openadexchange.dto.query.AdPlacementQueryDto;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.NativeAsset;
+import top.openadexchange.model.SiteAdPlacement;
+import top.openadexchange.model.SiteAdpAdtMapping;
 import top.openadexchange.mos.application.converter.AdPlacementConverter;
 import top.openadexchange.mos.application.converter.NativeAssetConverter;
 import top.openadexchange.mos.application.factory.DomainEventFactory;
@@ -39,6 +45,8 @@ public class AdPlacementService {
     private NativeAssetDao nativeAssetDao;
     @Resource
     private DomainEventDao domainEventDao;
+    @Resource
+    private SiteAdpAdtMappingDao siteAdpAdtMappingDao;
 
     @Transactional
     public Integer addAdPlacement(AdPlacementDto adPlacementDto) {
@@ -53,6 +61,7 @@ public class AdPlacementService {
         return adPlacement.getId();
     }
 
+    @Transactional
     public Boolean updateAdPlacement(AdPlacementDto adPlacementDto) {
         AdPlacement adPlacement = adPlacementConverter.from(adPlacementDto);
         List<NativeAsset> nativeAssets = nativeAssetConverter.from(adPlacement.getId(), adPlacementDto.getNativeAd());
@@ -67,7 +76,16 @@ public class AdPlacementService {
         return updated;
     }
 
+    @Transactional
     public Boolean deleteAdPlacement(Integer id) {
+        //删除广告模板需要判断这个广告模板是否被使用，如果使用则不能删除，需要先删除使用方
+        boolean existsUsingAdPlacements =
+                siteAdpAdtMappingDao.exists(QueryWrapper.create().eq(SiteAdpAdtMapping::getAdPlacementId, id));
+        Assert.isTrue(!existsUsingAdPlacements, "广告模板被媒体广告位使用，不能删除");
+
+        //删除原生广告模板资产
+        nativeAssetDao.removeByAdPlacementId(id);
+        //删除广告模版
         boolean deleted = adPlacementDao.removeById(id);
         if (deleted) {
             domainEventDao.save(DomainEventFactory.create(DomainEventType.AD_PLACEMENT_DELETED.name(), id));
@@ -84,6 +102,7 @@ public class AdPlacementService {
         return adPlacementDto;
     }
 
+    @Transactional
     public Boolean enableAdPlacement(Integer id) {
         boolean updated = adPlacementDao.enableAdPlacement(id);
         if (updated) {
@@ -92,6 +111,7 @@ public class AdPlacementService {
         return updated;
     }
 
+    @Transactional
     public Boolean disableAdPlacement(Integer id) {
         boolean updated = adPlacementDao.disableAdPlacement(id);
         if (updated) {

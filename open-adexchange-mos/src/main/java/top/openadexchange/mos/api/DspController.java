@@ -55,6 +55,12 @@ public class DspController {
         return ApiResponse.success(dspService.deleteDsp(id));
     }
 
+    @DeleteMapping("/batch")
+    @Operation(summary = "批量删除DSP")
+    public ApiResponse<Boolean> batchDeleteDsp(@RequestBody List<Integer> ids) {
+        return ApiResponse.success(dspService.batchDeleteDsp(ids));
+    }
+
     @GetMapping("/{id}")
     @Operation(summary = "获取DSP")
     public ApiResponse<DspDto> getDsp(@PathVariable("id") Integer id) {
@@ -118,6 +124,14 @@ public class DspController {
     @Operation(summary = "新增DSP广告位映射")
     public ApiResponse<Integer> addDspPlacementMapping(@RequestBody DspPlacementMapping dspPlacementMapping) {
         return ApiResponse.success(dspService.addDspPlacementMapping(dspPlacementMapping));
+    }
+
+    @PutMapping("/placement-mappings/{id}")
+    @Operation(summary = "更新DSP广告位映射")
+    public ApiResponse<Boolean> updateDspPlacementMapping(@PathVariable("id") Integer id,
+            @RequestBody DspPlacementMapping dspPlacementMapping) {
+        dspPlacementMapping.setId(id);
+        return ApiResponse.success(dspService.updateDspPlacementMapping(dspPlacementMapping));
     }
 
     @DeleteMapping("/placement-mappings/{id}")

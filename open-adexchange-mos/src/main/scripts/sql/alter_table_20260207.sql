@@ -1,0 +1,1 @@
+ALTER TABLE `dsp_placement_mapping` ADD UNIQUE INDEX `uniq_idx_non_id` (`dsp_id`, `site_ad_placement_id`, `dsp_slot_id`);

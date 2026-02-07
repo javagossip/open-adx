@@ -34,4 +34,8 @@ public class NativeAssetDaoImpl extends ServiceImpl<NativeAssetMapper, NativeAss
         return list(QueryWrapper.create().eq(NativeAsset::getAdPlacementId, adPlacementId));
     }
 
+    @Override
+    public boolean removeByAdPlacementId(Integer adPlacementId) {
+        return remove(QueryWrapper.create().eq(NativeAsset::getAdPlacementId, adPlacementId));
+    }
 }

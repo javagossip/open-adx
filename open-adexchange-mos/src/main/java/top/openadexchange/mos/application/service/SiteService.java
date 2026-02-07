@@ -2,6 +2,7 @@ package top.openadexchange.mos.application.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mybatisflex.core.paginate.Page;
@@ -11,12 +12,16 @@ import jakarta.annotation.Resource;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.util.Assert;
+
 import top.openadexchange.constants.enums.DomainEventType;
 import top.openadexchange.dao.DomainEventDao;
+import top.openadexchange.dao.SiteAdPlacementDao;
 import top.openadexchange.dao.SiteDao;
 import top.openadexchange.dto.SiteDto;
 import top.openadexchange.dto.query.SiteQueryDto;
 import top.openadexchange.model.Site;
+import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.mos.application.converter.SiteConverter;
 import top.openadexchange.mos.application.factory.DomainEventFactory;
 
@@ -29,6 +34,8 @@ public class SiteService {
     private SiteConverter siteConverter;
     @Resource
     private DomainEventDao domainEventDao;
+    @Resource
+    private SiteAdPlacementDao siteAdPlacementDao;
 
     @Transactional
     public Long addSite(SiteDto siteDto) {
@@ -50,6 +57,10 @@ public class SiteService {
 
     @Transactional
     public Boolean deleteSite(Long id) {
+        boolean siteAdPlacementsExists =
+                siteAdPlacementDao.exists(QueryWrapper.create().eq(SiteAdPlacement::getSiteId, id));
+        Assert.isTrue(!siteAdPlacementsExists, "Site ad placements exists");
+
         boolean deleted = siteDao.removeById(id);
         if (deleted) {
             domainEventDao.save(DomainEventFactory.create(DomainEventType.SITE_DELETED.name(), id));
@@ -61,6 +72,7 @@ public class SiteService {
         return siteConverter.toSiteDto(siteDao.getById(id));
     }
 
+    @Transactional
     public Boolean enableSite(Long id) {
         boolean enabled = siteDao.enableSite(id);
         if (enabled) {
@@ -79,6 +91,7 @@ public class SiteService {
                         .eq(Site::getStatus, siteQueryDto.getStatus()));
     }
 
+    @Transactional
     public Boolean disableSite(Long id) {
         boolean disabled = siteDao.disableSite(id);
         if (disabled) {

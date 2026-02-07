@@ -12,12 +12,16 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.util.Assert;
+
 import top.openadexchange.constants.enums.DomainEventType;
 import top.openadexchange.dao.DomainEventDao;
 import top.openadexchange.dao.PublisherDao;
+import top.openadexchange.dao.SiteDao;
 import top.openadexchange.dto.PublisherDto;
 import top.openadexchange.dto.query.PublisherQueryDto;
 import top.openadexchange.model.Publisher;
+import top.openadexchange.model.Site;
 import top.openadexchange.mos.application.converter.PublisherConverter;
 import top.openadexchange.mos.application.factory.DomainEventFactory;
 import top.openadexchange.mos.application.factory.UserFactory;
@@ -36,6 +40,8 @@ public class PublisherService {
     private UserFactory userFactory;
     @Resource
     private DomainEventDao domainEventDao;
+    @Resource
+    private SiteDao siteDao;
 
     @Transactional
     public Long addPublisher(PublisherDto publisherDto) {
@@ -65,13 +71,17 @@ public class PublisherService {
     @Transactional
     public Boolean deletePublisher(Long id) {
         log.info("deletePublisher: {}", id);
-
+        boolean existsSites = siteDao.exists(QueryWrapper.create().eq(Site::getPublisherId, id));
+        Assert.isTrue(!existsSites, "Exists sites, please delete sites first");
         Publisher publisher = publisherDao.getById(id);
         if (publisher == null) {
             log.warn("publisher not found: {}", id);
-            return false;
+            return true;
         }
-        sysUserService.deleteUserById(publisher.getUserId());
+        if (publisher.getUserId() != null) {
+            log.info("Delete publisher user: {}", publisher.getUserId());
+            sysUserService.deleteUserById(publisher.getUserId());
+        }
         publisherDao.removeById(id);
         domainEventDao.save(DomainEventFactory.create(DomainEventType.PUBLISHER_DELETED.name(), id));
         return true;

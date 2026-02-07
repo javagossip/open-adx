@@ -17,4 +17,6 @@ public interface NativeAssetDao extends IService<NativeAsset> {
     void updateNativeAssetsByAdPlacementId(Integer id, List<NativeAsset> nativeAssets);
 
     List<NativeAsset> listByAdPlacementId(Integer adPlacementId);
+
+    boolean removeByAdPlacementId(Integer id);
 }

@@ -39,5 +39,4 @@ public class DspPlacementMapping implements Serializable {
      * dsp 平台广告位编码/id
      */
     private String dspSlotId;
-
 }

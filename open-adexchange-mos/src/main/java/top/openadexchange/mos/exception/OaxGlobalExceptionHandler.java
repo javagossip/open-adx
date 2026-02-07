@@ -27,7 +27,7 @@ public class OaxGlobalExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     public ApiResponse<Void> handleValidateException(ValidateException e) {
         log.error("参数校验异常: code={}, message={}", e.getCode(), e.getMessage());
-        return ApiResponse.error(400, e.getMessage());
+        return ApiResponse.error(500, e.getMessage());
     }
 
     /**
@@ -63,7 +63,7 @@ public class OaxGlobalExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     public ApiResponse<Void> handleIllegalArgumentException(IllegalArgumentException e) {
         log.error("非法参数异常: message={}", e.getMessage());
-        return ApiResponse.error(400, e.getMessage());
+        return ApiResponse.error(500, e.getMessage());
     }
 
     /**
