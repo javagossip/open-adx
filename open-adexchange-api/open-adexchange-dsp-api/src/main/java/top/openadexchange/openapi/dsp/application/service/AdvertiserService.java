@@ -3,9 +3,14 @@ package top.openadexchange.openapi.dsp.application.service;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import top.openadexchange.commons.AssertUtils;
 import top.openadexchange.dao.AdvertiserDao;
 import top.openadexchange.dao.AdvertiserIndustryLicenseDao;
@@ -18,6 +23,7 @@ import top.openadexchange.openapi.dsp.application.validator.AdvertiserValidator;
 import top.openadexchange.openapi.dsp.commons.ApiErrorCode;
 
 @Service
+@Slf4j
 public class AdvertiserService {
 
     @Resource
@@ -29,7 +35,9 @@ public class AdvertiserService {
     @Resource
     private AdvertiserIndustryLicenseDao advertiserIndustryLicenseDao;
 
+    @Transactional
     public String addAdvertiser(AdvertiserDto advertiserDto) {
+        log.info("addAdvertiser, advertiserDto: {}", advertiserDto);
         advertiserValidator.validateForAddAdvertiser(advertiserDto);
 
         Advertiser advertiser = advertiserConverter.from(advertiserDto);

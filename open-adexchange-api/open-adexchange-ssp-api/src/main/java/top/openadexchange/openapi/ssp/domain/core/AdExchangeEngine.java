@@ -40,6 +40,7 @@ import top.openadexchange.openapi.ssp.spi.MacroContextBuilder;
 import top.openadexchange.openapi.ssp.spi.MacroProcessor;
 import top.openadexchange.openapi.ssp.spi.factory.OaxSpiFactory;
 import top.openadexchange.openapi.ssp.spi.model.MacroContext;
+import top.openadexchange.openapi.ssp.utils.BidRequestUtils;
 import top.openadexchange.rtb.proto.OaxRtbProto;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Imp;
@@ -72,7 +73,7 @@ public class AdExchangeEngine {
     public Map<String, Bid.Builder> bidding(BidRequest.Builder request) {
         // 1. 获取所有 DSP 的响应 (并发逻辑同前)
         for (Imp imp : request.getImpList()) {
-            metricsCollector.incrementAdSlotReqs(imp.getTagid());
+            metricsCollector.incrAdSlotReqs(imp.getTagid());
         }
         Map<String, Imp> impFloorMap =
                 request.getImpList().stream().collect(Collectors.toMap(Imp::getId, Function.identity(), (a, b) -> a));
@@ -87,13 +88,13 @@ public class AdExchangeEngine {
     }
 
     private Bid.Builder selectWinBid(BidRequest.Builder request, List<DspBid> bids, Imp imp) {
-        // 3. 执行二价计费算法
+        // 对出价进行排序，按照dsp的 AuctionType类型计算结算价格
         long impFloor = imp.getBidFloor();
         bids.sort(BID_PRICE_DESCENDING);
         DspBid winner = bids.get(0);
 
-        metricsCollector.incrementDspWins(winner.getDspId());
-        metricsCollector.incrementAdSlotWins(imp.getTagid());
+        metricsCollector.incrDspWins(winner.getDspId());
+        metricsCollector.incrAdSlotWins(imp.getTagid());
         //如果获胜dsp的出价类型是First Price，则直接返回中标者的出价
         Dsp winDsp = winner.getDsp();
         if (winDsp.getAt() == AuctionType.FIRST_PRICE.getValue()) {
@@ -158,12 +159,12 @@ public class AdExchangeEngine {
         MetadataRepository metadataRepository = oaxEngineServices.getCachedMetadataRepository();
 
         IndexKeys indexKeys = indexKeysBuilder.buildIndexKeys(request);
-        if (request.getTest()) {
+        if (BidRequestUtils.traceEnabled(request)) {
             log.info("test request: {}, indexKeys: {}", request, indexKeys);
         }
         //从索引库中查询匹配当前广告流量的dsp列表
         List<Integer> matchDspIds = indexService.searchDsps(indexKeys);
-        if (request.getTest()) {
+        if (BidRequestUtils.traceEnabled(request)) {
             log.info("test request, matchDspIds: {}", matchDspIds);
         }
         if (matchDspIds.isEmpty()) {

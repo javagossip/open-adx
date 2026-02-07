@@ -28,9 +28,6 @@ public class AuthInterceptor implements HandlerInterceptor {
     private DspService dspService;
 
     @Resource
-    private ObjectMapper objectMapper;
-
-    @Resource
     private NonceCacheService nonceCacheService;
 
     @Override

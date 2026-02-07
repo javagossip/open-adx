@@ -13,14 +13,14 @@ import java.time.Duration;
 @Service
 public class NonceCacheService {
 
-    @Resource
-    private RedisTemplate<String, String> oaxStringRedisTemplate;
+    @Resource(name = "oaxStringRedisTemplate")
+    private RedisTemplate<String, String> redisTemplate;
 
     /**
      * 检查nonce是否已存在
      */
     public boolean isNonceExists(String nonce) {
-        String value = oaxStringRedisTemplate.opsForValue().get(nonceKey(nonce));
+        String value = redisTemplate.opsForValue().get(nonceKey(nonce));
         return value != null;
     }
 
@@ -28,7 +28,7 @@ public class NonceCacheService {
      * 记录nonce
      */
     public void recordNonce(String nonce) {
-        oaxStringRedisTemplate.opsForValue()
+        redisTemplate.opsForValue()
                 .set(nonceKey(nonce), String.valueOf(System.currentTimeMillis()), Duration.ofMinutes(5));
     }
 

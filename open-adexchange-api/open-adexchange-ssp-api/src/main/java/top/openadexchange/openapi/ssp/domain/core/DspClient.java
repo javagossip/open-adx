@@ -27,7 +27,7 @@ public class DspClient {
     @SuppressWarnings({"unchecked", "rawtypes"})
     public BidResponse.Builder bidding(DspAggregate dspAggregate, BidRequest.Builder request) {
         for (Imp imp : request.getImpList()) {
-            metricsCollector.incrementAdSlotBids(imp.getTagid());
+            metricsCollector.incrAdSlotBids(imp.getTagid());
         }
         if (!rateLimiterManager.tryAcquire(dspAggregate.getDspId())) {
             log.warn("dsp {} rate limit", dspAggregate.getDsp().getName());
@@ -46,14 +46,14 @@ public class DspClient {
         if (BidRequestUtils.traceEnabled(request)) {
             log.info("dsp {} BidRequest: {}", dspAggregate.getDsp().getName(), dspRequest);
         }
-        metricsCollector.incrementDspReqs(dspAggregate.getDspId());
+        metricsCollector.incrDspReqs(dspAggregate.getDspId());
         Object response = invoker.invoke(dspAggregate.getDsp(), dspRequest);
         if (BidRequestUtils.traceEnabled(request)) {
             log.info("dsp {} BidResponse: {}", dspAggregate.getDsp().getName(), response);
         }
         BidResponse.Builder bidResponse = rtbProtocolConverter.from(dspAggregate.getDsp(), request.build(), response);
         if (bidResponse != null && !bidResponse.getNoBid()) {
-            metricsCollector.incrementDspBids(dspAggregate.getDspId());
+            metricsCollector.incrDspBids(dspAggregate.getDspId());
         }
         if (BidRequestUtils.traceEnabled(request)) {
             log.info("BidResponse: {}", bidResponse.toString());

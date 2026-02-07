@@ -61,34 +61,34 @@ public class MetricsCollector {
         }
     }
 
-    public void incrementDspReqs(String dspId) {
+    public void incrDspReqs(String dspId) {
         DspMetrics metrics = currentDspMetricsRef.get().computeIfAbsent(dspMetricKey(dspId), DspMetrics::of);
         metrics.reqs.increment();
     }
 
-    public void incrementDspBids(String dspId) {
+    public void incrDspBids(String dspId) {
         DspMetrics metrics = currentDspMetricsRef.get().computeIfAbsent(dspMetricKey(dspId), DspMetrics::of);
         metrics.bids.increment();
     }
 
-    public void incrementDspWins(String dspId) {
+    public void incrDspWins(String dspId) {
         DspMetrics metrics = currentDspMetricsRef.get().computeIfAbsent(dspMetricKey(dspId), DspMetrics::of);
         metrics.wins.increment();
     }
 
-    public void incrementAdSlotReqs(String adSlotId) {
+    public void incrAdSlotReqs(String adSlotId) {
         AdSlotMetrics metrics =
                 currentAdSlotMetricsRef.get().computeIfAbsent(adSlotMetricKey(adSlotId), AdSlotMetrics::of);
         metrics.reqs.increment();
     }
 
-    public void incrementAdSlotBids(String adSlotId) {
+    public void incrAdSlotBids(String adSlotId) {
         AdSlotMetrics metrics =
                 currentAdSlotMetricsRef.get().computeIfAbsent(adSlotMetricKey(adSlotId), AdSlotMetrics::of);
         metrics.bids.increment();
     }
 
-    public void incrementAdSlotWins(String adSlotId) {
+    public void incrAdSlotWins(String adSlotId) {
         AdSlotMetrics metrics =
                 currentAdSlotMetricsRef.get().computeIfAbsent(adSlotMetricKey(adSlotId), AdSlotMetrics::of);
         metrics.wins.increment();
