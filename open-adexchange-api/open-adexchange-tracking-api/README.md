@@ -1,6 +1,6 @@
-# open-adexchange-ssp-api
+# open-adexchange-tracking-api
 
-SSP（供应方）开放 API 服务，Publisher 对接入口。
+广告追踪 API 服务，接收展示/点击等追踪请求。
 
 ## GraalVM Native 镜像
 
@@ -19,34 +19,34 @@ SSP（供应方）开放 API 服务，Publisher 对接入口。
 
 ```bash
 # 默认构建（docker 环境）
-docker build -f open-adexchange-api/open-adexchange-ssp-api/Dockerfile.native \
-  -t registry.cn-beijing.aliyuncs.com/oax/oax-publisher-api:native .
+docker build -f open-adexchange-api/open-adexchange-tracking-api/Dockerfile.native \
+  -t registry.cn-beijing.aliyuncs.com/oax/oax-tracking-api:native .
 
 # 指定环境构建（如生产环境）
-docker build -f open-adexchange-api/open-adexchange-ssp-api/Dockerfile.native \
+docker build -f open-adexchange-api/open-adexchange-tracking-api/Dockerfile.native \
   --build-arg ENV_ID=prod \
-  -t registry.cn-beijing.aliyuncs.com/oax/oax-publisher-api:native-prod .
+  -t registry.cn-beijing.aliyuncs.com/oax/oax-tracking-api:native-prod .
 ```
 
 ### 推送镜像到仓库
 
 ```bash
 docker login registry.cn-beijing.aliyuncs.com -u <ACR_USERNAME> -p <ACR_PASSWORD>
-docker push registry.cn-beijing.aliyuncs.com/oax/oax-publisher-api:native-prod
+docker push registry.cn-beijing.aliyuncs.com/oax/oax-tracking-api:native-prod
 ```
 
 ### 仅构建本地原生可执行文件（不构建镜像）
 
 ```bash
-./mvnw -Pnative -Denv.id=prod -pl open-adexchange-api/open-adexchange-ssp-api -am package -DskipTests
+./mvnw -Pnative -Denv.id=prod -pl open-adexchange-api/open-adexchange-tracking-api -am package -DskipTests
 ```
 
-可执行文件生成在：`open-adexchange-api/open-adexchange-ssp-api/target/oax-ssp-api`。
+可执行文件生成在：`open-adexchange-api/open-adexchange-tracking-api/target/oax-tracking-api`。
 
 ### 使用原生镜像运行
 
 ```bash
-docker run --rm -p 8080:8080 \
+docker run --rm -p 8083:8083 \
   -e SPRING_PROFILES_ACTIVE=docker \
-  registry.cn-beijing.aliyuncs.com/oax/oax-publisher-api:native
+  registry.cn-beijing.aliyuncs.com/oax/oax-tracking-api:native
 ```

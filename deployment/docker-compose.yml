@@ -234,7 +234,7 @@ services:
 
     # open-adexchange-job 任务调度服务
     openadx-job:
-        image: registry.cn-beijing.aliyuncs.com/oax/oax-job:latest
+        image: registry.cn-beijing.aliyuncs.com/oax/oax-job:native
         container_name: openadx-job-app
         depends_on:
             mysql:

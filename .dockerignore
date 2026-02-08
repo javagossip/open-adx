@@ -1,0 +1,9 @@
+.git
+.idea
+.gitignore
+.editorconfig
+*.md
+**/target
+**/node_modules
+deployment
+open-adexchange-codegen

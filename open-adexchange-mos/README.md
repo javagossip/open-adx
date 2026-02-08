@@ -1,6 +1,6 @@
-# open-adexchange-ssp-api
+# open-adexchange-mos
 
-SSP（供应方）开放 API 服务，Publisher 对接入口。
+主业务服务模块，包含广告交易核心逻辑。
 
 ## GraalVM Native 镜像
 
@@ -19,34 +19,34 @@ SSP（供应方）开放 API 服务，Publisher 对接入口。
 
 ```bash
 # 默认构建（docker 环境）
-docker build -f open-adexchange-api/open-adexchange-ssp-api/Dockerfile.native \
-  -t registry.cn-beijing.aliyuncs.com/oax/oax-publisher-api:native .
+docker build -f open-adexchange-mos/Dockerfile.native \
+  -t registry.cn-beijing.aliyuncs.com/oax/oax-mos:native .
 
 # 指定环境构建（如生产环境）
-docker build -f open-adexchange-api/open-adexchange-ssp-api/Dockerfile.native \
+docker build -f open-adexchange-mos/Dockerfile.native \
   --build-arg ENV_ID=prod \
-  -t registry.cn-beijing.aliyuncs.com/oax/oax-publisher-api:native-prod .
+  -t registry.cn-beijing.aliyuncs.com/oax/oax-mos:native-prod .
 ```
 
 ### 推送镜像到仓库
 
 ```bash
 docker login registry.cn-beijing.aliyuncs.com -u <ACR_USERNAME> -p <ACR_PASSWORD>
-docker push registry.cn-beijing.aliyuncs.com/oax/oax-publisher-api:native-prod
+docker push registry.cn-beijing.aliyuncs.com/oax/oax-mos:native-prod
 ```
 
 ### 仅构建本地原生可执行文件（不构建镜像）
 
 ```bash
-./mvnw -Pnative -Denv.id=prod -pl open-adexchange-api/open-adexchange-ssp-api -am package -DskipTests
+./mvnw -Pnative -Denv.id=prod -pl open-adexchange-mos -am package -DskipTests
 ```
 
-可执行文件生成在：`open-adexchange-api/open-adexchange-ssp-api/target/oax-ssp-api`。
+可执行文件生成在：`open-adexchange-mos/target/oax-mos`。
 
 ### 使用原生镜像运行
 
 ```bash
-docker run --rm -p 8080:8080 \
+docker run --rm -p 9090:9090 \
   -e SPRING_PROFILES_ACTIVE=docker \
-  registry.cn-beijing.aliyuncs.com/oax/oax-publisher-api:native
+  registry.cn-beijing.aliyuncs.com/oax/oax-mos:native
 ```

@@ -14,6 +14,8 @@
     <name>open-adexchange-job</name>
     <properties>
         <mainClass>top.openadexchange.job.OaxJobApplication</mainClass>
+        <native-image.image>registry.cn-beijing.aliyuncs.com/oax/oax-job</native-image.image>
+        <graalvm.native.version>0.10.3</graalvm.native.version>
     </properties>
     <dependencies>
         <dependency>
@@ -120,6 +122,22 @@
                     </container>
                 </configuration>
             </plugin>
+            <!-- GraalVM Native Image: 仅在使用 -Pnative 时生效 -->
+            <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <version>${graalvm.native.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <imageName>oax-job</imageName>
+                    <buildArgs>
+                        <arg>--no-fallback</arg>
+                        <arg>-H:+ReportExceptionStackTraces</arg>
+                        <!-- GraalVM 原生镜像默认不包含 classpath 资源，需显式包含配置文件 -->
+                        <arg>-H:IncludeResources=.*(log4j2\.xml|application.*\.(properties|yml|yaml))$</arg>
+                    </buildArgs>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -142,6 +160,60 @@
                                 <goals>
                                     <goal>build</goal>
                                 </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- GraalVM Native Image：打包原生可执行文件并支持构建原生 Docker 镜像 -->
+        <profile>
+            <id>native</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <version>${spring-boot.version}</version>
+                        <configuration>
+                            <mainClass>${mainClass}</mainClass>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>process-aot</id>
+                                <goals>
+                                    <goal>process-aot</goal>
+                                </goals>
+                            </execution>
+                            <!-- 保留原始 jar 给 native-image，fat jar 另存为 *-exec.jar -->
+                            <execution>
+                                <id>repackage</id>
+                                <goals>
+                                    <goal>repackage</goal>
+                                </goals>
+                                <configuration>
+                                    <classifier>exec</classifier>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <version>${graalvm.native.version}</version>
+                        <executions>
+                            <execution>
+                                <id>add-reachability-metadata</id>
+                                <goals>
+                                    <goal>add-reachability-metadata</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>build-native</id>
+                                <goals>
+                                    <goal>compile-no-fork</goal>
+                                </goals>
+                                <phase>package</phase>
                             </execution>
                         </executions>
                     </plugin>

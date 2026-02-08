@@ -1,5 +1,6 @@
 package top.openadexchange.job;
 
+import org.apache.ibatis.logging.LogFactory;
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.mybatis.spring.annotation.MapperScan;

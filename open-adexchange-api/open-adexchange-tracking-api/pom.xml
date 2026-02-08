@@ -14,6 +14,8 @@
     <description>open-adexchange-tracking-api</description>
     <properties>
         <main.class>top.openadexchange.tracking.OaxTrackingApplication</main.class>
+        <native-image.image>registry.cn-beijing.aliyuncs.com/oax/oax-tracking-api</native-image.image>
+        <graalvm.native.version>0.10.3</graalvm.native.version>
     </properties>
     <dependencies>
         <dependency>
@@ -121,6 +123,19 @@
                     </container>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <version>${graalvm.native.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <imageName>oax-tracking-api</imageName>
+                    <buildArgs>
+                        <arg>--no-fallback</arg>
+                        <arg>-H:+ReportExceptionStackTraces</arg>
+                    </buildArgs>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -143,6 +158,59 @@
                                 <goals>
                                     <goal>build</goal>
                                 </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- GraalVM Native Image：打包原生可执行文件并支持构建原生 Docker 镜像 -->
+        <profile>
+            <id>native</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <version>${spring-boot.version}</version>
+                        <configuration>
+                            <mainClass>${main.class}</mainClass>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>process-aot</id>
+                                <goals>
+                                    <goal>process-aot</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>repackage</id>
+                                <goals>
+                                    <goal>repackage</goal>
+                                </goals>
+                                <configuration>
+                                    <classifier>exec</classifier>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <version>${graalvm.native.version}</version>
+                        <executions>
+                            <execution>
+                                <id>add-reachability-metadata</id>
+                                <goals>
+                                    <goal>add-reachability-metadata</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>build-native</id>
+                                <goals>
+                                    <goal>compile-no-fork</goal>
+                                </goals>
+                                <phase>package</phase>
                             </execution>
                         </executions>
                     </plugin>

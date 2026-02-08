@@ -58,7 +58,7 @@
         <central.server>ossrh</central.server>
         <!--依赖版本号管理 -->
         <open-adexchange.version>${project.version}</open-adexchange.version>
-        <spring-boot.version>3.4.5</spring-boot.version>
+        <spring-boot.version>3.5.10</spring-boot.version>
         <mybatis-flex.version>1.10.9</mybatis-flex.version>
         <lombok.version>1.18.38</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
@@ -80,11 +80,19 @@
         <xxl-job.version>3.2.0</xxl-job.version>
         <redisson.version>3.52.0</redisson.version>
         <commons-lang3.version>3.20.0</commons-lang3.version>
+        <log4j2.version>2.25.0</log4j2.version>
         <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-bom</artifactId>
+                <version>${log4j2.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>

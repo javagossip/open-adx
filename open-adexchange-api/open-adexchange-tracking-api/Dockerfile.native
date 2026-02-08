@@ -1,0 +1,32 @@
+# ============================================
+# Stage 1: 使用 GraalVM 构建原生可执行文件
+# ============================================
+FROM ghcr.io/graalvm/graalvm-community:21 AS builder
+
+# 构建环境：dev / test / prod / docker，控制 log4j2.xml 等 profile 资源
+ARG ENV_ID=docker
+
+WORKDIR /build
+COPY . .
+
+RUN chmod +x mvnw \
+    && ./mvnw -Pnative -Denv.id=${ENV_ID} -Djib.skip=true -pl open-adexchange-api/open-adexchange-tracking-api -am package -DskipTests
+
+# ============================================
+# Stage 2: 最小化运行时镜像
+# ============================================
+FROM debian:bookworm-slim
+
+RUN groupadd -r app && useradd -r -g app app \
+    && apt-get update && apt-get install -y --no-install-recommends \
+       libz1 curl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY --from=builder /build/open-adexchange-api/open-adexchange-tracking-api/target/oax-tracking-api .
+RUN chmod +x oax-tracking-api
+
+USER app
+EXPOSE 8083
+
+ENTRYPOINT ["./oax-tracking-api"]
