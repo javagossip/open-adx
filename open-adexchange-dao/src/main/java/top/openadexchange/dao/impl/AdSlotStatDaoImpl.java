@@ -1,14 +1,16 @@
 package top.openadexchange.dao.impl;
 
-import com.mybatisflex.spring.service.impl.ServiceImpl;
-import top.openadexchange.domain.entity.AdSlotReportAggregate;
-import top.openadexchange.domain.entity.PublisherReportAggregate;
-import top.openadexchange.model.AdSlotStat;
-import top.openadexchange.mapper.AdSlotStatMapper;
-import top.openadexchange.dao.AdSlotStatDao;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.mybatisflex.spring.service.impl.ServiceImpl;
+
+import top.openadexchange.dao.AdSlotStatDao;
+import top.openadexchange.domain.entity.AdSlotReportAggregate;
+import top.openadexchange.domain.entity.PublisherReportAggregate;
+import top.openadexchange.mapper.AdSlotStatMapper;
+import top.openadexchange.model.AdSlotStat;
 
 /**
  * 媒体广告位数据统计 服务层实现。

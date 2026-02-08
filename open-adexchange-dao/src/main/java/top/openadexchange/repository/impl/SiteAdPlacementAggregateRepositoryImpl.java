@@ -1,11 +1,15 @@
 package top.openadexchange.repository.impl;
 
-import com.mybatisflex.core.query.QueryWrapper;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import org.springframework.util.Assert;
+
+import com.mybatisflex.core.query.QueryWrapper;
 
 import top.openadexchange.dao.SiteAdPlacementDao;
 import top.openadexchange.dao.SiteAdpAdtMappingDao;
@@ -13,11 +17,6 @@ import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
 import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.model.SiteAdpAdtMapping;
 import top.openadexchange.repository.SiteAdPlacementAggregateRepository;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Repository
 public class SiteAdPlacementAggregateRepositoryImpl implements SiteAdPlacementAggregateRepository {

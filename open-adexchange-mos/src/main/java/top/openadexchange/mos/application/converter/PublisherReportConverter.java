@@ -1,13 +1,14 @@
 package top.openadexchange.mos.application.converter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
+
 import top.openadexchange.domain.entity.AdSlotReportAggregate;
 import top.openadexchange.domain.entity.PublisherReportAggregate;
 import top.openadexchange.dto.report.AdSlotReportDto;
 import top.openadexchange.dto.report.PublisherReportDto;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 报表数据转换器

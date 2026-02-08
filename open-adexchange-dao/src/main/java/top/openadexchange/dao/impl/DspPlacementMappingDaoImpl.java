@@ -1,10 +1,12 @@
 package top.openadexchange.dao.impl;
 
-import com.mybatisflex.spring.service.impl.ServiceImpl;
-import top.openadexchange.model.DspPlacementMapping;
-import top.openadexchange.mapper.DspPlacementMappingMapper;
-import top.openadexchange.dao.DspPlacementMappingDao;
 import org.springframework.stereotype.Service;
+
+import com.mybatisflex.spring.service.impl.ServiceImpl;
+
+import top.openadexchange.dao.DspPlacementMappingDao;
+import top.openadexchange.mapper.DspPlacementMappingMapper;
+import top.openadexchange.model.DspPlacementMapping;
 
 /**
  *  服务层实现。

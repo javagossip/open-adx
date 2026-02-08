@@ -1,8 +1,8 @@
 package top.openadexchange.mapper;
 
-import com.mybatisflex.core.BaseMapper;
-
 import org.apache.ibatis.annotations.Mapper;
+
+import com.mybatisflex.core.BaseMapper;
 
 import top.openadexchange.model.AdPlacement;
 

@@ -1,30 +1,24 @@
 package top.openadexchange.mos.application.service;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
 import com.mybatisflex.core.paginate.Page;
-import com.mybatisflex.core.query.QueryOrderBy;
 import com.mybatisflex.core.query.QueryWrapper;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.stereotype.Service;
-
-import org.springframework.util.Assert;
-
 import top.openadexchange.constants.Constants;
 import top.openadexchange.dao.AdSlotStatDao;
 import top.openadexchange.dto.query.ReportQueryDto;
 import top.openadexchange.dto.report.AdSlotReportDto;
 import top.openadexchange.dto.report.PublisherReportDto;
-import top.openadexchange.model.AdSlotStat;
-import top.openadexchange.model.Publisher;
-import top.openadexchange.model.Site;
 import top.openadexchange.model.SiteAdPlacement;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static com.mybatisflex.core.query.QueryMethods.*;
 import static top.openadexchange.model.table.AdSlotStatTableDef.*;

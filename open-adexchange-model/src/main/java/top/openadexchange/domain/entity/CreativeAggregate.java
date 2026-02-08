@@ -1,10 +1,10 @@
 package top.openadexchange.domain.entity;
 
+import java.util.List;
+
 import lombok.Data;
 import top.openadexchange.model.Creative;
 import top.openadexchange.model.CreativeAsset;
-
-import java.util.List;
 
 @Data
 public class CreativeAggregate {

@@ -1,10 +1,12 @@
 package top.openadexchange.dao.impl;
 
-import com.mybatisflex.spring.service.impl.ServiceImpl;
-import top.openadexchange.model.Category;
-import top.openadexchange.mapper.CategoryMapper;
-import top.openadexchange.dao.CategoryDao;
 import org.springframework.stereotype.Service;
+
+import com.mybatisflex.spring.service.impl.ServiceImpl;
+
+import top.openadexchange.dao.CategoryDao;
+import top.openadexchange.mapper.CategoryMapper;
+import top.openadexchange.model.Category;
 
 /**
  * App/Site 内容分类字典表 服务层实现。

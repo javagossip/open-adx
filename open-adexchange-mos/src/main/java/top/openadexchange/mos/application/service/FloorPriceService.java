@@ -1,25 +1,18 @@
 package top.openadexchange.mos.application.service;
 
-import com.mybatisflex.core.paginate.Page;
-import com.mybatisflex.core.query.QueryWrapper;
-import com.mybatisflex.core.query.QueryMethods;
-
-import jakarta.annotation.Resource;
-
 import org.springframework.stereotype.Service;
 
+import com.mybatisflex.core.paginate.Page;
+import com.mybatisflex.core.query.QueryWrapper;
+
+import jakarta.annotation.Resource;
 import top.openadexchange.commons.FloorPriceUtils;
 import top.openadexchange.dao.FloorPriceDao;
 import top.openadexchange.dao.SiteAdPlacementDao;
 import top.openadexchange.dto.FloorPriceDto;
 import top.openadexchange.dto.FloorPriceQueryDto;
-import top.openadexchange.model.table.FloorPriceTableDef;
-import top.openadexchange.mos.application.converter.FloorPriceConverter;
 import top.openadexchange.model.FloorPrice;
-import top.openadexchange.model.SiteAdPlacement;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import top.openadexchange.mos.application.converter.FloorPriceConverter;
 
 import static top.openadexchange.model.table.FloorPriceTableDef.*;
 import static top.openadexchange.model.table.IndustryTableDef.*;

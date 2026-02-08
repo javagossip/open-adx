@@ -1,15 +1,12 @@
 package top.openadexchange.tracking.infrastructure.executor;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import com.chaincoretech.epc.annotation.Extension;
 
 import lombok.extern.slf4j.Slf4j;
-import top.openadexchange.commons.concurrent.NamedThreadFactory;
 import top.openadexchange.tracking.domain.gateway.ExecutorFactory;
-
-import java.lang.Thread.UncaughtExceptionHandler;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
 
 @Extension(keys = {"virtualThread", "default"})
 @Slf4j

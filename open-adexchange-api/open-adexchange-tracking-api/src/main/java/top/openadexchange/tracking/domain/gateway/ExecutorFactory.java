@@ -1,8 +1,8 @@
 package top.openadexchange.tracking.domain.gateway;
 
-import com.chaincoretech.epc.annotation.ExtensionPoint;
-
 import java.util.concurrent.ExecutorService;
+
+import com.chaincoretech.epc.annotation.ExtensionPoint;
 
 @ExtensionPoint
 public interface ExecutorFactory {

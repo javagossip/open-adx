@@ -1,13 +1,12 @@
 package top.openadexchange.model;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
-import java.io.Serializable;
-import java.math.BigInteger;
-import java.sql.Timestamp;
-
-import java.io.Serial;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

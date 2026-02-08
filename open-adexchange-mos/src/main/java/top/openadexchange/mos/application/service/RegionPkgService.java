@@ -1,13 +1,16 @@
 package top.openadexchange.mos.application.service;
 
-import com.mybatisflex.core.paginate.Page;
-import com.mybatisflex.core.query.QueryWrapper;
-
-import jakarta.annotation.Resource;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mybatisflex.core.paginate.Page;
+import com.mybatisflex.core.query.QueryWrapper;
+
+import jakarta.annotation.Resource;
 import top.openadexchange.dao.RegionPkgDao;
 import top.openadexchange.dao.RegionPkgDistrictDao;
 import top.openadexchange.dto.RegionPkgDto;
@@ -15,11 +18,6 @@ import top.openadexchange.dto.query.RegionPkgQueryDto;
 import top.openadexchange.model.RegionPkg;
 import top.openadexchange.model.RegionPkgDistrict;
 import top.openadexchange.mos.application.converter.RegionPkgConverter;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 public class RegionPkgService {

@@ -3,14 +3,11 @@ package top.openadexchange.openapi.dsp.application.service;
 import java.util.List;
 import java.util.Objects;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
-
-import jakarta.annotation.Resource;
-
 import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import top.openadexchange.commons.AssertUtils;
 import top.openadexchange.dao.AdvertiserDao;
 import top.openadexchange.dao.AdvertiserIndustryLicenseDao;

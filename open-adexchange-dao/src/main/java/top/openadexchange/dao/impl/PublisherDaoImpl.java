@@ -1,18 +1,15 @@
 package top.openadexchange.dao.impl;
 
-import com.mybatisflex.core.query.QueryWrapper;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
 
 import top.openadexchange.dao.PublisherDao;
 import top.openadexchange.mapper.PublisherMapper;
 import top.openadexchange.model.Publisher;
-import top.openadexchange.model.SiteAdPlacement;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
  * 服务层实现。

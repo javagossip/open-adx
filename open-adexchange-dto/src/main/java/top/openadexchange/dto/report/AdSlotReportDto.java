@@ -1,5 +1,7 @@
 package top.openadexchange.dto.report;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -9,8 +11,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.openadexchange.commons.AmountSerializer;
 import top.openadexchange.commons.StatsUtils;
-
-import java.math.BigDecimal;
 
 /**
  * 广告位报表DTO

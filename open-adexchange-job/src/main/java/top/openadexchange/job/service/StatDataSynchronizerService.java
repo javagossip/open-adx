@@ -1,32 +1,23 @@
 package top.openadexchange.job.service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import com.mybatisflex.core.query.QueryWrapper;
-
-import lombok.extern.slf4j.Slf4j;
-
 import org.apache.commons.lang3.math.NumberUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.stereotype.Service;
-
-import jakarta.annotation.Resource;
-
 import org.springframework.util.StringUtils;
 
+import com.mybatisflex.core.query.QueryWrapper;
+
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import top.openadexchange.constants.Constants;
 import top.openadexchange.constants.RedisKeys;
 import top.openadexchange.dao.AdSlotStatDao;

@@ -13,7 +13,6 @@ import top.openadexchange.openapi.ssp.domain.gateway.OaxHttpClient;
 import top.openadexchange.openapi.ssp.domain.gateway.OaxHttpClientFactory;
 import top.openadexchange.openapi.ssp.domain.model.OaxHttpResponse;
 import top.openadexchange.openapi.ssp.spi.RtbProtocolInvoker;
-import top.openadexchange.rtb.proto.provider.xinhe.XinHeRtbProto;
 import top.openadexchange.rtb.proto.provider.xinhe.XinHeRtbProto.BidRequest;
 import top.openadexchange.rtb.proto.provider.xinhe.XinHeRtbProto.BidResponse;
 

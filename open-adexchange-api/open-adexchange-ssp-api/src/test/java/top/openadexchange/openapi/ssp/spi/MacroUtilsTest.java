@@ -1,15 +1,15 @@
 package top.openadexchange.openapi.ssp.spi;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import top.openadexchange.openapi.ssp.spi.model.MacroContext;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class MacroUtilsTest {
 

@@ -3,28 +3,23 @@ package top.openadexchange.mos.application.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
 
 import jakarta.annotation.Resource;
-
-import org.springframework.transaction.annotation.Transactional;
-
-import org.springframework.util.Assert;
-
 import top.openadexchange.constants.enums.AdFormat;
 import top.openadexchange.constants.enums.DomainEventType;
 import top.openadexchange.dao.AdPlacementDao;
 import top.openadexchange.dao.DomainEventDao;
 import top.openadexchange.dao.NativeAssetDao;
-import top.openadexchange.dao.SiteAdPlacementDao;
 import top.openadexchange.dao.SiteAdpAdtMappingDao;
 import top.openadexchange.dto.AdPlacementDto;
 import top.openadexchange.dto.query.AdPlacementQueryDto;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.NativeAsset;
-import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.model.SiteAdpAdtMapping;
 import top.openadexchange.mos.application.converter.AdPlacementConverter;
 import top.openadexchange.mos.application.converter.NativeAssetConverter;

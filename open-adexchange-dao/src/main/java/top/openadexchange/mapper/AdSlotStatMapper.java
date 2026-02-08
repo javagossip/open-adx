@@ -1,17 +1,16 @@
 package top.openadexchange.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.mybatisflex.core.BaseMapper;
-
-import org.apache.ibatis.annotations.Param;
 
 import top.openadexchange.domain.entity.AdSlotReportAggregate;
 import top.openadexchange.domain.entity.PublisherReportAggregate;
 import top.openadexchange.model.AdSlotStat;
-
-import java.util.List;
 
 /**
  * 媒体广告位数据统计 映射层。

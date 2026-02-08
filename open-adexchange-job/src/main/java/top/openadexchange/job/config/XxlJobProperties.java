@@ -1,8 +1,8 @@
 package top.openadexchange.job.config;
 
-import lombok.Data;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import lombok.Data;
 
 @ConfigurationProperties(prefix = "xxl.job")
 @Data

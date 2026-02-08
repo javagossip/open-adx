@@ -1,12 +1,12 @@
 package top.openadexchange.dao;
 
+import java.util.List;
+
 import com.mybatisflex.core.service.IService;
 
 import top.openadexchange.domain.entity.AdSlotReportAggregate;
 import top.openadexchange.domain.entity.PublisherReportAggregate;
 import top.openadexchange.model.AdSlotStat;
-
-import java.util.List;
 
 /**
  * 媒体广告位数据统计 服务层。

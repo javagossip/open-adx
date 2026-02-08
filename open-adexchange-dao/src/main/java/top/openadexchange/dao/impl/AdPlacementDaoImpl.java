@@ -1,12 +1,10 @@
 package top.openadexchange.dao.impl;
 
-import com.mybatisflex.core.query.QueryWrapper;
-
 import org.springframework.stereotype.Service;
-
-import com.mybatisflex.spring.service.impl.ServiceImpl;
-
 import org.springframework.util.Assert;
+
+import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.spring.service.impl.ServiceImpl;
 
 import top.openadexchange.dao.AdPlacementDao;
 import top.openadexchange.mapper.AdPlacementMapper;

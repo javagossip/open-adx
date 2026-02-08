@@ -1,9 +1,9 @@
 package top.openadexchange.domain.entity;
 
+import java.util.List;
+
 import lombok.Data;
 import top.openadexchange.model.SiteAdPlacement;
-
-import java.util.List;
 
 @Data
 public class SiteAdPlacementAggregate {

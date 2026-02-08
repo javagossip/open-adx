@@ -1,7 +1,6 @@
 package top.openadexchange.tracking.application.service;
 
 import java.time.Duration;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 

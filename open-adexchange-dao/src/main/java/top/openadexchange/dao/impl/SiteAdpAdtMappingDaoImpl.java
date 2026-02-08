@@ -1,17 +1,16 @@
 package top.openadexchange.dao.impl;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
 
-import org.springframework.util.Assert;
-
-import top.openadexchange.model.SiteAdpAdtMapping;
-import top.openadexchange.mapper.SiteAdpAdtMappingMapper;
 import top.openadexchange.dao.SiteAdpAdtMappingDao;
-
-import org.springframework.stereotype.Service;
-
-import java.util.List;
+import top.openadexchange.mapper.SiteAdpAdtMappingMapper;
+import top.openadexchange.model.SiteAdpAdtMapping;
 
 /**
  * 媒体广告位-广告模板关联表 服务层实现。

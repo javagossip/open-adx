@@ -1,13 +1,13 @@
 package top.openadexchange.domain.entity;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.math.BigDecimal;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serial;
-import java.io.Serializable;
-import java.math.BigDecimal;
 
 /**
  * 广告位报表聚合查询结果

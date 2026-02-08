@@ -1,8 +1,8 @@
 package top.openadexchange.commons.hash;
 
-import com.google.common.hash.Hashing;
-
 import java.nio.charset.StandardCharsets;
+
+import com.google.common.hash.Hashing;
 
 public final class HmacUtils {
 

@@ -1,9 +1,5 @@
 package top.openadexchange.openapi.dsp.application.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +24,10 @@ import top.openadexchange.openapi.dsp.application.dto.AdvertiserDto;
 import top.openadexchange.openapi.dsp.application.dto.AdvertiserIndustryLicenseDto;
 import top.openadexchange.openapi.dsp.application.validator.AdvertiserValidator;
 import top.openadexchange.openapi.dsp.commons.ApiErrorCode;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("AdvertiserService 单元测试")

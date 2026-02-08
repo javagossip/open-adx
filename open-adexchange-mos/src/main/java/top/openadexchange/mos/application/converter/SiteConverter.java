@@ -1,5 +1,7 @@
 package top.openadexchange.mos.application.converter;
 
+import java.util.Arrays;
+
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -8,8 +10,6 @@ import com.ruoyi.common.utils.SecurityUtils;
 import top.openadexchange.constants.enums.Platform;
 import top.openadexchange.dto.SiteDto;
 import top.openadexchange.model.Site;
-
-import java.util.Arrays;
 
 @Component
 public class SiteConverter {

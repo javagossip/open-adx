@@ -1,8 +1,8 @@
 package top.openadexchange.domain.entity;
 
-import lombok.Data;
-
 import java.util.List;
+
+import lombok.Data;
 
 @Data
 public class AdGroupAggregate {

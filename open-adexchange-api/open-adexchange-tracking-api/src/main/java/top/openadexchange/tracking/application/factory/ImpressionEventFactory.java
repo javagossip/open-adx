@@ -1,12 +1,11 @@
 package top.openadexchange.tracking.application.factory;
 
+import java.util.UUID;
+
 import jakarta.servlet.http.HttpServletRequest;
 import top.openadexchange.dto.TrackToken;
 import top.openadexchange.dto.event.ImpressionEvent;
-import top.openadexchange.tracking.domain.event.EventType;
 import top.openadexchange.tracking.utils.RequestUtils;
-
-import java.util.UUID;
 
 /**
  * 曝光事件工厂

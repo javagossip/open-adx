@@ -1,15 +1,14 @@
 package top.openadexchange.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.mybatisflex.core.BaseMapper;
 
-import org.apache.ibatis.annotations.Param;
-
 import top.openadexchange.model.DspStat;
-
-import java.util.List;
 
 /**
  * Dsp统计表 映射层。

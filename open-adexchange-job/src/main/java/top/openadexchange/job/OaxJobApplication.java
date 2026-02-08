@@ -1,5 +1,7 @@
 package top.openadexchange.job;
 
+import java.util.Objects;
+
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.mybatis.spring.annotation.MapperScan;
@@ -8,8 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
-
-import java.util.Objects;
 
 @SpringBootApplication(scanBasePackages = {"top.openadexchange"})
 @MapperScan(basePackages = {"top.openadexchange.mapper"})

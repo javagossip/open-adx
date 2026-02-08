@@ -1,11 +1,11 @@
 package top.openadexchange.tracking.utils;
 
-import jakarta.servlet.http.HttpServletRequest;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import org.springframework.util.StringUtils;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import jakarta.servlet.http.HttpServletRequest;
 
 public final class RequestUtils {
 

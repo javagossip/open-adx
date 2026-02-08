@@ -1,8 +1,8 @@
 package top.openadexchange.repository;
 
-import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
-
 import java.util.List;
+
+import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
 
 public interface SiteAdPlacementAggregateRepository {
     SiteAdPlacementAggregate getSiteAdPlacementAggregate(Integer siteAdPlacementId);

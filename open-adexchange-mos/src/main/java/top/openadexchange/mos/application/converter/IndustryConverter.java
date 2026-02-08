@@ -1,6 +1,7 @@
 package top.openadexchange.mos.application.converter;
 
 import org.springframework.stereotype.Component;
+
 import top.openadexchange.dto.IndustryDto;
 import top.openadexchange.model.Industry;
 

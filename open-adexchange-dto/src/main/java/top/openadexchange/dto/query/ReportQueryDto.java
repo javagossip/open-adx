@@ -1,10 +1,10 @@
 package top.openadexchange.dto.query;
 
+import java.time.LocalDate;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import top.openadexchange.constants.Constants;
-
-import java.time.LocalDate;
 
 /**
  * 报表查询条件DTO

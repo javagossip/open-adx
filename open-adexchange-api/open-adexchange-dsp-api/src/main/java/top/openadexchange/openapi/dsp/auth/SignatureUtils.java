@@ -1,17 +1,16 @@
 package top.openadexchange.openapi.dsp.auth;
 
-import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.util.StringUtils;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+
+import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.util.StringUtils;
 
 public class SignatureUtils {
 

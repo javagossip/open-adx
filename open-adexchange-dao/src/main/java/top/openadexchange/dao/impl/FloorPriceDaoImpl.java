@@ -1,10 +1,12 @@
 package top.openadexchange.dao.impl;
 
-import com.mybatisflex.spring.service.impl.ServiceImpl;
-import top.openadexchange.model.FloorPrice;
-import top.openadexchange.mapper.FloorPriceMapper;
-import top.openadexchange.dao.FloorPriceDao;
 import org.springframework.stereotype.Service;
+
+import com.mybatisflex.spring.service.impl.ServiceImpl;
+
+import top.openadexchange.dao.FloorPriceDao;
+import top.openadexchange.mapper.FloorPriceMapper;
+import top.openadexchange.model.FloorPrice;
 
 /**
  *  服务层实现。

@@ -1,5 +1,8 @@
 package top.openadexchange.job.handler;
 
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+
 import com.alibaba.fastjson2.JSON;
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;
@@ -7,11 +10,6 @@ import com.xxl.job.core.handler.annotation.XxlJob;
 import jakarta.annotation.Resource;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.stereotype.Component;
-
-import org.springframework.util.StringUtils;
-
 import top.openadexchange.job.service.StatDataSynchronizerService;
 
 @Component

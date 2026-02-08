@@ -1,12 +1,11 @@
 package top.openadexchange.tracking.domain.gateway;
 
-import com.chaincoretech.epc.ExtensionRegistry;
-
-import jakarta.annotation.Resource;
-
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import com.chaincoretech.epc.ExtensionRegistry;
+
+import jakarta.annotation.Resource;
 import top.openadexchange.tracking.config.OaxTrackingProperties;
 
 @Component

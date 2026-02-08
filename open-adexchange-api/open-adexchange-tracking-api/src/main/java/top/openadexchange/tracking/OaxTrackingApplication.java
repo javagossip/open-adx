@@ -1,5 +1,7 @@
 package top.openadexchange.tracking;
 
+import java.util.Objects;
+
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.springframework.boot.SpringApplication;
@@ -8,8 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableScheduling;
-
-import java.util.Objects;
 
 @SpringBootApplication(scanBasePackages = {"top.openadexchange"})
 @EnableScheduling

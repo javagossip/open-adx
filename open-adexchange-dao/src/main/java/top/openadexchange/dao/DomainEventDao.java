@@ -1,10 +1,10 @@
 package top.openadexchange.dao;
 
+import java.util.List;
+
 import com.mybatisflex.core.service.IService;
 
 import top.openadexchange.model.DomainEvent;
-
-import java.util.List;
 
 /**
  * 服务层。
