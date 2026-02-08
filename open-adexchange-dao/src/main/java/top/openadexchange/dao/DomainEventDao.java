@@ -4,6 +4,8 @@ import com.mybatisflex.core.service.IService;
 
 import top.openadexchange.model.DomainEvent;
 
+import java.util.List;
+
 /**
  * 服务层。
  *
@@ -12,4 +14,5 @@ import top.openadexchange.model.DomainEvent;
  */
 public interface DomainEventDao extends IService<DomainEvent> {
 
+    List<DomainEvent> listAndUpdateUnHandleEvents(int offset, int limit);
 }

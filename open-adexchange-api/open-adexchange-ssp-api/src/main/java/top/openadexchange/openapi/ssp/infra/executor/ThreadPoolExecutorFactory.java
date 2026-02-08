@@ -11,6 +11,6 @@ public class ThreadPoolExecutorFactory implements ExecutorFactory {
 
     @Override
     public ExecutorService getExecutor() {
-        return null;
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

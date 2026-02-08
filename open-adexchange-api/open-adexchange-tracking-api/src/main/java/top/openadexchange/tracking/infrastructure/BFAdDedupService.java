@@ -1,19 +1,19 @@
 package top.openadexchange.tracking.infrastructure;
 
-import com.chaincoretech.epc.annotation.Extension;
-
-import jakarta.annotation.Resource;
-
-import org.redisson.api.RBloomFilter;
-import org.redisson.api.RedissonClient;
-
-import top.openadexchange.constants.RedisKeys;
-import top.openadexchange.tracking.domain.gateway.AdDedupService;
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
+import org.redisson.api.RBloomFilter;
+import org.redisson.api.RedissonClient;
+
+import com.chaincoretech.epc.annotation.Extension;
+
+import jakarta.annotation.Resource;
+import top.openadexchange.constants.RedisKeys;
+import top.openadexchange.tracking.domain.gateway.AdDedupService;
 
 /**
  * 布隆过滤器实现
@@ -40,7 +40,7 @@ public class BFAdDedupService implements AdDedupService {
     /**
      * 本地缓存布隆过滤器引用，避免重复获取
      */
-    private final ConcurrentHashMap<String, RBloomFilter<String>> bfCache = new ConcurrentHashMap<>();
+    private final ConcurrentMap<String, RBloomFilter<String>> bfCache = new ConcurrentHashMap<>();
 
     @Resource
     private RedissonClient redissonClient;

@@ -25,7 +25,6 @@ public final class RedisKeys {
     public static final String HASH_FIELD_BID = "bid";
     public static final String HASH_FIELD_WIN = "win";
     public static final String HASH_FIELD_REQ = "req";
-    public static final String HASH_FIELD_PRICE = "price";
     public static final String HASH_FIELD_REVENUE = "revenue";
     public static final String HASH_FIELD_DSP_COST = "dsp_cost";
     public static final String HASH_FIELD_ADX_REVENUE = "adx_revenue";

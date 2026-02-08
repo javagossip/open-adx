@@ -94,7 +94,7 @@ public class StatDataSynchronizerService {
                 continue;
             }
             String keyAdSlot = RedisKeys.keyStatAdSlot(adSlotId, syncDate);
-            List<Object> values = redisTemplate.opsForHash().multiGet(keyAdSlot, RedisKeys.HASH_FIELDS);
+            List<Object> values = multiHashGet(keyAdSlot, RedisKeys.HASH_FIELDS);
             if (values == null || values.isEmpty()) {
                 continue;
             }
@@ -156,7 +156,7 @@ public class StatDataSynchronizerService {
                 continue;
             }
             String keyStatDsp = RedisKeys.keyStatDsp(dspId, syncDate);
-            List<Object> values = redisTemplate.opsForHash().multiGet(keyStatDsp, RedisKeys.HASH_FIELDS);
+            List<Object> values = multiHashGet(keyStatDsp, RedisKeys.HASH_FIELDS);
             if (values == null || values.isEmpty()) {
                 continue;
             }
@@ -183,5 +183,9 @@ public class StatDataSynchronizerService {
             dspStats.add(dspStat);
         }
         dspStatDao.saveBatchOnDuplicateKeyUpdate(dspStats);
+    }
+
+    public List<Object> multiHashGet(String key, List<Object> fields) {
+        return redisTemplate.opsForHash().multiGet(key, fields);
     }
 }

@@ -17,6 +17,10 @@
             <artifactId>open-adexchange-model</artifactId>
         </dependency>
         <dependency>
+            <groupId>top.openadexchange</groupId>
+            <artifactId>open-adexchange-constants</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.mybatis-flex</groupId>
             <artifactId>mybatis-flex-spring-boot3-starter</artifactId>
         </dependency>

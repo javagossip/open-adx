@@ -20,7 +20,6 @@ public class OaxTrackingServices {
 
     private AdDedupService adDedupService;
     private ExecutorFactory executorFactory;
-    private ExecutorService executor;
 
     public AdDedupService getAdDedupService() {
         if (adDedupService == null) {
@@ -39,13 +38,6 @@ public class OaxTrackingServices {
     }
 
     public ExecutorService getExecutor() {
-        if (executor == null) {
-            synchronized (this) {
-                if (executor == null) {
-                    executor = getExecutorFactory().getExecutor();
-                }
-            }
-        }
-        return executor;
+        return getExecutorFactory().getExecutor();
     }
 }

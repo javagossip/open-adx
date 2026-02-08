@@ -7,10 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.Objects;
 
 @SpringBootApplication(scanBasePackages = {"top.openadexchange"})
+@EnableScheduling
 public class OaxTrackingApplication {
 
     public static void main(String[] args) {
