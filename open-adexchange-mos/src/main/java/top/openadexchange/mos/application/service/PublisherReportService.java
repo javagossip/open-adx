@@ -1,6 +1,6 @@
 package top.openadexchange.mos.application.service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,7 +18,6 @@ import top.openadexchange.dao.AdSlotStatDao;
 import top.openadexchange.dto.query.ReportQueryDto;
 import top.openadexchange.dto.report.AdSlotReportDto;
 import top.openadexchange.dto.report.PublisherReportDto;
-import top.openadexchange.model.SiteAdPlacement;
 
 import static com.mybatisflex.core.query.QueryMethods.*;
 import static top.openadexchange.model.table.AdSlotStatTableDef.*;
@@ -43,7 +42,7 @@ public class PublisherReportService {
      */
     public Page<PublisherReportDto> pagePublisherReport(ReportQueryDto queryDto) {
         log.info("查询媒体报表: {}", queryDto);
-        int today = Integer.parseInt(LocalDate.now().format(Constants.REDIS_KEY_DATEFORMAT));
+        int currentHour = Integer.parseInt(LocalDateTime.now().format(Constants.REDIS_KEY_DATEFORMAT));
         Page<PublisherReportDto> result = adSlotStatDao.pageAs(Page.of(queryDto.getPageNo(), queryDto.getPageSize()),
                 QueryWrapper.create()
                         .select(PUBLISHER.ID.as("publisher_id"),
@@ -59,7 +58,7 @@ public class PublisherReportService {
                         .from(PUBLISHER.as("t2"))
                         .leftJoin(AD_SLOT_STAT.as("t1"))
                         .on(AD_SLOT_STAT.PUBLISHER_ID.eq(PUBLISHER.ID)
-                                .and(AD_SLOT_STAT.STAT_DATE.ne(today))
+                                .and(AD_SLOT_STAT.STAT_DATE.ne(currentHour))
                                 .and(AD_SLOT_STAT.PUBLISHER_ID.eq(queryDto.getPublisherId()))
                                 .and(AD_SLOT_STAT.SITE_ID.eq(queryDto.getSiteId()))
                                 .and(PUBLISHER.NAME.like(queryDto.getPublisherName()))
@@ -67,7 +66,7 @@ public class PublisherReportService {
                         .groupBy(PUBLISHER.ID),
                 PublisherReportDto.class);
 
-        if (queryDto.getStartDate() > today || queryDto.getEndDate() < today) {
+        if (queryDto.getStartDate() > currentHour || queryDto.getEndDate() < currentHour) {
             log.info("查询媒体报表, 开始日期：{}", queryDto.getStartDate());
             return result;
         }
@@ -97,7 +96,7 @@ public class PublisherReportService {
         Assert.notNull(queryDto.getPublisherId(), "publisherId不能为空");
         log.info("查询广告位报表: {}", queryDto);
 
-        Integer today = Integer.parseInt(LocalDate.now().format(Constants.REDIS_KEY_DATEFORMAT));
+        Integer currentHour = Integer.parseInt(LocalDateTime.now().format(Constants.REDIS_KEY_DATEFORMAT));
         Page<AdSlotReportDto> result = adSlotStatDao.pageAs(Page.of(queryDto.getPageNo(), queryDto.getPageSize()),
                 QueryWrapper.create()
                         .select(SITE_AD_PLACEMENT.CODE.as("ad_slot_id"),
@@ -119,7 +118,7 @@ public class PublisherReportService {
                         .on(SITE_AD_PLACEMENT.SITE_ID.eq(AD_SLOT_STAT.SITE_ID)
                                 .and(SITE_AD_PLACEMENT.CODE.eq(AD_SLOT_STAT.AD_SLOT_ID))
                                 .and(AD_SLOT_STAT.PUBLISHER_ID.eq(queryDto.getPublisherId()))
-                                .and(AD_SLOT_STAT.STAT_DATE.ne(today))
+                                .and(AD_SLOT_STAT.STAT_DATE.ne(currentHour))
                                 .and(AD_SLOT_STAT.STAT_DATE.between(queryDto.getStartDate(), queryDto.getEndDate())))
                         .where(SITE_AD_PLACEMENT.SITE_ID.eq(queryDto.getSiteId()))
                         .groupBy(SITE_AD_PLACEMENT.CODE,
@@ -133,7 +132,7 @@ public class PublisherReportService {
         if (!result.hasRecords()) {
             return result;
         }
-        if (queryDto.getStartDate() > today || queryDto.getEndDate() < today) {
+        if (queryDto.getStartDate() > currentHour || queryDto.getEndDate() < currentHour) {
             log.info("查询广告位报表, 媒体ID: {}, 站点ID: {}, 开始日期: {}",
                     queryDto.getPublisherId(),
                     queryDto.getSiteId(),

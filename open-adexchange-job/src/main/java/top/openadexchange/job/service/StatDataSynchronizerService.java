@@ -1,6 +1,7 @@
 package top.openadexchange.job.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -138,8 +139,8 @@ public class StatDataSynchronizerService {
     }
 
     public void syncDspStatData(StatDataSynchronizerParam param) {
-        String syncDate = (param == null || !StringUtils.hasText(param.getSyncDate())) ? LocalDate.now()
-                .minusDays(1L)
+        String syncDate = (param == null || !StringUtils.hasText(param.getSyncDate())) ? LocalDateTime.now()
+                .minusHours(1L)
                 .format(Constants.REDIS_KEY_DATEFORMAT) : param.getSyncDate();
         String keyStatDsps = RedisKeys.keyStatDsps(syncDate);
         Set<String> statDspIds = redisTemplate.opsForSet().members(keyStatDsps);
