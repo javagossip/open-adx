@@ -103,7 +103,7 @@ public class PublisherReportService {
                         .select(SITE_AD_PLACEMENT.CODE.as("ad_slot_id"),
                                 SITE_AD_PLACEMENT.NAME.as("ad_slot_name"),
                                 SITE.PUBLISHER_ID.as("publisher_id"),
-                                SITE.ID.as("site_id"),
+                                SITE_AD_PLACEMENT.SITE_ID.as("site_id"),
                                 SITE.NAME.as("site_name"),
                                 sum(AD_SLOT_STAT.REQ_COUNT).as("req_count"),
                                 sum(AD_SLOT_STAT.BID_COUNT).as("bid_count"),
@@ -114,9 +114,10 @@ public class PublisherReportService {
                                 sum(AD_SLOT_STAT.ADX_REVENUE).as("adx_revenue"))
                         .from(SITE_AD_PLACEMENT)
                         .leftJoin(SITE)
-                        .on(SITE_AD_PLACEMENT.SITE_ID.eq(SITE.ID))
+                        .on(SITE_AD_PLACEMENT.SITE_ID.eq(SITE.ID).and(SITE.PUBLISHER_ID.eq(queryDto.getPublisherId())))
                         .leftJoin(AD_SLOT_STAT)
                         .on(SITE_AD_PLACEMENT.SITE_ID.eq(AD_SLOT_STAT.SITE_ID)
+                                .and(SITE_AD_PLACEMENT.CODE.eq(AD_SLOT_STAT.AD_SLOT_ID))
                                 .and(AD_SLOT_STAT.PUBLISHER_ID.eq(queryDto.getPublisherId()))
                                 .and(AD_SLOT_STAT.STAT_DATE.ne(today))
                                 .and(AD_SLOT_STAT.STAT_DATE.between(queryDto.getStartDate(), queryDto.getEndDate())))
