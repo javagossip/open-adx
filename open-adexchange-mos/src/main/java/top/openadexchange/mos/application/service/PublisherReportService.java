@@ -113,7 +113,7 @@ public class PublisherReportService {
                                 sum(AD_SLOT_STAT.REVENUE).as("revenue"),
                                 sum(AD_SLOT_STAT.ADX_REVENUE).as("adx_revenue"))
                         .from(SITE_AD_PLACEMENT)
-                        .leftJoin(SITE)
+                        .join(SITE)
                         .on(SITE_AD_PLACEMENT.SITE_ID.eq(SITE.ID).and(SITE.PUBLISHER_ID.eq(queryDto.getPublisherId())))
                         .leftJoin(AD_SLOT_STAT)
                         .on(SITE_AD_PLACEMENT.SITE_ID.eq(AD_SLOT_STAT.SITE_ID)
