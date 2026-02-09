@@ -113,15 +113,15 @@ public class PublisherReportService {
                                 sum(AD_SLOT_STAT.REVENUE).as("revenue"),
                                 sum(AD_SLOT_STAT.ADX_REVENUE).as("adx_revenue"))
                         .from(SITE_AD_PLACEMENT)
+                        .leftJoin(SITE)
+                        .on(SITE_AD_PLACEMENT.SITE_ID.eq(SITE.ID))
                         .leftJoin(AD_SLOT_STAT)
                         .on(SITE_AD_PLACEMENT.SITE_ID.eq(AD_SLOT_STAT.SITE_ID)
                                 .and(AD_SLOT_STAT.PUBLISHER_ID.eq(queryDto.getPublisherId()))
                                 .and(AD_SLOT_STAT.STAT_DATE.ne(today))
                                 .and(AD_SLOT_STAT.STAT_DATE.between(queryDto.getStartDate(), queryDto.getEndDate())))
-                        .leftJoin(SITE)
-                        .on(AD_SLOT_STAT.SITE_ID.eq(SITE.ID))
-                        .eq(SiteAdPlacement::getSiteId, queryDto.getSiteId())
-                        .groupBy(SITE_AD_PLACEMENT.CODE),
+                        .where(SITE_AD_PLACEMENT.SITE_ID.eq(queryDto.getSiteId()))
+                        .groupBy(SITE_AD_PLACEMENT.CODE, SITE_AD_PLACEMENT.NAME, SITE.PUBLISHER_ID, SITE.ID, SITE.NAME),
                 AdSlotReportDto.class);
 
         if (!result.hasRecords()) {

@@ -51,9 +51,7 @@ public interface AdSlotStatMapper extends BaseMapper<AdSlotStat> {
                 click_count = VALUES(click_count), 
                 dsp_cost = VALUES(dsp_cost), 
                 revenue = VALUES(revenue), 
-                adx_revenue = VALUES(adx_revenue),
-                publisher_id = VALUES(publisher_id), 
-                site_id = VALUES(site_id)
+                adx_revenue = VALUES(adx_revenue)
             </script>
             """)
     void saveBatchOnDuplicateKeyUpdate(@Param("list") List<AdSlotStat> adSlotStats);

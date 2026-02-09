@@ -10,7 +10,6 @@ import top.openadexchange.openapi.ssp.application.dto.AdGetResponse;
 import top.openadexchange.openapi.ssp.application.factory.AdGetResponseBuilder;
 import top.openadexchange.openapi.ssp.application.factory.BidRequestBuilder;
 import top.openadexchange.openapi.ssp.domain.core.AdExchangeEngine;
-import top.openadexchange.openapi.ssp.domain.gateway.OaxEngineServices;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid.Bid;
 
@@ -20,8 +19,6 @@ import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid.Bid;
 @Service
 public class AdFetchService {
 
-    @Resource
-    private OaxEngineServices oaxEngineServices;
     @Resource
     private AdExchangeEngine adExchangeEngine;
     @Resource

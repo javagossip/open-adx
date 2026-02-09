@@ -33,6 +33,7 @@ import top.openadexchange.tracking.domain.gateway.AdDedupService;
 import top.openadexchange.tracking.domain.gateway.OaxTrackingServices;
 import top.openadexchange.tracking.domain.model.TrackTokenParseResult;
 import top.openadexchange.tracking.infrastructure.constants.KafkaConstants;
+import top.openadexchange.tracking.utils.RedisOpsUtils;
 import top.openadexchange.tracking.utils.RevenueUtils;
 
 @Service
@@ -82,7 +83,6 @@ public class TrackingService {
         String statAdSlotKey = RedisKeys.keyStatAdSlot(trackToken.getAdSlotId());
         String statDspKey = RedisKeys.keyStatDsp(trackToken.getDspId());
         String statCridKey = RedisKeys.keyStatCrid(trackToken.getCrid());
-        String statAdslotsKey = RedisKeys.keyStatAdslots();
 
         List<String> hashKeys = Arrays.asList(statAdSlotKey, statDspKey, statCridKey);
 
@@ -99,14 +99,14 @@ public class TrackingService {
         redisTemplate.executePipelined(new SessionCallback<>() {
             @Override
             public <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
-                K _statAdSlotKey = (K) statAdSlotKey;
                 batchIncrementHashKeys(ops, hashKeys, RedisKeys.HASH_FIELD_IMP);
                 ops.opsForHash().increment((K) statDspKey, RedisKeys.HASH_FIELD_DSP_COST, dspCost);
-                ops.opsForHash().increment(_statAdSlotKey, RedisKeys.HASH_FIELD_REVENUE, mediaRevenue);
-                ops.opsForHash().increment(_statAdSlotKey, RedisKeys.HASH_FIELD_ADX_REVENUE, adxRevenue);
+                ops.opsForHash().increment((K) statAdSlotKey, RedisKeys.HASH_FIELD_REVENUE, mediaRevenue);
+                ops.opsForHash().increment((K) statAdSlotKey, RedisKeys.HASH_FIELD_ADX_REVENUE, adxRevenue);
 
-                ops.opsForSet().add((K) statAdslotsKey, (V) adSlotId);
-                ops.opsForSet().add((K) RedisKeys.keyStatDsps(), (V) dspId);
+                RedisOpsUtils.sadd(ops, RedisKeys.keyStatAdslots(), adSlotId, Duration.ofDays(2));
+                RedisOpsUtils.sadd(ops, RedisKeys.keyStatDsps(), dspId, Duration.ofDays(2));
+
                 return null;
             }
         });
@@ -156,8 +156,8 @@ public class TrackingService {
             @Override
             public <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
                 batchIncrementHashKeys(ops, hashKeys, RedisKeys.HASH_FIELD_CLK);
-                ops.opsForSet().add((K) RedisKeys.keyStatAdslots(), (V) adSlotId);
-                ops.opsForSet().add((K) RedisKeys.keyStatDsps(), (V) dspId);
+                RedisOpsUtils.sadd(ops, RedisKeys.keyStatAdslots(), adSlotId, Duration.ofDays(2));
+                RedisOpsUtils.sadd(ops, RedisKeys.keyStatDsps(), dspId, Duration.ofDays(2));
                 return null;
             }
         });
@@ -207,51 +207,51 @@ public class TrackingService {
         }
     }
 
-    public void onDspReqEvent(DspReqEvent dspReqEvent) {
-        log.info("DSP request event: {}", dspReqEvent);
-        String adslotKey = RedisKeys.keyStatAdSlot(dspReqEvent.getAdSlotId());
-        String dspKey = RedisKeys.keyStatDsp(dspReqEvent.getDspId());
+    public void onDspReqEvent(DspReqEvent event) {
+        log.info("DSP request event: {}", event);
+        String adslotKey = RedisKeys.keyStatAdSlot(event.getAdSlotId());
+        String dspKey = RedisKeys.keyStatDsp(event.getDspId());
 
         redisTemplate.executePipelined(new SessionCallback<>() {
             @Override
             public <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
                 batchIncrementHashKeys(ops, Arrays.asList(adslotKey, dspKey), RedisKeys.HASH_FIELD_REQ);
-                ops.opsForSet().add((K) RedisKeys.keyStatAdslots(), (V) dspReqEvent.getAdSlotId());
-                ops.opsForSet().add((K) RedisKeys.keyStatDsps(), (V) dspReqEvent.getDspId());
+                RedisOpsUtils.sadd(ops, RedisKeys.keyStatAdslots(), event.getAdSlotId(), Duration.ofDays(2));
+                RedisOpsUtils.sadd(ops, RedisKeys.keyStatDsps(), event.getDspId(), Duration.ofDays(2));
                 return null;
             }
         });
     }
 
-    public void onDspBidEvent(DspBidEvent dspBidEvent) {
-        log.info("DSP bid event: {}", dspBidEvent);
-        String adSlotKey = RedisKeys.keyStatAdSlot(dspBidEvent.getAdSlotId());
-        String dspKey = RedisKeys.keyStatDsp(dspBidEvent.getDspId());
-        String cridKey = RedisKeys.keyStatCrid(dspBidEvent.getCrid());
+    public void onDspBidEvent(DspBidEvent event) {
+        log.info("DSP bid event: {}", event);
+        String adSlotKey = RedisKeys.keyStatAdSlot(event.getAdSlotId());
+        String dspKey = RedisKeys.keyStatDsp(event.getDspId());
+        String cridKey = RedisKeys.keyStatCrid(event.getCrid());
 
         redisTemplate.executePipelined(new SessionCallback<>() {
             @Override
             public <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
                 batchIncrementHashKeys(ops, Arrays.asList(adSlotKey, dspKey, cridKey), RedisKeys.HASH_FIELD_BID);
-                ops.opsForSet().add((K) RedisKeys.keyStatAdslots(), (V) dspBidEvent.getAdSlotId());
-                ops.opsForSet().add((K) RedisKeys.keyStatDsps(), (V) dspBidEvent.getDspId());
+                RedisOpsUtils.sadd(ops, RedisKeys.keyStatAdslots(), event.getAdSlotId(), Duration.ofDays(2));
+                RedisOpsUtils.sadd(ops, RedisKeys.keyStatDsps(), event.getDspId(), Duration.ofDays(2));
                 return null;
             }
         });
     }
 
-    public void onDspWinEvent(DspWinEvent dspWinEvent) {
-        log.info("DSP win event: {}", dspWinEvent);
-        String adSlotKey = RedisKeys.keyStatAdSlot(dspWinEvent.getAdSlotId());
-        String dspKey = RedisKeys.keyStatDsp(dspWinEvent.getDspId());
-        String cridKey = RedisKeys.keyStatCrid(dspWinEvent.getCrid());
+    public void onDspWinEvent(DspWinEvent event) {
+        log.info("DSP win event: {}", event);
+        String adSlotKey = RedisKeys.keyStatAdSlot(event.getAdSlotId());
+        String dspKey = RedisKeys.keyStatDsp(event.getDspId());
+        String cridKey = RedisKeys.keyStatCrid(event.getCrid());
 
         redisTemplate.executePipelined(new SessionCallback<>() {
             @Override
             public <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
                 batchIncrementHashKeys(ops, Arrays.asList(adSlotKey, dspKey, cridKey), RedisKeys.HASH_FIELD_WIN);
-                ops.opsForSet().add((K) RedisKeys.keyStatAdslots(), (V) dspWinEvent.getAdSlotId());
-                ops.opsForSet().add((K) RedisKeys.keyStatDsps(), (V) dspWinEvent.getDspId());
+                RedisOpsUtils.sadd(ops, RedisKeys.keyStatAdslots(), event.getAdSlotId(), Duration.ofDays(2));
+                RedisOpsUtils.sadd(ops, RedisKeys.keyStatDsps(), event.getDspId(), Duration.ofDays(2));
                 return null;
             }
         });

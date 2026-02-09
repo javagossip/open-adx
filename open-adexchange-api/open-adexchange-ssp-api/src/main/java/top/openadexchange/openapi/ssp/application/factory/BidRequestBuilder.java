@@ -49,8 +49,12 @@ public class BidRequestBuilder {
         request.getImp().forEach(imp -> {
             builder.addImp(buildImp(request.isTest(), imp, builder));
         });
-        builder.setApp(buildApp(request));
-        builder.setSite(buildSite(request));
+        if (request.getApp() != null) {
+            builder.setApp(buildApp(request));
+        }
+        if (request.getSite() != null) {
+            builder.setSite(buildSite(request));
+        }
         builder.setDevice(buildDevice(request));
         return builder;
     }
@@ -206,11 +210,10 @@ public class BidRequestBuilder {
     }
 
     private top.openadexchange.model.Site getSite(AdGetRequest request) {
-        MetadataRepository metadataRepository = oaxEngineServices.getCachedMetadataRepository();
         String tagId = request.getImp().getFirst().getTagid();
-        SiteAdPlacementAggregate siteAdPlacement = metadataRepository.getSiteAdPlacementByTagId(tagId);
+        SiteAdPlacementAggregate siteAdPlacement = metadataCacheService.getSiteAdPlacementByTagId(tagId);
         Long siteId = siteAdPlacement.getSiteAdPlacement().getSiteId();
-        top.openadexchange.model.Site site = metadataRepository.getSite(siteId);
+        top.openadexchange.model.Site site = metadataCacheService.getSite(siteId);
         return site;
     }
 

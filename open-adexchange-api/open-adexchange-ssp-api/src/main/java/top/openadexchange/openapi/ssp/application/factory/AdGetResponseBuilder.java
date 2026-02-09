@@ -47,6 +47,7 @@ public class AdGetResponseBuilder {
 
         String tagId = request.getTagIdByImpId(impid);
         Ad ad = new Ad();
+        ad.setImpid(impid);
         ad.setPm(bid.getImpTrackersList());
         ad.setCm(bid.getClkTrackersList());
         ad.setCrid(bid.getCrid());

@@ -85,6 +85,18 @@ public class StatDataSynchronizerService {
                 continue;
             }
             String keyAdSlot = RedisKeys.keyStatAdSlot(adSlotId, syncDate);
+            /**
+             * public static final List HASH_FIELDS = Arrays.asList(
+             *             HASH_FIELD_IMP,
+             *             HASH_FIELD_CLK,
+             *             HASH_FIELD_BID,
+             *             HASH_FIELD_WIN,
+             *             HASH_FIELD_REQ,
+             *             HASH_FIELD_REVENUE,
+             *             HASH_FIELD_DSP_COST,
+             *             HASH_FIELD_ADX_REVENUE
+             *             );
+             */
             List<Object> values = multiHashGet(keyAdSlot, RedisKeys.HASH_FIELDS);
             if (values == null || values.isEmpty()) {
                 continue;

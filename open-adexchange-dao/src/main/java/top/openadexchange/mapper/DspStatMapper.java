@@ -43,7 +43,7 @@ public interface DspStatMapper extends BaseMapper<DspStat> {
                 #{item.bidCount},
                 #{item.winCount},
                 #{item.reqCount},
-                #{item.dspCost},
+                #{item.cost},
                 #{item.statDate}
             )
             </foreach>
