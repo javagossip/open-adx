@@ -120,8 +120,10 @@ public class PublisherReportService {
                                 .and(AD_SLOT_STAT.PUBLISHER_ID.eq(queryDto.getPublisherId()))
                                 .and(AD_SLOT_STAT.STAT_DATE.ne(today))
                                 .and(AD_SLOT_STAT.STAT_DATE.between(queryDto.getStartDate(), queryDto.getEndDate())))
-                        .where(SITE_AD_PLACEMENT.SITE_ID.eq(queryDto.getSiteId()))
-                        .groupBy(SITE_AD_PLACEMENT.CODE, SITE_AD_PLACEMENT.NAME, SITE.PUBLISHER_ID, SITE.ID, SITE.NAME),
+                        .where(SITE_AD_PLACEMENT.SITE_ID.eq(queryDto.getSiteId())
+                                .and(PUBLISHER.ID.eq(queryDto.getPublisherId())))
+                        .groupBy(SITE_AD_PLACEMENT.CODE, SITE_AD_PLACEMENT.NAME, SITE.PUBLISHER_ID, SITE.ID, SITE.NAME)
+                        .orderBy("imp_count DESC"),
                 AdSlotReportDto.class);
 
         if (!result.hasRecords()) {
