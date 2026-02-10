@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -162,24 +163,31 @@ public class PublisherReportService {
         }
         Map<String, AdSlotReportDto> adSlotReportDtoMap =
                 redisAdStatService.getTodayAdSlotStatsAggregateAdSlotId(adSlotIds);
+        if (adSlotReportDtoMap == null || adSlotReportDtoMap.isEmpty()) {
+            return result;
+        }
+
+        Map<String, AdSlotReportDto> resultReportMap = result.getRecords()
+                .stream()
+                .collect(Collectors.toMap(r -> String.format("%s-%s", r.getAdSlotId(), r.getStatDate()),
+                        Function.identity(),
+                        (a, b) -> a));
+
         adSlotReportDtoMap.forEach((adSlotId, adSlotReportDto) -> {
-            result.getRecords().add(adSlotReportDto);
+            AdSlotReportDto existAdSlotReport = resultReportMap.get(String.format("%s-%s", adSlotId, currentHour));
+            if (existAdSlotReport != null) {
+                existAdSlotReport.setStatDate(currentHour);
+                existAdSlotReport.setReqCount(adSlotReportDto.getReqCount());
+                existAdSlotReport.setBidCount(adSlotReportDto.getBidCount());
+                existAdSlotReport.setWinCount(adSlotReportDto.getWinCount());
+                existAdSlotReport.setImpCount(adSlotReportDto.getImpCount());
+                existAdSlotReport.setClickCount(adSlotReportDto.getClickCount());
+                existAdSlotReport.setRevenue(adSlotReportDto.getRevenue());
+                existAdSlotReport.setAdxRevenue(adSlotReportDto.getAdxRevenue());
+            }else{
+                result.getRecords().add(adSlotReportDto);
+            }
         });
-//        result.getRecords().forEach(reportDto -> {
-//            AdSlotReportDto adSlotReportDto = adSlotReportDtoMap.get(reportDto.getAdSlotId());
-//            if (adSlotReportDto != null) {
-//                if (reportDto.getStatDate() == null || reportDto.getStatDate() == 0) {
-//                    reportDto.setStatDate(adSlotReportDto.getStatDate());
-//                }
-//                reportDto.incrReqCount(adSlotReportDto.getReqCount());
-//                reportDto.incrBidCount(adSlotReportDto.getBidCount());
-//                reportDto.incrWinCount(adSlotReportDto.getWinCount());
-//                reportDto.incrImpCount(adSlotReportDto.getImpCount());
-//                reportDto.incrClickCount(adSlotReportDto.getClickCount());
-//                reportDto.incrRevenue(adSlotReportDto.getRevenue());
-//                reportDto.incrAdxRevenue(adSlotReportDto.getAdxRevenue());
-//            }
-//        });
         return result;
     }
 }
