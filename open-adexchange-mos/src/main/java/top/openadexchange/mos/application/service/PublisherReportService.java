@@ -148,7 +148,8 @@ public class PublisherReportService {
                                 sum(AD_SLOT_STAT.REVENUE).as("revenue"),
                                 sum(AD_SLOT_STAT.ADX_REVENUE).as("adx_revenue"))
                         .from(AD_SLOT_STAT.as("t1"))
-                        .where(AD_SLOT_STAT.PUBLISHER_ID.eq(queryDto.getPublisherId()))
+                        .where(AD_SLOT_STAT.PUBLISHER_ID.eq(queryDto.getPublisherId())
+                                .and(AD_SLOT_STAT.STAT_DATE.between(queryDto.getStartDate(), queryDto.getEndDate())))
                         .groupBy(AD_SLOT_STAT.AD_SLOT_ID,
                                 AD_SLOT_STAT.AD_SLOT_NAME,
                                 AD_SLOT_STAT.SITE_ID,
