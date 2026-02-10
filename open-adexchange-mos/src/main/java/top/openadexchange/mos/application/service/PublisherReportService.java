@@ -148,6 +148,7 @@ public class PublisherReportService {
                         .where(SITE.PUBLISHER_ID.eq(queryDto.getPublisherId()))
                         .groupBy(SITE_AD_PLACEMENT.CODE,
                                 SITE_AD_PLACEMENT.NAME,
+                                SITE.ID,
                                 AD_SLOT_STAT.SITE_NAME,
                                 AD_SLOT_STAT.STAT_DATE)
                         .orderBy("imp_count DESC"),
