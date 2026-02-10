@@ -164,7 +164,7 @@ public class MetricsCollector {
     public void syncMetricsToRedis() {
         try {
             // 1、同步dsp统计数据到redis
-            log.info("Synchronized dsp metrics to redis");
+            //            log.info("Synchronized dsp metrics to redis");
             ConcurrentMap<String, DspMetrics> dspMetrics = swapAndGetDspMetrics();
             dspMetrics.forEach((dspMetricKey, metrics) -> {
                 redisTemplate.executePipelined(new SessionCallback<>() {
@@ -185,7 +185,7 @@ public class MetricsCollector {
             });
             dspMetrics.clear();
             // 2、同步 adslot统计数据到redis
-            log.info("Synchronized adslot metrics to redis");
+            //            log.info("Synchronized adslot metrics to redis");
             ConcurrentMap<String, AdSlotMetrics> adSlotMetrics = swapAndGetAdSlotMetrics();
             adSlotMetrics.forEach((adSlotMetricKey, metrics) -> {
                 redisTemplate.executePipelined(new SessionCallback<>() {
@@ -205,7 +205,7 @@ public class MetricsCollector {
             });
             adSlotMetrics.clear();
 
-            log.info("Synchronized stat dspIds to redis");
+            //            log.info("Synchronized stat dspIds to redis");
             ConcurrentMap<String, Set<String>> dspIds = swapAndGetHourlyDspIdSetMap();
             redisTemplate.executePipelined(new SessionCallback<>() {
                 @Override
@@ -218,7 +218,7 @@ public class MetricsCollector {
             });
             dspIds.clear();
 
-            log.info("Synchronized stat adSlotIds to redis");
+            //            log.info("Synchronized stat adSlotIds to redis");
             ConcurrentMap<String, Set<String>> adSlotIds = swapAndGetHourlyAdSlotIdSetMap();
             redisTemplate.executePipelined(new SessionCallback<>() {
                 @Override

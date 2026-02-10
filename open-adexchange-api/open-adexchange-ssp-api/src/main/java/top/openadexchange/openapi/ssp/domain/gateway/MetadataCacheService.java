@@ -57,4 +57,6 @@ public interface MetadataCacheService {
     void addOrUpdatePublisher(Publisher publisher);
 
     Publisher getPublisher(Long publisherId);
+
+    List<DspAggregate> getDspByIds(List<Integer> matchDspIds);
 }

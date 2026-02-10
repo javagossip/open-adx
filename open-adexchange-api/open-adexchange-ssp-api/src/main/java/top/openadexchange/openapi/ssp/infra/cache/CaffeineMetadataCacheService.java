@@ -1,5 +1,6 @@
 package top.openadexchange.openapi.ssp.infra.cache;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -165,5 +166,10 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
     @Override
     public Publisher getPublisher(Long publisherId) {
         return publisherCache.getIfPresent(publisherId);
+    }
+
+    @Override
+    public List<DspAggregate> getDspByIds(List<Integer> matchDspIds) {
+        return new ArrayList<>(dspCache.getAllPresent(matchDspIds).values());
     }
 }

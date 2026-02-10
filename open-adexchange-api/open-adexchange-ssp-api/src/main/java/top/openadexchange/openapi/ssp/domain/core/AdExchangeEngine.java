@@ -156,7 +156,6 @@ public class AdExchangeEngine {
     private Map<String, List<DspBid>> fetchAllBids(BidRequest.Builder request, /*<impid, floorPrice>*/
             Map<String, Imp> impFloorMap) {
         IndexService indexService = oaxEngineServices.getIndexService();
-        MetadataRepository metadataRepository = oaxEngineServices.getCachedMetadataRepository();
 
         IndexKeys indexKeys = indexKeysBuilder.buildIndexKeys(request);
         if (BidRequestUtils.traceEnabled(request)) {
@@ -171,7 +170,7 @@ public class AdExchangeEngine {
             log.info("no match dsp, request id: {}", request.getId());
             return null;
         }
-        List<DspAggregate> matchDsps = metadataRepository.getDspByIds(matchDspIds);
+        List<DspAggregate> matchDsps = metadataCacheService.getDspByIds(matchDspIds);
         // 1. 发起并发 RTB 请求
         ExecutorFactory executorFactory = executorFactories.getExecutorFactory();
         ExecutorService executor = executorFactory.getExecutor();
