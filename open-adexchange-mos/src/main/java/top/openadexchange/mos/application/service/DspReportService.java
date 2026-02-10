@@ -27,6 +27,8 @@ import static top.openadexchange.model.table.DspTableDef.*;
 @Slf4j
 public class DspReportService {
 
+    //xinhe-20260209
+    private static final String DSP_STAT_KEY = "%s-%s";
     @Resource
     private DspStatDao dspStatDao;
     @Resource
@@ -77,9 +79,8 @@ public class DspReportService {
         // 获取所有DSP编码（LEFT JOIN已包含所有符合条件的DSP）
         List<String> dspCodes = dspReports.getRecords()
                 .stream()
-                .filter(Objects::nonNull)
                 .map(DspReportDto::getDspCode)
-                .filter(code -> code != null && !code.trim().isEmpty())
+                .filter(Objects::nonNull)
                 .distinct()
                 .toList();
 
@@ -98,12 +99,30 @@ public class DspReportService {
             return dspReports;
         }
 
-        // 直接将缓存数据添加到报表列表中
-        currentHourCacheMap.values().forEach(cacheDto -> {
-            DspReportDto newRecord = createNewRecordFromCache(cacheDto, currentHour);
-            dspReports.getRecords().add(newRecord);
-        });
+        //<dsp_code-stat_date, DspReportDto>
+        Map<String, DspReportDto> dspReportMap = dspReports.getRecords()
+                .stream()
+                .collect(Collectors.toMap(r -> String.format("%s-%s",
+                        r.getDspCode(),
+                        r.getStatDate() == null ? currentHour : r.getStatDate()), Function.identity(), (a, b) -> a));
 
+        currentHourCacheMap.values().forEach(cacheDto -> {
+            DspReportDto existsDspReport =
+                    dspReportMap.get(String.format("%s-%s", cacheDto.getDspCode(), cacheDto.getStatDate()));
+            if (existsDspReport != null) {
+                existsDspReport.setReqCount(cacheDto.getReqCount());
+                existsDspReport.setBidCount(cacheDto.getBidCount());
+                existsDspReport.setWinCount(cacheDto.getWinCount());
+                existsDspReport.setImpCount(cacheDto.getImpCount());
+                existsDspReport.setClkCount(cacheDto.getClkCount());
+                existsDspReport.setCost(cacheDto.getCost());
+            } else {
+                log.info("当前小时DSP统计数据不存在, 添加缓存数据, DSP编码: {}, 时间: {}",
+                        cacheDto.getDspCode(),
+                        cacheDto.getStatDate());
+                dspReports.getRecords().add(createNewRecordFromCache(cacheDto, currentHour));
+            }
+        });
         return dspReports;
     }
 
