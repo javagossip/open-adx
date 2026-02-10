@@ -1,6 +1,8 @@
 package top.openadexchange.openapi.ssp.application.service;
 
 import java.time.Duration;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import top.openadexchange.commons.cache.RedisOpsUtils;
+import top.openadexchange.constants.Constants;
 import top.openadexchange.constants.RedisKeys;
 
 @Service
@@ -33,6 +37,20 @@ public class MetricsCollector {
             new AtomicReference<>(adSlotMetrics);
     private final AtomicReference<ConcurrentMap<String, DspMetrics>> currentDspMetricsRef =
             new AtomicReference<>(dspMetrics);
+
+    private final ConcurrentMap<String, Set<String>> hourlyDspIdSetMap = new ConcurrentHashMap<>(2);
+    private final ConcurrentMap<String, Set<String>> slaveHourlyDspIdSetMap =
+            new ConcurrentHashMap<String, Set<String>>(2);
+
+    private final ConcurrentMap<String, Set<String>> hourlyAdSlotIdSetMap =
+            new ConcurrentHashMap<String, Set<String>>(2);
+    private final ConcurrentMap<String, Set<String>> slaveHourlyAdSlotIdSetMap =
+            new ConcurrentHashMap<String, Set<String>>(2);
+
+    private final AtomicReference<ConcurrentMap<String, Set<String>>> currentHourlyDspIdSetMapRef =
+            new AtomicReference<>(hourlyDspIdSetMap);
+    private final AtomicReference<ConcurrentMap<String, Set<String>>> currentHourlyAdSlotIdSetMapRef =
+            new AtomicReference<>(hourlyAdSlotIdSetMap);
 
     @Resource(name = "oaxStringRedisTemplate")
     private RedisTemplate<String, String> redisTemplate;
@@ -93,11 +111,33 @@ public class MetricsCollector {
     }
 
     private String adSlotMetricKey(String adSlotId) {
-        return RedisKeys.keyStatAdSlot(adSlotId);
+        String now = Constants.formatNow();
+        currentHourlyAdSlotIdSetMapRef.get().computeIfAbsent(now, k -> new HashSet<>()).add(adSlotId);
+        return RedisKeys.keyStatAdSlot(adSlotId, now);
     }
 
     private String dspMetricKey(String dspId) {
-        return RedisKeys.keyStatDsp(dspId);
+        String now = Constants.formatNow();
+        currentHourlyDspIdSetMapRef.get().computeIfAbsent(now, k -> new HashSet<>()).add(dspId);
+        return RedisKeys.keyStatDsp(dspId, now);
+    }
+
+    private ConcurrentMap<String, Set<String>> swapAndGetHourlyDspIdSetMap() {
+        ConcurrentMap<String, Set<String>> activeMap = currentHourlyDspIdSetMapRef.get();
+        ConcurrentMap<String, Set<String>> nextActiveMap =
+                (activeMap == hourlyDspIdSetMap) ? slaveHourlyDspIdSetMap : hourlyDspIdSetMap;
+
+        currentHourlyDspIdSetMapRef.set(nextActiveMap);
+        return activeMap;
+    }
+
+    private ConcurrentMap<String, Set<String>> swapAndGetHourlyAdSlotIdSetMap() {
+        ConcurrentMap<String, Set<String>> activeMap = currentHourlyAdSlotIdSetMapRef.get();
+        ConcurrentMap<String, Set<String>> nextActiveMap =
+                (activeMap == hourlyAdSlotIdSetMap) ? slaveHourlyAdSlotIdSetMap : hourlyAdSlotIdSetMap;
+
+        currentHourlyAdSlotIdSetMapRef.set(nextActiveMap);
+        return activeMap;
     }
 
     private ConcurrentMap<String, DspMetrics> swapAndGetDspMetrics() {
@@ -124,6 +164,7 @@ public class MetricsCollector {
     public void syncMetricsToRedis() {
         try {
             // 1、同步dsp统计数据到redis
+            log.info("Synchronized dsp metrics to redis");
             ConcurrentMap<String, DspMetrics> dspMetrics = swapAndGetDspMetrics();
             dspMetrics.forEach((dspMetricKey, metrics) -> {
                 redisTemplate.executePipelined(new SessionCallback<>() {
@@ -133,6 +174,7 @@ public class MetricsCollector {
                         ops.opsForHash().increment((K) dspMetricKey, RedisKeys.HASH_FIELD_BID, metrics.bids.sum());
                         ops.opsForHash().increment((K) dspMetricKey, RedisKeys.HASH_FIELD_WIN, metrics.wins.sum());
 
+                        //RedisOpsUtils.sadd(ops, RedisKeys.keyStatDsps(), dspMetricKey);
                         Long expire = ops.getExpire((K) dspMetricKey);
                         if (expire == null || expire < 0) {
                             ops.expire((K) dspMetricKey, Duration.ofDays(2));
@@ -143,6 +185,7 @@ public class MetricsCollector {
             });
             dspMetrics.clear();
             // 2、同步 adslot统计数据到redis
+            log.info("Synchronized adslot metrics to redis");
             ConcurrentMap<String, AdSlotMetrics> adSlotMetrics = swapAndGetAdSlotMetrics();
             adSlotMetrics.forEach((adSlotMetricKey, metrics) -> {
                 redisTemplate.executePipelined(new SessionCallback<>() {
@@ -161,6 +204,32 @@ public class MetricsCollector {
                 });
             });
             adSlotMetrics.clear();
+
+            log.info("Synchronized stat dspIds to redis");
+            ConcurrentMap<String, Set<String>> dspIds = swapAndGetHourlyDspIdSetMap();
+            redisTemplate.executePipelined(new SessionCallback<>() {
+                @Override
+                public @Nullable <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
+                    dspIds.forEach((hour, dspIdSet) -> {
+                        RedisOpsUtils.sadd(ops, RedisKeys.keyStatDsps(hour), dspIdSet, Duration.ofDays(2));
+                    });
+                    return null;
+                }
+            });
+            dspIds.clear();
+
+            log.info("Synchronized stat adSlotIds to redis");
+            ConcurrentMap<String, Set<String>> adSlotIds = swapAndGetHourlyAdSlotIdSetMap();
+            redisTemplate.executePipelined(new SessionCallback<>() {
+                @Override
+                public @Nullable <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
+                    adSlotIds.forEach((hour, adSlotIdSet) -> {
+                        RedisOpsUtils.sadd(ops, RedisKeys.keyStatAdslots(hour), adSlotIdSet, Duration.ofDays(2));
+                    });
+                    return null;
+                }
+            });
+            adSlotIds.clear();
         } catch (Exception ex) {
             log.error("sync metrics to redis error", ex);
         }
