@@ -16,7 +16,7 @@ public class HttpClientConfig {
     public HttpClient httpClient() {
         return HttpClient.newBuilder()
                 .followRedirects(HttpClient.Redirect.NEVER)
-                .connectTimeout(Duration.ofMillis(50)) // 严格限制建连时间
+                .connectTimeout(Duration.ofMillis(100)) // 严格限制建连时间
                 .version(Version.HTTP_1_1)
                 .build();
     }
