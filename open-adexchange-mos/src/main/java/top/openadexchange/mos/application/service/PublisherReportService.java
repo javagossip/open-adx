@@ -47,6 +47,10 @@ public class PublisherReportService {
     public Page<PublisherReportDto> pagePublisherReport(ReportQueryDto queryDto) {
         log.info("查询媒体报表: {}", queryDto);
         int currentHour = Integer.parseInt(LocalDateTime.now().format(Constants.REDIS_KEY_DATEFORMAT));
+        // 检查查询时间范围是否包含当前小时
+        boolean needMergeCurrentHourData =
+                queryDto.getStartDate() <= currentHour && queryDto.getEndDate() >= currentHour;
+
         Page<PublisherReportDto> result = adSlotStatDao.pageAs(Page.of(queryDto.getPageNo(), queryDto.getPageSize()),
                 QueryWrapper.create()
                         .select(PUBLISHER.ID.as("publisher_id"),
@@ -69,10 +73,6 @@ public class PublisherReportService {
                                 .and(PUBLISHER.NAME.like(queryDto.getPublisherName())))
                         .groupBy(PUBLISHER.ID),
                 PublisherReportDto.class);
-
-        // 检查查询时间范围是否包含当前小时
-        boolean needMergeCurrentHourData =
-                queryDto.getStartDate() <= currentHour && queryDto.getEndDate() >= currentHour;
 
         if (!needMergeCurrentHourData || !result.hasRecords()) {
             log.info("媒体报表数据为空：{}", queryDto.getStartDate());
@@ -113,9 +113,14 @@ public class PublisherReportService {
         log.info("查询广告位报表: {}", queryDto);
 
         Integer currentHour = Integer.parseInt(LocalDateTime.now().format(Constants.REDIS_KEY_DATEFORMAT));
-        Set<String> cachedHourlyStatAdSlotIds = redisADStatService.getLastHourStatAdSlotIds(currentHour.toString());
-        log.info("pre init empty adslot stat: {}", cachedHourlyStatAdSlotIds);
-        initAdSlotStats(cachedHourlyStatAdSlotIds, currentHour);
+        // 检查查询时间范围是否包含当前小时
+        boolean needMergeCurrentHourData =
+                queryDto.getStartDate() <= currentHour && queryDto.getEndDate() >= currentHour;
+        if (needMergeCurrentHourData) {
+            Set<String> cachedHourlyStatAdSlotIds = redisADStatService.getLastHourStatAdSlotIds(currentHour.toString());
+            log.info("pre init empty adslot stat: {}", cachedHourlyStatAdSlotIds);
+            initAdSlotStats(cachedHourlyStatAdSlotIds, currentHour);
+        }
         Page<AdSlotReportDto> result = adSlotStatDao.pageAs(Page.of(queryDto.getPageNo(), queryDto.getPageSize()),
                 QueryWrapper.create()
                         .select(SITE_AD_PLACEMENT.CODE.as("ad_slot_id"),
@@ -138,10 +143,6 @@ public class PublisherReportService {
                         .groupBy(SITE_AD_PLACEMENT.CODE, AD_SLOT_STAT.SITE_NAME, AD_SLOT_STAT.STAT_DATE)
                         .orderBy("imp_count DESC"),
                 AdSlotReportDto.class);
-
-        // 检查查询时间范围是否包含当前小时
-        boolean needMergeCurrentHourData =
-                queryDto.getStartDate() <= currentHour && queryDto.getEndDate() >= currentHour;
 
         if (!needMergeCurrentHourData || !result.hasRecords()) {
             return result;
