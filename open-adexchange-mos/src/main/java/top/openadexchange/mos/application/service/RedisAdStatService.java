@@ -204,25 +204,25 @@ public class RedisAdStatService {
             //            String dspCostStr = (String) values.get(6);
             String adxRevenueStr = (String) values.get(7);
 
-            AdSlotReportDto adSlotStat = new AdSlotReportDto();
-            adSlotStat.setAdSlotId(adSlotId);
-            adSlotStat.setStatDate(Integer.parseInt(syncDate));
-            adSlotStat.setSiteId(siteAdPlacement.getSiteId());
-            adSlotStat.setAdSlotName(siteAdPlacement.getName());
+            AdSlotReportDto adSlotReportDto = new AdSlotReportDto();
+            adSlotReportDto.setAdSlotId(adSlotId);
+            adSlotReportDto.setStatDate(Integer.parseInt(syncDate));
+            adSlotReportDto.setSiteId(siteAdPlacement.getSiteId());
+            adSlotReportDto.setAdSlotName(siteAdPlacement.getName());
 
             Site site = siteMap.get(siteAdPlacement.getSiteId());
-            adSlotStat.setPublisherId(site == null ? null : site.getPublisherId());
-            adSlotStat.setSiteName(site == null ? null : site.getName());
-            adSlotStat.setStatDate(Integer.parseInt(syncDate));
-            adSlotStat.setImpCount(NumberUtils.toLong(impCountStr));
-            adSlotStat.setClickCount(NumberUtils.toLong(clickCountStr));
-            adSlotStat.setBidCount(NumberUtils.toLong(bidCountStr));
-            adSlotStat.setWinCount(NumberUtils.toLong(winCountStr));
-            adSlotStat.setReqCount(NumberUtils.toLong(reqCountStr));
-            adSlotStat.setRevenue(NumberUtils.toLong(revenueStr));
-            adSlotStat.setAdxRevenue(NumberUtils.toLong(adxRevenueStr));
+            adSlotReportDto.setPublisherId(site == null ? null : site.getPublisherId());
+            adSlotReportDto.setSiteName(site == null ? null : site.getName());
+            adSlotReportDto.setStatDate(Integer.parseInt(syncDate));
+            adSlotReportDto.setImpCount(NumberUtils.toLong(impCountStr));
+            adSlotReportDto.setClickCount(NumberUtils.toLong(clickCountStr));
+            adSlotReportDto.setBidCount(NumberUtils.toLong(bidCountStr));
+            adSlotReportDto.setWinCount(NumberUtils.toLong(winCountStr));
+            adSlotReportDto.setReqCount(NumberUtils.toLong(reqCountStr));
+            adSlotReportDto.setRevenue(NumberUtils.toLong(revenueStr));
+            adSlotReportDto.setAdxRevenue(NumberUtils.toLong(adxRevenueStr));
 
-            adSlotStats.add(adSlotStat);
+            adSlotStats.add(adSlotReportDto);
         }
         return adSlotStats;
     }
