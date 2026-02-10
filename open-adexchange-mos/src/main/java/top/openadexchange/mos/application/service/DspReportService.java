@@ -20,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.util.CollectionUtils;
+
 import top.openadexchange.constants.Constants;
 import top.openadexchange.dao.DspStatDao;
 import top.openadexchange.dto.query.DspReportQueryDto;
@@ -90,13 +92,10 @@ public class DspReportService {
 
         log.info("db dsp reports: {}", dspReports);
         // 获取所有DSP编码（LEFT JOIN已包含所有符合条件的DSP）
-        Set<String> dspCodes = (cacheDspCodes != null)
-                ? cacheDspCodes
-                : dspReports.getRecords()
-                        .stream()
-                        .map(DspReportDto::getDspCode)
-                        .filter(Objects::nonNull)
-                        .collect(Collectors.toSet());
+        Set<String> dspCodes = CollectionUtils.isEmpty(cacheDspCodes) ? dspReports.getRecords()
+                .stream()
+                .map(DspReportDto::getDspCode)
+                .collect(Collectors.toSet()) : cacheDspCodes;
 
         if (dspCodes.isEmpty()) {
             log.info("没有有效的DSP编码用于查询缓存数据");
