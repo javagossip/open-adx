@@ -99,6 +99,7 @@ public class DspReportService {
 
         if (dspCodes.isEmpty()) {
             log.info("没有有效的DSP编码用于查询缓存数据");
+            dspReports.getRecords().forEach(dto -> dto.setStatDate(currentHour));
             return dspReports;
         }
 
