@@ -169,9 +169,9 @@ public class PublisherReportService {
 
         Map<String, AdSlotReportDto> resultReportMap = result.getRecords()
                 .stream()
-                .collect(Collectors.toMap(r -> String.format("%s-%s", r.getAdSlotId(), r.getStatDate()),
-                        Function.identity(),
-                        (a, b) -> a));
+                .collect(Collectors.toMap(r -> String.format("%s-%s",
+                        r.getAdSlotId(),
+                        r.getStatDate() == null ? currentHour : r.getStatDate()), Function.identity(), (a, b) -> a));
 
         adSlotReportDtoMap.forEach((adSlotId, adSlotReportDto) -> {
             AdSlotReportDto existAdSlotReport = resultReportMap.get(String.format("%s-%s", adSlotId, currentHour));
@@ -184,7 +184,7 @@ public class PublisherReportService {
                 existAdSlotReport.setClickCount(adSlotReportDto.getClickCount());
                 existAdSlotReport.setRevenue(adSlotReportDto.getRevenue());
                 existAdSlotReport.setAdxRevenue(adSlotReportDto.getAdxRevenue());
-            }else{
+            } else {
                 result.getRecords().add(adSlotReportDto);
             }
         });
