@@ -120,9 +120,10 @@ public class DspReportService {
         //<dsp_code-stat_date, DspReportDto>
         Map<String, DspReportDto> dspReportMap = dspReports.getRecords()
                 .stream()
-                .collect(Collectors.toMap(r -> String.format("%s-%s", r.getDspCode(), r.getStatDate()),
-                        Function.identity(),
-                        (a, b) -> a));
+                .collect(Collectors.toMap(r -> String.format("%s-%s",
+                        r.getDspCode(),
+                        r.getStatDate() == null ? currentHour : r.getStatDate()),
+                        Function.identity(), (a, b) -> a));
 
         currentHourCacheMap.values().forEach(cacheDto -> {
             DspReportDto existsDspReport =
