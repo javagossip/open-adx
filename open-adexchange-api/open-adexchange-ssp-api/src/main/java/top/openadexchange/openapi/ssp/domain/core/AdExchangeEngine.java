@@ -126,8 +126,8 @@ public class AdExchangeEngine {
                 winner.getBid().getPrice(),
                 settlementPrice);
         builder.setPrice(settlementPrice);
-        resetBidTrackers(request, winner.getDsp(), builder, imp);
         replaceMacros(builder, winner);
+        resetBidTrackers(request, winner.getDsp(), builder, imp);
         return builder;
     }
 
@@ -198,6 +198,9 @@ public class AdExchangeEngine {
             for (DspBidResponse dspBidResponse : dspBidResponses) {
                 Dsp dsp = dspBidResponse.getDsp();
                 List<SeatBid.Builder> seatBids = dspBidResponse.getSeatbidList();
+                if (seatBids == null || seatBids.isEmpty()) {
+                    continue;
+                }
                 for (SeatBid.Builder seatBid : seatBids) {
                     for (Bid.Builder bid : seatBid.getBidBuilderList()) {
                         Imp imp = impFloorMap.get(bid.getImpid());
@@ -211,6 +214,8 @@ public class AdExchangeEngine {
             }
             return validImpBids;
         } catch (InterruptedException ex) {
+            log.error("invokeAll error for interrupted exception", ex);
+        } catch (Exception ex) {
             log.error("invokeAll error", ex);
         }
         return null;
@@ -252,7 +257,7 @@ public class AdExchangeEngine {
         }
 
         public List<SeatBid.Builder> getSeatbidList() {
-            return bidResponse.getSeatbidBuilderList();
+            return bidResponse == null ? null : bidResponse.getSeatbidBuilderList();
         }
     }
 

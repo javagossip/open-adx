@@ -141,7 +141,8 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
     public OaxRtbProto.BidResponse.Builder from(Dsp dsp, OaxRtbProto.BidRequest bidRequest, BidResponse bidResponse) {
         OaxRtbProto.BidResponse.Builder builder = OaxRtbProto.BidResponse.newBuilder();
         builder.setId(bidResponse.getId());
-        if (bidResponse.getCode() == NO_AD_CODE) {
+        //这里只要不等于 0 就认为是 nobid
+        if (bidResponse.getCode() != 0) {
             builder.setNoBid(true);
             return builder;
         }

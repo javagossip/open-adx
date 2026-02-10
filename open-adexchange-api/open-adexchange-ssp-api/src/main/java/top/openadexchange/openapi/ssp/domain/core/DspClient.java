@@ -26,9 +26,6 @@ public class DspClient {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     public BidResponse.Builder bidding(DspAggregate dspAggregate, BidRequest.Builder request) {
-        for (Imp imp : request.getImpList()) {
-            metricsCollector.incrAdSlotBids(imp.getTagid());
-        }
         if (!rateLimiterManager.tryAcquire(dspAggregate.getDspId())) {
             log.warn("dsp {} rate limit", dspAggregate.getDsp().getName());
             return null;
@@ -54,6 +51,9 @@ public class DspClient {
         BidResponse.Builder bidResponse = rtbProtocolConverter.from(dspAggregate.getDsp(), request.build(), response);
         if (bidResponse != null && !bidResponse.getNoBid()) {
             metricsCollector.incrDspBids(dspAggregate.getDspId());
+            for (Imp imp : request.getImpList()) {
+                metricsCollector.incrAdSlotBids(imp.getTagid());
+            }
         }
         if (BidRequestUtils.traceEnabled(request)) {
             log.info("BidResponse: {}", bidResponse.toString());
