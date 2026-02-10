@@ -49,11 +49,11 @@ public class DspReportService {
         // 检查查询时间范围是否包含当前小时
         boolean needMergeCurrentHourData =
                 queryDto.getStartDate() <= currentHour && queryDto.getEndDate() >= currentHour;
-        Set<String> dspCodes = null;
+        Set<String> cacheDspCodes = null;
         if (needMergeCurrentHourData) {
-            dspCodes = redisAdStatService.getLastHourStatDspIds(currentHour.toString());
-            log.info("Pre init empty dsp stat, dspCodes: {}", dspCodes);
-            initEmptyDspStats(dspCodes, currentHour);
+            cacheDspCodes = redisAdStatService.getLastHourStatDspIds(currentHour.toString());
+            log.info("Pre init empty dsp stat, dspCodes: {}", cacheDspCodes);
+            initEmptyDspStats(cacheDspCodes, currentHour);
         }
         // 构建查询条件 - 如果需要合并当前小时数据，则排除当前小时的数据
         QueryWrapper queryWrapper = QueryWrapper.create()
@@ -88,9 +88,10 @@ public class DspReportService {
             return dspReports;
         }
 
+        log.info("db dsp reports: {}", dspReports);
         // 获取所有DSP编码（LEFT JOIN已包含所有符合条件的DSP）
-        dspCodes = dspCodes != null
-                ? dspCodes
+        Set<String> dspCodes = (cacheDspCodes != null)
+                ? cacheDspCodes
                 : dspReports.getRecords()
                         .stream()
                         .map(DspReportDto::getDspCode)
@@ -99,7 +100,11 @@ public class DspReportService {
 
         if (dspCodes.isEmpty()) {
             log.info("没有有效的DSP编码用于查询缓存数据");
-            dspReports.getRecords().forEach(dto -> dto.setStatDate(currentHour));
+            dspReports.getRecords().forEach(dto -> {
+                if (dto.getStatDate() == null) {
+                    dto.setStatDate(currentHour);
+                }
+            });
             return dspReports;
         }
 
