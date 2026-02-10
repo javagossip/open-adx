@@ -48,6 +48,9 @@ public class DspClient {
         if (BidRequestUtils.traceEnabled(request)) {
             log.info("dsp {} BidResponse: {}", dspAggregate.getDsp().getName(), response);
         }
+        if (response == null) {
+            return null;
+        }
         BidResponse.Builder bidResponse = rtbProtocolConverter.from(dspAggregate.getDsp(), request.build(), response);
         if (bidResponse != null && !bidResponse.getNoBid()) {
             metricsCollector.incrDspBids(dspAggregate.getDspId());
