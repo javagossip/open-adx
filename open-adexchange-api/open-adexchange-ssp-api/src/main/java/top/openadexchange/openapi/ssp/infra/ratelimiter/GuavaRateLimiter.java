@@ -22,7 +22,8 @@ public class GuavaRateLimiter implements RateLimiter {
         int nodeCount = registryService.getNodeCount();
         //实际限额增加10%
         int realLimit = (int) ((limit / nodeCount) * 1.1D);
-        return realLimit;
+        //要确保单机限速至少要大于 0
+        return Math.max(realLimit, 1);
     }
 
     @Override
