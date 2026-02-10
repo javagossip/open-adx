@@ -110,6 +110,7 @@ public class DspReportService {
             DspReportDto existsDspReport =
                     dspReportMap.get(String.format("%s-%s", cacheDto.getDspCode(), cacheDto.getStatDate()));
             if (existsDspReport != null) {
+                existsDspReport.setStatDate(currentHour);
                 existsDspReport.setReqCount(cacheDto.getReqCount());
                 existsDspReport.setBidCount(cacheDto.getBidCount());
                 existsDspReport.setWinCount(cacheDto.getWinCount());
