@@ -226,7 +226,7 @@ public class RedisADStatService {
         return adSlotStats;
     }
 
-    public Map<String, DspReportDto> getTodayDspStatsAggregateDspCodes(List<String> dspCodes) {
+    public Map<String, DspReportDto> getTodayDspStatsAggregateDspCodes(Collection<String> dspCodes) {
         List<DspReportDto> redisDspStats = batchGetTodayDspStats(dspCodes);
         log.info("Get dspCodes stat from redis: {}, redisDspStats: {}", dspCodes, redisDspStats);
         return redisDspStats.stream()
@@ -234,7 +234,7 @@ public class RedisADStatService {
                 .collect(Collectors.toMap(DspReportDto::getDspCode, Function.identity(), (a, b) -> a));
     }
 
-    private List<DspReportDto> batchGetTodayDspStats(List<String> dspCodes) {
+    private List<DspReportDto> batchGetTodayDspStats(Collection<String> dspCodes) {
         if (dspCodes == null || dspCodes.isEmpty()) {
             log.info("no stat dspCodes, statDspCodes: {}", dspCodes);
             return Collections.emptyList();

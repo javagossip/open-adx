@@ -1,6 +1,7 @@
 package top.openadexchange.mos.application.service;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,9 @@ import com.mybatisflex.core.query.QueryWrapper;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import top.openadexchange.constants.Constants;
 import top.openadexchange.dao.DspStatDao;
 import top.openadexchange.dto.query.DspReportQueryDto;
@@ -37,6 +41,7 @@ public class DspReportService {
     @Resource
     private RedisADStatService redisAdStatService;
 
+    @Transactional
     public Page<DspReportDto> pageDspReports(DspReportQueryDto queryDto) {
         // 获取当前小时的时间戳(yyyyMMddHH格式)
         Integer currentHour = Integer.parseInt(LocalDateTime.now().format(Constants.REDIS_KEY_DATEFORMAT));
@@ -44,8 +49,9 @@ public class DspReportService {
         // 检查查询时间范围是否包含当前小时
         boolean needMergeCurrentHourData =
                 queryDto.getStartDate() <= currentHour && queryDto.getEndDate() >= currentHour;
+        Set<String> dspCodes = null;
         if (needMergeCurrentHourData) {
-            Set<String> dspCodes = redisAdStatService.getLastHourStatDspIds(currentHour.toString());
+            dspCodes = redisAdStatService.getLastHourStatDspIds(currentHour.toString());
             log.info("Pre init empty dsp stat, dspCodes: {}", dspCodes);
             initEmptyDspStats(dspCodes, currentHour);
         }
@@ -63,7 +69,6 @@ public class DspReportService {
                 .from(DSP)
                 .leftJoin(DSP_STAT)
                 .on(DSP_STAT.DSP_CODE.eq(DSP.DSP_ID)
-                        .and(DSP_STAT.STAT_DATE.ne(currentHour))
                         .and(DSP_STAT.STAT_DATE.between(queryDto.getStartDate(), queryDto.getEndDate())));
 
         // 添加DSP查询条件
@@ -84,12 +89,13 @@ public class DspReportService {
         }
 
         // 获取所有DSP编码（LEFT JOIN已包含所有符合条件的DSP）
-        List<String> dspCodes = dspReports.getRecords()
-                .stream()
-                .map(DspReportDto::getDspCode)
-                .filter(Objects::nonNull)
-                .distinct()
-                .toList();
+        dspCodes = dspCodes != null
+                ? dspCodes
+                : dspReports.getRecords()
+                        .stream()
+                        .map(DspReportDto::getDspCode)
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.toSet());
 
         if (dspCodes.isEmpty()) {
             log.info("没有有效的DSP编码用于查询缓存数据");
@@ -109,9 +115,9 @@ public class DspReportService {
         //<dsp_code-stat_date, DspReportDto>
         Map<String, DspReportDto> dspReportMap = dspReports.getRecords()
                 .stream()
-                .collect(Collectors.toMap(r -> String.format("%s-%s",
-                        r.getDspCode(),
-                        r.getStatDate() == null ? currentHour : r.getStatDate()), Function.identity(), (a, b) -> a));
+                .collect(Collectors.toMap(r -> String.format("%s-%s", r.getDspCode(), r.getStatDate()),
+                        Function.identity(),
+                        (a, b) -> a));
 
         currentHourCacheMap.values().forEach(cacheDto -> {
             DspReportDto existsDspReport =
