@@ -56,7 +56,7 @@ public class DspReportService {
                 .from(DSP)
                 .leftJoin(DSP_STAT)
                 .on(DSP_STAT.DSP_CODE.eq(DSP.DSP_ID)
-                        .and(needMergeCurrentHourData ? DSP_STAT.STAT_DATE.ne(currentHour) : null)
+                        .and(DSP_STAT.STAT_DATE.ne(currentHour))
                         .and(DSP_STAT.STAT_DATE.between(queryDto.getStartDate(), queryDto.getEndDate())));
 
         // 添加DSP查询条件
