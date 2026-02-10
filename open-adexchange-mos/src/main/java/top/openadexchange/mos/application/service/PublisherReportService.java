@@ -140,7 +140,10 @@ public class PublisherReportService {
                                 .and(AD_SLOT_STAT.STAT_DATE.ne(currentHour))
                                 .and(AD_SLOT_STAT.STAT_DATE.between(queryDto.getStartDate(), queryDto.getEndDate())))
                         .where(AD_SLOT_STAT.PUBLISHER_ID.eq(queryDto.getPublisherId()))
-                        .groupBy(SITE_AD_PLACEMENT.CODE, AD_SLOT_STAT.SITE_NAME, AD_SLOT_STAT.STAT_DATE)
+                        .groupBy(SITE_AD_PLACEMENT.CODE,
+                                SITE_AD_PLACEMENT.NAME,
+                                AD_SLOT_STAT.SITE_NAME,
+                                AD_SLOT_STAT.STAT_DATE)
                         .orderBy("imp_count DESC"),
                 AdSlotReportDto.class);
 
