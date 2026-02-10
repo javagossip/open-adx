@@ -3,6 +3,7 @@ package top.openadexchange.mos.application.service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -48,6 +49,7 @@ public class PublisherReportService {
                         .select(PUBLISHER.ID.as("publisher_id"),
                                 PUBLISHER.NAME.as("publisher_name"),
                                 PUBLISHER.CODE.as("publisher_code"),
+                                //                                AD_SLOT_STAT.STAT_DATE.as("stat_date"),
                                 sum(AD_SLOT_STAT.REQ_COUNT).as("req_count"),
                                 sum(AD_SLOT_STAT.BID_COUNT).as("bid_count"),
                                 sum(AD_SLOT_STAT.WIN_COUNT).as("win_count"),
@@ -66,17 +68,28 @@ public class PublisherReportService {
                         .groupBy(PUBLISHER.ID),
                 PublisherReportDto.class);
 
-        if (queryDto.getStartDate() > currentHour || queryDto.getEndDate() < currentHour) {
-            log.info("查询媒体报表, 开始日期：{}", queryDto.getStartDate());
+        // 检查查询时间范围是否包含当前小时
+        boolean needMergeCurrentHourData =
+                queryDto.getStartDate() <= currentHour && queryDto.getEndDate() >= currentHour;
+
+        if (!needMergeCurrentHourData || !result.hasRecords()) {
+            log.info("媒体报表数据为空：{}", queryDto.getStartDate());
             return result;
         }
-        List<Long> publisherIds =
-                result.getRecords().stream().map(PublisherReportDto::getPublisherId).collect(Collectors.toList());
+        List<Long> publisherIds = result.getRecords()
+                .stream()
+                .map(PublisherReportDto::getPublisherId)
+                .filter(Objects::nonNull)
+                .distinct()
+                .collect(Collectors.toList());
         Map<Long, PublisherReportDto> publisherReportDtoMap =
                 redisAdStatService.getTodayAdSlotStatsAggregatePublisherId(publisherIds);
         result.getRecords().forEach(reportDto -> {
             PublisherReportDto publisherReportDto = publisherReportDtoMap.get(reportDto.getPublisherId());
             if (publisherReportDto != null) {
+                if (reportDto.getStatDate() == null || reportDto.getStatDate() == 0) {
+                    publisherReportDto.setStatDate(publisherReportDto.getStatDate());
+                }
                 reportDto.incrReqCount(publisherReportDto.getReqCount());
                 reportDto.incrBidCount(publisherReportDto.getBidCount());
                 reportDto.incrWinCount(publisherReportDto.getWinCount());
@@ -90,7 +103,7 @@ public class PublisherReportService {
     }
 
     /**
-     * 分页查询广告位报表（按媒体下钻）
+     * 分页查询广告位报表（按媒体下钻,按广告位+统计时间分组）
      */
     public Page<AdSlotReportDto> pageAdSlotReport(ReportQueryDto queryDto) {
         Assert.notNull(queryDto.getPublisherId(), "publisherId不能为空");
@@ -104,6 +117,7 @@ public class PublisherReportService {
                                 SITE.PUBLISHER_ID.as("publisher_id"),
                                 SITE_AD_PLACEMENT.SITE_ID.as("site_id"),
                                 SITE.NAME.as("site_name"),
+                                AD_SLOT_STAT.STAT_DATE.as("stat_date"),
                                 sum(AD_SLOT_STAT.REQ_COUNT).as("req_count"),
                                 sum(AD_SLOT_STAT.BID_COUNT).as("bid_count"),
                                 sum(AD_SLOT_STAT.WIN_COUNT).as("win_count"),
@@ -125,39 +139,47 @@ public class PublisherReportService {
                                 SITE_AD_PLACEMENT.NAME,
                                 SITE.PUBLISHER_ID,
                                 SITE_AD_PLACEMENT.SITE_ID,
-                                SITE.NAME)
+                                SITE.NAME,
+                                AD_SLOT_STAT.STAT_DATE)
                         .orderBy("imp_count DESC"),
                 AdSlotReportDto.class);
 
-        if (!result.hasRecords()) {
+        // 检查查询时间范围是否包含当前小时
+        boolean needMergeCurrentHourData =
+                queryDto.getStartDate() <= currentHour && queryDto.getEndDate() >= currentHour;
+
+        if (!needMergeCurrentHourData || !result.hasRecords()) {
             return result;
         }
-        if (queryDto.getStartDate() > currentHour || queryDto.getEndDate() < currentHour) {
-            log.info("查询广告位报表, 媒体ID: {}, 站点ID: {}, 开始日期: {}",
-                    queryDto.getPublisherId(),
-                    queryDto.getSiteId(),
-                    queryDto.getStartDate());
-            return result;
-        }
-        List<String> adSlotIds =
-                result.getRecords().stream().map(AdSlotReportDto::getAdSlotId).collect(Collectors.toList());
+        List<String> adSlotIds = result.getRecords()
+                .stream()
+                .filter(Objects::nonNull)
+                .map(AdSlotReportDto::getAdSlotId)
+                .distinct()
+                .collect(Collectors.toList());
         if (adSlotIds == null || adSlotIds.isEmpty()) {
             return result;
         }
         Map<String, AdSlotReportDto> adSlotReportDtoMap =
                 redisAdStatService.getTodayAdSlotStatsAggregateAdSlotId(adSlotIds);
-        result.getRecords().forEach(reportDto -> {
-            AdSlotReportDto adSlotReportDto = adSlotReportDtoMap.get(reportDto.getAdSlotId());
-            if (adSlotReportDto != null) {
-                reportDto.incrReqCount(adSlotReportDto.getReqCount());
-                reportDto.incrBidCount(adSlotReportDto.getBidCount());
-                reportDto.incrWinCount(adSlotReportDto.getWinCount());
-                reportDto.incrImpCount(adSlotReportDto.getImpCount());
-                reportDto.incrClickCount(adSlotReportDto.getClickCount());
-                reportDto.incrRevenue(adSlotReportDto.getRevenue());
-                reportDto.incrAdxRevenue(adSlotReportDto.getAdxRevenue());
-            }
+        adSlotReportDtoMap.forEach((adSlotId, adSlotReportDto) -> {
+            result.getRecords().add(adSlotReportDto);
         });
+//        result.getRecords().forEach(reportDto -> {
+//            AdSlotReportDto adSlotReportDto = adSlotReportDtoMap.get(reportDto.getAdSlotId());
+//            if (adSlotReportDto != null) {
+//                if (reportDto.getStatDate() == null || reportDto.getStatDate() == 0) {
+//                    reportDto.setStatDate(adSlotReportDto.getStatDate());
+//                }
+//                reportDto.incrReqCount(adSlotReportDto.getReqCount());
+//                reportDto.incrBidCount(adSlotReportDto.getBidCount());
+//                reportDto.incrWinCount(adSlotReportDto.getWinCount());
+//                reportDto.incrImpCount(adSlotReportDto.getImpCount());
+//                reportDto.incrClickCount(adSlotReportDto.getClickCount());
+//                reportDto.incrRevenue(adSlotReportDto.getRevenue());
+//                reportDto.incrAdxRevenue(adSlotReportDto.getAdxRevenue());
+//            }
+//        });
         return result;
     }
 }

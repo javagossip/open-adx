@@ -27,6 +27,8 @@ public class AdSlotReportDto {
 
     @Schema(description = "广告位名称")
     private String adSlotName;
+    @Schema(description = "统计时间")
+    private Integer statDate;
 
     @Schema(description = "站点/APP ID")
     private Long siteId;

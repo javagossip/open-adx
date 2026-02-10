@@ -31,6 +31,8 @@ public class PublisherReportDto {
 
     @Schema(description = "媒体编码")
     private String publisherCode;
+    @Schema(description = "统计时间")
+    private Integer statDate;
 
     @Schema(description = "请求量")
     private Long reqCount;
@@ -80,6 +82,7 @@ public class PublisherReportDto {
             this.winCount += incrCount;
         }
     }
+
     public void incrImpCount(Long count) {
         Long incrCount = count == null ? 0 : count;
         if (this.impCount == null) {

@@ -104,7 +104,9 @@ public class TrackingService {
                 ops.opsForHash().increment((K) statAdSlotKey, RedisKeys.HASH_FIELD_REVENUE, mediaRevenue);
                 ops.opsForHash().increment((K) statAdSlotKey, RedisKeys.HASH_FIELD_ADX_REVENUE, adxRevenue);
 
+                log.info("Add adSlotId to set: {}, adSlotId: {}", RedisKeys.keyStatAdslots(), adSlotId);
                 RedisOpsUtils.sadd(ops, RedisKeys.keyStatAdslots(), adSlotId, Duration.ofDays(2));
+                log.info("Add dspId to set: {}, dspId: {}", RedisKeys.keyStatDsps(), dspId);
                 RedisOpsUtils.sadd(ops, RedisKeys.keyStatDsps(), dspId, Duration.ofDays(2));
 
                 return null;
@@ -156,7 +158,9 @@ public class TrackingService {
             @Override
             public <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
                 batchIncrementHashKeys(ops, hashKeys, RedisKeys.HASH_FIELD_CLK);
+                log.info("Add adSlotId to set: {}, adSlotId: {}", RedisKeys.keyStatAdslots(), adSlotId);
                 RedisOpsUtils.sadd(ops, RedisKeys.keyStatAdslots(), adSlotId, Duration.ofDays(2));
+                log.info("Add dspId to set: {}, dspId: {}", RedisKeys.keyStatDsps(), dspId);
                 RedisOpsUtils.sadd(ops, RedisKeys.keyStatDsps(), dspId, Duration.ofDays(2));
                 return null;
             }

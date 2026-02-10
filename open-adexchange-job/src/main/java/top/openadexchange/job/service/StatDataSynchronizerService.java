@@ -52,8 +52,8 @@ public class StatDataSynchronizerService {
 
     @SuppressWarnings("unchecked")
     public void syncAdSlotStatData(StatDataSynchronizerParam param) {
-        String syncDate = (param == null || !StringUtils.hasText(param.getSyncDate())) ? LocalDate.now()
-                .minusDays(1L)
+        String syncDate = (param == null || !StringUtils.hasText(param.getSyncDate())) ? LocalDateTime.now()
+                .minusHours(1L)
                 .format(Constants.REDIS_KEY_DATEFORMAT) : param.getSyncDate();
 
         String keyAdSlots = RedisKeys.keyStatAdslots(syncDate);

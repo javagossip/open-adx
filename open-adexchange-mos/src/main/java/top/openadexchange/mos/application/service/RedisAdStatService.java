@@ -1,6 +1,7 @@
 package top.openadexchange.mos.application.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -98,7 +99,7 @@ public class RedisAdStatService {
 
     private List<AdSlotStat> batchGetTodayAdSlotStats(Collection<String> adSlotIds) {
         log.info("Get adSlotIds stat from redis: {}", adSlotIds);
-        String syncDate = LocalDate.now().format(Constants.REDIS_KEY_DATEFORMAT);
+        String syncDate = LocalDateTime.now().format(Constants.REDIS_KEY_DATEFORMAT);
         List<SiteAdPlacement> siteAdPlacements =
                 siteAdPlacementDao.list(QueryWrapper.create().in(SiteAdPlacement::getCode, adSlotIds));
         if (siteAdPlacements.isEmpty()) {
@@ -160,6 +161,72 @@ public class RedisAdStatService {
         return adSlotStats;
     }
 
+    private List<AdSlotReportDto> batchGetTodayAdSlotReports(Collection<String> adSlotIds) {
+        log.info("Get adSlotIds stat from redis: {}", adSlotIds);
+        String syncDate = LocalDateTime.now().format(Constants.REDIS_KEY_DATEFORMAT);
+        List<SiteAdPlacement> siteAdPlacements =
+                siteAdPlacementDao.list(QueryWrapper.create().in(SiteAdPlacement::getCode, adSlotIds));
+        if (siteAdPlacements.isEmpty()) {
+            log.info("no stat adslots, statAdSlotIds: {}", adSlotIds);
+            return Collections.emptyList();
+        }
+        List<Site> sites = siteDao.list(QueryWrapper.create()
+                .in(Site::getId,
+                        siteAdPlacements.stream().map(SiteAdPlacement::getSiteId).collect(Collectors.toSet())));
+        if (sites.isEmpty()) {
+            return Collections.emptyList();
+        }
+        //<siteId,Site>映射
+        Map<Long, Site> siteMap =
+                sites.stream().collect(Collectors.toMap(Site::getId, Function.identity(), (a, b) -> a));
+        //<adSlotId,SiteAdPlacement>映射
+        Map<String, SiteAdPlacement> siteAdPlacementMap = siteAdPlacements.stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toMap(SiteAdPlacement::getCode, Function.identity(), (a, b) -> a));
+
+        List<AdSlotReportDto> adSlotStats = new ArrayList<>(adSlotIds.size());
+        for (String adSlotId : adSlotIds) {
+            SiteAdPlacement siteAdPlacement = siteAdPlacementMap.get(adSlotId);
+            if (siteAdPlacement == null) {
+                continue;
+            }
+            String keyAdSlot = RedisKeys.keyStatAdSlot(adSlotId);
+            List<Object> values = redisTemplate.opsForHash().multiGet(keyAdSlot, RedisKeys.HASH_FIELDS);
+            if (values == null || values.isEmpty()) {
+                continue;
+            }
+            String impCountStr = (String) values.get(0);
+            String clickCountStr = (String) values.get(1);
+            String bidCountStr = (String) values.get(2);
+            String winCountStr = (String) values.get(3);
+            String reqCountStr = (String) values.get(4);
+            String revenueStr = (String) values.get(5);
+            //            String dspCostStr = (String) values.get(6);
+            String adxRevenueStr = (String) values.get(7);
+
+            AdSlotReportDto adSlotStat = new AdSlotReportDto();
+            adSlotStat.setAdSlotId(adSlotId);
+            adSlotStat.setStatDate(Integer.parseInt(syncDate));
+            adSlotStat.setSiteId(siteAdPlacement.getSiteId());
+            adSlotStat.setAdSlotName(siteAdPlacement.getName());
+
+            Site site = siteMap.get(siteAdPlacement.getSiteId());
+            adSlotStat.setPublisherId(site == null ? null : site.getPublisherId());
+            adSlotStat.setSiteName(site == null ? null : site.getName());
+            adSlotStat.setStatDate(Integer.parseInt(syncDate));
+            adSlotStat.setImpCount(NumberUtils.toLong(impCountStr));
+            adSlotStat.setClickCount(NumberUtils.toLong(clickCountStr));
+            adSlotStat.setBidCount(NumberUtils.toLong(bidCountStr));
+            adSlotStat.setWinCount(NumberUtils.toLong(winCountStr));
+            adSlotStat.setReqCount(NumberUtils.toLong(reqCountStr));
+            adSlotStat.setRevenue(NumberUtils.toLong(revenueStr));
+            adSlotStat.setAdxRevenue(NumberUtils.toLong(adxRevenueStr));
+
+            adSlotStats.add(adSlotStat);
+        }
+        return adSlotStats;
+    }
+
     public Map<String, DspReportDto> getTodayDspStatsAggregateDspCodes(List<String> dspCodes) {
         List<DspReportDto> redisDspStats = batchGetTodayDspStats(dspCodes);
         log.info("Get dspCodes stat from redis: {}, redisDspStats: {}", dspCodes, redisDspStats);
@@ -178,7 +245,7 @@ public class RedisAdStatService {
         Map<String, Dsp> dspMap = dspList.stream()
                 .filter(Objects::nonNull)
                 .collect(Collectors.toMap(Dsp::getDspId, Function.identity(), (a, b) -> a));
-        String statDate = LocalDate.now().format(Constants.REDIS_KEY_DATEFORMAT);
+        String statDate = LocalDateTime.now().format(Constants.REDIS_KEY_DATEFORMAT);
         List<DspReportDto> dspStats = new ArrayList<>(dspCodes.size());
         for (String dspCode : dspCodes) {
             Dsp dsp = dspMap.get(dspCode);
@@ -195,6 +262,7 @@ public class RedisAdStatService {
             String costStr = (String) values.get(6);
 
             DspReportDto dspStat = new DspReportDto();
+            dspStat.setDspName(dsp.getName());
             dspStat.setDspId(String.valueOf(dsp.getId()));
             dspStat.setStatDate(Integer.parseInt(statDate));
             dspStat.setDspCode(dspCode);
@@ -210,23 +278,7 @@ public class RedisAdStatService {
     }
 
     public Map<String, AdSlotReportDto> getTodayAdSlotStatsAggregateAdSlotId(List<String> adSlotIds) {
-        List<AdSlotStat> adSlotStats = batchGetTodayAdSlotStats(adSlotIds);
-        if (adSlotStats == null || adSlotStats.isEmpty()) {
-            log.info("no stat adslots, statAdSlotIds: {}", adSlotIds);
-            return Collections.emptyMap();
-        }
-        log.info("stat adslots: {}", adSlotStats);
-        List<AdSlotReportDto> adSlotReports = new ArrayList<>();
-        for (AdSlotStat adSlotStat : adSlotStats) {
-            AdSlotReportDto adSlotReport = new AdSlotReportDto();
-            adSlotReport.setAdSlotId(adSlotStat.getAdSlotId());
-            adSlotReport.setImpCount(adSlotStat.getImpCount());
-            adSlotReport.setClickCount(adSlotStat.getClickCount());
-            adSlotReport.setRevenue(adSlotStat.getRevenue());
-            adSlotReport.setAdxRevenue(adSlotStat.getAdxRevenue());
-            adSlotReports.add(adSlotReport);
-        }
-        return adSlotReports.stream()
+        return batchGetTodayAdSlotReports(adSlotIds).stream()
                 .filter(Objects::nonNull)
                 .collect(Collectors.toMap(AdSlotReportDto::getAdSlotId, Function.identity(), (a, b) -> a));
     }

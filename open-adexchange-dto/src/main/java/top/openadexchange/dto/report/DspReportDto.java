@@ -25,7 +25,7 @@ public class DspReportDto {
     private Long cost;
     private BigDecimal clickRate;
     private BigDecimal winRate;
-    private int statDate;
+    private Integer statDate;
 
     public BigDecimal getClickRate() {
         if (impCount != null && impCount > 0) {
