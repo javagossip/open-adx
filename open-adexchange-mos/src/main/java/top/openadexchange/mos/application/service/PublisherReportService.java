@@ -137,9 +137,9 @@ public class PublisherReportService {
                         .from(SITE_AD_PLACEMENT.as("t1"))
                         .leftJoin(AD_SLOT_STAT.as("t2"))
                         .on(SITE_AD_PLACEMENT.CODE.eq(AD_SLOT_STAT.AD_SLOT_ID)
+                                .and(AD_SLOT_STAT.PUBLISHER_ID.eq(queryDto.getPublisherId()))
                                 .and(AD_SLOT_STAT.STAT_DATE.ne(currentHour))
                                 .and(AD_SLOT_STAT.STAT_DATE.between(queryDto.getStartDate(), queryDto.getEndDate())))
-                        .where(AD_SLOT_STAT.PUBLISHER_ID.eq(queryDto.getPublisherId()))
                         .groupBy(SITE_AD_PLACEMENT.CODE,
                                 SITE_AD_PLACEMENT.NAME,
                                 AD_SLOT_STAT.SITE_NAME,
@@ -186,6 +186,7 @@ public class PublisherReportService {
                 existAdSlotReport.setRevenue(adSlotReportDto.getRevenue());
                 existAdSlotReport.setAdxRevenue(adSlotReportDto.getAdxRevenue());
             } else {
+                log.info("adSlotReportDtoMap not exist for current hour, add it: {}", adSlotId);
                 result.getRecords().add(adSlotReportDto);
             }
         });
