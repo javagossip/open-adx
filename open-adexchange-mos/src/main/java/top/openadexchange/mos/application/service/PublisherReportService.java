@@ -190,6 +190,9 @@ public class PublisherReportService {
     }
 
     private void initAdSlotStats(Set<String> adSlotIds, Integer currentHour) {
+        if (adSlotIds == null || adSlotIds.isEmpty()) {
+            return;
+        }
         List<AdSlotStat> adSlotStats = adSlotIds.stream()
                 .map(adSlotId -> AdSlotStat.builder().adSlotId(adSlotId).statDate(currentHour).build())
                 .collect(Collectors.toList());
