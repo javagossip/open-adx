@@ -8,6 +8,8 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import io.jsonwebtoken.lang.Collections;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -19,10 +21,14 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import top.openadexchange.constants.Constants;
 import top.openadexchange.dao.AdSlotStatDao;
+import top.openadexchange.dao.SiteAdPlacementDao;
+import top.openadexchange.dao.SiteDao;
 import top.openadexchange.dto.query.ReportQueryDto;
 import top.openadexchange.dto.report.AdSlotReportDto;
 import top.openadexchange.dto.report.PublisherReportDto;
 import top.openadexchange.model.AdSlotStat;
+import top.openadexchange.model.Site;
+import top.openadexchange.model.SiteAdPlacement;
 
 import static com.mybatisflex.core.query.QueryMethods.*;
 import static top.openadexchange.model.table.AdSlotStatTableDef.*;
@@ -41,6 +47,10 @@ public class PublisherReportService {
     private AdSlotStatDao adSlotStatDao;
     @Resource
     private RedisADStatService redisADStatService;
+    @Resource
+    private SiteAdPlacementDao siteAdPlacementDao;
+    @Resource
+    private SiteDao siteDao;
 
     /**
      * 分页查询媒体报表
@@ -117,16 +127,17 @@ public class PublisherReportService {
         // 检查查询时间范围是否包含当前小时
         boolean needMergeCurrentHourData =
                 queryDto.getStartDate() <= currentHour && queryDto.getEndDate() >= currentHour;
+        Set<String> cachedHourlyStatAdSlotIds = null;
         if (needMergeCurrentHourData) {
-            Set<String> cachedHourlyStatAdSlotIds = redisADStatService.getLastHourStatAdSlotIds(currentHour.toString());
-            log.info("pre init empty adslot stat: {}", cachedHourlyStatAdSlotIds);
-            initAdSlotStats(cachedHourlyStatAdSlotIds, currentHour);
+            cachedHourlyStatAdSlotIds = redisADStatService.getLastHourStatAdSlotIds(currentHour.toString());
+            log.info("pre init empty adslot stat for current hour: {}, {}", cachedHourlyStatAdSlotIds, currentHour);
+            initEmptyAdSlotStats(cachedHourlyStatAdSlotIds, currentHour);
         }
         Page<AdSlotReportDto> result = adSlotStatDao.pageAs(Page.of(queryDto.getPageNo(), queryDto.getPageSize()),
                 QueryWrapper.create()
-                        .select(SITE_AD_PLACEMENT.CODE.as("ad_slot_id"),
-                                SITE_AD_PLACEMENT.NAME.as("ad_slot_name"),
-                                SITE.ID.as("site_id"),
+                        .select(AD_SLOT_STAT.AD_SLOT_ID.as("ad_slot_id"),
+                                AD_SLOT_STAT.AD_SLOT_NAME.as("ad_slot_name"),
+                                AD_SLOT_STAT.SITE_ID.as("site_id"),
                                 AD_SLOT_STAT.SITE_NAME.as("site_name"),
                                 AD_SLOT_STAT.STAT_DATE.as("stat_date"),
                                 sum(AD_SLOT_STAT.REQ_COUNT).as("req_count"),
@@ -136,38 +147,22 @@ public class PublisherReportService {
                                 sum(AD_SLOT_STAT.CLICK_COUNT).as("click_count"),
                                 sum(AD_SLOT_STAT.REVENUE).as("revenue"),
                                 sum(AD_SLOT_STAT.ADX_REVENUE).as("adx_revenue"))
-                        .from(SITE_AD_PLACEMENT.as("t1"))
-                        .join(SITE.as("t3"))
-                        .on(SITE_AD_PLACEMENT.SITE_ID.eq(SITE.ID))
-                        .leftJoin(AD_SLOT_STAT.as("t2"))
-                        .on(SITE_AD_PLACEMENT.CODE.eq(AD_SLOT_STAT.AD_SLOT_ID)
-                                .and(AD_SLOT_STAT.SITE_ID.eq(SITE_AD_PLACEMENT.SITE_ID))
-                                .and(AD_SLOT_STAT.PUBLISHER_ID.eq(queryDto.getPublisherId()))
-                                .and(AD_SLOT_STAT.STAT_DATE.ne(currentHour))
-                                .and(AD_SLOT_STAT.STAT_DATE.between(queryDto.getStartDate(), queryDto.getEndDate())))
+                        .from(AD_SLOT_STAT.as("t1"))
                         .where(SITE.PUBLISHER_ID.eq(queryDto.getPublisherId()))
-                        .groupBy(SITE_AD_PLACEMENT.CODE,
-                                SITE_AD_PLACEMENT.NAME,
-                                SITE.ID,
+                        .groupBy(AD_SLOT_STAT.AD_SLOT_ID,
+                                AD_SLOT_STAT.AD_SLOT_NAME,
+                                AD_SLOT_STAT.SITE_ID,
                                 AD_SLOT_STAT.SITE_NAME,
                                 AD_SLOT_STAT.STAT_DATE)
                         .orderBy("imp_count DESC"),
                 AdSlotReportDto.class);
 
-        if (!needMergeCurrentHourData || !result.hasRecords()) {
-            return result;
-        }
-        List<String> adSlotIds = result.getRecords()
-                .stream()
-                .filter(Objects::nonNull)
-                .map(AdSlotReportDto::getAdSlotId)
-                .distinct()
-                .collect(Collectors.toList());
-        if (adSlotIds == null || adSlotIds.isEmpty()) {
+        if (!needMergeCurrentHourData || Collections.isEmpty(cachedHourlyStatAdSlotIds)) {
+            log.info("不需要合并当前小时的广告位统计缓存数据");
             return result;
         }
         Map<String, AdSlotReportDto> adSlotReportDtoMap =
-                redisADStatService.getTodayAdSlotStatsAggregateAdSlotId(adSlotIds);
+                redisADStatService.getTodayAdSlotStatsAggregateAdSlotId(cachedHourlyStatAdSlotIds);
         if (adSlotReportDtoMap == null || adSlotReportDtoMap.isEmpty()) {
             return result;
         }
@@ -192,21 +187,35 @@ public class PublisherReportService {
                 existAdSlotReport.setClickCount(adSlotReportDto.getClickCount());
                 existAdSlotReport.setRevenue(adSlotReportDto.getRevenue());
                 existAdSlotReport.setAdxRevenue(adSlotReportDto.getAdxRevenue());
-            } else {
-                log.info("adSlotReportDtoMap not exist for current hour, add it: {}", adSlotId);
-                result.getRecords().add(adSlotReportDto);
             }
         });
         return result;
     }
 
-    private void initAdSlotStats(Set<String> adSlotIds, Integer currentHour) {
+    private void initEmptyAdSlotStats(Set<String> adSlotIds, Integer currentHour) {
         if (adSlotIds == null || adSlotIds.isEmpty()) {
             return;
         }
-        List<AdSlotStat> adSlotStats = adSlotIds.stream()
-                .map(adSlotId -> AdSlotStat.builder().adSlotId(adSlotId).statDate(currentHour).build())
-                .collect(Collectors.toList());
+        List<SiteAdPlacement> siteAdPlacements =
+                siteAdPlacementDao.list(QueryWrapper.create().in(SiteAdPlacement::getCode, adSlotIds));
+        List<Long> siteIds = siteAdPlacements.stream().map(SiteAdPlacement::getSiteId).toList();
+        Map<String, SiteAdPlacement> siteAdPlacementMap = siteAdPlacements.stream()
+                .collect(Collectors.toMap(SiteAdPlacement::getCode, Function.identity(), (a, b) -> a));
+        Map<Long, Site> siteMap = siteDao.list(QueryWrapper.create().in(Site::getId, siteIds))
+                .stream()
+                .collect(Collectors.toMap(Site::getId, Function.identity(), (a, b) -> a));
+
+        List<AdSlotStat> adSlotStats = adSlotIds.stream().map(adSlotId -> {
+            SiteAdPlacement siteAdPlacement = siteAdPlacementMap.get(adSlotId);
+            Site site = siteMap.get(siteAdPlacement.getSiteId());
+            return AdSlotStat.builder()
+                    .adSlotId(adSlotId)
+                    .siteId(site.getId())
+                    .siteName(site.getName())
+                    .adSlotName(siteAdPlacement.getName())
+                    .statDate(currentHour)
+                    .build();
+        }).collect(Collectors.toList());
         adSlotStatDao.saveBatchOnDuplicateKeyUpdate(adSlotStats);
     }
 }

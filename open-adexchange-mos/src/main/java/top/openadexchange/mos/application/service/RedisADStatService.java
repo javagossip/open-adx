@@ -276,7 +276,7 @@ public class RedisADStatService {
         return dspStats;
     }
 
-    public Map<String, AdSlotReportDto> getTodayAdSlotStatsAggregateAdSlotId(List<String> adSlotIds) {
+    public Map<String, AdSlotReportDto> getTodayAdSlotStatsAggregateAdSlotId(Collection<String> adSlotIds) {
         return batchGetTodayAdSlotReports(adSlotIds).stream()
                 .filter(Objects::nonNull)
                 .collect(Collectors.toMap(AdSlotReportDto::getAdSlotId, Function.identity(), (a, b) -> a));
