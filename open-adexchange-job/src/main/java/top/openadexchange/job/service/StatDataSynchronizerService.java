@@ -24,12 +24,14 @@ import top.openadexchange.constants.RedisKeys;
 import top.openadexchange.dao.AdSlotStatDao;
 import top.openadexchange.dao.DspDao;
 import top.openadexchange.dao.DspStatDao;
+import top.openadexchange.dao.PublisherDao;
 import top.openadexchange.dao.SiteAdPlacementDao;
 import top.openadexchange.dao.SiteDao;
 import top.openadexchange.job.handler.StatDataSynchronizer.StatDataSynchronizerParam;
 import top.openadexchange.model.AdSlotStat;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.DspStat;
+import top.openadexchange.model.Publisher;
 import top.openadexchange.model.Site;
 import top.openadexchange.model.SiteAdPlacement;
 
@@ -49,6 +51,8 @@ public class StatDataSynchronizerService {
     private DspDao dspDao;
     @Resource
     private DspStatDao dspStatDao;
+    @Resource
+    private PublisherDao publisherDao;
 
     @SuppressWarnings("unchecked")
     public void syncAdSlotStatData(StatDataSynchronizerParam param) {
@@ -72,6 +76,13 @@ public class StatDataSynchronizerService {
                 .in(Site::getId,
                         siteAdPlacements.stream().map(SiteAdPlacement::getSiteId).collect(Collectors.toSet())));
         if (sites.isEmpty()) {
+            log.warn("no sites found");
+            return;
+        }
+        List<Publisher> publishers = publisherDao.list(QueryWrapper.create()
+                .in(Publisher::getId, sites.stream().map(Site::getPublisherId).collect(Collectors.toSet())));
+        if (publishers.isEmpty()) {
+            log.warn("no publishers found");
             return;
         }
         Map<Long, Site> siteMap =
@@ -79,10 +90,25 @@ public class StatDataSynchronizerService {
         Map<String, SiteAdPlacement> siteAdPlacementMap = siteAdPlacements.stream()
                 .filter(Objects::nonNull)
                 .collect(Collectors.toMap(SiteAdPlacement::getCode, Function.identity(), (a, b) -> a));
+        Map<Long, Publisher> publisherMap = publishers.stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toMap(Publisher::getId, Function.identity(), (a, b) -> a));
+
         List<AdSlotStat> adSlotStats = new ArrayList<>(statAdSlotIds.size());
         for (String adSlotId : statAdSlotIds) {
             SiteAdPlacement siteAdPlacement = siteAdPlacementMap.get(adSlotId);
             if (siteAdPlacement == null) {
+                log.warn("site ad placement not exists, adSlotId: {}", adSlotId);
+                continue;
+            }
+            Site site = siteMap.get(siteAdPlacement.getSiteId());
+            if (site == null) {
+                log.warn("site not exists, siteId: {}", siteAdPlacement.getSiteId());
+                continue;
+            }
+            Publisher publisher = publisherMap.get(site.getPublisherId());
+            if (publisher == null) {
+                log.warn("publisher not exists, publisherId: {}", site.getPublisherId());
                 continue;
             }
             String keyAdSlot = RedisKeys.keyStatAdSlot(adSlotId, syncDate);
@@ -113,10 +139,12 @@ public class StatDataSynchronizerService {
 
             AdSlotStat adSlotStat = new AdSlotStat();
             adSlotStat.setAdSlotId(adSlotId);
+            adSlotStat.setAdSlotName(siteAdPlacement.getName());
             adSlotStat.setSiteId(siteAdPlacement.getSiteId());
+            adSlotStat.setSiteName(site.getName());
 
-            Site site = siteMap.get(siteAdPlacement.getSiteId());
-            adSlotStat.setPublisherId(site == null ? null : site.getPublisherId());
+            adSlotStat.setPublisherId(site.getPublisherId());
+            adSlotStat.setPublisherName(publisher.getName());
             adSlotStat.setStatDate(Integer.parseInt(syncDate));
             adSlotStat.setImpCount(NumberUtils.toLong(impCountStr));
             adSlotStat.setClickCount(NumberUtils.toLong(clickCountStr));

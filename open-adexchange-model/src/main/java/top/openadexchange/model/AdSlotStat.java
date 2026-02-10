@@ -39,15 +39,30 @@ public class AdSlotStat implements Serializable {
      * 媒体广告位编码
      */
     private String adSlotId;
-
+    /**
+     * 媒体广告位名称
+     */
+    private String adSlotName;
     /**
      * 媒体ID
      */
     private Long publisherId;
     /**
+     * 媒体编码
+     */
+    private String publisherCode;
+    /**
+     * 媒体名称
+     */
+    private String publisherName;
+    /**
      * 站点/APP ID
      */
     private Long siteId;
+    /**
+     * 站点名称
+     */
+    private String siteName;
     /**
      * 统计日期(yyyyMMdd)
      */

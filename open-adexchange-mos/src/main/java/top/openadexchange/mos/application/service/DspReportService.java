@@ -32,7 +32,7 @@ public class DspReportService {
     @Resource
     private DspStatDao dspStatDao;
     @Resource
-    private RedisAdStatService redisAdStatService;
+    private RedisADStatService redisAdStatService;
 
     public Page<DspReportDto> pageDspReports(DspReportQueryDto queryDto) {
         // 获取当前小时的时间戳(yyyyMMddHH格式)

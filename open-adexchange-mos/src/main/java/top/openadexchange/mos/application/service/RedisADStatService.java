@@ -1,6 +1,5 @@
 package top.openadexchange.mos.application.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,7 +37,7 @@ import top.openadexchange.model.SiteAdPlacement;
 
 @Service
 @Slf4j
-public class RedisAdStatService {
+public class RedisADStatService {
 
     @Resource(name = "oaxStringRedisTemplate")
     private RedisTemplate<String, String> redisTemplate;
@@ -281,5 +280,9 @@ public class RedisAdStatService {
         return batchGetTodayAdSlotReports(adSlotIds).stream()
                 .filter(Objects::nonNull)
                 .collect(Collectors.toMap(AdSlotReportDto::getAdSlotId, Function.identity(), (a, b) -> a));
+    }
+
+    public Set<String> getLastHourStatAdSlotIds(String date) {
+        return redisTemplate.opsForSet().members(RedisKeys.keyStatAdslots(date));
     }
 }

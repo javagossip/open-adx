@@ -25,8 +25,11 @@ public interface AdSlotStatMapper extends BaseMapper<AdSlotStat> {
             <script>
             INSERT INTO ad_slot_stat (
                 ad_slot_id, 
+                ad_slot_name,
                 publisher_id, 
+                publisher_name,
                 site_id, 
+                site_name,
                 stat_date,
                 req_count,
                 bid_count,
@@ -38,7 +41,7 @@ public interface AdSlotStatMapper extends BaseMapper<AdSlotStat> {
                 adx_revenue
             ) VALUES 
             <foreach collection='list' item='item' separator=','>
-                (#{item.adSlotId}, #{item.publisherId}, #{item.siteId}, #{item.statDate}, #{item.reqCount},
+                (#{item.adSlotId},#{item.adSlotName}, #{item.publisherId}, #{item.publisherName},#{item.siteId}, #{item.siteName},#{item.statDate}, #{item.reqCount},
                 #{item.bidCount},#{item.winCount},#{item.impCount}, #{item.clickCount},#{item.dspCost},
                 #{item.revenue},#{item.adxRevenue}
                 )

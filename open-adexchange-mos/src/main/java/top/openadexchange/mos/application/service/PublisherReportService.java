@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.mybatisflex.core.paginate.Page;
@@ -20,12 +22,12 @@ import top.openadexchange.dao.AdSlotStatDao;
 import top.openadexchange.dto.query.ReportQueryDto;
 import top.openadexchange.dto.report.AdSlotReportDto;
 import top.openadexchange.dto.report.PublisherReportDto;
+import top.openadexchange.model.AdSlotStat;
 
 import static com.mybatisflex.core.query.QueryMethods.*;
 import static top.openadexchange.model.table.AdSlotStatTableDef.*;
 import static top.openadexchange.model.table.PublisherTableDef.*;
 import static top.openadexchange.model.table.SiteAdPlacementTableDef.*;
-import static top.openadexchange.model.table.SiteTableDef.*;
 
 /**
  * 媒体报表服务
@@ -37,7 +39,7 @@ public class PublisherReportService {
     @Resource
     private AdSlotStatDao adSlotStatDao;
     @Resource
-    private RedisAdStatService redisAdStatService;
+    private RedisADStatService redisADStatService;
 
     /**
      * 分页查询媒体报表
@@ -50,7 +52,6 @@ public class PublisherReportService {
                         .select(PUBLISHER.ID.as("publisher_id"),
                                 PUBLISHER.NAME.as("publisher_name"),
                                 PUBLISHER.CODE.as("publisher_code"),
-                                //                                AD_SLOT_STAT.STAT_DATE.as("stat_date"),
                                 sum(AD_SLOT_STAT.REQ_COUNT).as("req_count"),
                                 sum(AD_SLOT_STAT.BID_COUNT).as("bid_count"),
                                 sum(AD_SLOT_STAT.WIN_COUNT).as("win_count"),
@@ -62,10 +63,10 @@ public class PublisherReportService {
                         .leftJoin(AD_SLOT_STAT.as("t1"))
                         .on(AD_SLOT_STAT.PUBLISHER_ID.eq(PUBLISHER.ID)
                                 .and(AD_SLOT_STAT.STAT_DATE.ne(currentHour))
-                                .and(AD_SLOT_STAT.PUBLISHER_ID.eq(queryDto.getPublisherId()))
                                 .and(AD_SLOT_STAT.SITE_ID.eq(queryDto.getSiteId()))
-                                .and(PUBLISHER.NAME.like(queryDto.getPublisherName()))
                                 .and(AD_SLOT_STAT.STAT_DATE.between(queryDto.getStartDate(), queryDto.getEndDate())))
+                        .where(PUBLISHER.ID.eq(queryDto.getPublisherId())
+                                .and(PUBLISHER.NAME.like(queryDto.getPublisherName())))
                         .groupBy(PUBLISHER.ID),
                 PublisherReportDto.class);
 
@@ -84,7 +85,7 @@ public class PublisherReportService {
                 .distinct()
                 .collect(Collectors.toList());
         Map<Long, PublisherReportDto> publisherReportDtoMap =
-                redisAdStatService.getTodayAdSlotStatsAggregatePublisherId(publisherIds);
+                redisADStatService.getTodayAdSlotStatsAggregatePublisherId(publisherIds);
         result.getRecords().forEach(reportDto -> {
             PublisherReportDto publisherReportDto = publisherReportDtoMap.get(reportDto.getPublisherId());
             if (publisherReportDto != null) {
@@ -106,18 +107,20 @@ public class PublisherReportService {
     /**
      * 分页查询广告位报表（按媒体下钻,按广告位+统计时间分组）
      */
+    @Transactional
     public Page<AdSlotReportDto> pageAdSlotReport(ReportQueryDto queryDto) {
         Assert.notNull(queryDto.getPublisherId(), "publisherId不能为空");
         log.info("查询广告位报表: {}", queryDto);
 
         Integer currentHour = Integer.parseInt(LocalDateTime.now().format(Constants.REDIS_KEY_DATEFORMAT));
+        Set<String> cachedHourlyStatAdSlotIds = redisADStatService.getLastHourStatAdSlotIds(currentHour.toString());
+        log.info("pre init empty adslot stat: {}", cachedHourlyStatAdSlotIds);
+        initAdSlotStats(cachedHourlyStatAdSlotIds, currentHour);
         Page<AdSlotReportDto> result = adSlotStatDao.pageAs(Page.of(queryDto.getPageNo(), queryDto.getPageSize()),
                 QueryWrapper.create()
                         .select(SITE_AD_PLACEMENT.CODE.as("ad_slot_id"),
                                 SITE_AD_PLACEMENT.NAME.as("ad_slot_name"),
-                                SITE.PUBLISHER_ID.as("publisher_id"),
-                                SITE_AD_PLACEMENT.SITE_ID.as("site_id"),
-                                SITE.NAME.as("site_name"),
+                                AD_SLOT_STAT.SITE_NAME.as("site_name"),
                                 AD_SLOT_STAT.STAT_DATE.as("stat_date"),
                                 sum(AD_SLOT_STAT.REQ_COUNT).as("req_count"),
                                 sum(AD_SLOT_STAT.BID_COUNT).as("bid_count"),
@@ -126,22 +129,13 @@ public class PublisherReportService {
                                 sum(AD_SLOT_STAT.CLICK_COUNT).as("click_count"),
                                 sum(AD_SLOT_STAT.REVENUE).as("revenue"),
                                 sum(AD_SLOT_STAT.ADX_REVENUE).as("adx_revenue"))
-                        .from(SITE_AD_PLACEMENT)
-                        .join(SITE)
-                        .on(SITE_AD_PLACEMENT.SITE_ID.eq(SITE.ID).and(SITE.PUBLISHER_ID.eq(queryDto.getPublisherId())))
-                        .leftJoin(AD_SLOT_STAT)
-                        .on(SITE_AD_PLACEMENT.SITE_ID.eq(AD_SLOT_STAT.SITE_ID)
-                                .and(SITE_AD_PLACEMENT.CODE.eq(AD_SLOT_STAT.AD_SLOT_ID))
-                                .and(AD_SLOT_STAT.PUBLISHER_ID.eq(queryDto.getPublisherId()))
+                        .from(SITE_AD_PLACEMENT.as("t1"))
+                        .leftJoin(AD_SLOT_STAT.as("t2"))
+                        .on(SITE_AD_PLACEMENT.CODE.eq(AD_SLOT_STAT.AD_SLOT_ID)
                                 .and(AD_SLOT_STAT.STAT_DATE.ne(currentHour))
                                 .and(AD_SLOT_STAT.STAT_DATE.between(queryDto.getStartDate(), queryDto.getEndDate())))
-                        .where(SITE_AD_PLACEMENT.SITE_ID.eq(queryDto.getSiteId()))
-                        .groupBy(SITE_AD_PLACEMENT.CODE,
-                                SITE_AD_PLACEMENT.NAME,
-                                SITE.PUBLISHER_ID,
-                                SITE_AD_PLACEMENT.SITE_ID,
-                                SITE.NAME,
-                                AD_SLOT_STAT.STAT_DATE)
+                        .where(AD_SLOT_STAT.PUBLISHER_ID.eq(queryDto.getPublisherId()))
+                        .groupBy(SITE_AD_PLACEMENT.CODE, AD_SLOT_STAT.SITE_NAME, AD_SLOT_STAT.STAT_DATE)
                         .orderBy("imp_count DESC"),
                 AdSlotReportDto.class);
 
@@ -162,7 +156,7 @@ public class PublisherReportService {
             return result;
         }
         Map<String, AdSlotReportDto> adSlotReportDtoMap =
-                redisAdStatService.getTodayAdSlotStatsAggregateAdSlotId(adSlotIds);
+                redisADStatService.getTodayAdSlotStatsAggregateAdSlotId(adSlotIds);
         if (adSlotReportDtoMap == null || adSlotReportDtoMap.isEmpty()) {
             return result;
         }
@@ -176,6 +170,9 @@ public class PublisherReportService {
         adSlotReportDtoMap.forEach((adSlotId, adSlotReportDto) -> {
             AdSlotReportDto existAdSlotReport = resultReportMap.get(String.format("%s-%s", adSlotId, currentHour));
             if (existAdSlotReport != null) {
+                existAdSlotReport.setSiteName(adSlotReportDto.getSiteName());
+                existAdSlotReport.setSiteId(adSlotReportDto.getSiteId());
+                existAdSlotReport.setAdSlotName(adSlotReportDto.getAdSlotName());
                 existAdSlotReport.setStatDate(currentHour);
                 existAdSlotReport.setReqCount(adSlotReportDto.getReqCount());
                 existAdSlotReport.setBidCount(adSlotReportDto.getBidCount());
@@ -189,5 +186,12 @@ public class PublisherReportService {
             }
         });
         return result;
+    }
+
+    private void initAdSlotStats(Set<String> adSlotIds, Integer currentHour) {
+        List<AdSlotStat> adSlotStats = adSlotIds.stream()
+                .map(adSlotId -> AdSlotStat.builder().adSlotId(adSlotId).statDate(currentHour).build())
+                .collect(Collectors.toList());
+        adSlotStatDao.saveBatchOnDuplicateKeyUpdate(adSlotStats);
     }
 }
