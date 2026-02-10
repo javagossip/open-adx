@@ -1,9 +1,11 @@
 package top.openadexchange.mos.application.service;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -18,6 +20,7 @@ import top.openadexchange.constants.Constants;
 import top.openadexchange.dao.DspStatDao;
 import top.openadexchange.dto.query.DspReportQueryDto;
 import top.openadexchange.dto.report.DspReportDto;
+import top.openadexchange.model.DspStat;
 
 import static com.mybatisflex.core.query.QueryMethods.*;
 import static top.openadexchange.model.table.DspStatTableDef.*;
@@ -41,7 +44,11 @@ public class DspReportService {
         // 检查查询时间范围是否包含当前小时
         boolean needMergeCurrentHourData =
                 queryDto.getStartDate() <= currentHour && queryDto.getEndDate() >= currentHour;
-
+        if (needMergeCurrentHourData) {
+            Set<String> dspCodes = redisAdStatService.getLastHourStatDspIds(currentHour.toString());
+            log.info("Pre init empty dsp stat, dspCodes: {}", dspCodes);
+            initEmptyDspStats(dspCodes, currentHour);
+        }
         // 构建查询条件 - 如果需要合并当前小时数据，则排除当前小时的数据
         QueryWrapper queryWrapper = QueryWrapper.create()
                 .select(DSP.DSP_ID.as("dsp_code"),
@@ -125,6 +132,18 @@ public class DspReportService {
             }
         });
         return dspReports;
+    }
+
+    private void initEmptyDspStats(Set<String> dspCodes, Integer currentHour) {
+        if (dspCodes == null || dspCodes.isEmpty()) {
+            return;
+        }
+        dspStatDao.saveBatchOnDuplicateKeyUpdate(dspCodes.stream().map(dspCode -> {
+            DspStat dspStat = new DspStat();
+            dspStat.setDspCode(dspCode);
+            dspStat.setStatDate(currentHour);
+            return dspStat;
+        }).collect(Collectors.toList()));
     }
 
 

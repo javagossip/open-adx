@@ -285,4 +285,8 @@ public class RedisADStatService {
     public Set<String> getLastHourStatAdSlotIds(String date) {
         return redisTemplate.opsForSet().members(RedisKeys.keyStatAdslots(date));
     }
+
+    public Set<String> getLastHourStatDspIds(String date) {
+        return redisTemplate.opsForSet().members(RedisKeys.keyStatDsps(date));
+    }
 }
