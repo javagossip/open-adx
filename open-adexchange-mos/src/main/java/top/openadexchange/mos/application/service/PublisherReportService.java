@@ -28,6 +28,7 @@ import static com.mybatisflex.core.query.QueryMethods.*;
 import static top.openadexchange.model.table.AdSlotStatTableDef.*;
 import static top.openadexchange.model.table.PublisherTableDef.*;
 import static top.openadexchange.model.table.SiteAdPlacementTableDef.*;
+import static top.openadexchange.model.table.SiteTableDef.*;
 
 /**
  * 媒体报表服务
@@ -125,6 +126,7 @@ public class PublisherReportService {
                 QueryWrapper.create()
                         .select(SITE_AD_PLACEMENT.CODE.as("ad_slot_id"),
                                 SITE_AD_PLACEMENT.NAME.as("ad_slot_name"),
+                                SITE.ID.as("site_id"),
                                 AD_SLOT_STAT.SITE_NAME.as("site_name"),
                                 AD_SLOT_STAT.STAT_DATE.as("stat_date"),
                                 sum(AD_SLOT_STAT.REQ_COUNT).as("req_count"),
@@ -135,11 +137,15 @@ public class PublisherReportService {
                                 sum(AD_SLOT_STAT.REVENUE).as("revenue"),
                                 sum(AD_SLOT_STAT.ADX_REVENUE).as("adx_revenue"))
                         .from(SITE_AD_PLACEMENT.as("t1"))
+                        .join(SITE.as("t3"))
+                        .on(SITE_AD_PLACEMENT.SITE_ID.eq(SITE.ID))
                         .leftJoin(AD_SLOT_STAT.as("t2"))
                         .on(SITE_AD_PLACEMENT.CODE.eq(AD_SLOT_STAT.AD_SLOT_ID)
+                                .and(AD_SLOT_STAT.SITE_ID.eq(SITE_AD_PLACEMENT.SITE_ID))
                                 .and(AD_SLOT_STAT.PUBLISHER_ID.eq(queryDto.getPublisherId()))
                                 .and(AD_SLOT_STAT.STAT_DATE.ne(currentHour))
                                 .and(AD_SLOT_STAT.STAT_DATE.between(queryDto.getStartDate(), queryDto.getEndDate())))
+                        .where(SITE.PUBLISHER_ID.eq(queryDto.getPublisherId()))
                         .groupBy(SITE_AD_PLACEMENT.CODE,
                                 SITE_AD_PLACEMENT.NAME,
                                 AD_SLOT_STAT.SITE_NAME,
