@@ -47,6 +47,8 @@ public interface AdSlotStatMapper extends BaseMapper<AdSlotStat> {
                 )
             </foreach>
             ON DUPLICATE KEY UPDATE 
+                publisher_id = IFNULL(VALUES(publisher_id), publisher_id), 
+                publisher_name = IFNULL(VALUES(publisher_name), publisher_name), 
                 req_count=VALUES(req_count), 
                 bid_count = VALUES(bid_count), 
                 win_count = VALUES(win_count), 

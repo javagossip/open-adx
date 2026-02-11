@@ -157,6 +157,7 @@ public class StatDataSynchronizerService {
 
             adSlotStats.add(adSlotStat);
         }
+        log.info("syncAdSlotStatData start, statAdSlotStats: {}", adSlotStats);
         adSlotStatDao.saveBatchOnDuplicateKeyUpdate(adSlotStats);
     }
 

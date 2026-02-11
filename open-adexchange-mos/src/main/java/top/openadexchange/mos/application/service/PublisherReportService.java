@@ -214,6 +214,7 @@ public class PublisherReportService {
                     .siteId(site.getId())
                     .siteName(site.getName())
                     .adSlotName(siteAdPlacement.getName())
+                    .publisherId(site.getPublisherId())
                     .statDate(currentHour)
                     .build();
         }).collect(Collectors.toList());
