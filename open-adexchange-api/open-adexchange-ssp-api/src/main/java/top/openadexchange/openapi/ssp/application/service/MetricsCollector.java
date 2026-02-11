@@ -19,6 +19,9 @@ import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.util.StringUtils;
+
 import top.openadexchange.commons.cache.RedisOpsUtils;
 import top.openadexchange.constants.Constants;
 import top.openadexchange.constants.RedisKeys;
@@ -112,12 +115,18 @@ public class MetricsCollector {
 
     private String adSlotMetricKey(String adSlotId) {
         String now = Constants.formatNow();
+        if(!StringUtils.hasText(adSlotId)){
+            log.warn("metric's adSlotId is empty");
+        }
         currentHourlyAdSlotIdSetMapRef.get().computeIfAbsent(now, k -> new HashSet<>()).add(adSlotId);
         return RedisKeys.keyStatAdSlot(adSlotId, now);
     }
 
     private String dspMetricKey(String dspId) {
         String now = Constants.formatNow();
+        if(!StringUtils.hasText(dspId)){
+            log.warn("metric's dspId is empty");
+        }
         currentHourlyDspIdSetMapRef.get().computeIfAbsent(now, k -> new HashSet<>()).add(dspId);
         return RedisKeys.keyStatDsp(dspId, now);
     }
