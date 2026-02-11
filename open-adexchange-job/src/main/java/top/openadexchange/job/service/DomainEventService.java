@@ -36,6 +36,7 @@ public class DomainEventService {
         while (true) {
             List<DomainEvent> domainEvents = domainEventDao.listAndUpdateUnHandleEvents(offset, limit);
             if (domainEvents.isEmpty()) {
+                log.info("No more domain events to publish");
                 break;
             }
             publishDomainEvents(domainEvents);
@@ -45,7 +46,7 @@ public class DomainEventService {
 
     private void publishDomainEvents(List<DomainEvent> domainEvents) {
         Collection<DomainEvent> distinctEvents = domainEvents.stream()
-                .collect(Collectors.toMap(DomainEvent::getEntityId, Function.identity(), (a, b) -> a))
+                .collect(Collectors.toMap(DomainEvent::getType, Function.identity(), (a, b) -> a))
                 .values();
 
         List<CompletableFuture<?>> futureList = new ArrayList<>(distinctEvents.size());

@@ -17,8 +17,13 @@ public class DomainEventPublisher {
 
     @XxlJob(value = "oax.domain.event.publisher")
     public void domainEventPollAndPublish() {
-        log.info("domain event poll and publisher job start");
-        domainEventService.pollAndPublishEvents();
-        log.info("domain event poll and publisher job end");
+        try {
+            log.info("domain event poll and publisher job start");
+            domainEventService.pollAndPublishEvents();
+            log.info("domain event poll and publisher job end");
+        } catch (Exception ex) {
+            log.error("domain event poll and publisher job error", ex);
+            throw ex;
+        }
     }
 }
