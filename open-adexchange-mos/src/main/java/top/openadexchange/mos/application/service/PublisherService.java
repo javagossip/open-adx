@@ -23,6 +23,8 @@ import top.openadexchange.mos.application.converter.PublisherConverter;
 import top.openadexchange.mos.application.factory.DomainEventFactory;
 import top.openadexchange.mos.application.factory.UserFactory;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class PublisherService {
@@ -41,7 +43,7 @@ public class PublisherService {
     private SiteDao siteDao;
 
     @Transactional
-    public Long addPublisher(PublisherDto publisherDto) {
+    public Integer addPublisher(PublisherDto publisherDto) {
         log.info("addPublisher: {}", publisherDto);
         SysUser sysUser = userFactory.forPublisher(publisherDto);
         sysUserService.insertUser(sysUser);
@@ -66,7 +68,7 @@ public class PublisherService {
     }
 
     @Transactional
-    public Boolean deletePublisher(Long id) {
+    public Boolean deletePublisher(Integer id) {
         log.info("deletePublisher: {}", id);
         boolean existsSites = siteDao.exists(QueryWrapper.create().eq(Site::getPublisherId, id));
         Assert.isTrue(!existsSites, "Exists sites, please delete sites first");
@@ -84,12 +86,12 @@ public class PublisherService {
         return true;
     }
 
-    public PublisherDto getPublisher(Long id) {
+    public PublisherDto getPublisher(Integer id) {
         return publisherConverter.toPublisherDto(publisherDao.getById(id));
     }
 
     @Transactional
-    public Boolean enablePublisher(Long id) {
+    public Boolean enablePublisher(Integer id) {
         boolean updated = publisherDao.enablePublisher(id);
         if (updated) {
             domainEventDao.save(DomainEventFactory.create(DomainEventType.PUBLISHER_UPDATED.name(), id));
@@ -98,7 +100,7 @@ public class PublisherService {
     }
 
     @Transactional
-    public Boolean disablePublisher(Long id) {
+    public Boolean disablePublisher(Integer id) {
         boolean updated = publisherDao.disablePublisher(id);
         if (updated) {
             domainEventDao.save(DomainEventFactory.create(DomainEventType.PUBLISHER_UPDATED.name(), id));
@@ -111,5 +113,9 @@ public class PublisherService {
                 QueryWrapper.create()
                         .eq(Publisher::getName, queryDto.getName())
                         .eq(Publisher::getStatus, queryDto.getStatus()));
+    }
+
+    public List<Publisher> searchPublishers(String searchKey, Integer size) {
+        return publisherDao.list(QueryWrapper.create().like(Publisher::getName, searchKey).limit(size));
     }
 }

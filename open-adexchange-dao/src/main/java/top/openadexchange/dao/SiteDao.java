@@ -12,7 +12,7 @@ import top.openadexchange.model.Site;
  */
 public interface SiteDao extends IService<Site> {
 
-    Boolean enableSite(Long id);
+    Boolean enableSite(Integer id);
 
-    Boolean disableSite(Long id);
+    Boolean disableSite(Integer id);
 }

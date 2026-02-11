@@ -20,7 +20,7 @@ public class SiteAdPlacementDto {
     private Integer id;
 
     @Schema(description = "站点/app id")
-    private Long siteId;
+    private Integer siteId;
 
     @Schema(description = "关联广告位模板，支持同一个广告位关联多个广告位模板")
     private List<Integer> adPlacementIds;

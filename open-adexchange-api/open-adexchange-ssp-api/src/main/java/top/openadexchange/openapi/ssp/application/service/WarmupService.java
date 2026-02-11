@@ -10,6 +10,7 @@ import com.mybatisflex.core.query.QueryWrapper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import top.openadexchange.dao.AdPlacementDao;
+import top.openadexchange.dao.LogSamplingConfigDao;
 import top.openadexchange.dao.PublisherDao;
 import top.openadexchange.dao.SiteDao;
 import top.openadexchange.domain.entity.AdPlacementAggregate;
@@ -17,6 +18,7 @@ import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
+import top.openadexchange.model.LogSamplingConfig;
 import top.openadexchange.model.Publisher;
 import top.openadexchange.model.Site;
 import top.openadexchange.openapi.ssp.domain.gateway.IndexService;
@@ -29,7 +31,7 @@ import top.openadexchange.repository.SiteAdPlacementAggregateRepository;
 //应用预热服务
 @Service
 @Slf4j
-public class ApplicationWarmupService {
+public class WarmupService {
 
     @Resource
     private DspAggregateRepository dspAggregateRepository;
@@ -49,6 +51,8 @@ public class ApplicationWarmupService {
     private PublisherDao publisherDao;
     @Resource
     private RateLimiterManager rateLimiterManager;
+    @Resource
+    private LogSamplingConfigDao logSamplingConfigDao;
 
     public void warmup() {
         //初始化索引库以及缓存库
@@ -206,7 +210,7 @@ public class ApplicationWarmupService {
         rateLimiterManager.updateLimiter(dspAggregate.getDsp().getDspId(), dspAggregate.getDsp().getQpsLimit());
     }
 
-    public void updateSiteById(Long entityId) {
+    public void updateSiteById(Integer entityId) {
         Site site = siteDao.getById(entityId);
         if (site == null || site.getStatus() == 0) {
             log.info("Site not found or not active, entityId: {}", entityId);
@@ -229,7 +233,7 @@ public class ApplicationWarmupService {
         }
     }
 
-    public void updatePublisherById(Long publisherId) {
+    public void updatePublisherById(Integer publisherId) {
         Publisher publisher = publisherDao.getById(publisherId);
         if (publisher == null || publisher.getStatus() == 0) {
             log.info("Publisher not found or not active, entityId: {}", publisherId);
@@ -238,5 +242,16 @@ public class ApplicationWarmupService {
         }
         log.info("Update publisher cache: {}", publisher);
         metadataCacheService.addOrUpdatePublisher(publisher);
+    }
+
+    public void updateLogSamplingConfigById(Long entityId) {
+        log.info("Update logSamplingConfig cache: {}", entityId);
+        LogSamplingConfig logSamplingConfig = logSamplingConfigDao.getById(entityId);
+        if (logSamplingConfig == null || logSamplingConfig.getStatus() == 0) {
+            log.info("LogSamplingConfig not found or not active,remove cache, entityId: {}", entityId);
+            metadataCacheService.removeLogSamplingConfig(entityId);
+            return;
+        }
+        metadataCacheService.updateLogSamplingConfigCache(logSamplingConfig);
     }
 }

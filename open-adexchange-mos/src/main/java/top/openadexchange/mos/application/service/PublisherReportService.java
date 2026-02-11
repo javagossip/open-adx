@@ -19,6 +19,8 @@ import com.mybatisflex.core.query.QueryWrapper;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+
+import top.openadexchange.commons.StreamUtils;
 import top.openadexchange.constants.Constants;
 import top.openadexchange.dao.AdSlotStatDao;
 import top.openadexchange.dao.SiteAdPlacementDao;
@@ -89,13 +91,13 @@ public class PublisherReportService {
             log.info("媒体报表数据为空：{}", queryDto.getStartDate());
             return result;
         }
-        List<Long> publisherIds = result.getRecords()
+        List<Integer> publisherIds = result.getRecords()
                 .stream()
                 .map(PublisherReportDto::getPublisherId)
                 .filter(Objects::nonNull)
                 .distinct()
                 .collect(Collectors.toList());
-        Map<Long, PublisherReportDto> publisherReportDtoMap =
+        Map<Integer, PublisherReportDto> publisherReportDtoMap =
                 redisADStatService.getTodayAdSlotStatsAggregatePublisherId(publisherIds);
         result.getRecords().forEach(reportDto -> {
             PublisherReportDto publisherReportDto = publisherReportDtoMap.get(reportDto.getPublisherId());
@@ -168,11 +170,9 @@ public class PublisherReportService {
             return result;
         }
 
-        Map<String, AdSlotReportDto> resultReportMap = result.getRecords()
-                .stream()
-                .collect(Collectors.toMap(r -> String.format("%s-%s",
-                        r.getAdSlotId(),
-                        r.getStatDate() == null ? currentHour : r.getStatDate()), Function.identity(), (a, b) -> a));
+        Map<String, AdSlotReportDto> resultReportMap = StreamUtils.toMap(result.getRecords(),
+                r -> String.format("%s-%s", r.getAdSlotId(), r.getStatDate() == null ? currentHour : r.getStatDate()),
+                Function.identity());
 
         adSlotReportDtoMap.forEach((adSlotId, adSlotReportDto) -> {
             AdSlotReportDto existAdSlotReport = resultReportMap.get(String.format("%s-%s", adSlotId, currentHour));
@@ -199,13 +199,12 @@ public class PublisherReportService {
         }
         List<SiteAdPlacement> siteAdPlacements =
                 siteAdPlacementDao.list(QueryWrapper.create().in(SiteAdPlacement::getCode, adSlotIds));
-        List<Long> siteIds = siteAdPlacements.stream().map(SiteAdPlacement::getSiteId).toList();
-        Map<String, SiteAdPlacement> siteAdPlacementMap = siteAdPlacements.stream()
-                .collect(Collectors.toMap(SiteAdPlacement::getCode, Function.identity(), (a, b) -> a));
-        Map<Long, Site> siteMap = siteDao.list(QueryWrapper.create().in(Site::getId, siteIds))
-                .stream()
-                .collect(Collectors.toMap(Site::getId, Function.identity(), (a, b) -> a));
-
+        List<Integer> siteIds = siteAdPlacements.stream().map(SiteAdPlacement::getSiteId).toList();
+        Map<String, SiteAdPlacement> siteAdPlacementMap =
+                StreamUtils.toMap(siteAdPlacements, SiteAdPlacement::getCode, Function.identity());
+        Map<Integer, Site> siteMap = StreamUtils.toMap(siteDao.list(QueryWrapper.create().in(Site::getId, siteIds)),
+                Site::getId,
+                Function.identity());
         List<AdSlotStat> adSlotStats = adSlotIds.stream().map(adSlotId -> {
             SiteAdPlacement siteAdPlacement = siteAdPlacementMap.get(adSlotId);
             Site site = siteMap.get(siteAdPlacement.getSiteId());

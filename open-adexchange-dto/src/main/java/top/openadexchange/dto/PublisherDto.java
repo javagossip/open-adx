@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class PublisherDto {
 
     @Schema(description = "媒体ID")
-    private Long id;
+    private Integer id;
     @Schema(description = "媒体名称")
     private String name;
     @Schema(description = "媒体登录密码")

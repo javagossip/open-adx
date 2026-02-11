@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 public class SiteDto {
 
     @Schema(description = "站点/app id")
-    private Long id;
+    private Integer id;
     @Schema(description = "媒体/发布者id")
-    private Long publisherId;
+    private Integer publisherId;
     @Schema(description = "站点/app名称")
     private String name;
     @Schema(description = "站点/app域名")

@@ -191,6 +191,8 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
         }
         builder.addAllImpTrackers(xinheBid.getMurlList());
         builder.addAllClkTrackers(xinheBid.getCmurlList());
+        builder.addAllDownloadTrackers(xinheBid.getDmurlList());
+        builder.addAllDownloadCompletedTrackers(xinheBid.getDownsuccessurlList());
         builder.setDeeplink(xinheBid.getDeeplinkurl());
 
         NativeAd.Builder nativeAd = NativeAd.newBuilder();

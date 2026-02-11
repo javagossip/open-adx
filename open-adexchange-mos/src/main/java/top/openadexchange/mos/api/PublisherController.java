@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mybatisflex.core.paginate.Page;
@@ -20,6 +21,8 @@ import top.openadexchange.dto.query.PublisherQueryDto;
 import top.openadexchange.model.Publisher;
 import top.openadexchange.mos.application.service.PublisherService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/publishers")
 @Tag(name = "媒体/发布商管理",
@@ -31,7 +34,7 @@ public class PublisherController {
 
     @PostMapping
     @Operation(summary = "新增媒体/发布商, 创建成功返回媒体/发布商ID")
-    public ApiResponse<Long> addOrUpdatePublisher(@RequestBody PublisherDto publisherDto) {
+    public ApiResponse<Integer> addOrUpdatePublisher(@RequestBody PublisherDto publisherDto) {
         return ApiResponse.success(publisherService.addPublisher(publisherDto));
     }
 
@@ -43,25 +46,25 @@ public class PublisherController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "删除媒体/发布商")
-    public ApiResponse<Boolean> deletePublisher(@PathVariable("id") Long id) {
+    public ApiResponse<Boolean> deletePublisher(@PathVariable("id") Integer id) {
         return ApiResponse.success(publisherService.deletePublisher(id));
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "获取媒体/发布商")
-    public ApiResponse<PublisherDto> getPublisher(@PathVariable("id") Long id) {
+    public ApiResponse<PublisherDto> getPublisher(@PathVariable("id") Integer id) {
         return ApiResponse.success(publisherService.getPublisher(id));
     }
 
     @PutMapping("/{id}/enable")
     @Operation(summary = "启用媒体/发布商")
-    public ApiResponse<Boolean> enablePublisher(@PathVariable("id") Long id) {
+    public ApiResponse<Boolean> enablePublisher(@PathVariable("id") Integer id) {
         return ApiResponse.success(publisherService.enablePublisher(id));
     }
 
     @PutMapping("/{id}/disable")
     @Operation(summary = "禁用媒体/发布商")
-    public ApiResponse<Boolean> disablePublisher(@PathVariable("id") Long id) {
+    public ApiResponse<Boolean> disablePublisher(@PathVariable("id") Integer id) {
         return ApiResponse.success(publisherService.disablePublisher(id));
     }
 
@@ -69,5 +72,15 @@ public class PublisherController {
     @Operation(summary = "分页查询媒体/发布商")
     public ApiResponse<Page<Publisher>> pageListPublishers(PublisherQueryDto queryDto) {
         return ApiResponse.success(publisherService.pageListPublishers(queryDto));
+    }
+
+    @GetMapping("/search")
+    @Operation(summary = "搜索媒体/发布商, 按媒体/发布商名称模糊搜索")
+    public ApiResponse<List<Publisher>> searchPublishers(@RequestParam(name = "searchKey",
+                    required = false) String searchKey,
+            @RequestParam(name = "size",
+                    required = false,
+                    defaultValue = "20") Integer size) {
+        return ApiResponse.success(publisherService.searchPublishers(searchKey, size));
     }
 }

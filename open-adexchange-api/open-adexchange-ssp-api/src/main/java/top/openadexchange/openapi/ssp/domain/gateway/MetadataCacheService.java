@@ -10,6 +10,7 @@ import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
+import top.openadexchange.model.LogSamplingConfig;
 import top.openadexchange.model.Publisher;
 import top.openadexchange.model.Site;
 
@@ -22,7 +23,7 @@ public interface MetadataCacheService {
 
     Map<Integer, DspAggregate> getDsps(List<Integer> dspIds);
 
-    Site getSite(Long siteId);
+    Site getSite(Integer siteId);
 
     SiteAdPlacementAggregate getSiteAdPlacementByTagId(String tagId);
 
@@ -44,7 +45,7 @@ public interface MetadataCacheService {
 
     void removeDsp(DspAggregate dspAggregate);
 
-    void removeSite(Long siteId);
+    void removeSite(Integer siteId);
 
     void removeAdPlacement(int adPlacementId);
 
@@ -52,11 +53,15 @@ public interface MetadataCacheService {
 
     void removeSiteAdPlacement(int siteAdPlacementId);
 
-    void removePublisher(Long publisherId);
+    void removePublisher(Integer publisherId);
 
     void addOrUpdatePublisher(Publisher publisher);
 
-    Publisher getPublisher(Long publisherId);
+    Publisher getPublisher(Integer publisherId);
 
     List<DspAggregate> getDspByIds(List<Integer> matchDspIds);
+
+    void removeLogSamplingConfig(Long entityId);
+
+    void updateLogSamplingConfigCache(LogSamplingConfig logSamplingConfig);
 }

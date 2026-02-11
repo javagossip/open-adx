@@ -35,7 +35,7 @@ public class SiteAdPlacement implements Serializable {
     /**
      * 站点/app id
      */
-    private Long siteId;
+    private Integer siteId;
     private Long userId;
     /**
      * 广告位id

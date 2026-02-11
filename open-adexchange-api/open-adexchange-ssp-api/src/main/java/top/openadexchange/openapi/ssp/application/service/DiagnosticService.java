@@ -40,7 +40,7 @@ public class DiagnosticService {
                 }
                 return metadataCacheService.getDspByDspId(key);
             case SITE:
-                return metadataCacheService.getSite(Long.parseLong(key));
+                return metadataCacheService.getSite(Integer.parseInt(key));
             case AD_PLACEMENT:
                 return metadataCacheService.getAdPlacement(Integer.parseInt(key));
             case SITE_AD_PLACEMENT:
@@ -49,7 +49,7 @@ public class DiagnosticService {
                 }
                 return metadataCacheService.getSiteAdPlacementById(Integer.parseInt(key));
             case PUBLISHER:
-                return metadataCacheService.getPublisher(Long.parseLong(key));
+                return metadataCacheService.getPublisher(Integer.parseInt(key));
         }
         return null;
     }

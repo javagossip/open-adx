@@ -32,7 +32,7 @@ public interface MetadataRepository {
      * @param siteId 站点ID
      * @return 站点信息
      */
-    Site getSite(Long siteId);
+    Site getSite(Integer siteId);
 
     List<DspAggregate> getDspByIds(List<Integer> dspIds);
 

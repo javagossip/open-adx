@@ -9,15 +9,15 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import top.openadexchange.constants.enums.DomainEventType;
 import top.openadexchange.model.DomainEvent;
-import top.openadexchange.openapi.ssp.application.service.ApplicationWarmupService;
+import top.openadexchange.openapi.ssp.application.service.WarmupService;
 import top.openadexchange.openapi.ssp.domain.model.DomainEventPayload;
 
 @Component
 @Slf4j
-public class OaxDomainEventListener {
+public class DomainEventListener {
 
     @Resource
-    private ApplicationWarmupService applicationWarmupService;
+    private WarmupService warmupService;
 
     @KafkaListener(topics = KafkaConstants.TOPIC_OAX_DOMAIN_EVNETS,
             id = "oax.domain.events.listener-${HOSTNAME:localhost}-${server.port}")
@@ -32,27 +32,32 @@ public class OaxDomainEventListener {
             case AD_PLACEMENT_CREATED:
             case AD_PLACEMENT_UPDATED:
             case AD_PLACEMENT_DELETED:
-                applicationWarmupService.updateAdPlacementById(entityId);
+                warmupService.updateAdPlacementById(entityId);
                 break;
             case DSP_CREATED:
             case DSP_UPDATED:
             case DSP_DELETED:
-                applicationWarmupService.updateDspById(entityId);
+                warmupService.updateDspById(entityId);
                 break;
             case SITE_CREATED:
             case SITE_UPDATED:
             case SITE_DELETED:
-                applicationWarmupService.updateSiteById(entityId);
+                warmupService.updateSiteById(entityId.intValue());
                 break;
             case SITE_AD_PLACEMENT_CREATED:
             case SITE_AD_PLACEMENT_UPDATED:
             case SITE_AD_PLACEMENT_DELETED:
-                applicationWarmupService.updateSiteAdPlacementById(entityId);
+                warmupService.updateSiteAdPlacementById(entityId);
                 break;
             case PUBLISHER_CREATED:
             case PUBLISHER_UPDATED:
             case PUBLISHER_DELETED:
-                applicationWarmupService.updatePublisherById(entityId);
+                warmupService.updatePublisherById(entityId.intValue());
+                break;
+            case LOG_SAMPLING_CONFIG_CREATED:
+            case LOG_SAMPLING_CONFIG_UPDATED:
+            case LOG_SAMPLING_CONFIG_DELETED:
+                warmupService.updateLogSamplingConfigById(entityId);
                 break;
             default:
                 log.warn("Unsupported event type: {}", eventType);

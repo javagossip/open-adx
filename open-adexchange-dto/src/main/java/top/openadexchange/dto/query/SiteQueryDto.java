@@ -15,7 +15,7 @@ public class SiteQueryDto {
     @Schema(description = "站点/app状态, 1-启用, 0-禁用")
     private Integer status;
     @Schema(description = "媒体/发布者id")
-    private Long publisherId;
+    private Integer publisherId;
     @Schema(description = "平台, 参见Platform枚举, IOS,ANDROID,WEB")
     private Platform platform;
     @Schema(description = "页码")

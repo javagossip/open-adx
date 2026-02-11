@@ -50,6 +50,10 @@ public class AdGetResponseBuilder {
         ad.setImpid(impid);
         ad.setPm(bid.getImpTrackersList());
         ad.setCm(bid.getClkTrackersList());
+        ad.setDm(bid.getDownloadTrackersList());
+        ad.setDsm(bid.getDownloadCompletedTrackersList());
+        ad.setVpm(bid.getPlayTrackersList());
+        ad.setVpcm(bid.getPlayCompletedTrackersList());
         ad.setCrid(bid.getCrid());
         ad.setDlk(bid.getDeeplink());
         ad.setAdl(bid.getAppDownloadUrl());

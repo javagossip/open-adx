@@ -34,7 +34,7 @@ public class AdSlotReportAggregate implements Serializable {
     /**
      * 站点/APP ID
      */
-    private Long siteId;
+    private Integer siteId;
 
     /**
      * 站点/APP名称
@@ -44,7 +44,7 @@ public class AdSlotReportAggregate implements Serializable {
     /**
      * 媒体ID
      */
-    private Long publisherId;
+    private Integer publisherId;
 
     /**
      * 媒体名称

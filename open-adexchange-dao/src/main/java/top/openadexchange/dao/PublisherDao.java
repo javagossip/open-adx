@@ -14,9 +14,9 @@ import top.openadexchange.model.Publisher;
  */
 public interface PublisherDao extends IService<Publisher> {
 
-    Boolean enablePublisher(Long id);
+    Boolean enablePublisher(Integer id);
 
-    Boolean disablePublisher(Long id);
+    Boolean disablePublisher(Integer id);
 
     List<Publisher> pageList(int pageNo, int pageSize);
 }

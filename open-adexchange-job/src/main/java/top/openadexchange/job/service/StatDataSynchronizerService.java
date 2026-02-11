@@ -1,6 +1,5 @@
 package top.openadexchange.job.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +18,7 @@ import com.mybatisflex.core.query.QueryWrapper;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import top.openadexchange.commons.StreamUtils;
 import top.openadexchange.constants.Constants;
 import top.openadexchange.constants.RedisKeys;
 import top.openadexchange.dao.AdSlotStatDao;
@@ -73,26 +73,21 @@ public class StatDataSynchronizerService {
             return;
         }
         List<Site> sites = siteDao.list(QueryWrapper.create()
-                .in(Site::getId,
-                        siteAdPlacements.stream().map(SiteAdPlacement::getSiteId).collect(Collectors.toSet())));
+                .in(Site::getId, StreamUtils.toSet(siteAdPlacements, SiteAdPlacement::getSiteId)));
         if (sites.isEmpty()) {
             log.warn("no sites found");
             return;
         }
         List<Publisher> publishers = publisherDao.list(QueryWrapper.create()
-                .in(Publisher::getId, sites.stream().map(Site::getPublisherId).collect(Collectors.toSet())));
+                .in(Publisher::getId, StreamUtils.toSet(sites, Site::getPublisherId)));
         if (publishers.isEmpty()) {
             log.warn("no publishers found");
             return;
         }
-        Map<Long, Site> siteMap =
-                sites.stream().collect(Collectors.toMap(Site::getId, Function.identity(), (a, b) -> a));
-        Map<String, SiteAdPlacement> siteAdPlacementMap = siteAdPlacements.stream()
-                .filter(Objects::nonNull)
-                .collect(Collectors.toMap(SiteAdPlacement::getCode, Function.identity(), (a, b) -> a));
-        Map<Long, Publisher> publisherMap = publishers.stream()
-                .filter(Objects::nonNull)
-                .collect(Collectors.toMap(Publisher::getId, Function.identity(), (a, b) -> a));
+        Map<Integer, Site> siteMap = StreamUtils.toMap(sites, Site::getId, Function.identity());
+        Map<String, SiteAdPlacement> siteAdPlacementMap =
+                StreamUtils.toMap(siteAdPlacements, SiteAdPlacement::getCode, Function.identity());
+        Map<Integer, Publisher> publisherMap = StreamUtils.toMap(publishers, Publisher::getId, Function.identity());
 
         List<AdSlotStat> adSlotStats = new ArrayList<>(statAdSlotIds.size());
         for (String adSlotId : statAdSlotIds) {

@@ -26,7 +26,7 @@ public class PublisherReportConverter {
         return PublisherReportDto.builder()
                 .publisherId(aggregate.getPublisherId())
                 .publisherName(aggregate.getPublisherName())
-//                .publisherCode(aggregate.getPublisherCode())
+                //                .publisherCode(aggregate.getPublisherCode())
                 .impCount(aggregate.getImpCount())
                 .clickCount(aggregate.getClickCount())
                 .clickRate(aggregate.getClickRate())
@@ -41,9 +41,7 @@ public class PublisherReportConverter {
         if (aggregates == null) {
             return List.of();
         }
-        return aggregates.stream()
-                .map(this::toPublisherReportDto)
-                .collect(Collectors.toList());
+        return aggregates.stream().map(this::toPublisherReportDto).collect(Collectors.toList());
     }
 
     /**
@@ -74,8 +72,6 @@ public class PublisherReportConverter {
         if (aggregates == null) {
             return List.of();
         }
-        return aggregates.stream()
-                .map(this::toAdSlotReportDto)
-                .collect(Collectors.toList());
+        return aggregates.stream().map(this::toAdSlotReportDto).collect(Collectors.toList());
     }
 }

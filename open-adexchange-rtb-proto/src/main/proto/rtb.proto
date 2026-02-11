@@ -32,7 +32,7 @@ message BidRequest {
   extensions 200 to 299;
 
   message Publisher {
-    optional uint64 id = 1;
+    optional uint32 id = 1;
   }
 
   message Imp {

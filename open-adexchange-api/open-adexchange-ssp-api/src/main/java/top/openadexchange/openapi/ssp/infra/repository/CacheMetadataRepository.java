@@ -28,7 +28,7 @@ public class CacheMetadataRepository implements MetadataRepository {
     }
 
     @Override
-    public Site getSite(Long siteId) {
+    public Site getSite(Integer siteId) {
         return metadataCacheService.getSite(siteId);
     }
 

@@ -31,13 +31,13 @@ public class AdSlotReportDto {
     private Integer statDate;
 
     @Schema(description = "站点/APP ID")
-    private Long siteId;
+    private Integer siteId;
 
     @Schema(description = "站点/APP名称")
     private String siteName;
 
     @Schema(description = "媒体ID")
-    private Long publisherId;
+    private Integer publisherId;
 
     @Schema(description = "媒体名称")
     private String publisherName;

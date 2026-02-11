@@ -34,7 +34,7 @@ public class SiteController {
 
     @PostMapping
     @Operation(summary = "新增站点, 创建成功返回站点ID")
-    public ApiResponse<Long> addSite(@RequestBody SiteDto siteDto) {
+    public ApiResponse<Integer> addSite(@RequestBody SiteDto siteDto) {
         return ApiResponse.success(siteService.addSite(siteDto));
     }
 
@@ -46,25 +46,25 @@ public class SiteController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "删除站点")
-    public ApiResponse<Boolean> deleteSite(@PathVariable("id") Long id) {
+    public ApiResponse<Boolean> deleteSite(@PathVariable("id") Integer id) {
         return ApiResponse.success(siteService.deleteSite(id));
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "获取站点")
-    public ApiResponse<SiteDto> getSite(@PathVariable("id") Long id) {
+    public ApiResponse<SiteDto> getSite(@PathVariable("id") Integer id) {
         return ApiResponse.success(siteService.getSite(id));
     }
 
     @PutMapping("/{id}/enable")
     @Operation(summary = "启用站点")
-    public ApiResponse<Boolean> enableSite(@PathVariable("id") Long id) {
+    public ApiResponse<Boolean> enableSite(@PathVariable("id") Integer id) {
         return ApiResponse.success(siteService.enableSite(id));
     }
 
     @PutMapping("/{id}/disable")
     @Operation(summary = "禁用站点")
-    public ApiResponse<Boolean> disableSite(@PathVariable("id") Long id) {
+    public ApiResponse<Boolean> disableSite(@PathVariable("id") Integer id) {
         return ApiResponse.success(siteService.disableSite(id));
     }
 
