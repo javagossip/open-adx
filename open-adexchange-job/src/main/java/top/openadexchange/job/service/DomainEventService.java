@@ -66,6 +66,6 @@ public class DomainEventService {
             }));
         });
         CompletableFuture.allOf(futureList.toArray(new CompletableFuture[0]))
-                .thenRun(() -> domainEventDao.updateBatch(domainEvents));
+                .thenRun(() -> domainEventDao.updateBatch(distinctEvents));
     }
 }
