@@ -39,9 +39,11 @@ public class RateLimiterManager {
         }
         limiters.compute(resource, (key, oldLimiter) -> {
             if (oldLimiter == null) {
+                log.info("Create new rate limiter, resource: {}, qps: {}", resource, qps);
                 return rateLimiterFactories.getRateLimiterFactory().createRateLimiter(qps);
             } else {
                 // 动态调整速率
+                log.info("Update rate limiter, resource: {}, qps: {}", resource, qps);
                 oldLimiter.setLimit(qps);
                 return oldLimiter;
             }
@@ -54,6 +56,7 @@ public class RateLimiterManager {
     }
 
     public void removeRateLimiter(String resource) {
+        log.info("Remove rate limiter, resource: {}", resource);
         limiters.remove(resource);
     }
 

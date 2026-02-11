@@ -20,7 +20,7 @@ public class OaxDomainEventListener {
     private ApplicationWarmupService applicationWarmupService;
 
     @KafkaListener(topics = KafkaConstants.TOPIC_OAX_DOMAIN_EVNETS,
-            id = KafkaConstants.CONSUMER_GROUP_OAX_DOMAIN_EVNETS)
+            id = "oax.domain.events.listener-${HOSTNAME:localhost}-${server.port}")
     public void onDomainEvent(String event) {
         log.info("onDomainEvent: {}", event);
         DomainEvent domainEvent = JSON.parseObject(event, DomainEvent.class);
