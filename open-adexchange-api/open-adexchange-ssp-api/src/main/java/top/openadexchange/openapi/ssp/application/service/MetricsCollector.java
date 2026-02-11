@@ -211,7 +211,9 @@ public class MetricsCollector {
                 @Override
                 public @Nullable <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
                     dspIds.forEach((hour, dspIdSet) -> {
-                        RedisOpsUtils.sadd(ops, RedisKeys.keyStatDsps(hour), dspIdSet, Duration.ofDays(2));
+                        if (dspIdSet != null && !dspIdSet.isEmpty()) {
+                            RedisOpsUtils.sadd(ops, RedisKeys.keyStatDsps(hour), dspIdSet, Duration.ofDays(2));
+                        }
                     });
                     return null;
                 }
@@ -224,7 +226,9 @@ public class MetricsCollector {
                 @Override
                 public @Nullable <K, V> Object execute(RedisOperations<K, V> ops) throws DataAccessException {
                     adSlotIds.forEach((hour, adSlotIdSet) -> {
-                        RedisOpsUtils.sadd(ops, RedisKeys.keyStatAdslots(hour), adSlotIdSet, Duration.ofDays(2));
+                        if (adSlotIdSet != null && !adSlotIdSet.isEmpty()) {
+                            RedisOpsUtils.sadd(ops, RedisKeys.keyStatAdslots(hour), adSlotIdSet, Duration.ofDays(2));
+                        }
                     });
                     return null;
                 }
