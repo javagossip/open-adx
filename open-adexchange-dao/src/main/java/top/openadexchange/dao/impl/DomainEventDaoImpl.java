@@ -30,7 +30,7 @@ public class DomainEventDaoImpl extends ServiceImpl<DomainEventMapper, DomainEve
     @Override
     public List<DomainEvent> listAndUpdateUnHandleEvents(int offset, int limit) {
         List<DomainEvent> domainEvents = list(QueryWrapper.create()
-                .in(DomainEvent::getStatus, Arrays.asList(EVENT_STATUS_LIST))
+                .in(DomainEvent::getStatus, EVENT_STATUS_LIST)
                 .limit(offset, limit));
         domainEvents.forEach(domainEvent -> domainEvent.setStatus(EventStatus.PROCESSING.name()));
         updateBatch(domainEvents);
