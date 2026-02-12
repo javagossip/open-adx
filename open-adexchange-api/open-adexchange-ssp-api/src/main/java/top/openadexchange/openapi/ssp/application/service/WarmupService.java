@@ -21,6 +21,8 @@ import top.openadexchange.model.Dsp;
 import top.openadexchange.model.LogSamplingConfig;
 import top.openadexchange.model.Publisher;
 import top.openadexchange.model.Site;
+import top.openadexchange.oax.model.proto.OaxModelsProto;
+import top.openadexchange.openapi.ssp.application.factory.LogSamplingConfigConverter;
 import top.openadexchange.openapi.ssp.domain.gateway.IndexService;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataCacheService;
 import top.openadexchange.openapi.ssp.domain.gateway.OaxEngineServices;
@@ -252,6 +254,8 @@ public class WarmupService {
             metadataCacheService.removeLogSamplingConfig(entityId);
             return;
         }
-        metadataCacheService.updateLogSamplingConfigCache(logSamplingConfig);
+        OaxModelsProto.LogSamplingConfig logSamplingConfigProto =
+                LogSamplingConfigConverter.convert(logSamplingConfig);
+        metadataCacheService.updateLogSamplingConfigCache(logSamplingConfigProto);
     }
 }

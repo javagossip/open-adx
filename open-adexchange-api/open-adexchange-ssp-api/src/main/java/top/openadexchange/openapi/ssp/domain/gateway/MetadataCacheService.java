@@ -13,6 +13,7 @@ import top.openadexchange.model.Dsp;
 import top.openadexchange.model.LogSamplingConfig;
 import top.openadexchange.model.Publisher;
 import top.openadexchange.model.Site;
+import top.openadexchange.oax.model.proto.OaxModelsProto;
 
 @ExtensionPoint
 public interface MetadataCacheService {
@@ -63,5 +64,9 @@ public interface MetadataCacheService {
 
     void removeLogSamplingConfig(Long entityId);
 
-    void updateLogSamplingConfigCache(LogSamplingConfig logSamplingConfig);
+    //void updateLogSamplingConfigCache(LogSamplingConfig logSamplingConfig);
+
+    OaxModelsProto.LogSamplingConfig getLogSamplingConfig(int lscId);
+
+    void updateLogSamplingConfigCache(OaxModelsProto.LogSamplingConfig logSamplingConfigProto);
 }

@@ -104,9 +104,9 @@ public class LogSamplingConfigService {
         }
         List<LogSamplingConfig> records = logSamplingConfigPage.getRecords();
 
-        List<Integer> dspIds = StreamUtils.toList(records, LogSamplingConfig::getDspId);
-        List<Integer> publisherIds = StreamUtils.toList(records, LogSamplingConfig::getMediaId);
-        List<Integer> adSlotIds = StreamUtils.toList(records, LogSamplingConfig::getAdSlotId);
+        List<Integer> dspIds = StreamUtils.toDistinctedList(records, LogSamplingConfig::getDspId);
+        List<Integer> publisherIds = StreamUtils.toDistinctedList(records, LogSamplingConfig::getMediaId);
+        List<Integer> adSlotIds = StreamUtils.toDistinctedList(records, LogSamplingConfig::getAdSlotId);
 
         List<Dsp> dspList = CollectionUtils.isEmpty(dspIds) ? null : dspDao.listByIds(dspIds);
         List<SiteAdPlacement> adSlots =

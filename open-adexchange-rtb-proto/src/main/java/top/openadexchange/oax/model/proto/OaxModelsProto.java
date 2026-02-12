@@ -220,6 +220,35 @@ public final class OaxModelsProto {
 
     /**
      * <pre>
+     * DSP平台编码
+     * </pre>
+     *
+     * <code>optional string dsp_code = 11;</code>
+     * @return Whether the dspCode field is set.
+     */
+    boolean hasDspCode();
+    /**
+     * <pre>
+     * DSP平台编码
+     * </pre>
+     *
+     * <code>optional string dsp_code = 11;</code>
+     * @return The dspCode.
+     */
+    java.lang.String getDspCode();
+    /**
+     * <pre>
+     * DSP平台编码
+     * </pre>
+     *
+     * <code>optional string dsp_code = 11;</code>
+     * @return The bytes for dspCode.
+     */
+    com.google.protobuf.ByteString
+        getDspCodeBytes();
+
+    /**
+     * <pre>
      * 媒体广告位ID
      * </pre>
      *
@@ -318,6 +347,7 @@ public final class OaxModelsProto {
     }
     private LogSamplingConfig() {
       logType_ = 0;
+      dspCode_ = "";
       adSlotCode_ = "";
     }
 
@@ -449,6 +479,67 @@ public final class OaxModelsProto {
       return dspId_;
     }
 
+    public static final int DSP_CODE_FIELD_NUMBER = 11;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object dspCode_ = "";
+    /**
+     * <pre>
+     * DSP平台编码
+     * </pre>
+     *
+     * <code>optional string dsp_code = 11;</code>
+     * @return Whether the dspCode field is set.
+     */
+    @java.lang.Override
+    public boolean hasDspCode() {
+      return ((bitField0_ & 0x00000010) != 0);
+    }
+    /**
+     * <pre>
+     * DSP平台编码
+     * </pre>
+     *
+     * <code>optional string dsp_code = 11;</code>
+     * @return The dspCode.
+     */
+    @java.lang.Override
+    public java.lang.String getDspCode() {
+      java.lang.Object ref = dspCode_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          dspCode_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * DSP平台编码
+     * </pre>
+     *
+     * <code>optional string dsp_code = 11;</code>
+     * @return The bytes for dspCode.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDspCodeBytes() {
+      java.lang.Object ref = dspCode_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        dspCode_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     public static final int AD_SLOT_ID_FIELD_NUMBER = 5;
     private int adSlotId_ = 0;
     /**
@@ -461,7 +552,7 @@ public final class OaxModelsProto {
      */
     @java.lang.Override
     public boolean hasAdSlotId() {
-      return ((bitField0_ & 0x00000010) != 0);
+      return ((bitField0_ & 0x00000020) != 0);
     }
     /**
      * <pre>
@@ -489,7 +580,7 @@ public final class OaxModelsProto {
      */
     @java.lang.Override
     public boolean hasAdSlotCode() {
-      return ((bitField0_ & 0x00000020) != 0);
+      return ((bitField0_ & 0x00000040) != 0);
     }
     /**
      * <pre>
@@ -549,7 +640,7 @@ public final class OaxModelsProto {
      */
     @java.lang.Override
     public boolean hasSamplingRate() {
-      return ((bitField0_ & 0x00000040) != 0);
+      return ((bitField0_ & 0x00000080) != 0);
     }
     /**
      * <pre>
@@ -576,7 +667,7 @@ public final class OaxModelsProto {
      */
     @java.lang.Override
     public boolean hasStatus() {
-      return ((bitField0_ & 0x00000080) != 0);
+      return ((bitField0_ & 0x00000100) != 0);
     }
     /**
      * <pre>
@@ -617,17 +708,20 @@ public final class OaxModelsProto {
       if (((bitField0_ & 0x00000008) != 0)) {
         output.writeInt32(4, dspId_);
       }
-      if (((bitField0_ & 0x00000010) != 0)) {
+      if (((bitField0_ & 0x00000020) != 0)) {
         output.writeInt32(5, adSlotId_);
       }
-      if (((bitField0_ & 0x00000040) != 0)) {
+      if (((bitField0_ & 0x00000080) != 0)) {
         output.writeInt32(6, samplingRate_);
       }
-      if (((bitField0_ & 0x00000080) != 0)) {
+      if (((bitField0_ & 0x00000100) != 0)) {
         output.writeInt32(9, status_);
       }
-      if (((bitField0_ & 0x00000020) != 0)) {
+      if (((bitField0_ & 0x00000040) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 10, adSlotCode_);
+      }
+      if (((bitField0_ & 0x00000010) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 11, dspCode_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -654,20 +748,23 @@ public final class OaxModelsProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(4, dspId_);
       }
-      if (((bitField0_ & 0x00000010) != 0)) {
+      if (((bitField0_ & 0x00000020) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(5, adSlotId_);
       }
-      if (((bitField0_ & 0x00000040) != 0)) {
+      if (((bitField0_ & 0x00000080) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(6, samplingRate_);
       }
-      if (((bitField0_ & 0x00000080) != 0)) {
+      if (((bitField0_ & 0x00000100) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(9, status_);
       }
-      if (((bitField0_ & 0x00000020) != 0)) {
+      if (((bitField0_ & 0x00000040) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, adSlotCode_);
+      }
+      if (((bitField0_ & 0x00000010) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, dspCode_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -702,6 +799,11 @@ public final class OaxModelsProto {
       if (hasDspId()) {
         if (getDspId()
             != other.getDspId()) return false;
+      }
+      if (hasDspCode() != other.hasDspCode()) return false;
+      if (hasDspCode()) {
+        if (!getDspCode()
+            .equals(other.getDspCode())) return false;
       }
       if (hasAdSlotId() != other.hasAdSlotId()) return false;
       if (hasAdSlotId()) {
@@ -750,6 +852,10 @@ public final class OaxModelsProto {
       if (hasDspId()) {
         hash = (37 * hash) + DSP_ID_FIELD_NUMBER;
         hash = (53 * hash) + getDspId();
+      }
+      if (hasDspCode()) {
+        hash = (37 * hash) + DSP_CODE_FIELD_NUMBER;
+        hash = (53 * hash) + getDspCode().hashCode();
       }
       if (hasAdSlotId()) {
         hash = (37 * hash) + AD_SLOT_ID_FIELD_NUMBER;
@@ -902,6 +1008,7 @@ public final class OaxModelsProto {
         logType_ = 0;
         mediaId_ = 0;
         dspId_ = 0;
+        dspCode_ = "";
         adSlotId_ = 0;
         adSlotCode_ = "";
         samplingRate_ = 0;
@@ -957,20 +1064,24 @@ public final class OaxModelsProto {
           to_bitField0_ |= 0x00000008;
         }
         if (((from_bitField0_ & 0x00000010) != 0)) {
-          result.adSlotId_ = adSlotId_;
+          result.dspCode_ = dspCode_;
           to_bitField0_ |= 0x00000010;
         }
         if (((from_bitField0_ & 0x00000020) != 0)) {
-          result.adSlotCode_ = adSlotCode_;
+          result.adSlotId_ = adSlotId_;
           to_bitField0_ |= 0x00000020;
         }
         if (((from_bitField0_ & 0x00000040) != 0)) {
-          result.samplingRate_ = samplingRate_;
+          result.adSlotCode_ = adSlotCode_;
           to_bitField0_ |= 0x00000040;
         }
         if (((from_bitField0_ & 0x00000080) != 0)) {
-          result.status_ = status_;
+          result.samplingRate_ = samplingRate_;
           to_bitField0_ |= 0x00000080;
+        }
+        if (((from_bitField0_ & 0x00000100) != 0)) {
+          result.status_ = status_;
+          to_bitField0_ |= 0x00000100;
         }
         result.bitField0_ |= to_bitField0_;
       }
@@ -1031,12 +1142,17 @@ public final class OaxModelsProto {
         if (other.hasDspId()) {
           setDspId(other.getDspId());
         }
+        if (other.hasDspCode()) {
+          dspCode_ = other.dspCode_;
+          bitField0_ |= 0x00000010;
+          onChanged();
+        }
         if (other.hasAdSlotId()) {
           setAdSlotId(other.getAdSlotId());
         }
         if (other.hasAdSlotCode()) {
           adSlotCode_ = other.adSlotCode_;
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000040;
           onChanged();
         }
         if (other.hasSamplingRate()) {
@@ -1100,24 +1216,29 @@ public final class OaxModelsProto {
               } // case 32
               case 40: {
                 adSlotId_ = input.readInt32();
-                bitField0_ |= 0x00000010;
+                bitField0_ |= 0x00000020;
                 break;
               } // case 40
               case 48: {
                 samplingRate_ = input.readInt32();
-                bitField0_ |= 0x00000040;
+                bitField0_ |= 0x00000080;
                 break;
               } // case 48
               case 72: {
                 status_ = input.readInt32();
-                bitField0_ |= 0x00000080;
+                bitField0_ |= 0x00000100;
                 break;
               } // case 72
               case 82: {
                 adSlotCode_ = input.readBytes();
-                bitField0_ |= 0x00000020;
+                bitField0_ |= 0x00000040;
                 break;
               } // case 82
+              case 90: {
+                dspCode_ = input.readBytes();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 90
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1361,6 +1482,110 @@ public final class OaxModelsProto {
         return this;
       }
 
+      private java.lang.Object dspCode_ = "";
+      /**
+       * <pre>
+       * DSP平台编码
+       * </pre>
+       *
+       * <code>optional string dsp_code = 11;</code>
+       * @return Whether the dspCode field is set.
+       */
+      public boolean hasDspCode() {
+        return ((bitField0_ & 0x00000010) != 0);
+      }
+      /**
+       * <pre>
+       * DSP平台编码
+       * </pre>
+       *
+       * <code>optional string dsp_code = 11;</code>
+       * @return The dspCode.
+       */
+      public java.lang.String getDspCode() {
+        java.lang.Object ref = dspCode_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            dspCode_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * DSP平台编码
+       * </pre>
+       *
+       * <code>optional string dsp_code = 11;</code>
+       * @return The bytes for dspCode.
+       */
+      public com.google.protobuf.ByteString
+          getDspCodeBytes() {
+        java.lang.Object ref = dspCode_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          dspCode_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * DSP平台编码
+       * </pre>
+       *
+       * <code>optional string dsp_code = 11;</code>
+       * @param value The dspCode to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDspCode(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        dspCode_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * DSP平台编码
+       * </pre>
+       *
+       * <code>optional string dsp_code = 11;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDspCode() {
+        dspCode_ = getDefaultInstance().getDspCode();
+        bitField0_ = (bitField0_ & ~0x00000010);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * DSP平台编码
+       * </pre>
+       *
+       * <code>optional string dsp_code = 11;</code>
+       * @param value The bytes for dspCode to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDspCodeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        dspCode_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+
       private int adSlotId_ ;
       /**
        * <pre>
@@ -1372,7 +1597,7 @@ public final class OaxModelsProto {
        */
       @java.lang.Override
       public boolean hasAdSlotId() {
-        return ((bitField0_ & 0x00000010) != 0);
+        return ((bitField0_ & 0x00000020) != 0);
       }
       /**
        * <pre>
@@ -1398,7 +1623,7 @@ public final class OaxModelsProto {
       public Builder setAdSlotId(int value) {
 
         adSlotId_ = value;
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
@@ -1411,7 +1636,7 @@ public final class OaxModelsProto {
        * @return This builder for chaining.
        */
       public Builder clearAdSlotId() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         adSlotId_ = 0;
         onChanged();
         return this;
@@ -1427,7 +1652,7 @@ public final class OaxModelsProto {
        * @return Whether the adSlotCode field is set.
        */
       public boolean hasAdSlotCode() {
-        return ((bitField0_ & 0x00000020) != 0);
+        return ((bitField0_ & 0x00000040) != 0);
       }
       /**
        * <pre>
@@ -1485,7 +1710,7 @@ public final class OaxModelsProto {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         adSlotCode_ = value;
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         onChanged();
         return this;
       }
@@ -1499,7 +1724,7 @@ public final class OaxModelsProto {
        */
       public Builder clearAdSlotCode() {
         adSlotCode_ = getDefaultInstance().getAdSlotCode();
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         onChanged();
         return this;
       }
@@ -1516,7 +1741,7 @@ public final class OaxModelsProto {
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         adSlotCode_ = value;
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         onChanged();
         return this;
       }
@@ -1532,7 +1757,7 @@ public final class OaxModelsProto {
        */
       @java.lang.Override
       public boolean hasSamplingRate() {
-        return ((bitField0_ & 0x00000040) != 0);
+        return ((bitField0_ & 0x00000080) != 0);
       }
       /**
        * <pre>
@@ -1558,7 +1783,7 @@ public final class OaxModelsProto {
       public Builder setSamplingRate(int value) {
 
         samplingRate_ = value;
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         onChanged();
         return this;
       }
@@ -1571,7 +1796,7 @@ public final class OaxModelsProto {
        * @return This builder for chaining.
        */
       public Builder clearSamplingRate() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000080);
         samplingRate_ = 0;
         onChanged();
         return this;
@@ -1588,7 +1813,7 @@ public final class OaxModelsProto {
        */
       @java.lang.Override
       public boolean hasStatus() {
-        return ((bitField0_ & 0x00000080) != 0);
+        return ((bitField0_ & 0x00000100) != 0);
       }
       /**
        * <pre>
@@ -1614,7 +1839,7 @@ public final class OaxModelsProto {
       public Builder setStatus(int value) {
 
         status_ = value;
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000100;
         onChanged();
         return this;
       }
@@ -1627,7 +1852,7 @@ public final class OaxModelsProto {
        * @return This builder for chaining.
        */
       public Builder clearStatus() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000100);
         status_ = 0;
         onChanged();
         return this;
@@ -1711,16 +1936,16 @@ public final class OaxModelsProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\020oax-models.proto\022\"top.openadexchange.o" +
-      "ax.model.proto\"\331\001\n\021LogSamplingConfig\022\n\n\002" +
+      "ax.model.proto\"\353\001\n\021LogSamplingConfig\022\n\n\002" +
       "id\030\001 \001(\003\022E\n\010log_type\030\002 \001(\0162+.top.openade" +
       "xchange.oax.model.proto.LogType:\006GLOBAL\022" +
-      "\020\n\010media_id\030\003 \001(\005\022\016\n\006dsp_id\030\004 \001(\005\022\022\n\nad_" +
-      "slot_id\030\005 \001(\005\022\024\n\014ad_slot_code\030\n \001(\t\022\025\n\rs" +
-      "ampling_rate\030\006 \001(\005\022\016\n\006status\030\t \001(\005*I\n\007Lo" +
-      "gType\022\n\n\006GLOBAL\020\000\022\013\n\007BID_REQ\020\001\022\013\n\007BID_RS" +
-      "P\020\002\022\013\n\007DSP_REQ\020\003\022\013\n\007DSP_RSP\020\004B4\n\"top.ope" +
-      "nadexchange.oax.model.protoB\016OaxModelsPr" +
-      "oto"
+      "\020\n\010media_id\030\003 \001(\005\022\016\n\006dsp_id\030\004 \001(\005\022\020\n\010dsp" +
+      "_code\030\013 \001(\t\022\022\n\nad_slot_id\030\005 \001(\005\022\024\n\014ad_sl" +
+      "ot_code\030\n \001(\t\022\025\n\rsampling_rate\030\006 \001(\005\022\016\n\006" +
+      "status\030\t \001(\005*I\n\007LogType\022\n\n\006GLOBAL\020\000\022\013\n\007B" +
+      "ID_REQ\020\001\022\013\n\007BID_RSP\020\002\022\013\n\007DSP_REQ\020\003\022\013\n\007DS" +
+      "P_RSP\020\004B4\n\"top.openadexchange.oax.model." +
+      "protoB\016OaxModelsProto"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1731,7 +1956,7 @@ public final class OaxModelsProto {
     internal_static_top_openadexchange_oax_model_proto_LogSamplingConfig_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_oax_model_proto_LogSamplingConfig_descriptor,
-        new java.lang.String[] { "Id", "LogType", "MediaId", "DspId", "AdSlotId", "AdSlotCode", "SamplingRate", "Status", });
+        new java.lang.String[] { "Id", "LogType", "MediaId", "DspId", "DspCode", "AdSlotId", "AdSlotCode", "SamplingRate", "Status", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

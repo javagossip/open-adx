@@ -16,10 +16,10 @@ import top.openadexchange.domain.entity.DspAggregate;
 import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
 import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
-import top.openadexchange.model.LogSamplingConfig;
 import top.openadexchange.model.Publisher;
 import top.openadexchange.model.Site;
 import top.openadexchange.oax.model.proto.OaxModelsProto;
+import top.openadexchange.oax.model.proto.OaxModelsProto.LogSamplingConfig;
 import top.openadexchange.oax.model.proto.OaxModelsProto.LogType;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataCacheService;
 
@@ -188,15 +188,11 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
         if (logSamplingConfig == null) {
             return;
         }
-        OaxModelsProto.LogSamplingConfig.Builder builder = OaxModelsProto.LogSamplingConfig.newBuilder();
+        logSamplingConfigCache.put(logSamplingConfig.getId(), logSamplingConfig);
+    }
 
-        builder.setId(logSamplingConfig.getId() == null ? 0 : logSamplingConfig.getId());
-        builder.setLogType(LogType.valueOf(logSamplingConfig.getLogType()));
-        builder.setSamplingRate(logSamplingConfig.getSamplingRate() == null ? 0 : logSamplingConfig.getSamplingRate());
-        builder.setDspId(logSamplingConfig.getDspId() == null ? 0 : logSamplingConfig.getDspId());
-        builder.setAdSlotId(logSamplingConfig.getAdSlotId() == null ? 0 : logSamplingConfig.getAdSlotId());
-        builder.setMediaId(logSamplingConfig.getMediaId() == null ? 0 : logSamplingConfig.getMediaId());
-
-        logSamplingConfigCache.put(logSamplingConfig.getId(), builder.build());
+    @Override
+    public OaxModelsProto.LogSamplingConfig getLogSamplingConfig(int lscId) {
+        return logSamplingConfigCache.getIfPresent((long) lscId);
     }
 }

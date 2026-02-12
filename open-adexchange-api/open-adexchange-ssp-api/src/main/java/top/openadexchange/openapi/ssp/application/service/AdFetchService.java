@@ -37,7 +37,7 @@ public class AdFetchService {
         validateRequest(request);
         BidRequest.Builder bidRequest = bidRequestBuilder.buildBidRequest(request);
         Map<String, Bid.Builder> bids = adExchangeEngine.bidding(bidRequest);
-        return adGetResponseBuilder.buildAdGetResponse(bidRequest,request, bids);
+        return adGetResponseBuilder.buildAdGetResponse(bidRequest, request, bids);
     }
 
     /**

@@ -25,7 +25,8 @@ message LogSamplingConfig {
 
   // DSP平台ID
   optional int32 dsp_id = 4;
-
+  // DSP平台编码
+  optional string dsp_code = 11;
   // 媒体广告位ID
   optional int32 ad_slot_id = 5;
   //媒体广告位编码
