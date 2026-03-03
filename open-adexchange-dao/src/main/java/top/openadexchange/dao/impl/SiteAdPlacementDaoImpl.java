@@ -18,11 +18,21 @@ import top.openadexchange.model.SiteAdPlacement;
 public class SiteAdPlacementDaoImpl extends ServiceImpl<SiteAdPlacementMapper, SiteAdPlacement>
         implements SiteAdPlacementDao {
 
-    public Boolean enableSiteAdPlacement(Long id) {
+    public Boolean enableSiteAdPlacement(Integer id) {
         return updateChain().set(SiteAdPlacement::getStatus, 1).eq(SiteAdPlacement::getId, id).update();
     }
 
-    public Boolean disableSiteAdPlacement(Long id) {
+    public Boolean disableSiteAdPlacement(Integer id) {
         return updateChain().set(SiteAdPlacement::getStatus, 0).eq(SiteAdPlacement::getId, id).update();
+    }
+
+    @Override
+    public boolean enableDebugMode(Integer id) {
+        return updateChain().set(SiteAdPlacement::getDebug, true).eq(SiteAdPlacement::getId, id).update();
+    }
+
+    @Override
+    public boolean disableDebugMode(Integer id) {
+        return updateChain().set(SiteAdPlacement::getDebug, false).eq(SiteAdPlacement::getId, id).update();
     }
 }

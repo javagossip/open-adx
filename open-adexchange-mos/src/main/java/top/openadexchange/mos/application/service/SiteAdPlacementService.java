@@ -64,7 +64,7 @@ public class SiteAdPlacementService {
     }
 
     @Transactional
-    public Boolean deleteSiteAdPlacement(Long id) {
+    public Boolean deleteSiteAdPlacement(Integer id) {
         boolean dspRelatedSiteAdp =
                 dspSiteAdPlacementDao.exists(QueryWrapper.create().eq(DspSiteAdPlacement::getSiteAdPlacementId, id));
         Assert.isTrue(!dspRelatedSiteAdp, "媒体广告位被DSP使用，不能删除");
@@ -88,7 +88,7 @@ public class SiteAdPlacementService {
     }
 
     @Transactional
-    public Boolean enableSiteAdPlacement(Long id) {
+    public Boolean enableSiteAdPlacement(Integer id) {
         boolean updated = siteAdPlacementDao.enableSiteAdPlacement(id);
         if (updated) {
             domainEventDao.save(DomainEventFactory.create(DomainEventType.SITE_AD_PLACEMENT_UPDATED.name(), id));
@@ -97,7 +97,7 @@ public class SiteAdPlacementService {
     }
 
     @Transactional
-    public Boolean disableSiteAdPlacement(Long id) {
+    public Boolean disableSiteAdPlacement(Integer id) {
         boolean updated = siteAdPlacementDao.disableSiteAdPlacement(id);
         if (updated) {
             domainEventDao.save(DomainEventFactory.create(DomainEventType.SITE_AD_PLACEMENT_UPDATED.name(), id));
@@ -124,5 +124,21 @@ public class SiteAdPlacementService {
         return siteAdPlacementDao.list(QueryWrapper.create()
                 .like(SiteAdPlacement::getName, searchKey)
                 .limit(size == null ? 100 : size));
+    }
+
+    public Boolean enableDebugMode(Integer id) {
+        boolean updated = siteAdPlacementDao.enableDebugMode(id);
+        if (updated) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.SITE_AD_PLACEMENT_UPDATED.name(), id));
+        }
+        return updated;
+    }
+
+    public Boolean disableDebugMode(Integer id) {
+        boolean updated = siteAdPlacementDao.disableDebugMode(id);
+        if (updated) {
+            domainEventDao.save(DomainEventFactory.create(DomainEventType.SITE_AD_PLACEMENT_UPDATED.name(), id));
+        }
+        return updated;
     }
 }

@@ -12,7 +12,11 @@ import top.openadexchange.model.SiteAdPlacement;
  */
 public interface SiteAdPlacementDao extends IService<SiteAdPlacement> {
 
-    Boolean enableSiteAdPlacement(Long id);
+    Boolean enableSiteAdPlacement(Integer id);
 
-    Boolean disableSiteAdPlacement(Long id);
+    Boolean disableSiteAdPlacement(Integer id);
+
+    boolean enableDebugMode(Integer id);
+
+    boolean disableDebugMode(Integer id);
 }
