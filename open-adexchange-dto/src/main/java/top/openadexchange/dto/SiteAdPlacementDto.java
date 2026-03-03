@@ -41,6 +41,8 @@ public class SiteAdPlacementDto {
 
     @Schema(description = "状态, 1-使用中, 0-禁用")
     private Integer status;
+    @Schema(description = "是否开启调试模式, 默认关闭")
+    private boolean debug;
 
     @JsonProperty("floorPrice")
     public String floorPriceAsString() {

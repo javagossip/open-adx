@@ -36,6 +36,7 @@ public class SiteAdPlacementConverter {
             siteAdPlacement.setCode(entityCodeService.generateSiteAdPlacementCode());
         }
         siteAdPlacement.setUserId(SecurityUtils.getUserId());
+        siteAdPlacement.setDebug(siteAdPlacementDto.isDebug());
 
         return siteAdPlacement;
     }
@@ -55,6 +56,7 @@ public class SiteAdPlacementConverter {
         siteAdPlacementDto.setDemoUrl(siteAdPlacement.getDemoUrl());
         siteAdPlacementDto.setStatus(siteAdPlacement.getStatus());
         siteAdPlacementDto.setFloorPrice(siteAdPlacement.getFloorPrice().doubleValue());
+        siteAdPlacementDto.setDebug(siteAdPlacement.getDebug()==null?false:siteAdPlacement.getDebug());
 
         return siteAdPlacementDto;
     }
