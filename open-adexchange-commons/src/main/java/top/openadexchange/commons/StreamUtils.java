@@ -17,8 +17,8 @@ public final class StreamUtils {
         return source.stream().filter(Objects::nonNull).map(function).filter(Objects::nonNull).distinct().toList();
     }
 
-    public static <S,T> List<T> toList(Collection<S> source, Function<S, T> function) {
-        return source.stream().filter(Objects::nonNull).map(function).toList();
+    public static <S, T> List<T> toList(Collection<S> source, Function<S, T> function) {
+        return source.stream().filter(Objects::nonNull).map(function).filter(Objects::nonNull).toList();
     }
 
     public static <T, K, V> Map<K, V> toMap(Collection<T> source,
