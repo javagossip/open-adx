@@ -30,7 +30,7 @@ public class Publisher implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id(keyType = KeyType.Auto)
-    private Long id;
+    private Integer id;
 
     private String name;
     private String code;

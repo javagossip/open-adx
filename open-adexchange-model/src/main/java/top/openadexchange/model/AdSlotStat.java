@@ -46,7 +46,7 @@ public class AdSlotStat implements Serializable {
     /**
      * 媒体ID
      */
-    private Long publisherId;
+    private Integer publisherId;
     /**
      * 媒体编码
      */
@@ -58,7 +58,7 @@ public class AdSlotStat implements Serializable {
     /**
      * 站点/APP ID
      */
-    private Long siteId;
+    private Integer siteId;
     /**
      * 站点名称
      */

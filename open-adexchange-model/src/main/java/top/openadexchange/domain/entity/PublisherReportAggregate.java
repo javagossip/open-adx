@@ -24,7 +24,7 @@ public class PublisherReportAggregate implements Serializable {
     /**
      * 媒体ID
      */
-    private Long publisherId;
+    private Integer publisherId;
 
     /**
      * 媒体名称

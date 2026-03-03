@@ -35,7 +35,7 @@ public class SiteAdPlacement implements Serializable {
     /**
      * 站点/app id
      */
-    private Long siteId;
+    private Integer siteId;
     private Long userId;
     /**
      * 广告位id
@@ -67,5 +67,8 @@ public class SiteAdPlacement implements Serializable {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
-
+    /**
+     * 是否开启debug模式，1-开启, 0-关闭，开启debug模式后，将会返回详细的各个环节的日志用于调试
+     */
+    private Boolean debug;
 }

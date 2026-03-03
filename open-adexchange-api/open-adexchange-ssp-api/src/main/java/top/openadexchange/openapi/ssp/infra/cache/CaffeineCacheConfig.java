@@ -15,6 +15,7 @@ import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.Publisher;
 import top.openadexchange.model.Site;
+import top.openadexchange.oax.model.proto.OaxModelsProto;
 
 @Configuration
 public class CaffeineCacheConfig {
@@ -66,7 +67,12 @@ public class CaffeineCacheConfig {
     }
 
     @Bean
-    public Cache<Long, Publisher> publisherCache() {
-        return Caffeine.newBuilder().initialCapacity(50).maximumSize(200).build();
+    public Cache<Integer, Publisher> publisherCache() {
+        return Caffeine.newBuilder().initialCapacity(10).maximumSize(100).build();
+    }
+
+    @Bean
+    public Cache<Long, OaxModelsProto.LogSamplingConfig> logSamplingConfigCache() {
+        return Caffeine.newBuilder().initialCapacity(10).maximumSize(50).build();
     }
 }

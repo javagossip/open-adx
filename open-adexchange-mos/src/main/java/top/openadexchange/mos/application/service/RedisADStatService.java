@@ -20,6 +20,7 @@ import com.mybatisflex.core.query.QueryWrapper;
 
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import top.openadexchange.commons.StreamUtils;
 import top.openadexchange.constants.Constants;
 import top.openadexchange.constants.RedisKeys;
 import top.openadexchange.dao.DspDao;
@@ -51,7 +52,7 @@ public class RedisADStatService {
     private DspDao dspDao;
 
 
-    public Map<Long, PublisherReportDto> getTodayAdSlotStatsAggregatePublisherId(List<Long> publisherIds) {
+    public Map<Integer, PublisherReportDto> getTodayAdSlotStatsAggregatePublisherId(List<Integer> publisherIds) {
         log.info("getTodayAdSlotStatsAggregatePublisherId, publisherIds: {}", publisherIds);
         List<AdSlotStat> adSlotStats = batchGetTodayAdSlotStats();
         if (adSlotStats.isEmpty()) {
@@ -59,7 +60,7 @@ public class RedisADStatService {
             return Collections.emptyMap();
         }
         log.info("adSlotStats: {}", adSlotStats);
-        Map<Long, PublisherReportDto> publisherReportDtoMap = new ConcurrentHashMap<>();
+        Map<Integer, PublisherReportDto> publisherReportDtoMap = new ConcurrentHashMap<>();
         for (AdSlotStat adSlotStat : adSlotStats) {
             //如果publisherId不在列表中，则跳过
             if (!publisherIds.contains(adSlotStat.getPublisherId())) {
@@ -81,9 +82,7 @@ public class RedisADStatService {
         if (publishers.isEmpty()) {
             return publisherReportDtoMap;
         }
-        Map<Long, Publisher> publisherMap = publishers.stream()
-                .filter(Objects::nonNull)
-                .collect(Collectors.toMap(Publisher::getId, Function.identity(), (a, b) -> a));
+        Map<Integer, Publisher> publisherMap = StreamUtils.toMap(publishers, Publisher::getId, Function.identity());
         publisherReportDtoMap.forEach((k, v) -> v.setPublisherName(publisherMap.get(k).getName()));
         return publisherReportDtoMap;
     }
@@ -106,18 +105,15 @@ public class RedisADStatService {
             return Collections.emptyList();
         }
         List<Site> sites = siteDao.list(QueryWrapper.create()
-                .in(Site::getId,
-                        siteAdPlacements.stream().map(SiteAdPlacement::getSiteId).collect(Collectors.toSet())));
+                .in(Site::getId, StreamUtils.toSet(siteAdPlacements, SiteAdPlacement::getSiteId)));
         if (sites.isEmpty()) {
             return Collections.emptyList();
         }
         //<siteId,Site>映射
-        Map<Long, Site> siteMap =
-                sites.stream().collect(Collectors.toMap(Site::getId, Function.identity(), (a, b) -> a));
+        Map<Integer, Site> siteMap = StreamUtils.toMap(sites, Site::getId, Function.identity());
         //<adSlotId,SiteAdPlacement>映射
-        Map<String, SiteAdPlacement> siteAdPlacementMap = siteAdPlacements.stream()
-                .filter(Objects::nonNull)
-                .collect(Collectors.toMap(SiteAdPlacement::getCode, Function.identity(), (a, b) -> a));
+        Map<String, SiteAdPlacement> siteAdPlacementMap =
+                StreamUtils.toMap(siteAdPlacements, SiteAdPlacement::getCode, Function.identity());
 
         List<AdSlotStat> adSlotStats = new ArrayList<>(adSlotIds.size());
         for (String adSlotId : adSlotIds) {
@@ -170,18 +166,15 @@ public class RedisADStatService {
             return Collections.emptyList();
         }
         List<Site> sites = siteDao.list(QueryWrapper.create()
-                .in(Site::getId,
-                        siteAdPlacements.stream().map(SiteAdPlacement::getSiteId).collect(Collectors.toSet())));
+                .in(Site::getId, StreamUtils.toSet(siteAdPlacements, SiteAdPlacement::getSiteId)));
         if (sites.isEmpty()) {
             return Collections.emptyList();
         }
         //<siteId,Site>映射
-        Map<Long, Site> siteMap =
-                sites.stream().collect(Collectors.toMap(Site::getId, Function.identity(), (a, b) -> a));
+        Map<Integer, Site> siteMap = StreamUtils.toMap(sites, Site::getId, Function.identity());
         //<adSlotId,SiteAdPlacement>映射
-        Map<String, SiteAdPlacement> siteAdPlacementMap = siteAdPlacements.stream()
-                .filter(Objects::nonNull)
-                .collect(Collectors.toMap(SiteAdPlacement::getCode, Function.identity(), (a, b) -> a));
+        Map<String, SiteAdPlacement> siteAdPlacementMap =
+                StreamUtils.toMap(siteAdPlacements, SiteAdPlacement::getCode, Function.identity());
 
         List<AdSlotReportDto> adSlotStats = new ArrayList<>(adSlotIds.size());
         for (String adSlotId : adSlotIds) {

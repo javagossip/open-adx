@@ -2,6 +2,8 @@ package top.openadexchange.openapi.ssp.application.service;
 
 import java.util.Map;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
@@ -17,6 +19,7 @@ import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid.Bid;
  * 广告获取服务 处理来自媒体方的广告请求
  */
 @Service
+@Slf4j
 public class AdFetchService {
 
     @Resource
@@ -36,8 +39,15 @@ public class AdFetchService {
         // 验证请求参数
         validateRequest(request);
         BidRequest.Builder bidRequest = bidRequestBuilder.buildBidRequest(request);
+        if (bidRequest.getDebug() || bidRequest.getTest()) {
+            log.info("AdGetRequest:{}", request);
+        }
         Map<String, Bid.Builder> bids = adExchangeEngine.bidding(bidRequest);
-        return adGetResponseBuilder.buildAdGetResponse(bidRequest,request, bids);
+        AdGetResponse adGetResponse = adGetResponseBuilder.buildAdGetResponse(bidRequest, request, bids);
+        if (bidRequest.getDebug() || bidRequest.getTest()) {
+            log.info("adGetResponse:{}", adGetResponse);
+        }
+        return adGetResponse;
     }
 
     /**

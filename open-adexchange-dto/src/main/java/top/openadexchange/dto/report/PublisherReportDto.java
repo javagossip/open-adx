@@ -24,7 +24,7 @@ import top.openadexchange.commons.AmountSerializer;
 public class PublisherReportDto {
 
     @Schema(description = "媒体ID")
-    private Long publisherId;
+    private Integer publisherId;
 
     @Schema(description = "媒体名称")
     private String publisherName;

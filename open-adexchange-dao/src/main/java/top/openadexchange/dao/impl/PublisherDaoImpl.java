@@ -21,12 +21,12 @@ import top.openadexchange.model.Publisher;
 public class PublisherDaoImpl extends ServiceImpl<PublisherMapper, Publisher> implements PublisherDao {
 
     @Override
-    public Boolean enablePublisher(Long id) {
+    public Boolean enablePublisher(Integer id) {
         return updateChain().set(Publisher::getStatus, 1).eq(Publisher::getId, id).update();
     }
 
     @Override
-    public Boolean disablePublisher(Long id) {
+    public Boolean disablePublisher(Integer id) {
         return updateChain().set(Publisher::getStatus, 0).eq(Publisher::getId, id).update();
     }
 

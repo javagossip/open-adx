@@ -20,7 +20,7 @@ public class SiteAdPlacementDto {
     private Integer id;
 
     @Schema(description = "站点/app id")
-    private Long siteId;
+    private Integer siteId;
 
     @Schema(description = "关联广告位模板，支持同一个广告位关联多个广告位模板")
     private List<Integer> adPlacementIds;
@@ -41,6 +41,8 @@ public class SiteAdPlacementDto {
 
     @Schema(description = "状态, 1-使用中, 0-禁用")
     private Integer status;
+    @Schema(description = "是否开启调试模式, 默认关闭")
+    private boolean debug;
 
     @JsonProperty("floorPrice")
     public String floorPriceAsString() {

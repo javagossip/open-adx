@@ -16,8 +16,6 @@ import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.openapi.ssp.application.dto.AdGetRequest;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataCacheService;
-import top.openadexchange.openapi.ssp.domain.gateway.MetadataRepository;
-import top.openadexchange.openapi.ssp.domain.gateway.OaxEngineServices;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.App;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Content;
@@ -34,8 +32,6 @@ import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest.Site;
 @Component
 public class BidRequestBuilder {
 
-    @Resource
-    private OaxEngineServices oaxEngineServices;
     @Resource
     private MetadataCacheService metadataCacheService;
 
@@ -64,12 +60,18 @@ public class BidRequestBuilder {
         builder.setId(imp.getId());
         builder.setTagid(imp.getTagid());
 
-        //MetadataRepository metadataRepository = oaxEngineServices.getCachedMetadataRepository();
         SiteAdPlacementAggregate siteAdPlacementAggregate =
                 metadataCacheService.getSiteAdPlacementByTagId(imp.getTagid());
         Assert.notNull(siteAdPlacementAggregate, "未找到对应的媒体广告位");
         SiteAdPlacement siteAdPlacement = siteAdPlacementAggregate.getSiteAdPlacement();
         Assert.notNull(siteAdPlacementAggregate.getAdPlacementId(), "媒体广告位对应广告模版不存在");
+        Assert.notNull(siteAdPlacement, "媒体广告位不存在");
+
+        if (!reqBuilder.getDebug()) {
+            if (siteAdPlacement.getDebug() != null && siteAdPlacement.getDebug()) {
+                reqBuilder.setDebug(true);
+            }
+        }
         AdPlacement adPlacementSpec = metadataCacheService.getAdPlacement(siteAdPlacementAggregate.getAdPlacementId());
         Assert.notNull(adPlacementSpec, "未找到对应的广告位规格描述");
 
@@ -212,7 +214,7 @@ public class BidRequestBuilder {
     private top.openadexchange.model.Site getSite(AdGetRequest request) {
         String tagId = request.getImp().getFirst().getTagid();
         SiteAdPlacementAggregate siteAdPlacement = metadataCacheService.getSiteAdPlacementByTagId(tagId);
-        Long siteId = siteAdPlacement.getSiteAdPlacement().getSiteId();
+        Integer siteId = siteAdPlacement.getSiteAdPlacement().getSiteId();
         top.openadexchange.model.Site site = metadataCacheService.getSite(siteId);
         return site;
     }

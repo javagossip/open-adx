@@ -285,7 +285,7 @@ public class AdExchangeEngine {
             BidRequest.Builder request,
             OaxRtbProto.BidResponse.SeatBid.Bid.Builder bid,
             Imp imp) {
-        long publisherId = request.getPublisher().getId();
+        int publisherId = request.getPublisher().getId();
         TrackToken trackToken = new TrackToken();
         trackToken.setReqId(request.getId());
         trackToken.setImpId(imp.getId());

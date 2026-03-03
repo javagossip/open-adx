@@ -51,6 +51,10 @@ public class AdGetResponse {
         private String crid; // dsp平台创意id
         private List<String> pm; // 曝光监测
         private List<String> cm; // 点击监测
+        private List<String> dm; //下载开始监测
+        private List<String> dsm; //下载成功监测
+        private List<String> vpm; //视频播放监测
+        private List<String> vpcm; //视频播放完成监测
         private String ldp; // 广告落地页
         private String curl; // 广告创意地址
         private int ct; // clickType-点击类型：1-浏览器打开  2-安卓应用下载  3-deeplink，4-ios应用

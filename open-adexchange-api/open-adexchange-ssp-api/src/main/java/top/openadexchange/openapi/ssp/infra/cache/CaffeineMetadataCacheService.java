@@ -18,6 +18,9 @@ import top.openadexchange.model.AdPlacement;
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.Publisher;
 import top.openadexchange.model.Site;
+import top.openadexchange.oax.model.proto.OaxModelsProto;
+import top.openadexchange.oax.model.proto.OaxModelsProto.LogSamplingConfig;
+import top.openadexchange.oax.model.proto.OaxModelsProto.LogType;
 import top.openadexchange.openapi.ssp.domain.gateway.MetadataCacheService;
 
 @Extension(keys = {"caffeine", "default"})
@@ -37,13 +40,15 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
     @Resource
     private Cache<Integer, AdPlacement> adPlacementCache;
     @Resource
-    private Cache<Long, Site> siteCache;
+    private Cache<Integer, Site> siteCache;
     @Resource
     private Cache<Long, CreativeAggregate> creativeCache;
     @Resource
     private Cache<Integer, AdPlacementAggregate> adPlacementAggregateCache;
     @Resource
-    private Cache<Long, Publisher> publisherCache;
+    private Cache<Integer, Publisher> publisherCache;
+    @Resource
+    private Cache<Long, OaxModelsProto.LogSamplingConfig> logSamplingConfigCache;
 
     @Override
     public void addDsp(DspAggregate dspAggregate) {
@@ -62,7 +67,7 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
     }
 
     @Override
-    public Site getSite(Long siteId) {
+    public Site getSite(Integer siteId) {
         return siteCache.getIfPresent(siteId);
     }
 
@@ -129,7 +134,7 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
     }
 
     @Override
-    public void removeSite(Long siteId) {
+    public void removeSite(Integer siteId) {
         siteCache.invalidate(siteId);
     }
 
@@ -154,7 +159,7 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
     }
 
     @Override
-    public void removePublisher(Long publisherId) {
+    public void removePublisher(Integer publisherId) {
         publisherCache.invalidate(publisherId);
     }
 
@@ -164,12 +169,30 @@ public class CaffeineMetadataCacheService implements MetadataCacheService {
     }
 
     @Override
-    public Publisher getPublisher(Long publisherId) {
+    public Publisher getPublisher(Integer publisherId) {
         return publisherCache.getIfPresent(publisherId);
     }
 
     @Override
     public List<DspAggregate> getDspByIds(List<Integer> matchDspIds) {
         return new ArrayList<>(dspCache.getAllPresent(matchDspIds).values());
+    }
+
+    @Override
+    public void removeLogSamplingConfig(Long entityId) {
+        logSamplingConfigCache.invalidate(entityId);
+    }
+
+    @Override
+    public void updateLogSamplingConfigCache(LogSamplingConfig logSamplingConfig) {
+        if (logSamplingConfig == null) {
+            return;
+        }
+        logSamplingConfigCache.put(logSamplingConfig.getId(), logSamplingConfig);
+    }
+
+    @Override
+    public OaxModelsProto.LogSamplingConfig getLogSamplingConfig(int lscId) {
+        return logSamplingConfigCache.getIfPresent((long) lscId);
     }
 }

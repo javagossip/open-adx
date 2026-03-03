@@ -349,15 +349,15 @@ java.lang.String defaultValue);
         com.google.protobuf.MessageOrBuilder {
 
       /**
-       * <code>optional uint64 id = 1;</code>
+       * <code>optional uint32 id = 1;</code>
        * @return Whether the id field is set.
        */
       boolean hasId();
       /**
-       * <code>optional uint64 id = 1;</code>
+       * <code>optional uint32 id = 1;</code>
        * @return The id.
        */
-      long getId();
+      int getId();
     }
     /**
      * Protobuf type {@code top.openadexchange.rtb.proto.BidRequest.Publisher}
@@ -396,9 +396,9 @@ java.lang.String defaultValue);
 
       private int bitField0_;
       public static final int ID_FIELD_NUMBER = 1;
-      private long id_ = 0L;
+      private int id_ = 0;
       /**
-       * <code>optional uint64 id = 1;</code>
+       * <code>optional uint32 id = 1;</code>
        * @return Whether the id field is set.
        */
       @java.lang.Override
@@ -406,11 +406,11 @@ java.lang.String defaultValue);
         return ((bitField0_ & 0x00000001) != 0);
       }
       /**
-       * <code>optional uint64 id = 1;</code>
+       * <code>optional uint32 id = 1;</code>
        * @return The id.
        */
       @java.lang.Override
-      public long getId() {
+      public int getId() {
         return id_;
       }
 
@@ -429,7 +429,7 @@ java.lang.String defaultValue);
       public void writeTo(com.google.protobuf.CodedOutputStream output)
                           throws java.io.IOException {
         if (((bitField0_ & 0x00000001) != 0)) {
-          output.writeUInt64(1, id_);
+          output.writeUInt32(1, id_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -442,7 +442,7 @@ java.lang.String defaultValue);
         size = 0;
         if (((bitField0_ & 0x00000001) != 0)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeUInt64Size(1, id_);
+            .computeUInt32Size(1, id_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSize = size;
@@ -477,8 +477,7 @@ java.lang.String defaultValue);
         hash = (19 * hash) + getDescriptor().hashCode();
         if (hasId()) {
           hash = (37 * hash) + ID_FIELD_NUMBER;
-          hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-              getId());
+          hash = (53 * hash) + getId();
         }
         hash = (29 * hash) + getUnknownFields().hashCode();
         memoizedHashCode = hash;
@@ -611,7 +610,7 @@ java.lang.String defaultValue);
         public Builder clear() {
           super.clear();
           bitField0_ = 0;
-          id_ = 0L;
+          id_ = 0;
           return this;
         }
 
@@ -727,7 +726,7 @@ java.lang.String defaultValue);
                   done = true;
                   break;
                 case 8: {
-                  id_ = input.readUInt64();
+                  id_ = input.readUInt32();
                   bitField0_ |= 0x00000001;
                   break;
                 } // case 8
@@ -748,9 +747,9 @@ java.lang.String defaultValue);
         }
         private int bitField0_;
 
-        private long id_ ;
+        private int id_ ;
         /**
-         * <code>optional uint64 id = 1;</code>
+         * <code>optional uint32 id = 1;</code>
          * @return Whether the id field is set.
          */
         @java.lang.Override
@@ -758,19 +757,19 @@ java.lang.String defaultValue);
           return ((bitField0_ & 0x00000001) != 0);
         }
         /**
-         * <code>optional uint64 id = 1;</code>
+         * <code>optional uint32 id = 1;</code>
          * @return The id.
          */
         @java.lang.Override
-        public long getId() {
+        public int getId() {
           return id_;
         }
         /**
-         * <code>optional uint64 id = 1;</code>
+         * <code>optional uint32 id = 1;</code>
          * @param value The id to set.
          * @return This builder for chaining.
          */
-        public Builder setId(long value) {
+        public Builder setId(int value) {
 
           id_ = value;
           bitField0_ |= 0x00000001;
@@ -778,12 +777,12 @@ java.lang.String defaultValue);
           return this;
         }
         /**
-         * <code>optional uint64 id = 1;</code>
+         * <code>optional uint32 id = 1;</code>
          * @return This builder for chaining.
          */
         public Builder clearId() {
           bitField0_ = (bitField0_ & ~0x00000001);
-          id_ = 0L;
+          id_ = 0;
           onChanged();
           return this;
         }
@@ -37656,7 +37655,7 @@ java.lang.String defaultValue) {
       "\010 \001(\r\022\014\n\004tmax\030\t \001(\r\022>\n\003ext\030\n \003(\01321.top.o" +
       "penadexchange.rtb.proto.BidRequest.ExtEn" +
       "try\032*\n\010ExtEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 " +
-      "\001(\t:\0028\001\032\027\n\tPublisher\022\n\n\002id\030\001 \001(\004\032\360\007\n\003Imp" +
+      "\001(\t:\0028\001\032\027\n\tPublisher\022\n\n\002id\030\001 \001(\r\032\360\007\n\003Imp" +
       "\022\n\n\002id\030\001 \002(\t\022C\n\006banner\030\002 \001(\01323.top.opena" +
       "dexchange.rtb.proto.BidRequest.Imp.Banne" +
       "r\022A\n\005video\030\003 \001(\01322.top.openadexchange.rt" +

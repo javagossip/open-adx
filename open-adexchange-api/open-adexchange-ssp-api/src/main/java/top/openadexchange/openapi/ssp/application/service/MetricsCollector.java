@@ -214,7 +214,6 @@ public class MetricsCollector {
             });
             adSlotMetrics.clear();
 
-            //            log.info("Synchronized stat dspIds to redis");
             ConcurrentMap<String, Set<String>> dspIds = swapAndGetHourlyDspIdSetMap();
             redisTemplate.executePipelined(new SessionCallback<>() {
                 @Override

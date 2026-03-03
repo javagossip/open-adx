@@ -34,7 +34,7 @@ public class SiteService {
     private SiteAdPlacementDao siteAdPlacementDao;
 
     @Transactional
-    public Long addSite(SiteDto siteDto) {
+    public Integer addSite(SiteDto siteDto) {
         Site site = siteConverter.from(siteDto);
         siteDao.save(site);
         domainEventDao.save(DomainEventFactory.create(DomainEventType.SITE_CREATED.name(), site.getId()));
@@ -52,7 +52,7 @@ public class SiteService {
     }
 
     @Transactional
-    public Boolean deleteSite(Long id) {
+    public Boolean deleteSite(Integer id) {
         boolean siteAdPlacementsExists =
                 siteAdPlacementDao.exists(QueryWrapper.create().eq(SiteAdPlacement::getSiteId, id));
         Assert.isTrue(!siteAdPlacementsExists, "Site ad placements exists");
@@ -64,12 +64,12 @@ public class SiteService {
         return deleted;
     }
 
-    public SiteDto getSite(Long id) {
+    public SiteDto getSite(Integer id) {
         return siteConverter.toSiteDto(siteDao.getById(id));
     }
 
     @Transactional
-    public Boolean enableSite(Long id) {
+    public Boolean enableSite(Integer id) {
         boolean enabled = siteDao.enableSite(id);
         if (enabled) {
             domainEventDao.save(DomainEventFactory.create(DomainEventType.SITE_UPDATED.name(), id));
@@ -88,7 +88,7 @@ public class SiteService {
     }
 
     @Transactional
-    public Boolean disableSite(Long id) {
+    public Boolean disableSite(Integer id) {
         boolean disabled = siteDao.disableSite(id);
         if (disabled) {
             domainEventDao.save(DomainEventFactory.create(DomainEventType.SITE_UPDATED.name(), id));

@@ -1,0 +1,39 @@
+syntax = "proto2";
+
+option java_outer_classname = "OaxModelsProto";
+option java_package = "top.openadexchange.oax.model.proto";
+
+package top.openadexchange.oax.model.proto;
+
+enum LogType {
+  GLOBAL = 0;
+  BID_REQ = 1;
+  BID_RSP = 2;
+  DSP_REQ = 3;
+  DSP_RSP = 4;
+}
+
+message LogSamplingConfig {
+  // 主键ID
+  optional int64 id = 1;
+
+  // 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP
+  optional LogType log_type = 2 [default = GLOBAL];
+
+  // 媒体ID
+  optional int32 media_id = 3;
+
+  // DSP平台ID
+  optional int32 dsp_id = 4;
+  // DSP平台编码
+  optional string dsp_code = 11;
+  // 媒体广告位ID
+  optional int32 ad_slot_id = 5;
+  //媒体广告位编码
+  optional string ad_slot_code = 10;
+  // 采样率-万分位
+  optional int32 sampling_rate = 6;
+
+  // 启用/禁用状态,0-禁用,1-启用
+  optional int32 status = 9;
+}
