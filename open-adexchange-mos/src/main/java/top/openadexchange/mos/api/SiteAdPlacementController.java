@@ -46,7 +46,7 @@ public class SiteAdPlacementController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "删除媒体广告位")
-    public ApiResponse<Boolean> deleteSiteAdPlacement(@PathVariable("id") Long id) {
+    public ApiResponse<Boolean> deleteSiteAdPlacement(@PathVariable("id") Integer id) {
         return ApiResponse.success(siteAdPlacementService.deleteSiteAdPlacement(id));
     }
 
@@ -58,14 +58,26 @@ public class SiteAdPlacementController {
 
     @PutMapping("/{id}/enable")
     @Operation(summary = "启用媒体广告位")
-    public ApiResponse<Boolean> enableSiteAdPlacement(@PathVariable("id") Long id) {
+    public ApiResponse<Boolean> enableSiteAdPlacement(@PathVariable("id") Integer id) {
         return ApiResponse.success(siteAdPlacementService.enableSiteAdPlacement(id));
     }
 
     @PutMapping("/{id}/disable")
     @Operation(summary = "禁用媒体广告位")
-    public ApiResponse<Boolean> disableSiteAdPlacement(@PathVariable("id") Long id) {
+    public ApiResponse<Boolean> disableSiteAdPlacement(@PathVariable("id") Integer id) {
         return ApiResponse.success(siteAdPlacementService.disableSiteAdPlacement(id));
+    }
+
+    @PutMapping("/{id}/debug/enable")
+    @Operation(summary = "启用媒体广告位调试模式")
+    public ApiResponse<Boolean> enableDebugMode(@PathVariable("id") Integer id) {
+        return ApiResponse.success(siteAdPlacementService.enableDebugMode(id));
+    }
+
+    @PutMapping("/{id}/debug/disable")
+    @Operation(summary = "禁用媒体广告位调试模式")
+    public ApiResponse<Boolean> disableDebugMode(@PathVariable("id") Integer id) {
+        return ApiResponse.success(siteAdPlacementService.disableDebugMode(id));
     }
 
     @GetMapping
