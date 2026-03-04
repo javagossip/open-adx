@@ -46,9 +46,11 @@ OAX Publisher API 是面向媒体方（Supply-Side Platform, SSP）的广告获�
 | content | object | 否 | 网站内容对象 |
 
 #### APP对象 (App)
-| 参数名 | 类型 | 必填 | 描述 |
-|--------|------|------|------|
-| ver | string | 否 | APP版本 |
+| 参数名 | 类型 | 必填 | 描述        |
+|--------|------|------|-----------|
+| ver | string | 否 | APP版本     |
+| name | string | 否 | APP名称     |
+| bundle | string | 否 | APP bundle |
 | content | object | 否 | APP内容相关对象 |
 
 #### 内容对象 (Content)
@@ -58,26 +60,28 @@ OAX Publisher API 是面向媒体方（Supply-Side Platform, SSP）的广告获�
 | keywords | string | 否 | 广告展示上下文相关内容关键字 |
 
 #### 设备对象 (Device)
-| 参数名 | 类型 | 必填 | 描述 |
-|--------|------|------|------|
-| ua | string | 否 | 设备User-Agent |
-| geo | object | 否 | 地理位置对象 |
-| ip | string | 否 | 设备IP地址 |
-| ipv6 | string | 否 | IPv6地址 |
-| deviceType | integer | 否 | 设备类型: 1-phone, 2-pad, 3-pc, 4-tv |
-| make | string | 否 | 设备制造商 |
-| model | string | 否 | 设备型号，如:iPhone |
-| os | string | 否 | 操作系统，如:ios/Android |
-| osv | string | 否 | 操作系统版本 |
-| carrier | string | 否 | 运营商: 0-未知, 1-移动, 2-联通, 3-电信 |
+| 参数名 | 类型 | 必填 | 描述                                           |
+|--------|------|------|----------------------------------------------|
+| ua | string | 否 | 设备User-Agent                                 |
+| geo | object | 否 | 地理位置对象                                       |
+| ip | string | 否 | 设备IP地址                                       |
+| ipv6 | string | 否 | IPv6地址                                       |
+| deviceType | integer | 否 | 设备类型: 1-phone, 2-pad, 3-pc, 4-tv             |
+| make | string | 否 | 设备制造商                                        |
+| model | string | 否 | 设备型号，如:iPhone                                |
+| os | string | 否 | 操作系统，如:ios/Android                           |
+| osv | string | 否 | 操作系统版本                                       |
+| carrier | string | 否 | 运营商: 0-未知, 1-移动, 2-联通, 3-电信                  |
 | connectionType | integer | 否 | 网络连接类型: 1-WiFi, 2-2G, 3-3G, 4-4G, 5-5G, 0-未知 |
-| ifa | string | 否 | 明文设备码，如安卓的IMEI或iOS的IDFA |
-| didmd5 | string | 否 | MD5设备码 |
-| mac | string | 否 | MAC地址明文 |
-| macmd5 | string | 否 | MD5 MAC地址 |
-| adid | string | 否 | 安卓ID |
-| h | integer | 否 | 设备屏幕高度 |
-| w | integer | 否 | 设备屏幕宽度 |
+| ifa | string | 否 | 明文设备码，如安卓的IMEI或iOS的IDFA                      |
+| didmd5 | string | 否 | MD5设备码                                       |
+| mac | string | 否 | MAC地址明文                                      |
+| macmd5 | string | 否 | MD5 MAC地址                                    |
+| adid | string | 否 | 安卓ID                                         |
+| oaid | string | 否 | oaid (有的话尽量传，不同的下游要求不同)                      | 
+| oaidmd5 | string | 否 | oaidmd5 (有的话尽量传，不同的下游要求不同)                                      | 
+| h | integer | 否 | 设备屏幕高度                                       |
+| w | integer | 否 | 设备屏幕宽度                                       |
 
 #### 地理位置对象 (Geo)
 | 参数名 | 类型 | 必填 | 描述 |

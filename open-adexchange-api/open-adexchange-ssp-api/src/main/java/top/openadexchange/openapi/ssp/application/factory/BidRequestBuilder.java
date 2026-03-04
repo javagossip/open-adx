@@ -3,6 +3,8 @@ package top.openadexchange.openapi.ssp.application.factory;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.common.base.Strings;
+
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -170,6 +172,12 @@ public class BidRequestBuilder {
         if (device.getCarrier() != null) {
             builder.setCarrier(NumberUtils.toInt(device.getCarrier()));
         }
+        if (device.getOaid() != null) {
+            builder.setOaid(device.getOaid());
+        }
+        if (device.getOaidmd5() != null) {
+            builder.setOaidmd5(device.getOaidmd5());
+        }
         builder.setH(device.getH() == null ? 0 : device.getH());
         builder.setW(device.getW() == null ? 0 : device.getW());
         if (device.getModel() != null) {
@@ -235,6 +243,8 @@ public class BidRequestBuilder {
 
     private App buildApp(AdGetRequest request) {
         top.openadexchange.model.Site site = getSite(request);
+        Assert.notNull(site, "未找到对应的媒体信息");
+
         if (SiteType.APP != SiteType.fromValue(site.getSiteType())) {
             return App.newBuilder().build();
         }
@@ -242,10 +252,16 @@ public class BidRequestBuilder {
         if (reqApp == null) {
             return App.newBuilder().build();
         }
+
+        String reqAppName = Strings.nullToEmpty(reqApp.getName());
+        String reqAppBundle = Strings.nullToEmpty(reqApp.getBundle());
+
+        String appName = StringUtils.hasText(reqAppName) ? reqAppName : Strings.nullToEmpty(site.getName());
+        String appBundle = StringUtils.hasText(reqAppBundle) ? reqAppBundle : Strings.nullToEmpty(site.getAppBundle());
         return App.newBuilder()
-                .setBundle(site.getAppBundle() == null ? "" : site.getAppBundle())
+                .setBundle(appBundle)
                 .setId(site.getAppId() == null ? "" : site.getAppId())
-                .setName(site.getName() == null ? "" : site.getName())
+                .setName(appName)
                 .setKeywords(site.getKeywords() == null ? "" : site.getKeywords())
                 .addAllCat(List.of(StringUtils.tokenizeToStringArray(site.getCats(), ",")))
                 .setVer(reqApp.getVer() == null ? "" : reqApp.getVer())

@@ -39,6 +39,8 @@ public class AdGetRequest {
     public static class App {
 
         private String ver; // App版本
+        private String name; //app名称
+        private String bundle; //app包名
         private Content content; // App内容相关
         private Map<String, String> ext;
     }
@@ -85,6 +87,8 @@ public class AdGetRequest {
         private String mac; // mac地址明文
         private String macmd5; // md5 mac地址
         private String adid; // 安卓id
+        private String oaid; // oaid
+        private String oaidmd5; // md5 oaid
         private Integer h; // 设备屏幕高
         private Integer w; // 设备屏幕宽
     }
