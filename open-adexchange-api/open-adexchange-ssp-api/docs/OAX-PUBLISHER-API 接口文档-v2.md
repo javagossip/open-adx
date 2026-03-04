@@ -132,6 +132,7 @@ OAX Publisher API（SSP 接口）是 Open Ad Exchange 平台面向媒体方（Su
 | adid | string | 否 | 安卓 ID（Android ID） |
 | oaid | string | 否 | OAID（匿名设备标识符，建议尽量传） |
 | oaidmd5 | string | 否 | MD5 加密的 OAID |
+| appInstalled | array\<string\> | 否 | 已安装的App列表 |
 | h | integer | 否 | 设备屏幕高度（像素） |
 | w | integer | 否 | 设备屏幕宽度（像素） |
 
@@ -708,11 +709,11 @@ OAX Publisher API（SSP 接口）是 Open Ad Exchange 平台面向媒体方（Su
 
 ### 版本历史
 
-| 版本 | 日期 | 变更说明 |
-|------|------|----------|
-| v1.0 | - | 初始版本 |
-| v2.0 | 2026-03-04 | 基于最新代码实现，完善字段说明和示例 |
-
+| 版本     | 日期         | 变更说明                       |
+|--------|------------|----------------------------|
+| v1.0   | -          | 初始版本                       |
+| v2.0   | 2026-03-04 | 基于最新代码实现，完善字段说明和示例         |
+| v2.0.1 | 2026-03-04 | device对象中增加 appInstalled字段 |
 ---
 
 **文档结束**
