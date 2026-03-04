@@ -1,13 +1,18 @@
 package top.openadexchange.openapi.ssp.application.factory;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.common.base.Charsets;
 import com.google.common.base.Strings;
+
+import com.google.common.hash.Hashing;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 
 import jakarta.annotation.Resource;
@@ -174,9 +179,18 @@ public class BidRequestBuilder {
         }
         if (device.getOaid() != null) {
             builder.setOaid(device.getOaid());
+            if (device.getOaidmd5() == null) {
+                builder.setOaidmd5(Hashing.md5().hashString(device.getOaid(), StandardCharsets.UTF_8).toString());
+            }
         }
         if (device.getOaidmd5() != null) {
             builder.setOaidmd5(device.getOaidmd5());
+        }
+        if (device.getAppInstalled() != null) {
+            builder.addAllAppinstalled(device.getAppInstalled());
+        } else {
+            //这里给一个默认值，用来验证
+            builder.addAppinstalled("com.eg.android.AlipayGphone");
         }
         builder.setH(device.getH() == null ? 0 : device.getH());
         builder.setW(device.getW() == null ? 0 : device.getW());

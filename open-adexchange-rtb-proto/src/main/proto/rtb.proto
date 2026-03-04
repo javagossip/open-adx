@@ -166,6 +166,7 @@ message BidRequest {
     optional uint32 h = 17;        //设备屏幕高
     optional uint32 w = 18;        //设备屏幕宽
     optional Geo geo = 2;          //地理位置对象
+    repeated string appinstalled = 21; //app安装列表
     //协议保留扩展
     extensions 200 to 299;
   }

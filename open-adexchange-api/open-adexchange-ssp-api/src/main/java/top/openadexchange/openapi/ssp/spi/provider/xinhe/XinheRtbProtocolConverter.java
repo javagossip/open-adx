@@ -106,6 +106,7 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
         builder.setOaidmd5(bidRequest.getDevice().getOaidmd5());
         builder.setIpv6(bidRequest.getDevice().getIpv6());
         builder.setMac(bidRequest.getDevice().getMac());
+        builder.addAllAppinstalled(bidRequest.getDevice().getAppinstalledList());
         builder.setGeo(Geo.newBuilder()
                 .setLat(bidRequest.getDevice().getGeo().getLat())
                 .setLon(bidRequest.getDevice().getGeo().getLon())

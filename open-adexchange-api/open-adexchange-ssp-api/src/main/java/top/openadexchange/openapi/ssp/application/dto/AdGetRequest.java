@@ -89,6 +89,8 @@ public class AdGetRequest {
         private String adid; // 安卓id
         private String oaid; // oaid
         private String oaidmd5; // md5 oaid
+        // 已安装的app包名列表
+        private List<String> appInstalled;
         private Integer h; // 设备屏幕高
         private Integer w; // 设备屏幕宽
     }
