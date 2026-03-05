@@ -54,11 +54,13 @@ public class AdGetResponseBuilder {
         ad.setDsm(bid.getDownloadCompletedTrackersList());
         ad.setVpm(bid.getPlayTrackersList());
         ad.setVpcm(bid.getPlayCompletedTrackersList());
+        ad.setDlkpm(bid.getDeeplinkTrackersList());
         ad.setCrid(bid.getCrid());
         ad.setDlk(bid.getDeeplink());
         ad.setAdl(bid.getAppDownloadUrl());
         ad.setLdp(bid.getLdp());
         ad.setCurl(bid.getCreativeUrl());
+        ad.setCt(bid.getClickType());
         ad.setTagid(tagId);
         ad.setBundle(bid.getBundle());
         ad.setNativeAd(buildNativeAd(bid));

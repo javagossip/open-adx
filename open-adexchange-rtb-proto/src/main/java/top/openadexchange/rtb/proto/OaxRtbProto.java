@@ -30069,6 +30069,31 @@ java.lang.String defaultValue) {
          */
         com.google.protobuf.ByteString
             getDownloadCompletedTrackersBytes(int index);
+
+        /**
+         * <code>repeated string deeplink_trackers = 28;</code>
+         * @return A list containing the deeplinkTrackers.
+         */
+        java.util.List<java.lang.String>
+            getDeeplinkTrackersList();
+        /**
+         * <code>repeated string deeplink_trackers = 28;</code>
+         * @return The count of deeplinkTrackers.
+         */
+        int getDeeplinkTrackersCount();
+        /**
+         * <code>repeated string deeplink_trackers = 28;</code>
+         * @param index The index of the element to return.
+         * @return The deeplinkTrackers at the given index.
+         */
+        java.lang.String getDeeplinkTrackers(int index);
+        /**
+         * <code>repeated string deeplink_trackers = 28;</code>
+         * @param index The index of the value to return.
+         * @return The bytes of the deeplinkTrackers at the given index.
+         */
+        com.google.protobuf.ByteString
+            getDeeplinkTrackersBytes(int index);
       }
       /**
        * Protobuf type {@code top.openadexchange.rtb.proto.BidResponse.SeatBid.Bid}
@@ -30113,6 +30138,8 @@ java.lang.String defaultValue) {
           downloadTrackers_ =
               com.google.protobuf.LazyStringArrayList.emptyList();
           downloadCompletedTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+          deeplinkTrackers_ =
               com.google.protobuf.LazyStringArrayList.emptyList();
         }
 
@@ -31522,6 +31549,43 @@ java.lang.String defaultValue) {
           return downloadCompletedTrackers_.getByteString(index);
         }
 
+        public static final int DEEPLINK_TRACKERS_FIELD_NUMBER = 28;
+        @SuppressWarnings("serial")
+        private com.google.protobuf.LazyStringArrayList deeplinkTrackers_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
+        /**
+         * <code>repeated string deeplink_trackers = 28;</code>
+         * @return A list containing the deeplinkTrackers.
+         */
+        public com.google.protobuf.ProtocolStringList
+            getDeeplinkTrackersList() {
+          return deeplinkTrackers_;
+        }
+        /**
+         * <code>repeated string deeplink_trackers = 28;</code>
+         * @return The count of deeplinkTrackers.
+         */
+        public int getDeeplinkTrackersCount() {
+          return deeplinkTrackers_.size();
+        }
+        /**
+         * <code>repeated string deeplink_trackers = 28;</code>
+         * @param index The index of the element to return.
+         * @return The deeplinkTrackers at the given index.
+         */
+        public java.lang.String getDeeplinkTrackers(int index) {
+          return deeplinkTrackers_.get(index);
+        }
+        /**
+         * <code>repeated string deeplink_trackers = 28;</code>
+         * @param index The index of the value to return.
+         * @return The bytes of the deeplinkTrackers at the given index.
+         */
+        public com.google.protobuf.ByteString
+            getDeeplinkTrackersBytes(int index) {
+          return deeplinkTrackers_.getByteString(index);
+        }
+
         private byte memoizedIsInitialized = -1;
         @java.lang.Override
         public final boolean isInitialized() {
@@ -31636,6 +31700,9 @@ java.lang.String defaultValue) {
           }
           for (int i = 0; i < downloadCompletedTrackers_.size(); i++) {
             com.google.protobuf.GeneratedMessageV3.writeString(output, 27, downloadCompletedTrackers_.getRaw(i));
+          }
+          for (int i = 0; i < deeplinkTrackers_.size(); i++) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 28, deeplinkTrackers_.getRaw(i));
           }
           extensionWriter.writeUntil(300, output);
           getUnknownFields().writeTo(output);
@@ -31769,6 +31836,14 @@ java.lang.String defaultValue) {
             size += dataSize;
             size += 2 * getDownloadCompletedTrackersList().size();
           }
+          {
+            int dataSize = 0;
+            for (int i = 0; i < deeplinkTrackers_.size(); i++) {
+              dataSize += computeStringSizeNoTag(deeplinkTrackers_.getRaw(i));
+            }
+            size += dataSize;
+            size += 2 * getDeeplinkTrackersList().size();
+          }
           size += extensionsSerializedSize();
           size += getUnknownFields().getSerializedSize();
           memoizedSize = size;
@@ -31891,6 +31966,8 @@ java.lang.String defaultValue) {
               .equals(other.getDownloadTrackersList())) return false;
           if (!getDownloadCompletedTrackersList()
               .equals(other.getDownloadCompletedTrackersList())) return false;
+          if (!getDeeplinkTrackersList()
+              .equals(other.getDeeplinkTrackersList())) return false;
           if (!getUnknownFields().equals(other.getUnknownFields())) return false;
           if (!getExtensionFields().equals(other.getExtensionFields()))
             return false;
@@ -32009,6 +32086,10 @@ java.lang.String defaultValue) {
           if (getDownloadCompletedTrackersCount() > 0) {
             hash = (37 * hash) + DOWNLOAD_COMPLETED_TRACKERS_FIELD_NUMBER;
             hash = (53 * hash) + getDownloadCompletedTrackersList().hashCode();
+          }
+          if (getDeeplinkTrackersCount() > 0) {
+            hash = (37 * hash) + DEEPLINK_TRACKERS_FIELD_NUMBER;
+            hash = (53 * hash) + getDeeplinkTrackersList().hashCode();
           }
           hash = hashFields(hash, getExtensionFields());
           hash = (29 * hash) + getUnknownFields().hashCode();
@@ -32187,6 +32268,8 @@ java.lang.String defaultValue) {
                 com.google.protobuf.LazyStringArrayList.emptyList();
             downloadCompletedTrackers_ =
                 com.google.protobuf.LazyStringArrayList.emptyList();
+            deeplinkTrackers_ =
+                com.google.protobuf.LazyStringArrayList.emptyList();
             return this;
           }
 
@@ -32326,6 +32409,10 @@ java.lang.String defaultValue) {
             if (((from_bitField0_ & 0x02000000) != 0)) {
               downloadCompletedTrackers_.makeImmutable();
               result.downloadCompletedTrackers_ = downloadCompletedTrackers_;
+            }
+            if (((from_bitField0_ & 0x04000000) != 0)) {
+              deeplinkTrackers_.makeImmutable();
+              result.deeplinkTrackers_ = deeplinkTrackers_;
             }
             result.bitField0_ |= to_bitField0_;
           }
@@ -32563,6 +32650,16 @@ java.lang.String defaultValue) {
               }
               onChanged();
             }
+            if (!other.deeplinkTrackers_.isEmpty()) {
+              if (deeplinkTrackers_.isEmpty()) {
+                deeplinkTrackers_ = other.deeplinkTrackers_;
+                bitField0_ |= 0x04000000;
+              } else {
+                ensureDeeplinkTrackersIsMutable();
+                deeplinkTrackers_.addAll(other.deeplinkTrackers_);
+              }
+              onChanged();
+            }
             this.mergeExtensionFields(other);
             this.mergeUnknownFields(other.getUnknownFields());
             onChanged();
@@ -32745,6 +32842,12 @@ java.lang.String defaultValue) {
                     downloadCompletedTrackers_.add(bs);
                     break;
                   } // case 218
+                  case 226: {
+                    com.google.protobuf.ByteString bs = input.readBytes();
+                    ensureDeeplinkTrackersIsMutable();
+                    deeplinkTrackers_.add(bs);
+                    break;
+                  } // case 226
                   default: {
                     if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                       done = true; // was an endgroup tag
@@ -35686,6 +35789,116 @@ java.lang.String defaultValue) {
             onChanged();
             return this;
           }
+
+          private com.google.protobuf.LazyStringArrayList deeplinkTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+          private void ensureDeeplinkTrackersIsMutable() {
+            if (!deeplinkTrackers_.isModifiable()) {
+              deeplinkTrackers_ = new com.google.protobuf.LazyStringArrayList(deeplinkTrackers_);
+            }
+            bitField0_ |= 0x04000000;
+          }
+          /**
+           * <code>repeated string deeplink_trackers = 28;</code>
+           * @return A list containing the deeplinkTrackers.
+           */
+          public com.google.protobuf.ProtocolStringList
+              getDeeplinkTrackersList() {
+            deeplinkTrackers_.makeImmutable();
+            return deeplinkTrackers_;
+          }
+          /**
+           * <code>repeated string deeplink_trackers = 28;</code>
+           * @return The count of deeplinkTrackers.
+           */
+          public int getDeeplinkTrackersCount() {
+            return deeplinkTrackers_.size();
+          }
+          /**
+           * <code>repeated string deeplink_trackers = 28;</code>
+           * @param index The index of the element to return.
+           * @return The deeplinkTrackers at the given index.
+           */
+          public java.lang.String getDeeplinkTrackers(int index) {
+            return deeplinkTrackers_.get(index);
+          }
+          /**
+           * <code>repeated string deeplink_trackers = 28;</code>
+           * @param index The index of the value to return.
+           * @return The bytes of the deeplinkTrackers at the given index.
+           */
+          public com.google.protobuf.ByteString
+              getDeeplinkTrackersBytes(int index) {
+            return deeplinkTrackers_.getByteString(index);
+          }
+          /**
+           * <code>repeated string deeplink_trackers = 28;</code>
+           * @param index The index to set the value at.
+           * @param value The deeplinkTrackers to set.
+           * @return This builder for chaining.
+           */
+          public Builder setDeeplinkTrackers(
+              int index, java.lang.String value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureDeeplinkTrackersIsMutable();
+            deeplinkTrackers_.set(index, value);
+            bitField0_ |= 0x04000000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>repeated string deeplink_trackers = 28;</code>
+           * @param value The deeplinkTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addDeeplinkTrackers(
+              java.lang.String value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureDeeplinkTrackersIsMutable();
+            deeplinkTrackers_.add(value);
+            bitField0_ |= 0x04000000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>repeated string deeplink_trackers = 28;</code>
+           * @param values The deeplinkTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addAllDeeplinkTrackers(
+              java.lang.Iterable<java.lang.String> values) {
+            ensureDeeplinkTrackersIsMutable();
+            com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                values, deeplinkTrackers_);
+            bitField0_ |= 0x04000000;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>repeated string deeplink_trackers = 28;</code>
+           * @return This builder for chaining.
+           */
+          public Builder clearDeeplinkTrackers() {
+            deeplinkTrackers_ =
+              com.google.protobuf.LazyStringArrayList.emptyList();
+            bitField0_ = (bitField0_ & ~0x04000000);;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>repeated string deeplink_trackers = 28;</code>
+           * @param value The bytes of the deeplinkTrackers to add.
+           * @return This builder for chaining.
+           */
+          public Builder addDeeplinkTrackersBytes(
+              com.google.protobuf.ByteString value) {
+            if (value == null) { throw new NullPointerException(); }
+            ensureDeeplinkTrackersIsMutable();
+            deeplinkTrackers_.add(value);
+            bitField0_ |= 0x04000000;
+            onChanged();
+            return this;
+          }
           @java.lang.Override
           public final Builder setUnknownFields(
               final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -38435,7 +38648,7 @@ java.lang.String defaultValue) {
       "\001 \001(\002\022\013\n\003lon\030\002 \001(\002\022\017\n\007country\030\003 \001(\t\022\022\n\006r" +
       "egion\030\004 \001(\tB\002\030\001\022\020\n\004city\030\005 \001(\tB\002\030\001\022\025\n\tare" +
       "a_code\030\006 \001(\rB\002\030\001*\006\010\310\001\020\254\002\032\036\n\004User\022\016\n\002id\030\001" +
-      " \001(\tB\002\030\001*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002\"\372\t\n\013BidResponse" +
+      " \001(\tB\002\030\001*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002\"\225\n\n\013BidResponse" +
       "\022\n\n\002id\030\001 \001(\t\022B\n\007seatbid\030\002 \003(\01321.top.open" +
       "adexchange.rtb.proto.BidResponse.SeatBid" +
       "\022\r\n\005bidid\030\003 \001(\t\022\013\n\003nbr\030\004 \001(\r\022\016\n\006no_bid\030\005" +
@@ -38450,9 +38663,9 @@ java.lang.String defaultValue) {
       "\022\017\n\007address\030\017 \001(\t\022\023\n\013display_url\030\020 \001(\t\022\013" +
       "\n\003cta\030\021 \001(\t\022\r\n\005video\030\022 \001(\t\022\r\n\005desc2\030\023 \001(" +
       "\t\032-\n\013AssetsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002" +
-      " \001(\t:\0028\001\032\252\005\n\007SeatBid\022B\n\003bid\030\001 \003(\01325.top." +
+      " \001(\t:\0028\001\032\305\005\n\007SeatBid\022B\n\003bid\030\001 \003(\01325.top." +
       "openadexchange.rtb.proto.BidResponse.Sea" +
-      "tBid.Bid\022\014\n\004seat\030\002 \001(\t\032\314\004\n\003Bid\022\n\n\002id\030\001 \002" +
+      "tBid.Bid\022\014\n\004seat\030\002 \001(\t\032\347\004\n\003Bid\022\n\n\002id\030\001 \002" +
       "(\t\022\r\n\005impid\030\002 \002(\t\022\r\n\005price\030\003 \002(\004\022\014\n\004crid" +
       "\030\004 \002(\t\022\016\n\006dealid\030\005 \001(\t\022\014\n\004nurl\030\024 \001(\t\022\024\n\014" +
       "imp_trackers\030\006 \003(\t\022\024\n\014clk_trackers\030\007 \003(\t" +
@@ -38467,8 +38680,9 @@ java.lang.String defaultValue) {
       "rackers\030\026 \003(\t\022\026\n\016error_trackers\030\025 \003(\t\022\026\n" +
       "\016close_trackers\030\030 \003(\t\022\031\n\021download_tracke" +
       "rs\030\032 \003(\t\022#\n\033download_completed_trackers\030" +
-      "\033 \003(\t*\006\010\310\001\020\254\002*\006\010\310\001\020\254\002B+\n\034top.openadexcha" +
-      "nge.rtb.protoB\013OaxRtbProto"
+      "\033 \003(\t\022\031\n\021deeplink_trackers\030\034 \003(\t*\006\010\310\001\020\254\002" +
+      "*\006\010\310\001\020\254\002B+\n\034top.openadexchange.rtb.proto" +
+      "B\013OaxRtbProto"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -38605,7 +38819,7 @@ java.lang.String defaultValue) {
     internal_static_top_openadexchange_rtb_proto_BidResponse_SeatBid_Bid_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_top_openadexchange_rtb_proto_BidResponse_SeatBid_Bid_descriptor,
-        new java.lang.String[] { "Id", "Impid", "Price", "Crid", "Dealid", "Nurl", "ImpTrackers", "ClkTrackers", "Ldp", "CreativeUrl", "ClickType", "Bundle", "AppstoreId", "Adm", "NativeAd", "AppDownloadUrl", "AppName", "AppIconUrl", "Deeplink", "Duration", "PlayTrackers", "PlayCompletedTrackers", "ErrorTrackers", "CloseTrackers", "DownloadTrackers", "DownloadCompletedTrackers", });
+        new java.lang.String[] { "Id", "Impid", "Price", "Crid", "Dealid", "Nurl", "ImpTrackers", "ClkTrackers", "Ldp", "CreativeUrl", "ClickType", "Bundle", "AppstoreId", "Adm", "NativeAd", "AppDownloadUrl", "AppName", "AppIconUrl", "Deeplink", "Duration", "PlayTrackers", "PlayCompletedTrackers", "ErrorTrackers", "CloseTrackers", "DownloadTrackers", "DownloadCompletedTrackers", "DeeplinkTrackers", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

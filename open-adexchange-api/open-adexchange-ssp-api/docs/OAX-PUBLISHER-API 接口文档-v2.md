@@ -1,7 +1,7 @@
-# OAX Publisher API 接口文档 v2.0
+# OAX Publisher API 接口文档 v2.0.2
 
-> **文档版本**: v2.0  
-> **生成时间**: 2026-03-04  
+> **文档版本**: v2.0.2  
+> **生成时间**: 2026-03-05  
 > **基于代码版本**: 最新实现  
 
 ## 目录
@@ -171,25 +171,26 @@ OAX Publisher API（SSP 接口）是 Open Ad Exchange 平台面向媒体方（Su
 
 #### 广告对象 (Ad)
 
-| 字段名 | 类型 | 描述 |
-|--------|------|------|
-| impid | string | 曝光 ID，关联竞价请求中 Imp 的 ID，用于匹配广告位 |
-| tagid | string | 广告位 ID，与请求中的 tagid 一致 |
-| crid | string | DSP 平台创意 ID，用于标识广告创意 |
-| pm | array\<string\> | 曝光监测 URL 列表，广告展示时触发 |
-| cm | array\<string\> | 点击监测 URL 列表，用户点击时触发 |
-| dm | array\<string\> | 下载开始监测 URL 列表，应用下载开始时触发 |
-| dsm | array\<string\> | 下载成功监测 URL 列表，应用下载成功时触发 |
-| vpm | array\<string\> | 视频播放监测 URL 列表，视频开始播放时触发 |
-| vpcm | array\<string\> | 视频播放完成监测 URL 列表，视频播放完成时触发 |
-| ldp | string | 广告落地页 URL，用户点击后跳转的页面 |
-| curl | string | 广告创意地址，图片或视频等素材的 URL |
-| ct | integer | 点击类型，见 [数据字典](#点击类型-ct) |
-| bundle | string | 安卓应用包名或 iOS 的 AppID，点击类型为应用下载时必填 |
-| adl | string | 应用下载地址，应用商店或下载页面的 URL |
-| dlk | string | DeepLink 链接，用于唤起 APP |
-| nativeAd | NativeAd | 原生广告响应对象，原生广告时使用 |
-| price | long | 广告成交价（单位：分） |
+| 字段名 | 类型 | 描述                                               |
+|--------|------|--------------------------------------------------|
+| impid | string | 曝光 ID，关联竞价请求中 Imp 的 ID，用于匹配广告位                   |
+| tagid | string | 广告位 ID，与请求中的 tagid 一致                            |
+| crid | string | DSP 平台创意 ID，用于标识广告创意                             |
+| pm | array\<string\> | 曝光监测 URL 列表，广告展示时触发                              |
+| cm | array\<string\> | 点击监测 URL 列表，用户点击时触发                              |
+| dm | array\<string\> | 下载开始监测 URL 列表，应用下载开始时触发                          |
+| dsm | array\<string\> | 下载成功监测 URL 列表，应用下载成功时触发                          |
+| vpm | array\<string\> | 视频播放监测 URL 列表，视频开始播放时触发                          |
+| vpcm | array\<string\> | 视频播放完成监测 URL 列表，视频播放完成时触发                        |
+| dlkpm | array\<string\> | deeplink唤起监测URL列表                                |
+| ldp | string | 广告落地页 URL，用户点击后跳转的页面                             |
+| curl | string | 广告创意地址，图片或视频等素材的 URL                             |
+| ct | integer | 点击类型，见 [数据字典](#点击类型-ct)                          |
+| bundle | string | 安卓应用包名或 iOS 的 AppID，点击类型为应用下载时必填                 |
+| adl | string | 应用下载地址，应用商店或下载页面的 URL                            |
+| dlk | string | DeepLink 链接，用于唤起 APP,如果包含此字段直接使用dlk唤起应用，否则跳转到落地页 |
+| nativeAd | NativeAd | 原生广告响应对象，原生广告时使用                                 |
+| price | long | 广告成交价（单位：分）                                      |
 
 #### 原生广告对象 (NativeAd)
 
@@ -709,11 +710,12 @@ OAX Publisher API（SSP 接口）是 Open Ad Exchange 平台面向媒体方（Su
 
 ### 版本历史
 
-| 版本     | 日期         | 变更说明                       |
-|--------|------------|----------------------------|
-| v1.0   | -          | 初始版本                       |
-| v2.0   | 2026-03-04 | 基于最新代码实现，完善字段说明和示例         |
+| 版本     | 日期         | 变更说明                      |
+|--------|------------|---------------------------|
+| v1.0   | -          | 初始版本                      |
+| v2.0   | 2026-03-04 | 基于最新代码实现，完善字段说明和示例        |
 | v2.0.1 | 2026-03-04 | device对象中增加 appInstalled字段 |
+| v2.0.2 | 2026-03-05 | 增加 deeplink唤起监测链接dlkpm    |
 ---
 
 **文档结束**

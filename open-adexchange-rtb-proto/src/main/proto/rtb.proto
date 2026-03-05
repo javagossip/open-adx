@@ -264,6 +264,7 @@ message BidResponse {
       repeated string close_trackers = 24; //音视频广告关闭监测
       repeated string download_trackers = 26; //应用下载监测
       repeated string download_completed_trackers = 27; //应用下载完成监测
+      repeated string deeplink_trackers = 28;
       //协议保留扩展
       extensions 200 to 299;
     }
