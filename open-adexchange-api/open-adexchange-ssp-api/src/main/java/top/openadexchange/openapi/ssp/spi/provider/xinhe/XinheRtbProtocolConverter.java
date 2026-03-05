@@ -6,6 +6,9 @@ import java.util.Map;
 import com.chaincoretech.epc.annotation.Extension;
 
 import jakarta.annotation.Resource;
+
+import org.springframework.util.StringUtils;
+
 import top.openadexchange.model.Dsp;
 import top.openadexchange.model.DspPlacementMapping;
 import top.openadexchange.openapi.ssp.config.OaxEngineProperties;
@@ -40,6 +43,9 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
     //    private static final /**<tagId,impId>**/
     //            Map<String, String> TAGID_IMP_MAP = new HashMap<>();
 
+    //<一点资讯,oax>
+    public static final Map<Integer, Integer> CLICK_TYPE_MAP = new HashMap<>();
+
     static {
         // 连接类型映射: OAX (0-未知, 1-wifi, 2-2G, 3-3G, 4-4G, 5-5G) -> 信和
         CONNECTION_TYPE_MAP.put(0, ConnectionType.CT_UNKNOWN);      // 未知 -> 未知
@@ -60,13 +66,16 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
         DEVICE_TYPE_MAP.put(2, DeviceType.DT_PAD);    // pad -> PAD
         DEVICE_TYPE_MAP.put(3, DeviceType.DT_PC);     // pc -> PC
         DEVICE_TYPE_MAP.put(4, DeviceType.DT_TV);     // tv -> TV
+
+        //一点资讯：1-跳转落地页,2-下载
+        //OAX: 1-跳转落地页，2-下载, 3-DeepLink
+        CLICK_TYPE_MAP.put(1, 1);
+        CLICK_TYPE_MAP.put(2, 2);
+        //CLICK_TYPE_MAP.put(3, 3);
     }
 
     @Resource
     private MetadataRepository metadataRepository;
-
-    @Resource
-    private OaxEngineProperties oaxEngineProperties;
 
     @Override
     public BidRequest to(Dsp dsp, OaxRtbProto.BidRequest.Builder bidRequest) {
@@ -180,7 +189,7 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
         builder.setBundle(xinheBid.getDpkgname());
         builder.setAppName(xinheBid.getAppInfo().getAppName());
         builder.setAppDownloadUrl(xinheBid.getDurl());
-        builder.setClickType(xinheBid.getCtype());
+        builder.setClickType(CLICK_TYPE_MAP.getOrDefault(xinheBid.getCtype(), 1));
         builder.setLdp(xinheBid.getCurl());
         builder.setCrid(xinheBid.getCrid());
 
@@ -197,6 +206,12 @@ public class XinheRtbProtocolConverter implements RtbProtocolConverter<BidReques
         builder.addAllDownloadTrackers(xinheBid.getDmurlList());
         builder.addAllDownloadCompletedTrackers(xinheBid.getDownsuccessurlList());
         builder.setDeeplink(xinheBid.getDeeplinkurl());
+        builder.addAllDeeplinkTrackers(xinheBid.getDeeplinkmurlList());
+
+        if(StringUtils.hasText(xinheBid.getDeeplinkurl())){
+            //如果深度链接存在，则设置点击类型为3： 深度链接
+            builder.setClickType(3);
+        }
 
         NativeAd.Builder nativeAd = NativeAd.newBuilder();
         nativeAd.setTemplateId(String.valueOf(xinheBid.getTemplateid()));
