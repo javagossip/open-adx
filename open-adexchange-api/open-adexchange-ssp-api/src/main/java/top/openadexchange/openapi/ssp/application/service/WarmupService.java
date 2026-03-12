@@ -257,5 +257,6 @@ public class WarmupService {
         OaxModelsProto.LogSamplingConfig logSamplingConfigProto =
                 LogSamplingConfigConverter.convert(logSamplingConfig);
         metadataCacheService.updateLogSamplingConfigCache(logSamplingConfigProto);
+        oaxEngineServices.getIndexService().indexLsc(logSamplingConfigProto);
     }
 }

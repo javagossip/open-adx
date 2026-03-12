@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import top.openadexchange.domain.entity.DspAggregate;
+import top.openadexchange.oax.model.proto.OaxModelsProto.LogType;
+import top.openadexchange.openapi.ssp.application.service.LogSamplingConfigService;
 import top.openadexchange.openapi.ssp.application.service.MetricsCollector;
 import top.openadexchange.openapi.ssp.application.service.RateLimiterManager;
 import top.openadexchange.openapi.ssp.spi.RtbProtocolConverter;
@@ -23,6 +25,8 @@ public class DspClient {
     private RateLimiterManager rateLimiterManager;
     @Resource
     private MetricsCollector metricsCollector;
+    @Resource
+    private LogSamplingConfigService lscService;
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     public BidResponse.Builder bidding(DspAggregate dspAggregate, BidRequest.Builder request) {
@@ -36,16 +40,19 @@ public class DspClient {
         //2. 获取协议调用扩展点
         RtbProtocolInvoker invoker = OaxSpiFactory.getRtbProtocolInvoker(dspId);
         //3. 发起rtb请求调用
-        if (BidRequestUtils.traceEnabled(request)) {
+        if (BidRequestUtils.traceEnabled(request) ||
+                lscService.shouldLog(LogType.BID_REQ, request, dspAggregate.getDsp().getId())) {
             log.info("BidRequest: {}", request);
         }
         Object dspRequest = rtbProtocolConverter.to(dspAggregate.getDsp(), request);
-        if (BidRequestUtils.traceEnabled(request)) {
+        if (BidRequestUtils.traceEnabled(request) ||
+                lscService.shouldLog(LogType.DSP_REQ, request, dspAggregate.getDsp().getId())) {
             log.info("dsp {} BidRequest: {}", dspAggregate.getDsp().getName(), dspRequest);
         }
         metricsCollector.incrDspReqs(dspAggregate.getDspId());
         Object response = invoker.invoke(dspAggregate.getDsp(), dspRequest);
-        if (BidRequestUtils.traceEnabled(request)) {
+        if (BidRequestUtils.traceEnabled(request) ||
+                lscService.shouldLog(LogType.DSP_RSP, request, dspAggregate.getDsp().getId())) {
             log.info("dsp {} BidResponse: {}", dspAggregate.getDsp().getName(), response);
         }
         if (response == null) {
@@ -58,7 +65,8 @@ public class DspClient {
                 metricsCollector.incrAdSlotBids(imp.getTagid());
             }
         }
-        if (BidRequestUtils.traceEnabled(request)) {
+        if (BidRequestUtils.traceEnabled(request) ||
+                lscService.shouldLog(LogType.BID_RSP, request, dspAggregate.getDsp().getId())) {
             log.info("BidResponse: {}", bidResponse.toString());
         }
         return bidResponse;

@@ -27,5 +27,7 @@ public interface IndexService {
     //索引日志采样配置索引构建
     void indexLsc(LogSamplingConfig lsc);
 
+    void removeLsc(LogSamplingConfig lsc);
+
     Integer getLscId(LogType logType, Integer mediaId, Integer adSlotId, Integer dspId);
 }

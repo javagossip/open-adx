@@ -11,13 +11,15 @@ enum LogType {
   BID_RSP = 2;
   DSP_REQ = 3;
   DSP_RSP = 4;
+  MEDIA_REQ = 5;
+  MEDIA_RSP = 6;
 }
 
 message LogSamplingConfig {
   // 主键ID
   optional int64 id = 1;
 
-  // 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP
+  // 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP,MEDIA_REQ,MEDIA_RSP
   optional LogType log_type = 2 [default = GLOBAL];
 
   // 媒体ID

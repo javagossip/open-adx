@@ -33,7 +33,7 @@ public class LogSamplingConfig implements Serializable {
     private Long id;
 
     /**
-     * 采用日志类型： GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP
+     * 采用日志类型： GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP,MEDIA_REQ,MEDIA_RSP
      */
     private String logType;
 

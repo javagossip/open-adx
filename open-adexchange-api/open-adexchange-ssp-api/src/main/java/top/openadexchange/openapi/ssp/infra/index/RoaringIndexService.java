@@ -1,5 +1,6 @@
 package top.openadexchange.openapi.ssp.infra.index;
 
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -168,6 +169,21 @@ public class RoaringIndexService implements IndexService {
         });
     }
 
+    @Override
+    public void removeLsc(LogSamplingConfig lsc) {
+        List<Integer> lscIndexKeys = buildLscIndexKeys(lsc);
+        removeLscFromIndex(lscIndex, lscIndexKeys, (int) lsc.getId());
+    }
+
+    private void removeLscFromIndex(ConcurrentMap<Integer, RoaringBitmap> index, List<Integer> keys, int lscId) {
+        if (keys == null || keys.isEmpty()) {
+            //如果要删除的key为空，则从索引中删除包含此dspId
+            index.forEach((k, bitmap) -> removeValueFromIndexWithCow(index, lscId, k, bitmap));
+            return;
+        }
+        keys.forEach(key -> removeValueFromIndexWithCow(index, lscId, key, index.get(key)));
+    }
+
     private List<Integer> buildLscIndexKeys(LogSamplingConfig lsc) {
         Assert.notNull(lsc.getLogType(), "logType can not be null");
         int dspId = lsc.getDspId();
@@ -253,12 +269,12 @@ public class RoaringIndexService implements IndexService {
         keys.forEach(key -> removeValueFromIndexWithCow(index, dspId, key, index.get(key)));
     }
 
-    private static void removeValueFromIndexWithCow(Map<String, RoaringBitmap> index,
-            Integer dspId,
-            String k,
+    private static <K extends Serializable> void removeValueFromIndexWithCow(Map<K, RoaringBitmap> index,
+            Integer value,
+            K k,
             RoaringBitmap bitmap) {
         index.computeIfPresent(k, (ignoreKey, existBitmap) -> {
-            if (!bitmap.contains(dspId)) {
+            if (!bitmap.contains(value)) {
                 return bitmap;
             }
             if (bitmap.getCardinality() == 1) {
@@ -266,7 +282,7 @@ public class RoaringIndexService implements IndexService {
             }
             //使用 COW 模式，避免锁，因为索引更新的频率要远低于读频率
             RoaringBitmap newBitmap = bitmap.clone();
-            newBitmap.remove(dspId);
+            newBitmap.remove(value);
             // 只有在删除后才进行优化，减少 CPU 开销
             newBitmap.runOptimize();
             return newBitmap;

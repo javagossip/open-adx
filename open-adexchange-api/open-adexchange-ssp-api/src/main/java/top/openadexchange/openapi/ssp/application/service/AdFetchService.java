@@ -1,17 +1,26 @@
 package top.openadexchange.openapi.ssp.application.service;
 
 import java.util.Map;
+import java.util.Objects;
+
+import com.alibaba.fastjson2.JSON;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import jakarta.annotation.Resource;
+import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
+import top.openadexchange.model.Site;
+import top.openadexchange.oax.model.proto.OaxModelsProto.LogType;
 import top.openadexchange.openapi.ssp.application.dto.AdGetRequest;
 import top.openadexchange.openapi.ssp.application.dto.AdGetResponse;
 import top.openadexchange.openapi.ssp.application.factory.AdGetResponseBuilder;
 import top.openadexchange.openapi.ssp.application.factory.BidRequestBuilder;
 import top.openadexchange.openapi.ssp.domain.core.AdExchangeEngine;
+import top.openadexchange.openapi.ssp.domain.gateway.MetadataCacheService;
+import top.openadexchange.openapi.ssp.utils.LogSamplingUtils;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid.Bid;
 
@@ -28,6 +37,8 @@ public class AdFetchService {
     private BidRequestBuilder bidRequestBuilder;
     @Resource
     private AdGetResponseBuilder adGetResponseBuilder;
+    @Resource
+    private LogSamplingConfigService lscService;
 
     /**
      * 获取广告
@@ -39,13 +50,13 @@ public class AdFetchService {
         // 验证请求参数
         validateRequest(request);
         BidRequest.Builder bidRequest = bidRequestBuilder.buildBidRequest(request);
-        if (bidRequest.getDebug() || bidRequest.getTest()) {
-            log.info("AdGetRequest:{}", request);
+        if (bidRequest.getDebug() || bidRequest.getTest() || lscService.shouldLog(LogType.MEDIA_REQ, request)) {
+            log.info("AdGetRequest:{}", JSON.toJSONString(request));
         }
         Map<String, Bid.Builder> bids = adExchangeEngine.bidding(bidRequest);
         AdGetResponse adGetResponse = adGetResponseBuilder.buildAdGetResponse(bidRequest, request, bids);
-        if (bidRequest.getDebug() || bidRequest.getTest()) {
-            log.info("adGetResponse:{}", adGetResponse);
+        if (bidRequest.getDebug() || bidRequest.getTest() || lscService.shouldLog(LogType.MEDIA_RSP, request)) {
+            log.info("AdGetResponse:{}", JSON.toJSONString(adGetResponse));
         }
         return adGetResponse;
     }

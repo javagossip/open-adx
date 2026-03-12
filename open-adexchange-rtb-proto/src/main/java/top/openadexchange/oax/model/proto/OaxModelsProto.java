@@ -40,6 +40,14 @@ public final class OaxModelsProto {
      * <code>DSP_RSP = 4;</code>
      */
     DSP_RSP(4),
+    /**
+     * <code>MEDIA_REQ = 5;</code>
+     */
+    MEDIA_REQ(5),
+    /**
+     * <code>MEDIA_RSP = 6;</code>
+     */
+    MEDIA_RSP(6),
     ;
 
     /**
@@ -62,6 +70,14 @@ public final class OaxModelsProto {
      * <code>DSP_RSP = 4;</code>
      */
     public static final int DSP_RSP_VALUE = 4;
+    /**
+     * <code>MEDIA_REQ = 5;</code>
+     */
+    public static final int MEDIA_REQ_VALUE = 5;
+    /**
+     * <code>MEDIA_RSP = 6;</code>
+     */
+    public static final int MEDIA_RSP_VALUE = 6;
 
 
     public final int getNumber() {
@@ -89,6 +105,8 @@ public final class OaxModelsProto {
         case 2: return BID_RSP;
         case 3: return DSP_REQ;
         case 4: return DSP_RSP;
+        case 5: return MEDIA_REQ;
+        case 6: return MEDIA_RSP;
         default: return null;
       }
     }
@@ -163,7 +181,7 @@ public final class OaxModelsProto {
 
     /**
      * <pre>
-     * 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP
+     * 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP,MEDIA_REQ,MEDIA_RSP
      * </pre>
      *
      * <code>optional .top.openadexchange.oax.model.proto.LogType log_type = 2 [default = GLOBAL];</code>
@@ -172,7 +190,7 @@ public final class OaxModelsProto {
     boolean hasLogType();
     /**
      * <pre>
-     * 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP
+     * 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP,MEDIA_REQ,MEDIA_RSP
      * </pre>
      *
      * <code>optional .top.openadexchange.oax.model.proto.LogType log_type = 2 [default = GLOBAL];</code>
@@ -403,7 +421,7 @@ public final class OaxModelsProto {
     private int logType_ = 0;
     /**
      * <pre>
-     * 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP
+     * 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP,MEDIA_REQ,MEDIA_RSP
      * </pre>
      *
      * <code>optional .top.openadexchange.oax.model.proto.LogType log_type = 2 [default = GLOBAL];</code>
@@ -414,7 +432,7 @@ public final class OaxModelsProto {
     }
     /**
      * <pre>
-     * 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP
+     * 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP,MEDIA_REQ,MEDIA_RSP
      * </pre>
      *
      * <code>optional .top.openadexchange.oax.model.proto.LogType log_type = 2 [default = GLOBAL];</code>
@@ -1315,7 +1333,7 @@ public final class OaxModelsProto {
       private int logType_ = 0;
       /**
        * <pre>
-       * 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP
+       * 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP,MEDIA_REQ,MEDIA_RSP
        * </pre>
        *
        * <code>optional .top.openadexchange.oax.model.proto.LogType log_type = 2 [default = GLOBAL];</code>
@@ -1326,7 +1344,7 @@ public final class OaxModelsProto {
       }
       /**
        * <pre>
-       * 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP
+       * 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP,MEDIA_REQ,MEDIA_RSP
        * </pre>
        *
        * <code>optional .top.openadexchange.oax.model.proto.LogType log_type = 2 [default = GLOBAL];</code>
@@ -1339,7 +1357,7 @@ public final class OaxModelsProto {
       }
       /**
        * <pre>
-       * 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP
+       * 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP,MEDIA_REQ,MEDIA_RSP
        * </pre>
        *
        * <code>optional .top.openadexchange.oax.model.proto.LogType log_type = 2 [default = GLOBAL];</code>
@@ -1357,7 +1375,7 @@ public final class OaxModelsProto {
       }
       /**
        * <pre>
-       * 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP
+       * 日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP,MEDIA_REQ,MEDIA_RSP
        * </pre>
        *
        * <code>optional .top.openadexchange.oax.model.proto.LogType log_type = 2 [default = GLOBAL];</code>
@@ -1942,10 +1960,11 @@ public final class OaxModelsProto {
       "\020\n\010media_id\030\003 \001(\005\022\016\n\006dsp_id\030\004 \001(\005\022\020\n\010dsp" +
       "_code\030\013 \001(\t\022\022\n\nad_slot_id\030\005 \001(\005\022\024\n\014ad_sl" +
       "ot_code\030\n \001(\t\022\025\n\rsampling_rate\030\006 \001(\005\022\016\n\006" +
-      "status\030\t \001(\005*I\n\007LogType\022\n\n\006GLOBAL\020\000\022\013\n\007B" +
+      "status\030\t \001(\005*g\n\007LogType\022\n\n\006GLOBAL\020\000\022\013\n\007B" +
       "ID_REQ\020\001\022\013\n\007BID_RSP\020\002\022\013\n\007DSP_REQ\020\003\022\013\n\007DS" +
-      "P_RSP\020\004B4\n\"top.openadexchange.oax.model." +
-      "protoB\016OaxModelsProto"
+      "P_RSP\020\004\022\r\n\tMEDIA_REQ\020\005\022\r\n\tMEDIA_RSP\020\006B4\n" +
+      "\"top.openadexchange.oax.model.protoB\016Oax" +
+      "ModelsProto"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

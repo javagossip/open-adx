@@ -12,7 +12,7 @@ public class LogSamplingConfigDto {
     @Schema(description = "主键ID")
     private Long id;
 
-    @Schema(description = "日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP")
+    @Schema(description = "日志类型：GLOBAL,BID_REQ,BID_RSP,DSP_REQ,DSP_RSP,MEDIA_REQ,MEDIA_RSP")
     private String logType;
 
     @Schema(description = "媒体ID")
