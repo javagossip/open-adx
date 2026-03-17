@@ -1,26 +1,19 @@
 package top.openadexchange.openapi.ssp.application.service;
 
 import java.util.Map;
-import java.util.Objects;
+
+import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson2.JSON;
 
-import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
 import jakarta.annotation.Resource;
-import top.openadexchange.domain.entity.SiteAdPlacementAggregate;
-import top.openadexchange.model.Site;
+import lombok.extern.slf4j.Slf4j;
 import top.openadexchange.oax.model.proto.OaxModelsProto.LogType;
 import top.openadexchange.openapi.ssp.application.dto.AdGetRequest;
 import top.openadexchange.openapi.ssp.application.dto.AdGetResponse;
 import top.openadexchange.openapi.ssp.application.factory.AdGetResponseBuilder;
 import top.openadexchange.openapi.ssp.application.factory.BidRequestBuilder;
 import top.openadexchange.openapi.ssp.domain.core.AdExchangeEngine;
-import top.openadexchange.openapi.ssp.domain.gateway.MetadataCacheService;
-import top.openadexchange.openapi.ssp.utils.LogSamplingUtils;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidRequest;
 import top.openadexchange.rtb.proto.OaxRtbProto.BidResponse.SeatBid.Bid;
 
