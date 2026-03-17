@@ -69,7 +69,7 @@ public class BidRequestBuilder {
 
         SiteAdPlacementAggregate siteAdPlacementAggregate =
                 metadataCacheService.getSiteAdPlacementByTagId(imp.getTagid());
-        Assert.notNull(siteAdPlacementAggregate, "未找到对应的媒体广告位");
+        Assert.notNull(siteAdPlacementAggregate, "未找到对应的媒体广告位: "+imp.getTagid());
         SiteAdPlacement siteAdPlacement = siteAdPlacementAggregate.getSiteAdPlacement();
         Assert.notNull(siteAdPlacementAggregate.getAdPlacementId(), "媒体广告位对应广告模版不存在");
         Assert.notNull(siteAdPlacement, "媒体广告位不存在");
