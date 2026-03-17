@@ -116,7 +116,8 @@ public class SiteAdPlacementService {
                         .where(SITE_ADP_ADT_MAPPING.SITE_AD_PLACEMENT_ID.eq(SITE_AD_PLACEMENT.ID)
                                 .and(SITE_ADP_ADT_MAPPING.AD_PLACEMENT_ID.eq(queryDto.getAdPlacementId()))
                                 .and(SITE_AD_PLACEMENT.SITE_ID.eq(queryDto.getSiteId()))
-                                .and(SITE_AD_PLACEMENT.STATUS.eq(queryDto.getStatus()))));
+                                .and(SITE_AD_PLACEMENT.STATUS.eq(queryDto.getStatus())))
+                        .orderBy(SITE_AD_PLACEMENT.ID, false));
     }
 
     public List<SiteAdPlacement> getSiteAdPlacements(List<Long> siteAdPlacementIds) {
