@@ -242,7 +242,7 @@ public class RoaringIndexService implements IndexService {
         List<Integer> indexKeys = buildLscIndexKeys(logType, mediaId, adSlotId, dspId);
         for (Integer indexKey : indexKeys) {
             RoaringBitmap bitmap = lscIndex.get(indexKey);
-            if (!bitmap.isEmpty()) {
+            if (bitmap != null && !bitmap.isEmpty()) {
                 return bitmap.iterator().next();
             }
         }
