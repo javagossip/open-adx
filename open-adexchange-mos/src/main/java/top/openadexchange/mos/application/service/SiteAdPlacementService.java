@@ -25,6 +25,9 @@ import top.openadexchange.model.SiteAdPlacement;
 import top.openadexchange.mos.application.converter.SiteAdPlacementConverter;
 import top.openadexchange.mos.application.factory.DomainEventFactory;
 
+import static top.openadexchange.model.table.SiteAdPlacementTableDef.*;
+import static top.openadexchange.model.table.SiteAdpAdtMappingTableDef.*;
+
 @Service
 public class SiteAdPlacementService {
 
@@ -108,9 +111,12 @@ public class SiteAdPlacementService {
     public Page<SiteAdPlacement> pageListSiteAdPlacements(SiteAdPlacementQueryDto queryDto) {
         return siteAdPlacementDao.page(Page.of(queryDto.getPageNo(), queryDto.getPageSize()),
                 QueryWrapper.create()
-                        .eq(SiteAdPlacement::getSiteId, queryDto.getSiteId())
-                        .eq(SiteAdPlacement::getAdPlacementId, queryDto.getAdPlacementId())
-                        .eq(SiteAdPlacement::getStatus, queryDto.getStatus()));
+                        .select(SITE_AD_PLACEMENT.ALL_COLUMNS)
+                        .from(SITE_AD_PLACEMENT, SITE_ADP_ADT_MAPPING)
+                        .where(SITE_ADP_ADT_MAPPING.SITE_AD_PLACEMENT_ID.eq(SITE_AD_PLACEMENT.ID)
+                                .and(SITE_ADP_ADT_MAPPING.AD_PLACEMENT_ID.eq(queryDto.getAdPlacementId()))
+                                .and(SITE_AD_PLACEMENT.SITE_ID.eq(queryDto.getSiteId()))
+                                .and(SITE_AD_PLACEMENT.STATUS.eq(queryDto.getStatus()))));
     }
 
     public List<SiteAdPlacement> getSiteAdPlacements(List<Long> siteAdPlacementIds) {
